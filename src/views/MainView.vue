@@ -1,6 +1,11 @@
-<script setup></script>
+<script setup>
+import ShowPreview from '@/components/timetable/ShowPreview.vue';
+</script>
 
 <template>
+  <div class="h-96 w-full bg-red-700">
+    <ShowPreview />
+  </div>
   <div class="w-full h-40 bg-primary-700-light font-jalnan2">안녕하세요 hello !?., !@#$%^&*()_+=-</div>
   <div class="w-full h-40 bg-primary-700 font-semibold text-4xl">안녕하세요 hello !?., !@#$%^&*()_+=-</div>
   <div class="w-full h-40 bg-primary-700 font-bold text-4xl">안녕하세요 hello !?., !@#$%^&*()_+=-</div>

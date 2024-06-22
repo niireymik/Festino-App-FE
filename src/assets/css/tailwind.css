@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.show-preview-padding {
+  @apply pt-[17px];
+  padding-left: 0.04%;
+  padding-right: 0.04%;
+}

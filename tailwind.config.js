@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  mode: 'jit',
   theme: {
     extend: {
       textColor: {
@@ -25,9 +26,20 @@ export default {
       backgroundColor: (theme) => ({
         ...theme('textColor'),
       }),
+      fontSize: {
+        '2xs': '0.625rem', // 10px
+        '3xs': '0.5rem', // 8px
+        '3xl': '1.75rem', // 28px
+      },
       fontFamily: {
         pretendard: ['Pretendard Variable'],
         jalnan2: ['jalnan2'],
+      },
+      backgroundImage: {
+        'tino-cheer-up': "url('/images/tinos/tino-cheer-up.png')",
+      },
+      borderRadius: {
+        '3xl': '1.25rem', // 20px
       },
     },
   },
