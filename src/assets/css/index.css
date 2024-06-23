@@ -5,9 +5,31 @@
 @import './jalnan2.css';
 @import './pretendardvariable.css';
 
-html,
+html {
+  margin: 0px;
+  padding: 0px;
+}
+
 body {
   margin: 0px;
   padding: 0px;
   font-family: 'Pretendard Variable';
+  min-width: 375px;
+  max-width: 500px;
+  height: 100vh;
+  min-height: 100vh;
+}
+
+@media (min-width: 500px) {
+  html {
+    display: flex;
+    justify-content: center;
+  }
+
+  body {
+    min-width: 500px;
+    width: 500px;
+    max-width: 500px;
+    @apply shadow-2xl;
+  }
 }

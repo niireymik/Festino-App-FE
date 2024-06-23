@@ -1,7 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
-  mode: 'jit',
   theme: {
     extend: {
       textColor: {
@@ -27,8 +26,8 @@ export default {
         ...theme('textColor'),
       }),
       fontSize: {
-        '2xs': '0.625rem', // 10px
         '3xs': '0.5rem', // 8px
+        '2xs': '0.625rem', // 10px
         '3xl': '1.75rem', // 28px
       },
       fontFamily: {
@@ -40,6 +39,12 @@ export default {
       },
       borderRadius: {
         '3xl': '1.25rem', // 20px
+      },
+      borderColor: {
+        primary: 'rgba(0, 115, 240, 0.16)',
+      },
+      borderWidth: {
+        1: '0.5px',
       },
     },
   },

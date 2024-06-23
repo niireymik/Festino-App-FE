@@ -27,3 +27,9 @@ npm run dev
 ```sh
 npm run build
 ```
+
+### Install Prietter
+
+```bash
+ext install esbenp.prettier-vscode
+```

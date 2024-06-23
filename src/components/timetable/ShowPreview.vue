@@ -1,6 +1,6 @@
 <template>
-  <div class="w-[390px] h-[178px] bg-white rounded-3xl">
-    <div class="flex pt-[17px] px-[16px] justify-between">
+  <div class="w-full h-[178px] bg-white rounded-3xl border-primary border-1">
+    <div class="flex pt-[17px] dynamic-padding justify-between">
       <div class="flex flex-col items-center" v-for="item in 3">
         <div
           class="w-[100px] h-[100px] bg-primary-700 rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:61px_62px]"
@@ -14,4 +14,9 @@
 
 <script setup></script>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.dynamic-padding {
+  padding-left: calc(16 / 390 * 100%) !important;
+  padding-right: calc(16 / 390 * 100%) !important;
+}
+</style>

@@ -2,8 +2,12 @@
 import ShowPreview from '@/components/timetable/ShowPreview.vue';
 </script>
 <template>
-  <div class="h-96 w-full dynamic-padding">
-    <ShowPreview />
+  <div class="w-full dynamic-padding">
+    <div class="flex justify-between items-center">
+      <div class="text-2xl">타임테이블</div>
+      <div class="text-xs text-gray-300">더보기 ></div>
+    </div>
+    <ShowPreview></ShowPreview>
   </div>
 </template>
 
