@@ -49,9 +49,10 @@ export default {
       borderRadius: {
         '3xl': '1.25rem', // 20px
       },
-      borderColor: {
+      borderColor: (theme) => ({
         primary: 'rgba(0, 115, 240, 0.16)',
-      },
+        'primary-900': theme('textColor.primary.900'),
+      }),
       borderWidth: {
         1: '0.5px',
       },
