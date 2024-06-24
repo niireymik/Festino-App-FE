@@ -8,6 +8,7 @@ export default {
       },
       textColor: {
         primary: {
+          900: '#0073F0',
           700: {
             DEFAULT: '#3082F6',
             light: 'rgba(48, 130, 246, 0.4)',
