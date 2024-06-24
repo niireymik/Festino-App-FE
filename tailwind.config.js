@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
+        primary: { 900: '#0073F0' },
       },
       textColor: {
         primary: {

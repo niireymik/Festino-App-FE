@@ -16,16 +16,14 @@ const hanldeClickMajorBox = (index) => {
       <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
         <div
           v-for="(item, index) in 20"
-          class="bg-primary-300 aspect-w-1 aspect-h-1 dynamic-item rounded-3xl box-border"
+          class="bg-primary-300 aspect-w-1 aspect-h-1 dynamic-item rounded-3xl"
           @click="hanldeClickMajorBox(index)"
+          :class="{
+            'outline -outline-offset-4 outline-4 outline-primary-900': selectedIndex == index,
+            'bg-secondary-100 opacity-50 rounded-3xl': selectedIndex != index && selectedIndex != -1,
+          }"
         >
-          <div
-            class="flex flex-col justify-end text-white p-3"
-            :class="{
-              'border-4 border-primary-900 rounded-3xl': selectedIndex == index,
-              'bg-secondary-100 opacity-50 rounded-3xl': selectedIndex != index && selectedIndex != -1,
-            }"
-          >
+          <div class="flex flex-col justify-end text-white p-3">
             <h2 class="font-bold mb-1">컴퓨터공학</h2>
             <h2 class="text-2xs">대기중인 팀 : 9</h2>
           </div>
