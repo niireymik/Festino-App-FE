@@ -36,6 +36,10 @@ export default {
       },
       backgroundImage: {
         'tino-cheer-up': "url('/images/tinos/tino-cheer-up.png')",
+        'tino-no-arm': "url('/images/tinos/tino-no-arm.png')",
+        'tino-arm4x': "url('/images/tinos/tino-arm4x.png')",
+        'tino-arm': "url('/images/tinos/tino-arm.png')",
+        'tino-arm-only-4x': "url('/images/tinos/tino-arm-only-4x.png')",
       },
       borderRadius: {
         '3xl': '1.25rem', // 20px
