@@ -4,6 +4,8 @@ import Footer from './components/Footer.vue';
 import { onMounted, ref } from 'vue';
 
 const ORIGINAL_HEIGHT = window.innerHeight;
+const MIN_HEIGHT = 30;
+const MAX_HEIGHT = 200;
 
 const showFooter = ref(true);
 const lastScroll = ref(0);
@@ -17,7 +19,7 @@ const handleScroll = () => {
   const scollHeight = document.documentElement.scrollHeight;
   const clientHeight = document.documentElement.clientHeight;
 
-  if (scrollTop < 30) {
+  if (scrollTop < MIN_HEIGHT) {
     showFooter.value = true;
   }
 
@@ -27,7 +29,7 @@ const handleScroll = () => {
     showFooter.value = false;
   }
 
-  if (scrollTop + clientHeight - scollHeight > -30) {
+  if (scrollTop + clientHeight - scollHeight > -MIN_HEIGHT) {
     showFooter.value = true;
     isBottom.value = true;
   } else {
@@ -40,7 +42,7 @@ const handleScroll = () => {
 const handleResize = () => {
   const currentHeight = window.innerHeight;
 
-  if (ORIGINAL_HEIGHT - currentHeight > 200) {
+  if (ORIGINAL_HEIGHT - currentHeight > MAX_HEIGHT) {
     showFooter.value = false;
     toggleScrollListener.value = false;
   } else {
@@ -52,8 +54,6 @@ const handleResize = () => {
 onMounted(() => {
   window.addEventListener('scroll', handleScroll);
   window.addEventListener('resize', handleResize);
-  // document.addEventListener('focusin', handleFocus);
-  // document.addEventListener('focusout', handleBlur);
 });
 </script>
 
