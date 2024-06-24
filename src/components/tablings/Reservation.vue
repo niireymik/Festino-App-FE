@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5">
+  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-[30px]">
     <button class="bg-secondary-100 h-[54px] rounded-xl w-full">자세히보기</button>
     <button class="bg-secondary-100 h-[54px] rounded-xl w-full">예약하기</button>
   </div>

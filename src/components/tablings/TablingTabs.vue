@@ -50,10 +50,10 @@ const toggleTab = (type) => {
       </div>
     </div>
   </div>
-  <div v-if="isActive['예약하기']">
+  <div v-if="isActive['예약하기']" class="flex-grow flex-col flex">
     <Reservation />
   </div>
-  <div v-if="isActive['예약조회']">
+  <div v-if="isActive['예약조회']" class="flex-grow flex-col flex">
     <SearchReservation />
   </div>
 </template>
