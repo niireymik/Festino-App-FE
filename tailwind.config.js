@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      colors: {
+        'white-opacity': 'rgba(255, 255, 255, 0.68)',
+      },
       textColor: {
         primary: {
           700: {

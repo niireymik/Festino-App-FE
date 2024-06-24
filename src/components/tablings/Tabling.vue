@@ -19,13 +19,22 @@ const toggleTab = (type) => {
 
 <template>
   <div class="relative">
-    <div class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-no-repeat bg-right-top"></div>
+    <div class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-no-repeat bg-right-top relative">
+      <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
+        <div class="font-jalnan2 text-xs text-white">예약으로 더 즐거운 축제</div>
+        <div
+          class="font-jalnan2 text-3xl bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text"
+        >
+          테이블링 시스템
+        </div>
+      </div>
+    </div>
     <div
       class="w-min-[375px] w-max-[500px] w-full dynamic-tino-arm-height absolute z-30 top-[215px] bg-tino-arm4x bg-cover bg-no-repeat bg-right-top"
     ></div>
   </div>
   <div class="relative">
-    <div class="dynamic-padding mt-[10px] h-96 w-full rounded-3xl bg-inherit z-50 absolute">
+    <div class="dynamic-padding mt-[13px] h-96 w-full rounded-3xl bg-inherit z-50 absolute">
       <div class="flex gap-[30px]">
         <div
           class="w-[86px] h-[32px] flex flex-col items-center justify-between cursor-pointer"
@@ -57,8 +66,12 @@ const toggleTab = (type) => {
 </template>
 
 <style lang="css" scoped>
+.dynamic-top {
+  top: calc(82 / 230 * 100%) !important;
+}
+
 .dynamic-tino-height {
-  height: calc(215 / 430 * 100%) !important;
+  height: calc(231 / 430 * 100%) !important;
   @apply bg-right-bottom;
 }
 .dynamic-tino-arm-height {
