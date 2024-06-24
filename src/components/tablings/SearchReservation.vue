@@ -14,8 +14,8 @@ const formattedPhoneNum = (event) => {
   }
 };
 
-watchEffect((name, phoneNum) => {
-  isInputFill.value = name.value && phoneNum.value;
+watchEffect(() => {
+  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13;
 });
 </script>
 
@@ -25,14 +25,14 @@ watchEffect((name, phoneNum) => {
       <div class="flex flex-col gap-1.5">
         <div class="text-xs">이름</div>
         <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-          <div class="h-6 w-6 bg-red-50"></div>
-          <input class="text-secondary-100 flex-1 focus:outline-none" type="text" placeholder="티노" v-model="name" />
+          <img src="/public//icons/person.svg" class="w-6 h-6" />
+          <input class="flex-1 focus:outline-none" type="text" placeholder="티노" v-model="name" />
         </div>
       </div>
       <div class="flex flex-col gap-1.5 pt-[30px]">
         <div class="text-xs">전화번호</div>
         <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-          <div class="h-6 w-6 bg-red-50"></div>
+          <img src="/public//icons/person.svg" class="w-6 h-6" />
           <input
             class="flex-1 focus:outline-none"
             type="tel"
@@ -47,8 +47,8 @@ watchEffect((name, phoneNum) => {
     </div>
 
     <button
-      class="w-full h-[54px] bg-secondary-100 text-white font-bold rounded-xl mb-[30px] mt-5"
-      :class="{ 'bg-primary-900': isInputFill }"
+      class="w-full h-[54px] text-white font-bold rounded-xl mb-[30px] mt-5"
+      :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
     >
       조회하기
     </button>
