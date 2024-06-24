@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import Reservation from './Reservation.vue';
+import SearchReservation from './SearchReservation.vue';
 
 const isActive = ref({
   예약하기: true,
@@ -47,6 +49,12 @@ const toggleTab = (type) => {
         </div>
       </div>
     </div>
+  </div>
+  <div v-if="isActive['예약하기']">
+    <Reservation />
+  </div>
+  <div v-if="isActive['예약조회']">
+    <SearchReservation />
   </div>
 </template>
 
