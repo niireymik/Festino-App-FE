@@ -25,14 +25,14 @@ watchEffect(() => {
       <div class="flex flex-col gap-1.5">
         <div class="text-xs">이름</div>
         <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-          <img src="/public//icons/person.svg" class="w-6 h-6" />
+          <img src="/icons/person.svg" class="w-6 h-6" />
           <input class="flex-1 focus:outline-none" type="text" placeholder="티노" v-model="name" />
         </div>
       </div>
       <div class="flex flex-col gap-1.5 pt-[30px]">
         <div class="text-xs">전화번호</div>
         <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-          <img src="/public//icons/person.svg" class="w-6 h-6" />
+          <img src="/icons/person.svg" class="w-6 h-6" />
           <input
             class="flex-1 focus:outline-none"
             type="tel"
