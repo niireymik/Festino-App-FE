@@ -37,6 +37,7 @@ export default {
       backgroundImage: {
         'tino-cheer-up': "url('/images/tinos/tino-cheer-up.png')",
         'tino-no-arm': "url('/images/tinos/tino-no-arm.png')",
+        'tino-no-arm-v2': "url('/images/tinos/tino-no-arm-v2.png')",
         'tino-arm4x': "url('/images/tinos/tino-arm4x.png')",
         'tino-arm': "url('/images/tinos/tino-arm.png')",
         'tino-arm-only-4x': "url('/images/tinos/tino-arm-only-4x.png')",

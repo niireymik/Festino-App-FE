@@ -19,7 +19,7 @@ const toggleTab = (type) => {
 
 <template>
   <div class="relative">
-    <div class="w-full min-h-[230px] dynamic-tino-height bg-tino-no-arm bg-cover bg-no-repeat bg-right-top"></div>
+    <div class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-no-repeat bg-right-top"></div>
     <div
       class="w-min-[375px] w-max-[500px] w-full dynamic-tino-arm-height absolute z-30 top-[215px] bg-tino-arm4x bg-cover bg-no-repeat bg-right-top"
     ></div>
