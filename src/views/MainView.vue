@@ -3,11 +3,11 @@ import ShowPreview from '@/components/timetable/ShowPreview.vue';
 import Tabling from '@/components/tablings/Tabling.vue';
 </script>
 <template>
-  <Tabling />
+  <!-- <Tabling /> -->
 
-  <!-- <div class="h-96 w-full dynamic-padding">
+  <div class="h-96 w-full dynamic-padding">
     <ShowPreview />
-  </div> -->
+  </div>
 </template>
 
 <style lang="css" scoped>

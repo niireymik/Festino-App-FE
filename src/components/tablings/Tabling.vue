@@ -4,8 +4,10 @@ import TablingTabs from '@/components/tablings/TablingTabs.vue';
 </script>
 
 <template>
-  <TablingBanner />
-  <TablingTabs />
+  <div>
+    <TablingBanner />
+    <TablingTabs />
+  </div>
 </template>
 
 <style lang="css" scoped>
