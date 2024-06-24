@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from 'vue';
+import Reservation from './Reservation.vue';
+import SearchReservation from './SearchReservation.vue';
 
 const isActive = ref({
   예약하기: true,
@@ -31,7 +33,7 @@ const toggleTab = (type) => {
           >
             예약하기
           </div>
-          <div v-if="isActive['예약하기']" class="w-full h-4 rounded-full bg-primary-700"></div>
+          <div v-if="isActive['예약하기']" class="w-full h-4 rounded-full bg-primary-900"></div>
         </div>
         <div
           class="w-[86px] h-[32px] flex flex-col items-center justify-between cursor-pointer"
@@ -43,10 +45,16 @@ const toggleTab = (type) => {
           >
             예약조회
           </div>
-          <div v-if="isActive['예약조회']" class="w-full h-4 rounded-full bg-primary-700"></div>
+          <div v-if="isActive['예약조회']" class="w-full h-4 rounded-full bg-primary-900"></div>
         </div>
       </div>
     </div>
+  </div>
+  <div v-if="isActive['예약하기']" class="flex-grow flex-col flex">
+    <Reservation />
+  </div>
+  <div v-if="isActive['예약조회']" class="flex-grow flex-col flex">
+    <SearchReservation />
   </div>
 </template>
 

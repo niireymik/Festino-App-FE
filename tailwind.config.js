@@ -5,9 +5,11 @@ export default {
     extend: {
       colors: {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
+        primary: { 900: '#0073F0' },
       },
       textColor: {
         primary: {
+          900: '#0073F0',
           700: {
             DEFAULT: '#3082F6',
             light: 'rgba(48, 130, 246, 0.4)',
@@ -48,13 +50,14 @@ export default {
       borderRadius: {
         '3xl': '1.25rem', // 20px
       },
-      borderColor: {
+      borderColor: (theme) => ({
         primary: 'rgba(0, 115, 240, 0.16)',
-      },
+        'primary-900': theme('textColor.primary.900'),
+      }),
       borderWidth: {
         1: '0.5px',
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/aspect-ratio')],
 };

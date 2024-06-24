@@ -4,20 +4,22 @@ import TablingTabs from '@/components/tablings/TablingTabs.vue';
 </script>
 
 <template>
-  <TablingBanner />
-  <TablingTabs />
-
-  <div class="grid grid-cols-2 gap-4 pt-16 w-full dynamic-padding">
-    <!-- TODO: Make to Component -->
-    <div v-for="item in 4" class="dynamic-item bg-red-200"></div>
+  <div class="dynamic-height flex flex-col">
+    <TablingBanner />
+    <TablingTabs />
   </div>
 </template>
 
 <style lang="css" scoped>
+.dynamic-height {
+  min-height: calc(100vh - 60px) !important;
+  height: auto;
+}
+
 .dynamic-item {
   min-width: 100px;
   min-height: 100px;
-  width: calc(190 / 430 * 100%) !important;
+  width: calc(190 / 390 * 100%) !important;
   height: calc(190 / 430 * 100%) !important;
 }
 

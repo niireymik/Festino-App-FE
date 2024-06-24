@@ -1,4 +1,7 @@
 <template>
+  <div class="pt-[60px]"></div>
+  <div class="h-[54px] text-[32px] text-primary-900 font-bold ml-4">festino</div>
+
   <div class="relative">
     <div class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-no-repeat bg-right-top relative">
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
