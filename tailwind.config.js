@@ -46,6 +46,8 @@ export default {
         'tino-arm4x': "url('/images/tinos/tino-arm4x.png')",
         'tino-arm': "url('/images/tinos/tino-arm.png')",
         'tino-arm-only-4x': "url('/images/tinos/tino-arm-only-4x.png')",
+        'header-school-symbol': "url('/images/header/symbol.png')",
+        'header-team-introduction': "url('/images/header/introduction.png')",
       },
       borderRadius: {
         '3xl': '1.25rem', // 20px
