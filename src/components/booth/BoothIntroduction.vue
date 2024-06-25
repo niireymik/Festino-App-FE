@@ -1,8 +1,8 @@
 <template>
-  <div>
-    <div class="w-full h-40 flex flex-row justify-center items-center rounded-3.5xl border border-primary-300 px-4 py-3">
-      <div class="w-2/3 flex flex-col justify-center">
-          <div class="px-2 py-1 w-fit flex justify-center text-center rounded-3.5xl border border-primary-700 text-primary-700 text-3xs font-pretendard font-semibold">#푸드트럭</div>
+  <div class="dynamic-padding">
+    <div class="w-full h-40 shadow-3xl flex flex-row justify-center items-center rounded-3.5xl border border-primary-900-light px-4 py-3">
+      <div class="w-[222px] pr-4 flex flex-col justify-center">
+          <div class="px-2 py-1 w-fit flex justify-center text-center rounded-3.5xl border border-primary-900 text-primary-700 text-3xs font-pretendard font-semibold">#푸드트럭</div>
           <div class="py-1.5 text-base font-pretendard font-semibold">치즈닭갈비</div>
           <div class="pb-3 text-2xs text-secondary-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
           <div class="flex flex-row">
@@ -26,5 +26,10 @@ export default {
 }
 </script>
 
-<style lang="">
+<style lang="css" scope>
+.dynamic-padding {
+  padding-left: calc(20 / 430 * 100%) !important;
+  padding-right: calc(20 / 430 * 100%) !important;
+  padding-bottom: calc(10 / 430 * 100%) !important;
+}
 </style>
