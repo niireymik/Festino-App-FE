@@ -25,6 +25,6 @@ export default {
   padding-right: calc(20 / 430 * 100%) !important;
 }
 .banner-title-shadow {
-  text-shadow: 0 4px 3px rgba(0, 0, 0, 0.15);
+  text-shadow: 0px 4px 5px rgba(68, 68, 68, 0.15);
 }
 </style>
