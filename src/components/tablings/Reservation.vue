@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import ReservationModalView from './ReservationModalView.vue';
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -9,8 +10,20 @@ const hanldeClickMajorBox = (index) => {
   }
   selectedIndex.value = index;
 };
+
+const reserveModalState = ref(false);
+const handleClickReserveButton = () => {
+  if (selectedIndex.value == -1) return;
+  reserveModalState.value = true;
+};
+const handleCloseReserveModal = () => {
+  reserveModalState.value = false;
+};
 </script>
 <template>
+  <div v-if="reserveModalState">
+    <ReservationModalView :handleCloseReserveModal="handleCloseReserveModal" />
+  </div>
   <div class="w-full flex justify-center">
     <div class="dynamic-grid-container overflow-x-auto pt-16">
       <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
@@ -33,7 +46,11 @@ const hanldeClickMajorBox = (index) => {
   </div>
   <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-[30px]">
     <button class="bg-secondary-100 h-[54px] rounded-xl w-full">자세히보기</button>
-    <button class="h-[54px] rounded-xl w-full" :class="selectedIndex != -1 ? 'bg-primary-900' : 'bg-secondary-100'">
+    <button
+      class="h-[54px] rounded-xl w-full"
+      :class="selectedIndex != -1 ? 'bg-primary-900' : 'bg-secondary-100'"
+      @click="handleClickReserveButton()"
+    >
       예약하기
     </button>
   </div>
