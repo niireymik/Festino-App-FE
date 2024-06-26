@@ -5,12 +5,13 @@ export default {
     extend: {
       colors: {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
-        primary: { 
-          900: {
-            DEFAULT: '#0073F0',
-            light: 'rgba(0, 115, 240, 0.16)'
+         primary: { 
+            900: {
+              DEFAULT: '#0073F0',
+              light: 'rgba(0, 115, 240, 0.16)'
+            },
           },
-        },
+        secondary: { 100: '#CCCCCC' },
       },
       textColor: {
         primary: {
@@ -42,6 +43,7 @@ export default {
         '3xs': '0.5rem', // 8px
         '2xs': '0.625rem', // 10px
         '3xl': '1.75rem', // 28px
+        '10xl': '6.25rem', //100px
       },
       fontFamily: {
         pretendard: ['Pretendard Variable'],
@@ -59,6 +61,7 @@ export default {
         'booth-banner': "url('/images/booth-banner.png')",
       },
       borderRadius: {
+        'lg-xl': '0.625rem', //10px
         '3xl': '1.25rem', // 20px
         '3.5xl': '1.5rem', // 24px
       },
