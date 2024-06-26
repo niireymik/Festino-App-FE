@@ -1,6 +1,7 @@
 <template>
   <div class="relative">
     <div class="w-full min-h-[240px] bg-booth-banner">
+      <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px] prev-btn-shadow"></i>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard">Festino</div>
         <div class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md">티노와 함께</div>
@@ -11,10 +12,8 @@
 </template>
 
 
-<script>
-export default {
-  
-}
+<script setup>
+import 'primeicons/primeicons.css';
 </script>
 
 <style lang="css" scoped>
@@ -27,5 +26,8 @@ export default {
 }
 .banner-title-shadow {
   text-shadow: 0px 4px 5px rgba(68, 68, 68, 0.15);
+}
+.prev-btn-shadow {
+  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
 }
 </style>
