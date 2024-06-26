@@ -10,7 +10,7 @@ export default {
       },
       textColor: {
         primary: {
-          900: '#0073F0',
+          900: { DEFAULT: '#0073F0', light: 'rgba(0, 115, 240, 0.06)' },
           700: {
             DEFAULT: '#3082F6',
             light: 'rgba(48, 130, 246, 0.4)',
@@ -51,6 +51,7 @@ export default {
         'header-team-introduction': "url('/images/header/introduction.png')",
       },
       borderRadius: {
+        'lg-xl': '0.625rem', //10px
         '3xl': '1.25rem', // 20px
       },
       borderColor: (theme) => ({
