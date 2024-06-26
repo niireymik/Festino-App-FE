@@ -59,9 +59,8 @@ onMounted(() => {
 
 <template>
   <RouterView />
-  <div class="h-96 w-full bg-red-400"></div>
   <Transition name="slide">
-    <Footer v-if="showFooter"></Footer>
+    <Footer v-if="showFooter" class="limit-width"></Footer>
   </Transition>
 </template>
 
@@ -74,5 +73,9 @@ onMounted(() => {
 .slide-enter-from,
 .slide-leave-to {
   transform: translateY(100%);
+}
+.limit-width {
+  min-width: 375px;
+  max-width: 500px;
 }
 </style>
