@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import MainView from '../views/MainView.vue';
 import TimeTableView from '@/views/TimeTableView.vue';
 import TablingView from '@/views/TablingView.vue';
+import NotificationView from '@/views/NotificationView.vue';
 import BoothView from '@/views/BoothView.vue';
 
 const router = createRouter({
@@ -20,15 +21,15 @@ const router = createRouter({
     },
     { path: '/reserve', name: 'tabling', component: TablingView },
     {
-      path: '/booth',
-      name: 'booth',
-      component: BoothView
+      path: '/notification',
+      name: 'notification',
+      component: NotificationView,
     },
     {
       path: '/booth',
       name: 'booth',
       component: BoothView
-    }
+    },
   ],
 });
 
