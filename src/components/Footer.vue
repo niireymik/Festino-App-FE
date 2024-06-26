@@ -15,7 +15,6 @@ const ICON_URL_MAP = [
 const selectedFooterIndex = ref(-1);
 const handleClickFooter = (index) => {
   selectedFooterIndex.value = index;
-  console.log(selectedFooterIndex.value);
 };
 </script>
 <template>
