@@ -8,6 +8,7 @@
       :value="inputValue"
       @input="(event) => updateInputValue(event.target.value)"
       placeholder="티노"
+      maxlength="10"
     />
   </div>
 </template>
