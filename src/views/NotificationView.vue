@@ -1,7 +1,10 @@
 <template>
   <div class="flex flex-col min-h-screen h-full items-center bg-[#FBFCFF]">
     <Header />
-    <div class="flex flex-row w-full h-[48px] text-secondary-700 bg-white justify-center items-center font-medium text-xl">공지사항</div>
+    <div class="flex flex-row w-full h-[48px] text-secondary-700 bg-white justify-center items-center font-medium text-xl relative">
+      <img src="../../images/header/arrow.png" class="absolute left-[24px] w-[28px] h-[28px]"/>
+      공지사항
+    </div>
     <div v-for="item in 3" :key="item" class="pt-5 px-4 flex justify-center w-full">
       <Notice class="notice-shadow"/>
     </div>

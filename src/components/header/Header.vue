@@ -4,9 +4,9 @@
     <div class="w-[30px] h-[34px] bg-header-team-introduction bg-center bg-no-repeat bg-[length:30px_34px]"></div>
   </div>
 </template>
-  
+
 <script setup></script>
-  
+
 <style lang="css" scoped>
 </style>
   
