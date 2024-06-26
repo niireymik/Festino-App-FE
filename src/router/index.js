@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from 'vue-router';
 import MainView from '../views/MainView.vue';
 import TimeTableView from '@/views/TimeTableView.vue';
 import TablingView from '@/views/TablingView.vue';
+import NotificationView from '@/views/NotificationView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -18,6 +19,11 @@ const router = createRouter({
       component: TimeTableView,
     },
     { path: '/reserve', name: 'tabling', component: TablingView },
+    {
+      path: '/notification',
+      name: 'notification',
+      component: NotificationView,
+    }
   ],
 });
 
