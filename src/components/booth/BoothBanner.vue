@@ -19,7 +19,7 @@ import 'primeicons/primeicons.css';
 
 <style lang="css" scoped>
 .dynamic-top {
-  top: calc(58 / 230 * 100%) !important;
+  top: calc(52 / 230 * 100%) !important;
 }
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
