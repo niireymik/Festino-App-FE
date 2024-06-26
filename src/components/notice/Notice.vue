@@ -11,9 +11,5 @@
 <script setup></script>
   
 <style lang="css" scoped>
-  .dynamic-padding {
-    padding-left: calc(16 / 390 * 100%) !important;
-    padding-right: calc(16 / 390 * 100%) !important;
-  }
 </style>
   
