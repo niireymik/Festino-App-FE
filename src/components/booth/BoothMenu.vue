@@ -18,7 +18,7 @@ import { ref } from 'vue';
 const selectedIndex = ref(0);
 const handleClickBoothBox = (index) => {
   if(selectedIndex.value == index) {
-    selectedIndex.value = -1;
+    selectedIndex.value = 0;
     return ;
   }
   selectedIndex.value = index;
