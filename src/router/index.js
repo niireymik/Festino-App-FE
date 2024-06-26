@@ -23,6 +23,11 @@ const router = createRouter({
       path: '/booth',
       name: 'booth',
       component: BoothView
+    },
+    {
+      path: '/booth',
+      name: 'booth',
+      component: BoothView
     }
   ],
 });
