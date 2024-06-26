@@ -6,6 +6,7 @@ export default {
       colors: {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
         primary: { 900: '#0073F0' },
+        secondary: { 100: '#CCCCCC' },
       },
       textColor: {
         primary: {
