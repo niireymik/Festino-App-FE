@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
-import ReservationModalView from './ReservationModalView.vue';
+import SearchReservationModal from './SearchReservationModal.vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
 
@@ -12,19 +12,19 @@ watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13;
 });
 
-const reserveModalState = ref(false);
+const searchReserveModalState = ref(false);
 const handleClickSearchButton = () => {
   if (!isInputFill.value) return;
-  reserveModalState.value = true;
+  searchReserveModalState.value = true;
 };
-const handleCloseReserveModal = () => {
-  reserveModalState.value = false;
+const handleCloseSearchReserveModal = () => {
+  searchReserveModalState.value = false;
 };
 </script>
 
 <template>
-  <div v-if="reserveModalState">
-    <ReservationModalView :handleCloseReserveModal="handleCloseReserveModal" />
+  <div v-if="searchReserveModalState">
+    <SearchReservationModal :handleCloseSearchReserveModal="handleCloseSearchReserveModal" />
   </div>
   <div class="flex flex-col dynamic-padding pt-16 h-full justify-between w-full flex-grow">
     <div class="px-4">
