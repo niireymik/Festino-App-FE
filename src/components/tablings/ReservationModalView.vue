@@ -1,0 +1,80 @@
+<template>
+  <div
+    :style="{ height: height + 'px' }"
+    class="w-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center"
+  >
+    <div class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px]">
+      <div class="text-secondary-700 text-xl font-semibold">디자인과 부스 예약</div>
+      <div class="w-full flex flex-col justify-start px-4">
+        <InputName v-model="name" />
+        <div class="mb-[30px]">
+          <InputPhoneNum v-model="phoneNum" />
+        </div>
+        <div class="text-xs">인원 수</div>
+        <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
+          <img src="/icons/person.svg" class="w-6 h-6" />
+          <input
+            class="flex-1 focus:outline-none"
+            type="text"
+            placeholder="00명"
+            v-model="personNum"
+            maxlength="2"
+            @input="handlePersonNumInput($event)"
+          />
+        </div>
+      </div>
+      <div class="flex flex-col w-full h-[78px] bg-primary-900-light rounded-lg-xl gap-3 p-4 text-sm justify-center">
+        <div class="flex flex-row justify-between">
+          <div>대기번호</div>
+          <div>103번</div>
+        </div>
+        <div class="flex flex-row justify-between">
+          <div>예상 대기시간</div>
+          <div>40분</div>
+        </div>
+      </div>
+      <div class="w-full flex flex-row justify-between">
+        <button
+          class="w-[162px] h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl"
+          @click="handleCloseReserveModal()"
+        >
+          닫기
+        </button>
+        <button class="w-[162px] h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl">예약하기</button>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import InputName from './InputName.vue';
+import InputPhoneNum from './InputPhoneNum.vue';
+
+const height = ref(0);
+const name = ref('');
+const phoneNum = ref('');
+const personNum = ref('');
+
+onMounted(() => {
+  height.value = window.innerHeight;
+});
+
+const handlePersonNumInput = (event) => {
+  const inputValue = event.target.value.replace(/\D/g, '');
+  event.target.value = inputValue;
+};
+
+const props = defineProps({
+  handleCloseReserveModal: {
+    type: Function,
+    required: true,
+  },
+});
+</script>
+
+<style lang="css" scoped>
+.dynamic-modal-width {
+  width: calc(386 / 430 * 100%) !important;
+}
+</style>

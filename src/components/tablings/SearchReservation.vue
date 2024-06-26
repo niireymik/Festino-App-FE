@@ -14,13 +14,17 @@ watchEffect(() => {
 
 const reserveModalState = ref(false);
 const handleClickSearchButton = () => {
+  if (!isInputFill.value) return;
   reserveModalState.value = true;
+};
+const handleCloseReserveModal = () => {
+  reserveModalState.value = false;
 };
 </script>
 
 <template>
   <div v-if="reserveModalState">
-    <ReservationModalView />
+    <ReservationModalView :handleCloseReserveModal="handleCloseReserveModal" />
   </div>
   <div class="flex flex-col dynamic-padding pt-16 h-full justify-between w-full flex-grow">
     <div class="px-4">
@@ -37,7 +41,7 @@ const handleClickSearchButton = () => {
   </div>
 </template>
 
-<style lang="css" scoped>
+<style lang="css">
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
