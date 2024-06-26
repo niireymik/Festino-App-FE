@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-padding w-full h-auto">
-    <div class="w-[388px] h-[382px] bg-primary-300 border border-primary-900-light rounded-3xl"></div>
+    <div class="w-full min-h-[382px] bg-primary-300 border border-primary-900-light rounded-3xl"></div>
   </div>
 </template>
 
