@@ -2,8 +2,8 @@
   <div class="w-full h-3 mb-7 bg-secondary-200"></div>
   <div class="dynamic-padding">
     <div class="font-pretendard text-2xl font-semibold pb-5">현재 대기중</div>
-    <div class="mb-5 relative w-full min-h-[207px] bg-booth-reservation-status bg-no-repeat bg-cover">
-      <div class="absolute right-10 top-14 flex flex-col items-center">
+    <div class="mb-5 relative w-full h-[160px] xs:h-[178px] sm:h-[207px] bg-booth-reservation-status bg-no-repeat bg-cover">
+      <div class="absolute right-10 top-7 xs:top-10 sm:top-14 flex flex-col items-center">
         <div class="px-4 py-1 mb-2 w-fit h-fit rounded-full bg-white text-primary-900 font-bold font-pretendard">대기중인 팀</div>
         <div class="flex items-end">
           <div class="font-bold text-7xl text-white font-pretendard">6</div>
