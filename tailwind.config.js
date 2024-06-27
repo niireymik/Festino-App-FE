@@ -76,6 +76,7 @@ export default {
       }),
       borderWidth: {
         1: '0.5px',
+        2: '1px',
       },
       boxShadow: {
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',

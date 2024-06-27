@@ -3,6 +3,7 @@ import MainBanner from  '@/components/main/MainBanner.vue';
 import Header from '@/components/header/Header.vue';
 import MainTab from '@/components/main/MainTab.vue';
 </script>
+
 <template>
   <div class="flex flex-col">
     <Header />
