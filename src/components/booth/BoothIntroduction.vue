@@ -1,7 +1,7 @@
 <template>
-  <div class="dynamic-padding">
+  <div class="dynamic-padding w-full h-auto">
     <div v-for="i in 5" :key="i" class="pb-2">
-      <div class="w-full h-40 shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light px-4 py-3">
+      <div class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light px-4 py-3">
         <div class="w-[222px] flex flex-col justify-center">
             <div class="px-2 py-1 w-fit flex justify-center text-center rounded-3.5xl border border-primary-900 text-primary-900 text-3xs font-pretendard font-semibold">#푸드트럭</div>
             <div class="py-1.5 text-base font-pretendard font-semibold">치즈닭갈비</div>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <button class="w-full h-auto py-4 mt-3 shadow-3xl border-1 border-primary-900 rounded-full text-primary-900 font-pretendard text-base active:text-white active:bg-primary-900">더보기</button>
+    <button class="w-full h-auto py-4 mt-3 mb-20 shadow-3xl border-1 border-primary-900 rounded-full text-primary-900 font-pretendard text-base active:text-white active:bg-primary-900">더보기</button>
   </div>
 </template>
 
@@ -29,7 +29,7 @@ export default {
 }
 </script>
 
-<style lang="css" scope>
+<style lang="css" scoped>
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
