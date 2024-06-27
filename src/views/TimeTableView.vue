@@ -1,13 +1,14 @@
 <script setup>
-import ShowPreview from '@/components/timetable/ShowPreview.vue';
+import TimeTableTab from '@/components/timetable/TimeTableTab.vue';
+import TimeTableBanner from '@/components/timetable/TimeTableBanner.vue';
+import Header from '@/components/header/Header.vue';
 </script>
+
 <template>
-  <div class="w-full dynamic-padding">
-    <div class="flex justify-between items-center">
-      <div class="text-2xl">타임테이블</div>
-      <div class="text-xs text-gray-300">더보기 ></div>
-    </div>
-    <ShowPreview></ShowPreview>
+  <div class="flex flex-col">
+    <Header />
+    <TimeTableBanner />
+    <TimeTableTab />
   </div>
 </template>
 
