@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
-import ReservationModalView from './ReservationModalView.vue';
+import ReservationModal from './ReservationModal.vue';
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -30,7 +30,7 @@ watchEffect(() => {
 </script>
 <template>
   <div v-if="reserveModalState">
-    <ReservationModalView :handleCloseReserveModal="handleCloseReserveModal" />
+    <ReservationModal :handleCloseReserveModal="handleCloseReserveModal" />
   </div>
   <div class="w-full flex justify-center">
     <div class="dynamic-grid-container overflow-x-auto pt-16">
