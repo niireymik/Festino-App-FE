@@ -3,22 +3,36 @@ import Home from './footers/HomeIcon.vue';
 import TimeTableIcon from './footers/TimeTableIcon.vue';
 import BoothIcon from './footers/BoothIcon.vue';
 import TablingIcon from './footers/TablingIcon.vue';
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const ICON_URL_MAP = [
-  { name: '홈', component: Home, width: '28px' },
-  { name: '타임테이블', component: TimeTableIcon, url: '/icons/acute.svg', width: '44px' },
-  { name: '부스', component: BoothIcon, url: '/icons/distance.svg', width: '28px' },
-  { name: '테이블링', component: TablingIcon, url: '/icons/hourglass_bottom.svg', width: '35px' },
+  { name: '홈', component: Home, width: '28px', router: 'main' },
+  { name: '타임테이블', component: TimeTableIcon, url: '/icons/acute.svg', width: '44px', router: 'timetable' },
+  { name: '부스', component: BoothIcon, url: '/icons/distance.svg', width: '28px', router: 'booth' },
+  { name: '테이블링', component: TablingIcon, url: '/icons/hourglass_bottom.svg', width: '35px', router: 'tabling' },
 ];
 
 const selectedFooterIndex = ref(-1);
+
+watchEffect(() => {
+  const currentRoute = router.currentRoute.value;
+  const currentRouteName = currentRoute.name;
+  const index = ICON_URL_MAP.findIndex((item) => item.router === currentRouteName);
+  selectedFooterIndex.value = index;
+});
+
 const handleClickFooter = (index) => {
   selectedFooterIndex.value = index;
+  router.push({ name: ICON_URL_MAP[index].router });
 };
 </script>
 <template>
-  <div class="w-full h-[60px] bg-white flex items-center justify-around fixed bottom-0">
+  <div
+    class="w-full h-[60px] bg-white flex items-center justify-around fixed bottom-0 border-t-secondary-100 border-t-1"
+  >
     <div
       class="flex flex-col items-center justify-center"
       v-for="(item, index) in ICON_URL_MAP"

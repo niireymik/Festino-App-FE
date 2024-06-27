@@ -1,7 +1,13 @@
 <script setup>
-import MainBanner from  '@/components/main/MainBanner.vue';
+import MainBanner from '@/components/main/MainBanner.vue';
 import Header from '@/components/header/Header.vue';
 import MainTab from '@/components/main/MainTab.vue';
+
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 </script>
 
 <template>
