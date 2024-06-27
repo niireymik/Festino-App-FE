@@ -22,8 +22,8 @@ const handleCloseSearchReserveModal = () => {
 };
 
 const handleStopScroll = () => {
-  if (searchReserveModalState.value) document.body.style = 'overflow:hidden';
-  else document.body.style = 'overflow:auto';
+  if (reserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  else document.documentElement.style.overflow = 'auto';
 };
 
 watchEffect(() => {
