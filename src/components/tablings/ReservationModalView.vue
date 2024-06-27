@@ -52,14 +52,14 @@ const props = defineProps({
           <div>40분</div>
         </div>
       </div>
-      <div class="w-full flex flex-row justify-between">
+      <div class="w-full flex flex-row justify-between gap-[10px]">
         <button
-          class="w-[162px] h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl"
+          class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl"
           @click="handleCloseReserveModal()"
         >
           닫기
         </button>
-        <button class="w-[162px] h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl">예약하기</button>
+        <button class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl">예약하기</button>
       </div>
     </div>
   </div>
