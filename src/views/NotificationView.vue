@@ -6,13 +6,14 @@
       <div>공지사항</div>
     </div>
     <div v-for="item in 3" :key="item" class="pt-5 px-4 flex justify-center w-full">
-      <Notice class="shadow-4xl"/>
+      <Notice class="shadow-4xl" />
     </div>
   </div>
 </template>
-  
+
 <script setup>
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 import Notice from '@/components/notice/Notice.vue';
 import Header from '@/components/header/Header.vue';
 
@@ -21,7 +22,10 @@ const router = useRouter();
 const handleClickBackArrow = () => {
   router.go(-1);
 }
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 </script>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

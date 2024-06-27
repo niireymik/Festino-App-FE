@@ -7,8 +7,7 @@
     <div class="flex justify-end pr-[11px] text-xs font-normal text-secondary-500 w-[140px]">1시간 전</div>
   </div>
 </template>
-  
+
 <script setup></script>
-  
-<style lang="css" scoped>
-</style>
+
+<style lang="css" scoped></style>
