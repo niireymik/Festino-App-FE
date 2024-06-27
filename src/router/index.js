@@ -28,7 +28,7 @@ const router = createRouter({
     {
       path: '/booth',
       name: 'booth',
-      component: BoothView
+      component: BoothView,
     },
   ],
 });

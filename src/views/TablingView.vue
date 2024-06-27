@@ -6,6 +6,12 @@
 
 <script setup>
 import Tabling from '@/components/tablings/Tabling.vue';
+
+import { onMounted } from 'vue';
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 </script>
 
 <style lang="css" scoped></style>
