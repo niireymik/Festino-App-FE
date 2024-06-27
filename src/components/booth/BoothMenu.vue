@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto flex">
+  <div class="overflow-x-auto flex dynamic-padding pb-6">
     <div v-for="(item, index) in 6" :key="index">
       <div 
         @click="handleClickBoothBox(index)"
@@ -7,7 +7,8 @@
         :class="{
           'border border-primary-900 bg-primary-900 text-white': selectedIndex == index,
           'border border-primary-900-light text-primary-900-light': selectedIndex != index
-          }">전체</div>
+          }">전체
+      </div>
     </div>
   </div>
 </template>
@@ -26,4 +27,7 @@ const handleClickBoothBox = (index) => {
 </script>
 
 <style lang="css" scoped>
+.dynamic-padding {
+  padding-left: calc(20 / 430 * 100%) !important;
+}
 </style>
