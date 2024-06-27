@@ -5,11 +5,20 @@ export default {
     extend: {
       colors: {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
-        primary: { 900: '#0073F0' },
+         primary: { 
+            900: {
+              DEFAULT: '#0073F0',
+              light: 'rgba(0, 115, 240, 0.16)'
+            },
+          },
+        secondary: { 100: '#CCCCCC' },
       },
       textColor: {
         primary: {
-          900: '#0073F0',
+          900: {
+            DEFAULT: '#0073F0',
+            light: 'rgba(0, 115, 240, 0.16)'
+          },
           700: {
             DEFAULT: '#3082F6',
             light: 'rgba(48, 130, 246, 0.4)',
@@ -34,6 +43,7 @@ export default {
         '3xs': '0.5rem', // 8px
         '2xs': '0.625rem', // 10px
         '3xl': '1.75rem', // 28px
+        '10xl': '6.25rem', //100px
       },
       fontFamily: {
         pretendard: ['Pretendard Variable'],
@@ -48,12 +58,15 @@ export default {
         'tino-arm-only-4x': "url('/images/tinos/tino-arm-only-4x.png')",
         'header-school-symbol': "url('/images/header/symbol.png')",
         'header-team-introduction': "url('/images/header/introduction.png')",
+        'booth-banner': "url('/images/booth-banner.png')",
         'tino-thumbs-up': "url('/images/tinos/tino-thumbs-up.png')",
         'back-arrow': "url('/icons/arrow.png')",
         'more-arrow': "url('/icons/arrow-right.png')",
       },
       borderRadius: {
+        'lg-xl': '0.625rem', //10px
         '3xl': '1.25rem', // 20px
+        '3.5xl': '1.5rem', // 24px
       },
       borderColor: (theme) => ({
         primary: 'rgba(0, 115, 240, 0.16)',
@@ -63,7 +76,8 @@ export default {
         1: '0.5px',
       },
       boxShadow: {
-        '3xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
+        '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
+        '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
       },
     },
     screens: {

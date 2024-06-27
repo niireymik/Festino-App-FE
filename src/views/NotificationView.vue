@@ -6,7 +6,7 @@
       공지사항
     </div>
     <div v-for="item in 3" :key="item" class="pt-5 px-4 flex justify-center w-full">
-      <Notice class="shadow-3xl"/>
+      <Notice class="shadow-4xl"/>
     </div>
   </div>
 </template>
