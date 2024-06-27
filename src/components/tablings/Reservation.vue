@@ -44,7 +44,7 @@ const handleCloseReserveModal = () => {
       </div>
     </div>
   </div>
-  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-[30px]">
+  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-16">
     <button class="bg-secondary-100 h-[54px] rounded-xl w-full">자세히보기</button>
     <button
       class="h-[54px] rounded-xl w-full"
