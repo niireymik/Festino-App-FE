@@ -1,8 +1,14 @@
+<script setup>
+const props = defineProps({
+  handleCloseSearchReserveModal: {
+    type: Function,
+    required: true,
+  },
+});
+</script>
+
 <template>
-  <div
-    :style="{ height: height + 'px' }"
-    class="w-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center"
-  >
+  <div class="w-full h-full fixed top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
     <div class="dynamic-modal-width h-[458px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px]">
       <!-- todo when design complete -->
       <div class="w-full h-[27px]">디자인과 기계공학 예약추가</div>
@@ -43,23 +49,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-
-const height = ref(0);
-
-onMounted(() => {
-  height.value = window.innerHeight;
-});
-
-const props = defineProps({
-  handleCloseSearchReserveModal: {
-    type: Function,
-    required: true,
-  },
-});
-</script>
 
 <style lang="css" scoped>
 .dynamic-modal-width {

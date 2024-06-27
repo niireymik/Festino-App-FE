@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import ReservationModalView from './ReservationModalView.vue';
 
 const selectedIndex = ref(-1);
@@ -19,6 +19,14 @@ const handleClickReserveButton = () => {
 const handleCloseReserveModal = () => {
   reserveModalState.value = false;
 };
+const handleStopScroll = () => {
+  if (reserveModalState.value) document.body.style = 'overflow:hidden';
+  else document.body.style = 'overflow:auto';
+};
+
+watchEffect(() => {
+  handleStopScroll();
+});
 </script>
 <template>
   <div v-if="reserveModalState">

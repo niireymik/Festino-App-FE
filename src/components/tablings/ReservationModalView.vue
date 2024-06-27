@@ -1,8 +1,27 @@
+<script setup>
+import { ref } from 'vue';
+import InputName from './InputName.vue';
+import InputPhoneNum from './InputPhoneNum.vue';
+
+const name = ref('');
+const phoneNum = ref('');
+const personNum = ref('');
+
+const handlePersonNumInput = (event) => {
+  const inputValue = event.target.value.replace(/\D/g, '');
+  event.target.value = inputValue;
+};
+
+const props = defineProps({
+  handleCloseReserveModal: {
+    type: Function,
+    required: true,
+  },
+});
+</script>
+
 <template>
-  <div
-    :style="{ height: height + 'px' }"
-    class="w-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center"
-  >
+  <div class="w-full h-full fixed top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
     <div class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px]">
       <div class="text-secondary-700 text-xl font-semibold">디자인과 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
@@ -45,33 +64,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import InputName from './InputName.vue';
-import InputPhoneNum from './InputPhoneNum.vue';
-
-const height = ref(0);
-const name = ref('');
-const phoneNum = ref('');
-const personNum = ref('');
-
-onMounted(() => {
-  height.value = window.innerHeight;
-});
-
-const handlePersonNumInput = (event) => {
-  const inputValue = event.target.value.replace(/\D/g, '');
-  event.target.value = inputValue;
-};
-
-const props = defineProps({
-  handleCloseReserveModal: {
-    type: Function,
-    required: true,
-  },
-});
-</script>
 
 <style lang="css" scoped>
 .dynamic-modal-width {
