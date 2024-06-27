@@ -48,6 +48,8 @@ export default {
         'tino-arm-only-4x': "url('/images/tinos/tino-arm-only-4x.png')",
         'header-school-symbol': "url('/images/header/symbol.png')",
         'header-team-introduction': "url('/images/header/introduction.png')",
+        'tino-thumbs-up': "url('/images/tinos/tino-thumbs-up.png')",
+        'more-arrow': "url('/icons/arrow-right.png')",
       },
       borderRadius: {
         '3xl': '1.25rem', // 20px
@@ -59,6 +61,10 @@ export default {
       borderWidth: {
         1: '0.5px',
       },
+    },
+    screens: {
+      'xs': '405px',
+      'sm': '470px',
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio')],
