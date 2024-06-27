@@ -5,6 +5,7 @@ import TimeTableView from '@/views/TimeTableView.vue';
 import TablingView from '@/views/TablingView.vue';
 import NotificationView from '@/views/NotificationView.vue';
 import BoothView from '@/views/BoothView.vue';
+import BoothDetailView from '@/views/BoothDetailView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,11 @@ const router = createRouter({
       name: 'booth',
       component: BoothView,
     },
+    {
+      path: '/booth/detail',
+      name: 'booth-detail',
+      component: BoothDetailView,
+    }
   ],
 });
 
