@@ -1,12 +1,14 @@
 <script setup>
-import ShowPreview from '@/components/timetable/ShowPreview.vue';
-import Tabling from '@/components/tablings/Tabling.vue';
+import MainBanner from  '@/components/main/MainBanner.vue';
+import Header from '@/components/header/Header.vue';
+import MainTab from '@/components/main/MainTab.vue';
 </script>
-<template>
-  <!-- <Tabling /> -->
 
-  <div class="h-96 w-full dynamic-padding">
-    <ShowPreview />
+<template>
+  <div class="flex flex-col">
+    <Header />
+    <MainBanner />
+    <MainTab />
   </div>
 </template>
 
