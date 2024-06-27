@@ -20,7 +20,7 @@ export default {
         primary: {
           900: {
             DEFAULT: '#0073F0',
-            light: 'rgba(0, 115, 240, 0.16)'
+            light: 'rgba(0, 115, 240, 0.16)',
           },
           700: {
             DEFAULT: '#3082F6',
@@ -93,8 +93,8 @@ export default {
       },
     },
     screens: {
-      'xs': '405px',
-      'sm': '470px',
+      xs: '405px',
+      sm: '470px',
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio')],

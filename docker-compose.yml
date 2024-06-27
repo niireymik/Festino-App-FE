@@ -1,0 +1,13 @@
+services:
+  server:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: festino-app
+    volumes:
+      - .:/code
+      - /code/node_modules
+    ports:
+      - 3000:80
+    restart: always
