@@ -49,6 +49,7 @@ export default {
         'header-school-symbol': "url('/images/header/symbol.png')",
         'header-team-introduction': "url('/images/header/introduction.png')",
         'tino-thumbs-up': "url('/images/tinos/tino-thumbs-up.png')",
+        'back-arrow': "url('/icons/arrow.png')",
         'more-arrow': "url('/icons/arrow-right.png')",
       },
       borderRadius: {
@@ -60,6 +61,9 @@ export default {
       }),
       borderWidth: {
         1: '0.5px',
+      },
+      boxShadow: {
+        '3xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
       },
     },
     screens: {
