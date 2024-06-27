@@ -22,7 +22,7 @@ const handleCloseSearchReserveModal = () => {
 };
 
 const handleStopScroll = () => {
-  if (reserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  if (searchReserveModalState.value) document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
 };
 
