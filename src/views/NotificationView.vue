@@ -12,8 +12,8 @@
 </template>
   
 <script setup>
-  import Notice from '@/components/notice/Notice.vue';
-  import Header from '@/components/header/Header.vue';
+import Notice from '@/components/notice/Notice.vue';
+import Header from '@/components/header/Header.vue';
 </script>
 
 <style lang="css" scoped>
