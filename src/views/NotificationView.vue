@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col min-h-screen h-full items-center bg-[#FBFCFF]">
+  <div class="flex flex-col min-h-screen h-full items-center bg-notification-bg">
     <Header />
     <div class="flex flex-row w-full h-[48px] text-secondary-700 bg-white justify-center items-center font-medium text-xl relative">
       <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px]"></div>

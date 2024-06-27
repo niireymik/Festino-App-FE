@@ -35,6 +35,7 @@ export default {
           100: '#CCCCCC',
           50: '#EEEEEE',
         },
+        'notification-bg': '#FBFCFF',
       },
       backgroundColor: (theme) => ({
         ...theme('textColor'),
