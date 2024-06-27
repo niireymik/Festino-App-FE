@@ -1,8 +1,7 @@
 <template>
   <div class="relative">
     <div class="w-full h-[235px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
-      <i
-        class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px] prev-btn-shadow"
+      <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px] prev-btn-shadow"
         @click="handleClickPrevButton()"
       ></i>
       <div class="absolute w-auto h-auto pt-14 xs:dynamic-top dynamic-padding sm:pt-[72px]">

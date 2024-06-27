@@ -5,13 +5,13 @@ export default {
     extend: {
       colors: {
         'white-opacity': 'rgba(255, 255, 255, 0.68)',
-         primary: { 
+        primary: {
           900: {
             DEFAULT: '#0073F0',
-            light: 'rgba(0, 115, 240, 0.16)'
+            light: 'rgba(0, 115, 240, 0.16)',
           },
         },
-        secondary: { 
+        secondary: {
           200: '#F2F4F6',
           100: '#CCCCCC',
         },
