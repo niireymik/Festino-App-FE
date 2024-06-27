@@ -1,10 +1,10 @@
 <template>
   <DateButtons />
-  <MoreButton />
+  <MoreButton :componentName="timeTable" />
   <div class="px-4">
     <ShowPreview class="shadow-4xl"/>
   </div>
-  <MoreButton />
+  <MoreButton :componentName="notification" />
   <div class="px-5">
     <div class="py-3 px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center">
       <div class="flex">
@@ -20,10 +20,14 @@
 </template>
   
 <script setup>
-import DateButtons from './DateButtons.vue'
+import { ref } from 'vue';
+import DateButtons from './DateButtons.vue';
 import ShowPreview from '../timetable/ShowPreview.vue';
 import SlideBanner from './SlideBanner.vue';
 import MoreButton from './MoreButton.vue';
+
+const timeTable = ref("타임테이블");
+const notification = ref("공지사항");
 </script>
   
 <style lang="css" scoped>
