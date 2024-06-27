@@ -1,11 +1,11 @@
 <template>
   <div class="relative">
-    <div class="w-full min-h-[260px] bg-booth-banner z-1">
+    <div class="w-full h-[260px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
       <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px] prev-btn-shadow"></i>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard">Festino</div>
-        <div class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md">티노와 함께</div>
-        <div class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-3xl">축제 부스 알아보기</div>
+        <div class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md sm:text-[19px]">티노와 함께</div>
+        <div class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-3xl sm:text-[32px]">축제 부스 알아보기</div>
       </div>
     </div>
     <div class="w-full h-5 bg-white rounded-t-3xl absolute z-2 bottom-[-2px]"></div>
