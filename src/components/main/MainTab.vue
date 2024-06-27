@@ -14,7 +14,7 @@
       <div class="text-secondary-700 text-2xs font-normal">1시간 전</div>
     </div>
   </div>
-  <div class="px-5 py-5">
+  <div class="px-5 pt-5 pb-20">
     <SlideBanner />
   </div>
 </template>

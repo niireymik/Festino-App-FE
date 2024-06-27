@@ -16,8 +16,8 @@ body {
   font-family: 'Pretendard Variable';
   min-width: 375px;
   max-width: 500px;
-  height: 100vh;
-  min-height: 100vh;
+  height: auto;
+  min-height: auto;
 }
 
 @media (min-width: 500px) {
