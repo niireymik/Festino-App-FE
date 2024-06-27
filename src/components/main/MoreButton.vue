@@ -1,14 +1,26 @@
 <template>
   <div class="flex justify-between items-center px-5 pt-4 pb-3">
-    <div class="text-xl font-semibold">타임테이블</div>
-    <div class="flex items-center gap-0.5">
+    <div class="text-xl font-semibold">{{ componentName }}</div>
+    <div class="flex items-center gap-0.5" @click="handleClickMoreButton(componentName)">
       <div class="text-secondary-300 text-xs">더보기</div>
       <div class="w-[12px] h-[12px] bg-more-arrow bg-center bg-no-repeat bg-[length:12px_12px]"></div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const props = defineProps(["componentName"]);
+
+const handleClickMoreButton = (name) => {
+  if (name == "타임테이블") router.push({ name: "timetable"})
+  else if (name == "공지사항") router.push({ name: "notification"})
+  else return;
+};
+</script>
 
 <style lang="css" scoped>
 </style>
