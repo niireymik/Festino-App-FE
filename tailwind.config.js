@@ -26,6 +26,7 @@ export default {
             DEFAULT: '#3082F6',
             light: 'rgba(48, 130, 246, 0.4)',
           },
+          600: '#54A6FF',
           500: '#4fa3ff',
           300: '#cfe3ff',
           100: '#f5f6f8',
@@ -70,6 +71,7 @@ export default {
         'slide-banner-2': "url('/images/banner/slide-banner-2.png')",
         'tino-sing': "url('/images/tinos/tino-sing.png')",
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
+        'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
