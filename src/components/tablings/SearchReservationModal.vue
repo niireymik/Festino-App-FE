@@ -37,10 +37,10 @@ const props = defineProps({
           <div>5명</div>
         </div>
       </div>
-      <div class="w-full flex flex-row justify-between">
-        <button class="w-[162px] h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl">예약 취소</button>
+      <div class="w-full flex flex-row justify-between gap-[10px]">
+        <button class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl">예약 취소</button>
         <button
-          class="w-[162px] h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl"
+          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl"
           @click="handleCloseSearchReserveModal()"
         >
           확인
