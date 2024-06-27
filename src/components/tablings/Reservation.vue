@@ -1,6 +1,6 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
-import ReservationModalView from './ReservationModalView.vue';
+import ReservationModal from './ReservationModal.vue';
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -20,8 +20,8 @@ const handleCloseReserveModal = () => {
   reserveModalState.value = false;
 };
 const handleStopScroll = () => {
-  if (reserveModalState.value) document.body.style = 'overflow:hidden';
-  else document.body.style = 'overflow:auto';
+  if (reserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  else document.documentElement.style.overflow = 'auto';
 };
 
 watchEffect(() => {
@@ -30,7 +30,7 @@ watchEffect(() => {
 </script>
 <template>
   <div v-if="reserveModalState">
-    <ReservationModalView :handleCloseReserveModal="handleCloseReserveModal" />
+    <ReservationModal :handleCloseReserveModal="handleCloseReserveModal" />
   </div>
   <div class="w-full flex justify-center">
     <div class="dynamic-grid-container overflow-x-auto pt-16">
