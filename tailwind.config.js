@@ -59,6 +59,12 @@ export default {
         'header-school-symbol': "url('/images/header/symbol.png')",
         'header-team-introduction': "url('/images/header/introduction.png')",
         'booth-banner': "url('/images/booth-banner.png')",
+        'tino-thumbs-up': "url('/images/tinos/tino-thumbs-up.png')",
+        'back-arrow': "url('/icons/arrow.png')",
+        'more-arrow': "url('/icons/arrow-right.png')",
+        'slide-banner-1': "url('/images/banner/slide-banner-1.png')",
+        'slide-banner-2': "url('/images/banner/slide-banner-2.png')",
+        'tino-sing': "url('/images/tinos/tino-sing.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
@@ -68,13 +74,20 @@ export default {
       borderColor: (theme) => ({
         primary: 'rgba(0, 115, 240, 0.16)',
         'primary-900': theme('textColor.primary.900'),
+        'primary-700': 'rgba(48, 130, 246, 0.6)',
       }),
       borderWidth: {
         1: '0.5px',
+        2: '1px',
       },
       boxShadow: {
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
+        '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
       },
+    },
+    screens: {
+      'xs': '405px',
+      'sm': '470px',
     },
   },
   plugins: [require('@tailwindcss/aspect-ratio')],

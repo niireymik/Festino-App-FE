@@ -1,8 +1,14 @@
+<script setup>
+const props = defineProps({
+  handleCloseSearchReserveModal: {
+    type: Function,
+    required: true,
+  },
+});
+</script>
+
 <template>
-  <div
-    :style="{ height: height + 'px' }"
-    class="w-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center"
-  >
+  <div class="w-full h-full fixed top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
     <div class="dynamic-modal-width h-[458px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px]">
       <!-- todo when design complete -->
       <div class="w-full h-[27px]">디자인과 기계공학 예약추가</div>
@@ -31,10 +37,10 @@
           <div>5명</div>
         </div>
       </div>
-      <div class="w-full flex flex-row justify-between">
-        <button class="w-[162px] h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl">예약 취소</button>
+      <div class="w-full flex flex-row justify-between gap-[10px]">
+        <button class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl">예약 취소</button>
         <button
-          class="w-[162px] h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl"
+          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl"
           @click="handleCloseSearchReserveModal()"
         >
           확인
@@ -43,23 +49,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-
-const height = ref(0);
-
-onMounted(() => {
-  height.value = window.innerHeight;
-});
-
-const props = defineProps({
-  handleCloseSearchReserveModal: {
-    type: Function,
-    required: true,
-  },
-});
-</script>
 
 <style lang="css" scoped>
 .dynamic-modal-width {

@@ -20,6 +20,15 @@ const handleClickSearchButton = () => {
 const handleCloseSearchReserveModal = () => {
   searchReserveModalState.value = false;
 };
+
+const handleStopScroll = () => {
+  if (searchReserveModalState.value) document.body.style = 'overflow:hidden';
+  else document.body.style = 'overflow:auto';
+};
+
+watchEffect(() => {
+  handleStopScroll();
+});
 </script>
 
 <template>
@@ -32,7 +41,7 @@ const handleCloseSearchReserveModal = () => {
       <InputPhoneNum v-model="phoneNum" />
     </div>
     <button
-      class="w-full h-[54px] text-white font-bold rounded-xl mb-[30px] mt-5"
+      class="w-full h-[54px] text-white font-bold rounded-xl mb-16 mt-5"
       :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
       @click="handleClickSearchButton()"
     >
