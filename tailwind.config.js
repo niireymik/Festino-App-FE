@@ -62,6 +62,8 @@ export default {
         'tino-thumbs-up': "url('/images/tinos/tino-thumbs-up.png')",
         'back-arrow': "url('/icons/arrow.png')",
         'more-arrow': "url('/icons/arrow-right.png')",
+        'slide-banner-1': "url('/images/banner/slide-banner-1.png')",
+        'slide-banner-2': "url('/images/banner/slide-banner-2.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
