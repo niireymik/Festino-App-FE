@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-padding w-full h-auto">
-    <div class="relative w-full min-h-[400px] bg-primary-300 border border-primary-900-light rounded-3xl">
+    <div class="relative w-full min-h-[390px] sm:h-[440px] bg-primary-300 border border-primary-900-light rounded-3xl">
       <div class="absolute bottom-5 left-5">
         <button class="shadow-3xl bg-white rounded-t-full border-1 border-primary-900-light p-4 flex justify-center items-center">
           <i class="pi pi-plus text-primary-900 text-lg"></i>
