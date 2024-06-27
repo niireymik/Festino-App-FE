@@ -1,6 +1,6 @@
 <script setup>
-import { ref } from 'vue';
-import ReservationModalView from './ReservationModalView.vue';
+import { ref, watchEffect } from 'vue';
+import ReservationModal from './ReservationModal.vue';
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -19,10 +19,18 @@ const handleClickReserveButton = () => {
 const handleCloseReserveModal = () => {
   reserveModalState.value = false;
 };
+const handleStopScroll = () => {
+  if (reserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  else document.documentElement.style.overflow = 'auto';
+};
+
+watchEffect(() => {
+  handleStopScroll();
+});
 </script>
 <template>
   <div v-if="reserveModalState">
-    <ReservationModalView :handleCloseReserveModal="handleCloseReserveModal" />
+    <ReservationModal :handleCloseReserveModal="handleCloseReserveModal" />
   </div>
   <div class="w-full flex justify-center">
     <div class="dynamic-grid-container overflow-x-auto pt-16">
@@ -37,14 +45,14 @@ const handleCloseReserveModal = () => {
           }"
         >
           <div class="flex flex-col justify-end text-white p-3">
-            <h2 class="font-bold mb-1">컴퓨터공학</h2>
+            <h2 class="font-bold mb-1 break-keep">에너지 전자 공학과</h2>
             <h2 class="text-2xs">대기중인 팀 : 9</h2>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-[30px]">
+  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-16">
     <button class="bg-secondary-100 h-[54px] rounded-xl w-full">자세히보기</button>
     <button
       class="h-[54px] rounded-xl w-full"
