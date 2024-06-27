@@ -74,6 +74,7 @@ export default {
       borderColor: (theme) => ({
         primary: 'rgba(0, 115, 240, 0.16)',
         'primary-900': theme('textColor.primary.900'),
+        'primary-700': 'rgba(48, 130, 246, 0.6)',
       }),
       borderWidth: {
         1: '0.5px',
