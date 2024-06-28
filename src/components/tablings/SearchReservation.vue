@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watchEffect } from 'vue';
-import SearchReservationModal from './SearchReservationModal.vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 
 const name = ref('');
 const phoneNum = ref('');
@@ -12,29 +12,14 @@ watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13;
 });
 
-const searchReserveModalState = ref(false);
+const { openSearchReserveModal } = useTablingModalStore();
 const handleClickSearchButton = () => {
   if (!isInputFill.value) return;
-  searchReserveModalState.value = true;
+  openSearchReserveModal();
 };
-const handleCloseSearchReserveModal = () => {
-  searchReserveModalState.value = false;
-};
-
-const handleStopScroll = () => {
-  if (searchReserveModalState.value) document.documentElement.style.overflow = 'hidden';
-  else document.documentElement.style.overflow = 'auto';
-};
-
-watchEffect(() => {
-  handleStopScroll();
-});
 </script>
 
 <template>
-  <div v-if="searchReserveModalState">
-    <SearchReservationModal :handleCloseSearchReserveModal="handleCloseSearchReserveModal" />
-  </div>
   <div class="w-screen">
     <div class="w-full h-full flex flex-col dynamic-padding pt-16 justify-between flex-grow">
       <div class="px-4">

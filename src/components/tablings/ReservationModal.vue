@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 
 const name = ref('');
 const phoneNum = ref('');
@@ -12,12 +13,7 @@ const handlePersonNumInput = (event) => {
   event.target.value = inputValue;
 };
 
-const props = defineProps({
-  handleCloseReserveModal: {
-    type: Function,
-    required: true,
-  },
-});
+const { closeReserveModal } = useTablingModalStore();
 </script>
 
 <template>
@@ -55,7 +51,7 @@ const props = defineProps({
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button
           class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl"
-          @click="handleCloseReserveModal()"
+          @click="closeReserveModal()"
         >
           닫기
         </button>

@@ -1,12 +1,33 @@
 <script setup>
 import TablingBanner from '@/components/tablings/TablingBanner.vue';
 import TablingTabs from '@/components/tablings/TablingTabs.vue';
+import ReservationModal from './ReservationModal.vue';
+import SearchReservationModal from './SearchReservationModal.vue';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+import { storeToRefs } from 'pinia';
+import { watchEffect } from 'vue';
+
+const { reserveModalState, searchReserveModalState } = storeToRefs(useTablingModalStore());
+const handleStopScroll = () => {
+  if (reserveModalState.value || searchReserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  else document.documentElement.style.overflow = 'auto';
+};
+
+watchEffect(() => {
+  handleStopScroll();
+});
 </script>
 
 <template>
   <div class="dynamic-height flex flex-col">
     <TablingBanner />
     <TablingTabs />
+  </div>
+  <div v-if="reserveModalState">
+    <ReservationModal />
+  </div>
+  <div v-if="searchReserveModalState">
+    <SearchReservationModal />
   </div>
 </template>
 

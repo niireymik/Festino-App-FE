@@ -1,6 +1,7 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
-import ReservationModal from './ReservationModal.vue';
+import { ref } from 'vue';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+const { openReserveModal } = useTablingModalStore();
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -11,27 +12,12 @@ const hanldeClickMajorBox = (index) => {
   selectedIndex.value = index;
 };
 
-const reserveModalState = ref(false);
 const handleClickReserveButton = () => {
   if (selectedIndex.value == -1) return;
-  reserveModalState.value = true;
+  openReserveModal();
 };
-const handleCloseReserveModal = () => {
-  reserveModalState.value = false;
-};
-const handleStopScroll = () => {
-  if (reserveModalState.value) document.documentElement.style.overflow = 'hidden';
-  else document.documentElement.style.overflow = 'auto';
-};
-
-watchEffect(() => {
-  handleStopScroll();
-});
 </script>
 <template>
-  <div v-if="reserveModalState">
-    <ReservationModal :handleCloseReserveModal="handleCloseReserveModal" />
-  </div>
   <div class="w-screen max-w-[500px]">
     <div class="w-full flex justify-center">
       <div class="dynamic-grid-container overflow-x-auto pt-16">
