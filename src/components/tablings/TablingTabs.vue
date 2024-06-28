@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import Reservation from './Reservation.vue';
 import SearchReservation from './SearchReservation.vue';
 
@@ -17,6 +17,50 @@ const toggleTab = (type) => {
     isActive.value.예약조회 = true;
   }
 };
+
+const sliderContainer = ref(null);
+let startX = 0;
+let isDragging = false;
+
+const handleTouchStart = (event) => {
+  console.log('handleTouchStart');
+  console.log(event.touches[0].clientX);
+  startX = event.touches[0].clientX;
+  isDragging = true;
+};
+
+const handleTouchMove = (event) => {
+  console.log('handleTouchMove');
+  if (!isDragging) return;
+  const touchX = event.touches[0].clientX;
+  const moveX = startX - touchX;
+
+  if (moveX > 50) {
+    toggleTab('예약조회');
+    handleTouchEnd();
+  } else if (moveX < -50) {
+    toggleTab('예약하기');
+    handleTouchEnd();
+  }
+};
+
+const handleTouchEnd = () => {
+  console.log('handleTouchEnd');
+  isDragging = false;
+};
+
+onMounted(() => {
+  const slider = sliderContainer.value;
+  slider.addEventListener('touchstart', handleTouchStart);
+  slider.addEventListener('touchmove', handleTouchMove);
+  slider.addEventListener('touchend', handleTouchEnd);
+
+  return () => {
+    slider.removeEventListener('touchstart', handleTouchStart);
+    slider.removeEventListener('touchmove', handleTouchMove);
+    slider.removeEventListener('touchend', handleTouchEnd);
+  };
+});
 </script>
 
 <template>
@@ -49,12 +93,16 @@ const toggleTab = (type) => {
         </div>
       </div>
     </div>
-  </div>
-  <div v-if="isActive['예약하기']" class="flex-grow flex-col flex">
-    <Reservation />
-  </div>
-  <div v-if="isActive['예약조회']" class="flex-grow flex-col flex">
-    <SearchReservation />
+    <div ref="sliderContainer" class="relative overflow-hidden w-full h-full">
+      <div class="transition-transform duration-300 ease">
+        <div v-if="isActive['예약하기']" class="flex-grow flex-col flex">
+          <Reservation />
+        </div>
+        <div v-if="isActive['예약조회']" class="flex-grow flex-col flex transition-transform duration-300 ease">
+          <SearchReservation />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
