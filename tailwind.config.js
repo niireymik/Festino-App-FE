@@ -41,6 +41,7 @@ export default {
           50: '#EEEEEE',
         },
         'notification-bg': '#FBFCFF',
+        'instagram-bg': '#F5F6F8',
       },
       backgroundColor: (theme) => ({
         ...theme('textColor'),
@@ -85,6 +86,7 @@ export default {
         primary: 'rgba(0, 115, 240, 0.16)',
         'primary-900': theme('textColor.primary.900'),
         'primary-700': 'rgba(48, 130, 246, 0.6)',
+        'primary-700-default': theme('textColor.primary.700'),
       }),
       borderWidth: {
         1: '0.5px',
