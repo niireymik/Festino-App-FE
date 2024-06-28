@@ -3,11 +3,15 @@
   <div class="p-5">
     <TimeTable class="shadow-4xl" :day="day"/>
   </div>
-  <MoreButton :componentName="club" />
+  <div class="flex justify-between items-center px-5 pt-4 pb-3">
+    <div class="text-xl font-semibold">동아리 공연</div>
+  </div>
   <div class="px-5">
     <ShowPreview />
   </div>
-  <MoreButton :componentName="talent" />
+  <div class="flex justify-between items-center px-5 pt-4 pb-3">
+    <div class="text-xl font-semibold">연예인 공연</div>
+  </div>
   <div class="px-5 pb-20">
     <ShowPreview />
   </div>
@@ -16,12 +20,9 @@
 <script setup>
 import { ref } from 'vue';
 import DateButtons from "../main/DateButtons.vue";
-import MoreButton from "../main/MoreButton.vue";
 import ShowPreview from "./ShowPreview.vue";
 import TimeTable from "./TimeTable.vue";
 
-const club = ref("동아리 공연");
-const talent = ref("연예인 공연");
 const day = ref(0);
 
 const updateDay = (selectedDay) => {
