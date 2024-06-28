@@ -35,18 +35,20 @@ watchEffect(() => {
   <div v-if="searchReserveModalState">
     <SearchReservationModal :handleCloseSearchReserveModal="handleCloseSearchReserveModal" />
   </div>
-  <div class="flex flex-col dynamic-padding pt-16 h-full justify-between w-full flex-grow">
-    <div class="px-4">
-      <InputName v-model="name" />
-      <InputPhoneNum v-model="phoneNum" />
+  <div class="w-screen">
+    <div class="w-full h-full flex flex-col dynamic-padding pt-16 justify-between flex-grow">
+      <div class="px-4">
+        <InputName v-model="name" />
+        <InputPhoneNum v-model="phoneNum" />
+      </div>
+      <button
+        class="w-full h-[54px] text-white font-bold rounded-xl mb-20 mt-5"
+        :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
+        @click="handleClickSearchButton()"
+      >
+        조회하기
+      </button>
     </div>
-    <button
-      class="w-full h-[54px] text-white font-bold rounded-xl mb-16 mt-5"
-      :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
-      @click="handleClickSearchButton()"
-    >
-      조회하기
-    </button>
   </div>
 </template>
 
