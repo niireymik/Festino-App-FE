@@ -8,45 +8,49 @@ const isActive = ref({
   예약조회: false,
 });
 
+const sliderContainer = ref(null);
+const startX = ref(0);
+const isDragging = ref(false);
+const currentPosition = ref(0);
+
 const toggleTab = (type) => {
   if (type === '예약하기') {
     isActive.value.예약하기 = true;
     isActive.value.예약조회 = false;
+    moveSlider(0);
   } else {
     isActive.value.예약하기 = false;
     isActive.value.예약조회 = true;
+    moveSlider(-100);
   }
 };
 
-const sliderContainer = ref(null);
-let startX = 0;
-let isDragging = false;
-
 const handleTouchStart = (event) => {
-  console.log('handleTouchStart');
-  console.log(event.touches[0].clientX);
-  startX = event.touches[0].clientX;
-  isDragging = true;
+  startX.value = event.touches[0].clientX;
+  isDragging.value = true;
 };
 
 const handleTouchMove = (event) => {
-  console.log('handleTouchMove');
-  if (!isDragging) return;
+  if (!isDragging.value) return;
   const touchX = event.touches[0].clientX;
-  const moveX = startX - touchX;
+  const moveX = startX.value - touchX;
 
-  if (moveX > 50) {
+  if (moveX > 100) {
     toggleTab('예약조회');
     handleTouchEnd();
-  } else if (moveX < -50) {
+  } else if (moveX < -100) {
     toggleTab('예약하기');
     handleTouchEnd();
   }
 };
 
 const handleTouchEnd = () => {
-  console.log('handleTouchEnd');
-  isDragging = false;
+  isDragging.value = false;
+};
+
+const moveSlider = (percentage) => {
+  currentPosition.value = percentage;
+  sliderContainer.value.style.transform = `translateX(${currentPosition}%)`;
 };
 
 onMounted(() => {
@@ -93,12 +97,14 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div ref="sliderContainer" class="relative w-full h-full overflow-x-scroll">
-      <div class="transition-transform duration-300 ease">
-        <div class="flex w-[200%]">
-          <Reservation />
-          <SearchReservation />
-        </div>
+    <div
+      class="transition-transform duration-500 ease"
+      ref="sliderContainer"
+      :style="{ transform: `translateX(${currentPosition}%)` }"
+    >
+      <div class="flex flex-row w-[200%]">
+        <Reservation />
+        <SearchReservation />
       </div>
     </div>
   </div>
