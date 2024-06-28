@@ -7,13 +7,13 @@
     <div class="text-xl font-semibold">동아리 공연</div>
   </div>
   <div class="px-5">
-    <ShowPreview />
+    <ShowPreview class="shadow-4xl"/>
   </div>
   <div class="flex justify-between items-center px-5 pt-4 pb-3">
     <div class="text-xl font-semibold">연예인 공연</div>
   </div>
   <div class="px-5 pb-20">
-    <ShowPreview />
+    <ShowPreview class="shadow-4xl" />
   </div>
 </template>
 
