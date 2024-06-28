@@ -73,6 +73,8 @@ export default {
         'tino-sing': "url('/images/tinos/tino-sing.png')",
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
+        'x-button': "url('/icons/x.png')",
+        'instagram': "url('/icons/instagram.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
