@@ -93,12 +93,10 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div ref="sliderContainer" class="relative overflow-hidden w-full h-full">
+    <div ref="sliderContainer" class="relative w-full h-full overflow-x-scroll">
       <div class="transition-transform duration-300 ease">
-        <div v-if="isActive['예약하기']" class="flex-grow flex-col flex">
+        <div class="flex w-[200%]">
           <Reservation />
-        </div>
-        <div v-if="isActive['예약조회']" class="flex-grow flex-col flex transition-transform duration-300 ease">
           <SearchReservation />
         </div>
       </div>
