@@ -1,9 +1,7 @@
 <template>
   <DateButtons @day="updateDay" />
   <div class="p-5">
-    <div class="h-[485px]">
-      <TimeTable :day="day" />
-    </div>
+    <TimeTable class="shadow-4xl" :day="day"/>
   </div>
   <MoreButton :componentName="club" />
   <div class="px-5">

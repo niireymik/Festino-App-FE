@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col items-center border-2 border-primary rounded-3xl py-5 h-[485px]">
+  <div class="flex flex-col items-center border-2 border-primary rounded-3xl py-5">
     <div class="px-5 pb-5">
       <div class="w-[300px] xs:w-[350px] sm:w-[390px] py-2 text-white bg-primary-700 rounded-full flex justify-center">
         DAY {{ day + 1 }} 공연 타임테이블
