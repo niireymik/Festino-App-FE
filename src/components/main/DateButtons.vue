@@ -1,21 +1,33 @@
 <template>
   <div class="flex px-4 xs:px-5 pt-5 justify-between">
-    <div class="flex gap-2 px-[10px] xs:gap-4 xs:px-[12px] sm:gap-5 sm:px-[20px] py-[10px] rounded-full shadow-4xl text-xs items-center bg-primary-700 text-white font-bold">
-      <div>DAY 1</div>
-      <div>24.06.13</div>
-    </div>
-    <div class="flex gap-2 px-[10px] xs:gap-4 xs:px-[12px] sm:gap-5 sm:px-[20px] py-[10px] rounded-3xl shadow-4xl text-xs items-center text-primary-700-light font-normal border-primary border-1">
-      <div>DAY 2</div>
-      <div>24.06.14</div>
-    </div>
-    <div class="flex gap-2 px-[10px] xs:gap-4 xs:px-[12px] sm:gap-5 sm:px-[20px] py-[10px] rounded-3xl shadow-4xl text-xs items-center text-primary-700-light font-normal border-primary border-1">
-      <div>DAY 3</div>
-      <div>24.06.15</div>
+    <div v-for="(dateItem, index) in date" :key="index">
+      <div 
+        class="flex justify-center gap-2 w-[105px] xs:gap-4 xs:w-[122px] sm:gap-5 sm:w-[140px] py-[10px] rounded-full shadow-4xl text-xs items-center cursor-pointer"
+        :class="selectedIndex == index ? 'bg-primary-700 text-white font-bold' : 'text-primary-700-light font-normal border-primary border-1'"
+        @click="handleClickDateButton(index)"
+      >
+        <div>DAY {{ index + 1 }}</div>
+        <div>{{ dateItem }}</div>
+      </div>
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, defineEmits } from 'vue';
+
+const emit = defineEmits(["day"]);
+const date = ref(["24.06.13", "24.06.14", "24.06.15"]);
+const selectedIndex = ref(0);
+
+const handleClickDateButton = (index) => {
+  if (selectedIndex.value === index) {
+    return;
+  }
+  selectedIndex.value = index;
+  emit("day", index);
+};
+</script>
 
 <style lang="css" scoped>
 </style>
