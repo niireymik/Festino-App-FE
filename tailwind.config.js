@@ -20,7 +20,7 @@ export default {
         primary: {
           900: {
             DEFAULT: '#0073F0',
-            light: 'rgba(0, 115, 240, 0.16)',
+            light: 'rgba(0, 115, 240, 0.06)',
           },
           700: {
             DEFAULT: '#3082F6',
@@ -75,7 +75,7 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        'instagram': "url('/icons/instagram.png')",
+        instagram: "url('/icons/instagram.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
