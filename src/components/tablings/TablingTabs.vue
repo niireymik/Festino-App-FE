@@ -3,6 +3,8 @@ import { onMounted, ref } from 'vue';
 import Reservation from './Reservation.vue';
 import SearchReservation from './SearchReservation.vue';
 
+const SLIDE_LIMIT = 100;
+
 const isActive = ref({
   예약하기: true,
   예약조회: false,
@@ -21,7 +23,7 @@ const toggleTab = (type) => {
   } else {
     isActive.value.예약하기 = false;
     isActive.value.예약조회 = true;
-    moveSlider(-100);
+    moveSlider(-SLIDE_LIMIT);
   }
 };
 
@@ -35,10 +37,10 @@ const handleTouchMove = (event) => {
   const touchX = event.touches[0].clientX;
   const moveX = startX.value - touchX;
 
-  if (moveX > 100) {
+  if (moveX > SLIDE_LIMIT) {
     toggleTab('예약조회');
     handleTouchEnd();
-  } else if (moveX < -100) {
+  } else if (moveX < -SLIDE_LIMIT) {
     toggleTab('예약하기');
     handleTouchEnd();
   }
