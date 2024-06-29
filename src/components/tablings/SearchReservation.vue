@@ -20,7 +20,7 @@ const handleClickSearchButton = () => {
 </script>
 
 <template>
-  <div class="w-screen">
+  <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full h-full flex flex-col dynamic-padding pt-12 justify-between flex-grow">
       <div class="px-4">
         <InputName v-model="name" />
