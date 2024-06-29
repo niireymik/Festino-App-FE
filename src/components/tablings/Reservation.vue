@@ -20,7 +20,7 @@ const handleClickReserveButton = () => {
 <template>
   <div class="w-screen max-w-[500px]">
     <div class="w-full flex justify-center">
-      <div class="dynamic-grid-container overflow-x-auto pt-16">
+      <div class="dynamic-grid-container overflow-x-auto pt-10">
         <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
           <div
             v-for="(item, index) in 20"
