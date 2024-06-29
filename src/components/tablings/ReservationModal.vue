@@ -56,8 +56,8 @@ onMounted(() => {
           <div>103번</div>
         </div>
         <div class="flex flex-row justify-between">
-          <div>예상 대기시간</div>
-          <div>40분</div>
+          <div>현재 대기 팀</div>
+          <div>5팀</div>
         </div>
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
