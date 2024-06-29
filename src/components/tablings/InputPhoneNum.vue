@@ -3,7 +3,7 @@
   <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
     <img src="/icons/phone.svg" class="w-6 h-6" />
     <input
-      class="flex-1 focus:outline-none"
+      class="flex-1 focus:outline-none bg-inherit"
       type="tel"
       placeholder="010-1234-5678"
       @input="formattedPhoneNum($event), updateInputValue($event.target.value)"

@@ -3,7 +3,7 @@
   <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5 mb-[30px]">
     <img src="/icons/person.svg" class="w-6 h-6" />
     <input
-      class="flex-1 focus:outline-none"
+      class="flex-1 focus:outline-none bg-inherit"
       type="text"
       :value="inputValue"
       @input="(event) => updateInputValue(event.target.value)"

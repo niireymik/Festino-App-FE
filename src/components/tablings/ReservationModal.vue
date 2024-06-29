@@ -41,10 +41,12 @@ onMounted(() => {
         <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
           <img src="/icons/person-plus.svg" class="w-6 h-6" />
           <input
-            class="flex-1 focus:outline-none"
-            type="number"
+            class="flex-1 focus:outline-none bg-inherit"
+            type="text"
             placeholder="00명"
             v-model="personNum"
+            inputmode="numeric"
+            pattern="\d*"
             maxlength="2"
             @input="handlePersonNumInput($event)"
           />
