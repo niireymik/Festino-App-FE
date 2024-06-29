@@ -100,10 +100,12 @@ onMounted(() => {
       </div>
     </div>
     <div
-      class="transition-transform duration-500 ease"
+      :class="`transition-transform duration-500 ease ${
+        currentPosition === 0 ? 'translate-x-0' : '-translate-x-full'
+      } `"
       ref="sliderContainer"
-      :style="{ transform: `translateX(${currentPosition}%)` }"
     >
+      >
       <div class="flex flex-row w-[200%]">
         <Reservation />
         <SearchReservation />
