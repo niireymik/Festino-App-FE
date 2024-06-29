@@ -39,10 +39,10 @@ onMounted(() => {
         </div>
         <div class="text-xs">인원 수</div>
         <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-          <img src="/icons/person.svg" class="w-6 h-6" />
+          <img src="/icons/person-plus.svg" class="w-6 h-6" />
           <input
             class="flex-1 focus:outline-none"
-            type="text"
+            type="number"
             placeholder="00명"
             v-model="personNum"
             maxlength="2"
