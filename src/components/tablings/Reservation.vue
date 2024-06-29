@@ -18,9 +18,9 @@ const handleClickReserveButton = () => {
 };
 </script>
 <template>
-  <div class="w-screen max-w-[500px]">
+  <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-center">
-      <div class="dynamic-grid-container overflow-x-auto pt-16">
+      <div class="dynamic-grid-container overflow-x-auto pt-10" @touchstart.stop="" id="reserve-container">
         <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
           <div
             v-for="(item, index) in 20"
@@ -54,8 +54,9 @@ const handleClickReserveButton = () => {
 
 <style lang="css" scoped>
 .dynamic-item {
-  width: calc(100vw * (190 / 430)) !important;
-  max-width: calc(500px * (190 / 430)) !important;
+  width: calc(100vw * 190 / 430) !important;
+  max-width: calc(500px * 190 / 430) !important;
+  min-width: calc(375px * 190 / 430) !important;
 }
 
 .dynamic-grid-container {
@@ -70,5 +71,12 @@ const handleClickReserveButton = () => {
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
+}
+
+#reserve-container::-webkit-scrollbar {
+  display: none;
+}
+#reserve-container {
+  scrollbar-width: none;
 }
 </style>

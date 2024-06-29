@@ -21,15 +21,11 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="dynamic-height flex flex-col">
+  <div class="dynamic-height flex flex-col relative">
     <TablingBanner />
     <TablingTabs />
-  </div>
-  <div v-if="reserveModalState">
-    <ReservationModal />
-  </div>
-  <div v-if="searchReserveModalState">
-    <SearchReservationModal />
+    <ReservationModal v-if="reserveModalState" />
+    <SearchReservationModal v-if="searchReserveModalState" />
   </div>
 </template>
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
@@ -8,17 +8,29 @@ const name = ref('');
 const phoneNum = ref('');
 const personNum = ref('');
 
+const reserveModal = ref(null);
+
 const handlePersonNumInput = (event) => {
   const inputValue = event.target.value.replace(/\D/g, '');
   event.target.value = inputValue;
 };
 
 const { closeReserveModal } = useTablingModalStore();
+
+onMounted(() => {
+  const height = reserveModal.value.offsetHeight;
+  const currentScroll = window.scrollY;
+
+  reserveModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
+});
 </script>
 
 <template>
-  <div class="w-full h-full fixed top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px]">
+  <div class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden">
+    <div
+      class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
+      ref="reserveModal"
+    >
       <div class="text-secondary-700 text-xl font-semibold">디자인과 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
         <InputName v-model="name" />

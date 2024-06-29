@@ -3,12 +3,15 @@ import { onMounted, ref } from 'vue';
 import Reservation from './Reservation.vue';
 import SearchReservation from './SearchReservation.vue';
 
+const SLIDE_LIMIT = 100;
+
 const isActive = ref({
   예약하기: true,
   예약조회: false,
 });
 
 const sliderContainer = ref(null);
+const tabContiner = ref(null);
 const startX = ref(0);
 const isDragging = ref(false);
 const currentPosition = ref(0);
@@ -21,7 +24,7 @@ const toggleTab = (type) => {
   } else {
     isActive.value.예약하기 = false;
     isActive.value.예약조회 = true;
-    moveSlider(-100);
+    moveSlider(-SLIDE_LIMIT);
   }
 };
 
@@ -35,10 +38,10 @@ const handleTouchMove = (event) => {
   const touchX = event.touches[0].clientX;
   const moveX = startX.value - touchX;
 
-  if (moveX > 100) {
+  if (moveX > SLIDE_LIMIT) {
     toggleTab('예약조회');
     handleTouchEnd();
-  } else if (moveX < -100) {
+  } else if (moveX < -SLIDE_LIMIT) {
     toggleTab('예약하기');
     handleTouchEnd();
   }
@@ -55,20 +58,29 @@ const moveSlider = (percentage) => {
 
 onMounted(() => {
   const slider = sliderContainer.value;
+  const tab = tabContiner.value;
   slider.addEventListener('touchstart', handleTouchStart);
   slider.addEventListener('touchmove', handleTouchMove);
   slider.addEventListener('touchend', handleTouchEnd);
+
+  tab.addEventListener('touchstart', handleTouchStart);
+  tab.addEventListener('touchmove', handleTouchMove);
+  tab.addEventListener('touchend', handleTouchEnd);
 
   return () => {
     slider.removeEventListener('touchstart', handleTouchStart);
     slider.removeEventListener('touchmove', handleTouchMove);
     slider.removeEventListener('touchend', handleTouchEnd);
+
+    tab.removeEventListener('touchstart', handleTouchStart);
+    tab.removeEventListener('touchmove', handleTouchMove);
+    tab.removeEventListener('touchend', handleTouchEnd);
   };
 });
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" ref="tabContiner">
     <div class="dynamic-padding mt-[13px] h-auto w-full rounded-3xl bg-inherit z-50 absolute">
       <div class="flex gap-[30px]">
         <div
@@ -98,10 +110,12 @@ onMounted(() => {
       </div>
     </div>
     <div
-      class="transition-transform duration-500 ease"
+      :class="`transition-transform duration-500 ease ${
+        currentPosition === 0 ? 'translate-x-0' : '-translate-x-full'
+      } `"
       ref="sliderContainer"
-      :style="{ transform: `translateX(${currentPosition}%)` }"
     >
+      >
       <div class="flex flex-row w-[200%]">
         <Reservation />
         <SearchReservation />
