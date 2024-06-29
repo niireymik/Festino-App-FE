@@ -11,6 +11,7 @@ const isActive = ref({
 });
 
 const sliderContainer = ref(null);
+const tabContiner = ref(null);
 const startX = ref(0);
 const isDragging = ref(false);
 const currentPosition = ref(0);
@@ -57,20 +58,29 @@ const moveSlider = (percentage) => {
 
 onMounted(() => {
   const slider = sliderContainer.value;
+  const tab = tabContiner.value;
   slider.addEventListener('touchstart', handleTouchStart);
   slider.addEventListener('touchmove', handleTouchMove);
   slider.addEventListener('touchend', handleTouchEnd);
+
+  tab.addEventListener('touchstart', handleTouchStart);
+  tab.addEventListener('touchmove', handleTouchMove);
+  tab.addEventListener('touchend', handleTouchEnd);
 
   return () => {
     slider.removeEventListener('touchstart', handleTouchStart);
     slider.removeEventListener('touchmove', handleTouchMove);
     slider.removeEventListener('touchend', handleTouchEnd);
+
+    tab.removeEventListener('touchstart', handleTouchStart);
+    tab.removeEventListener('touchmove', handleTouchMove);
+    tab.removeEventListener('touchend', handleTouchEnd);
   };
 });
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative" ref="tabContiner">
     <div class="dynamic-padding mt-[13px] h-auto w-full rounded-3xl bg-inherit z-50 absolute">
       <div class="flex gap-[30px]">
         <div
