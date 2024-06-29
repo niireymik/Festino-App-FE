@@ -1,12 +1,24 @@
 <script setup>
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+import { onMounted, ref } from 'vue';
 
+const serachReserveModal = ref(null);
 const { closeSearchReserveModal } = useTablingModalStore();
+
+onMounted(() => {
+  const height = serachReserveModal.value.offsetHeight;
+  const currentScroll = window.scrollY;
+
+  serachReserveModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
+});
 </script>
 
 <template>
-  <div class="w-full h-full fixed top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="dynamic-modal-width h-[458px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px]">
+  <div class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex overflow-hidden">
+    <div
+      ref="serachReserveModal"
+      class="dynamic-modal-width h-[458px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
+    >
       <!-- todo when design complete -->
       <div class="w-full h-[27px]">디자인과 기계공학 예약추가</div>
       <div class="w-full h-[141px] flex flex-col gap-1 items-center justify-center leading-none mb-3">
