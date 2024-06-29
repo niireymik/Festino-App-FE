@@ -1,6 +1,7 @@
 <script setup>
-import { ref, watchEffect } from 'vue';
-import ReservationModal from './ReservationModal.vue';
+import { ref } from 'vue';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+const { openReserveModal } = useTablingModalStore();
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -11,56 +12,43 @@ const hanldeClickMajorBox = (index) => {
   selectedIndex.value = index;
 };
 
-const reserveModalState = ref(false);
 const handleClickReserveButton = () => {
   if (selectedIndex.value == -1) return;
-  reserveModalState.value = true;
+  openReserveModal();
 };
-const handleCloseReserveModal = () => {
-  reserveModalState.value = false;
-};
-const handleStopScroll = () => {
-  if (reserveModalState.value) document.documentElement.style.overflow = 'hidden';
-  else document.documentElement.style.overflow = 'auto';
-};
-
-watchEffect(() => {
-  handleStopScroll();
-});
 </script>
 <template>
-  <div v-if="reserveModalState">
-    <ReservationModal :handleCloseReserveModal="handleCloseReserveModal" />
-  </div>
-  <div class="w-full flex justify-center">
-    <div class="dynamic-grid-container overflow-x-auto pt-16">
-      <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
-        <div
-          v-for="(item, index) in 20"
-          class="bg-primary-300 aspect-w-1 aspect-h-1 dynamic-item rounded-3xl"
-          @click="hanldeClickMajorBox(index)"
-          :class="{
-            'outline -outline-offset-4 outline-4 outline-primary-900': selectedIndex == index,
-            'bg-secondary-100 opacity-50 rounded-3xl': selectedIndex != index && selectedIndex != -1,
-          }"
-        >
-          <div class="flex flex-col justify-end text-white p-3">
-            <h2 class="font-bold mb-1 break-keep">에너지 전자 공학과</h2>
-            <h2 class="text-2xs">대기중인 팀 : 9</h2>
+  <div class="w-screen max-w-[500px]">
+    <div class="w-full flex justify-center">
+      <div class="dynamic-grid-container overflow-x-auto pt-16">
+        <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
+          <div
+            v-for="(item, index) in 20"
+            class="bg-primary-300 aspect-w-1 aspect-h-1 dynamic-item rounded-3xl"
+            @click="hanldeClickMajorBox(index)"
+            :class="{
+              'outline -outline-offset-4 outline-4 outline-primary-900': selectedIndex == index,
+              'bg-secondary-100 opacity-50 rounded-3xl': selectedIndex != index && selectedIndex != -1,
+            }"
+          >
+            <div class="flex flex-col justify-end text-white p-3">
+              <h2 class="font-bold mb-1 break-keep">에너지 전자 공학과</h2>
+              <h2 class="text-2xs">대기중인 팀 : 9</h2>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-16">
-    <button class="bg-secondary-100 h-[54px] rounded-xl w-full">자세히보기</button>
-    <button
-      class="h-[54px] rounded-xl w-full"
-      :class="selectedIndex != -1 ? 'bg-primary-900' : 'bg-secondary-100'"
-      @click="handleClickReserveButton()"
-    >
-      예약하기
-    </button>
+    <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-20">
+      <button class="bg-secondary-100 h-[54px] rounded-xl w-1/2">자세히보기</button>
+      <button
+        class="h-[54px] rounded-xl w-1/2"
+        :class="selectedIndex != -1 ? 'bg-primary-900' : 'bg-secondary-100'"
+        @click="handleClickReserveButton()"
+      >
+        예약하기
+      </button>
+    </div>
   </div>
 </template>
 

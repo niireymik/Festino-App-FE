@@ -1,10 +1,7 @@
 <script setup>
-const props = defineProps({
-  handleCloseSearchReserveModal: {
-    type: Function,
-    required: true,
-  },
-});
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+
+const { closeSearchReserveModal } = useTablingModalStore();
 </script>
 
 <template>
@@ -41,7 +38,7 @@ const props = defineProps({
         <button class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl">예약 취소</button>
         <button
           class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl"
-          @click="handleCloseSearchReserveModal()"
+          @click="closeSearchReserveModal()"
         >
           확인
         </button>
