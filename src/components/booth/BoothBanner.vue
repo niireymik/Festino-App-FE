@@ -1,9 +1,7 @@
 <template>
   <div class="relative">
     <div class="w-full h-[235px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
-      <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px] prev-btn-shadow"
-        @click="handleClickPrevButton()"
-      ></i>
+      <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px]"></i>
       <div class="absolute w-auto h-auto pt-14 xs:dynamic-top dynamic-padding sm:pt-[72px]">
         <div
           class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard"
@@ -11,12 +9,12 @@
           Festino
         </div>
         <div
-          class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]"
+          class="bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]"
         >
           티노와 함께
         </div>
         <div
-          class="banner-title-shadow bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-[25px] xs:text-3xl sm:text-[32px]"
+          class="bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-2xl xs:text-2xl sm:text-3xl"
         >
           축제 부스 알아보기
         </div>
@@ -28,13 +26,12 @@
 
 <script setup>
 import 'primeicons/primeicons.css';
-
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const handleClickPrevButton = () => {
-  router.push({ name: 'main' });
+  router.push({ name: "main" });
 };
 </script>
 
@@ -45,11 +42,5 @@ const handleClickPrevButton = () => {
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
-}
-.banner-title-shadow {
-  text-shadow: 0px 4px 5px rgba(68, 68, 68, 0.15);
-}
-.prev-btn-shadow {
-  text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
 }
 </style>
