@@ -21,7 +21,7 @@ onMounted(() => {
 });
 </script>
 <template>
-  <div class="dynamic-height flex flex-col relative">
+  <div class="min-h-screen flex flex-col relative">
     <TablingBanner />
     <TablingTabs />
     <ReservationModal v-if="reserveModalState" />
@@ -30,11 +30,6 @@ onMounted(() => {
 </template>
 
 <style lang="css" scoped>
-.dynamic-height {
-  min-height: calc(100vh - 60px) !important;
-  height: auto;
-}
-
 .dynamic-item {
   min-width: 100px;
   min-height: 100px;
