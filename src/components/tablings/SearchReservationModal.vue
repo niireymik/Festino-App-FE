@@ -16,7 +16,7 @@ onMounted(() => {
 <template>
   <div
     class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex overflow-hidden"
-    @click="closeSearchReserveModal"
+    @click="closeSearchReserveModal()"
   >
     <div
       ref="serachReserveModal"
