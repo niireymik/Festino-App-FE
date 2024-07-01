@@ -1,9 +1,7 @@
 <template>
-  <Transition name="modalFadeEffect">
-    <div v-if="performerModalState" class="fixed z-50">
-      <PerformerModal :handleClosePerformerModal="handleClosePerformerModal" />
-    </div>
-  </Transition>
+  <div v-if="performerModalState" class="fixed z-50">
+    <PerformerModal :handleClosePerformerModal="handleClosePerformerModal" />
+  </div>
   <div class="w-full h-[178px] bg-white rounded-3xl border-primary border-1" v-bind="$attrs">
     <div class="flex pt-[17px] dynamic-padding justify-between">
       <div class="flex flex-col items-center" v-for="item in 3" :key="item"  @click="handleClickModalButton()">
@@ -43,23 +41,5 @@ watchEffect(() => {
 .dynamic-padding {
   padding-left: calc(16 / 390 * 100%) !important;
   padding-right: calc(16 / 390 * 100%) !important;
-}
-.modalFadeEffect-enter-from {
-  opacity: 0;
-}
-.modalFadeEffect-enter-active {
-  transition: all 0.5s;
-}
-.modalFadeEffect-enter-to {
-  opacity: 1;
-}
-.modalFadeEffect-leave-from {
-  opacity: 1;
-}
-.modalFadeEffect-leave-active {
-  transition: all 0.2s;
-}
-.modalFadeEffect-leave-to {
-  opacity: 0;
 }
 </style>
