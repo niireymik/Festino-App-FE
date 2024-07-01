@@ -26,10 +26,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden">
+  <div
+    class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden"
+    @click="closeReserveModal"
+  >
     <div
       class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
       ref="reserveModal"
+      @click.stop=""
     >
       <div class="text-secondary-700 text-xl font-semibold">디자인과 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
