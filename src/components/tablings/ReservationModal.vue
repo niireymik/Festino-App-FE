@@ -28,7 +28,7 @@ onMounted(() => {
 <template>
   <div
     class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden"
-    @click="closeReserveModal"
+    @click="closeReserveModal()"
   >
     <div
       class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
