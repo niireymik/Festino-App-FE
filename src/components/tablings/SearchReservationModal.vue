@@ -14,10 +14,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex overflow-hidden">
+  <div
+    class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex overflow-hidden"
+    @click="closeSearchReserveModal"
+  >
     <div
       ref="serachReserveModal"
       class="dynamic-modal-width h-[449px] bg-white rounded-3xl flex flex-col items-center justify-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
+      @click.stop=""
     >
       <div class="w-full h-[19px] text-secondary-700 font-semibold text-center">디자인과 부스 예약</div>
       <div class="w-full h-[122px] flex flex-col gap-1 items-center justify-start leading-none mb-3">
