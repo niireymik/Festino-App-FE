@@ -1,6 +1,6 @@
 <template>
   <div class="dynamic-padding w-full h-auto">
-    <div v-for="i in 5" :key="i" class="pb-2">
+    <div @click="handleClickBoothIntroduction(i)" v-for="i in 5" :key="i" class="pb-2">
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light px-4 py-3"
       >
@@ -42,8 +42,14 @@
   </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const handleClickBoothIntroduction = (i) => {
+  router.push({ path: `/booth/detail/${i}` });
+}
 </script>
 
 <style lang="css" scoped>
