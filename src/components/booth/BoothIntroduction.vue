@@ -4,7 +4,7 @@
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light px-4 py-3"
       >
-        <div class="w-[222px] flex flex-col justify-center">
+        <div class="w-[222px] flex flex-col justify-center pr-1">
           <div
             class="px-2 py-1 w-fit flex justify-center text-center rounded-3.5xl border border-primary-900 text-primary-900 text-3xs font-pretendard font-semibold"
           >
