@@ -8,8 +8,8 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="w-full h-full fixed top-0 left-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="w-[266px] h-[248px] bg-white rounded-2xl flex flex-col items-center">
+  <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center" @click="handleClosePerformerModal()">
+    <div class="w-[266px] h-[248px] bg-white rounded-2xl flex flex-col items-center" @click.stop>
       <div class="w-full flex justify-end pt-2 px-2.5" @click="handleClosePerformerModal()">
         <div class="w-[12px] h-[12px] bg-x-button bg-center bg-no-repeat bg-[length:12px_12px]"></div>
       </div>
