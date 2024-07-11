@@ -32,20 +32,20 @@ const handleClickFestinoButton = () => {
         </div>
         <div class="relative">
           <img src="/icons/orders/tino-order-shortcut.svg" class="w-full h-full" />
-          <div class="absolute top-[37px] right-[31px] text-white font-jalnan2 text-xs">
-            Festino와 함께하는 2024 한국공학대학교 축제
+          <div class="absolute flex flex-col top-[28px] right-[25px] sm:right-[40px] items-end">
+            <div class="text-white font-jalnan2 text-xs">Festino와 함께하는 2024 한국공학대학교 축제</div>
+            <div
+              class="bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text font-jalnan2 text-2xl"
+            >
+              ‘한국공대 축제’
+            </div>
+            <button
+              class="border-2 border-white w-[155px] h-[26px] text-white font-bold text-xs rounded-3.5xl mt-1"
+              @click="handleClickFestinoButton()"
+            >
+              페스티노 사이트 바로가기 ->
+            </button>
           </div>
-          <div
-            class="absolute top-[57px] right-[31px] bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text font-jalnan2 text-2xl"
-          >
-            ‘한국공대 축제’
-          </div>
-          <button
-            class="absolute top-[100px] right-[31px] border-2 border-white w-[155px] h-[26px] text-white font-bold text-xs rounded-3.5xl"
-            @click="handleClickFestinoButton()"
-          >
-            페스티노 사이트 바로가기 ->
-          </button>
         </div>
       </div>
     </div>
