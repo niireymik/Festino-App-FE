@@ -9,6 +9,7 @@ import BoothDetailView from '@/views/BoothDetailView.vue';
 import OrderMainView from '@/views/orders/OrderMainView.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import OrderLayout from '@/layouts/OrderLayout.vue';
+import OrderPaymentView from '@/views/orders/OrderPaymentView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,7 +49,18 @@ const router = createRouter({
     {
       path: '/order',
       component: OrderLayout,
-      children: [{ path: '', name: 'order-main', component: OrderMainView }],
+      children: [
+        {
+          path: '',
+          name: 'order-main',
+          component: OrderMainView
+        },
+        {
+          path: 'payment',
+          name: 'order-payment',
+          component: OrderPaymentView
+        },
+      ],
     },
   ],
 });
