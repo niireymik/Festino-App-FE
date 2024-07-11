@@ -9,6 +9,7 @@ export default {
           900: {
             DEFAULT: '#0073F0',
             light: 'rgba(0, 115, 240, 0.2)',
+            lighter: 'rgba(0, 115, 240, 0.12)',
           },
         },
         secondary: {
@@ -75,13 +76,16 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        instagram: "url('/icons/instagram.png')",
+        'instagram': "url('/icons/instagram.png')",
+        'tino-order-banner': "url('images/orders/tino-order-banner.png')",
+        'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
         '3xl': '1.25rem', // 20px
         '3.5xl': '1.5rem', // 24px
+        '10xl': '3.125rem', //50px
       },
       borderColor: (theme) => ({
         primary: 'rgba(0, 115, 240, 0.16)',
@@ -94,6 +98,7 @@ export default {
         2: '1px',
       },
       boxShadow: {
+        xs: '0 0 12px 0 rgba(0, 0, 0, 0.08)',
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
       },
