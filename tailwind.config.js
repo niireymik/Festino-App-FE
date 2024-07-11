@@ -10,6 +10,7 @@ export default {
             DEFAULT: '#0073F0',
             light: 'rgba(0, 115, 240, 0.2)',
             lighter: 'rgba(0, 115, 240, 0.12)',
+            lightest: 'rgba(0, 115, 240, 0.06)',
           },
         },
         secondary: {
@@ -43,6 +44,7 @@ export default {
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
+        'warning': '#FF5252',
       },
       backgroundColor: (theme) => ({
         ...theme('textColor'),
@@ -80,6 +82,7 @@ export default {
         'tino-order-banner': "url('images/orders/tino-order-banner.png')",
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
+        'board-icon': "url('/icons/orders/board.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
@@ -92,6 +95,7 @@ export default {
         'primary-900': theme('textColor.primary.900'),
         'primary-700': 'rgba(48, 130, 246, 0.6)',
         'primary-700-default': theme('textColor.primary.700'),
+        'secondary-300': theme('textColor.secondary.300'),
       }),
       borderWidth: {
         1: '0.5px',
