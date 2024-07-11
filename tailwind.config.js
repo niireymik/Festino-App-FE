@@ -75,7 +75,8 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        instagram: "url('/icons/instagram.png')",
+        'instagram': "url('/icons/instagram.png')",
+        'pin-icon': "url('/icons/pin.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
