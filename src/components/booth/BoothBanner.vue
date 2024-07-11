@@ -1,8 +1,6 @@
 <template>
   <div class="relative">
-    <div @click="handleClickBoothBackArrow()" 
-          class="z-4 bg-back-arrow-white w-[18px] h-[18px] bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto"></div>
-    <div class="w-full h-[235px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
+    <div class="w-full h-[220px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
       <div class="absolute w-auto h-auto top-14 xs:dynamic-top dynamic-padding sm:top-[72px]">
         <div
           class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard"
@@ -26,13 +24,6 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const handleClickBoothBackArrow = () => {
-  router.push({ path: '/' });
-}
 </script>
 
 <style lang="css" scoped>

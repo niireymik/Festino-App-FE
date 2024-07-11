@@ -45,6 +45,7 @@ export default {
       },
       backgroundColor: (theme) => ({
         ...theme('textColor'),
+        'primary-900-light-12': 'rgba(0, 115, 240, 0.12)'
       }),
       fontSize: {
         '3xs': '0.5rem', // 8px
