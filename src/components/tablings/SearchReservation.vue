@@ -26,13 +26,15 @@ const handleClickSearchButton = () => {
         <InputName v-model="name" />
         <InputPhoneNum v-model="phoneNum" />
       </div>
-      <button
-        class="w-full h-[54px] text-white font-bold rounded-xl mb-20 mt-5"
-        :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
-        @click="handleClickSearchButton()"
-      >
-        조회하기
-      </button>
+      <div class="px-5">
+        <button
+          class="w-full h-[60px] text-white font-bold rounded-10xl mb-20 mt-5"
+          :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
+          @click="handleClickSearchButton()"
+        >
+          조회하기
+        </button>
+      </div>
     </div>
   </div>
 </template>
