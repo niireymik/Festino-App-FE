@@ -1,17 +1,3 @@
-<template>
-  <div class="text-xs">전화번호</div>
-  <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-    <img src="/icons/phone.svg" class="w-6 h-6" />
-    <input
-      class="flex-1 focus:outline-none bg-inherit"
-      type="tel"
-      placeholder="010-1234-5678"
-      @input="formattedPhoneNum($event), updateInputValue($event.target.value)"
-      maxlength="13"
-    />
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue';
 
@@ -21,8 +7,9 @@ const props = defineProps({
     default: '',
   },
 });
-const emit = defineEmits(['update:modelValue']);
 
+const isFocused = ref(false);
+const emit = defineEmits(['update:modelValue']);
 const inputValue = ref(props.modelValue);
 
 const updateInputValue = (value) => {
@@ -38,5 +25,24 @@ const formattedPhoneNum = (event) => {
   }
 };
 </script>
+
+<template>
+  <div class="text-xs">전화번호</div>
+  <div
+    class="h-11 w-full flex flex-row items-center py-2.5 gap-2.5"
+    :class="{ 'border-b-2 border-primary-900': isFocused, 'border-b-1 border-secondary-500': !isFocused }"
+  >
+    <img src="/icons/phone.svg" class="w-6 h-6" />
+    <input
+      class="flex-1 focus:outline-none bg-inherit"
+      type="tel"
+      placeholder="010-1234-5678"
+      @input="formattedPhoneNum($event), updateInputValue($event.target.value)"
+      maxlength="13"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
+    />
+  </div>
+</template>
 
 <style lang="css" scoped></style>

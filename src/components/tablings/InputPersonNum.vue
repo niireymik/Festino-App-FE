@@ -16,26 +16,28 @@ const updateInputValue = (value) => {
   inputValue.value = value;
   emit('update:modelValue', value);
 };
-const limitInputLength = (event) => {
-  if (event.target.value.length > 10) {
-    event.target.value = event.target.value.slice(0, 10);
-  }
+
+const handlePersonNumInput = (event) => {
+  const inputValue = event.target.value.replace(/\D/g, '');
+  event.target.value = inputValue;
 };
 </script>
+
 <template>
-  <div class="text-xs">이름</div>
+  <div class="text-xs">인원 수</div>
   <div
-    class="h-11 w-full flex flex-row items-center py-2.5 gap-2.5 mb-[30px]"
+    class="h-11 w-full flex flex-row items-center py-2.5 gap-2.5"
     :class="{ 'border-b-2 border-primary-900': isFocused, 'border-b-1 border-secondary-500': !isFocused }"
   >
-    <img src="/icons/person.svg" class="w-6 h-6" />
+    <img src="/icons/person-plus.svg" class="w-6 h-6" />
     <input
       class="flex-1 focus:outline-none bg-inherit"
       type="text"
-      :value="inputValue"
-      @input="limitInputLength($event), updateInputValue($event.target.value)"
-      placeholder="티노"
-      maxlength="10"
+      placeholder="00명"
+      inputmode="numeric"
+      pattern="\d*"
+      maxlength="2"
+      @input="handlePersonNumInput($event), updateInputValue($event.target.value)"
       @focus="isFocused = true"
       @blur="isFocused = false"
     />
