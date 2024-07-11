@@ -1,8 +1,9 @@
 <template>
   <div class="relative">
+    <div @click="handleClickBoothBackArrow()" 
+          class="z-4 bg-back-arrow-white w-[18px] h-[18px] bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto"></div>
     <div class="w-full h-[235px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
-      <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px]"></i>
-      <div class="absolute w-auto h-auto pt-14 xs:dynamic-top dynamic-padding sm:pt-[72px]">
+      <div class="absolute w-auto h-auto top-14 xs:dynamic-top dynamic-padding sm:top-[72px]">
         <div
           class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard"
         >
@@ -25,14 +26,13 @@
 </template>
 
 <script setup>
-import 'primeicons/primeicons.css';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const handleClickPrevButton = () => {
-  router.push({ name: "main" });
-};
+const handleClickBoothBackArrow = () => {
+  router.push({ path: '/' });
+}
 </script>
 
 <style lang="css" scoped>

@@ -76,9 +76,10 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        instagram: "url('/icons/instagram.png')",
+        'instagram': "url('/icons/instagram.png')",
         'tino-order-banner': "url('images/orders/tino-order-banner.png')",
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
+        'back-arrow-white': "url('/icons/arrow-back-white.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
