@@ -5,15 +5,20 @@ import { ref, watchEffect } from 'vue';
 
 const router = useRouter();
 const isMain = ref(false);
+const title = ref('');
 
 watchEffect(() => {
   const currentRoute = router.currentRoute.value;
   const currentRouteName = currentRoute.name;
   isMain.value = currentRouteName === 'order';
+  if (currentRouteName === 'order-search') {
+    title.value = '주문 조회';
+  }
+  // ADD 주문하기
 });
 </script>
 <template>
-  <Header v-if="!isMain" />
+  <Header v-if="!isMain" :title="title" />
   <RouterView />
 </template>
 
