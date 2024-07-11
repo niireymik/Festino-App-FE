@@ -5,6 +5,10 @@ import router from '@/router';
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
 };
+const handleClickOrderSearchButton = () => {
+  console.log('clicked');
+  router.push({ name: 'order-search' });
+};
 </script>
 <template>
   <div class="flex flex-col">
@@ -18,15 +22,16 @@ const handleClickFestinoButton = () => {
       <div class="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
         <div class="flex flex-row justify-evenly gap-x-2">
           <div
-            class="h-[280px] w-[190px] min-w-[170px] rounded-3xl flex flex-col justify-start items-center border-2 border-primary-900-lighter gap-6 shadow-xs overflow-clip"
+            class="h-[280px] w-[190px] min-w-[170px] rounded-3xl flex flex-col justify-start items-center border-2 border-primary-900-lighter gap-6 shadow-xs overflow-clip cursor-pointer"
           >
-            <div class="font-jalnan2 text-2xl text-primary-900 pt-5 cursor-pointer">주문하기</div>
+            <div class="font-jalnan2 text-2xl text-primary-900 pt-5">주문하기</div>
             <img src="/icons/orders/orderIcon.svg" />
           </div>
           <div
-            class="h-[280px] w-[190px] min-w-[170px] rounded-3xl flex flex-col justify-start items-center border-2 border-primary-900-lighter gap-6 shadow-xs"
+            class="h-[280px] w-[190px] min-w-[170px] rounded-3xl flex flex-col justify-start items-center border-2 border-primary-900-lighter gap-6 shadow-xs cursor-pointer"
+            @click="handleClickOrderSearchButton()"
           >
-            <div class="font-jalnan2 text-2xl text-primary-900 pt-5 cursor-pointer">주문조회</div>
+            <div class="font-jalnan2 text-2xl text-primary-900 pt-5">주문조회</div>
             <img src="/icons/orders/orderSearch.svg" />
           </div>
         </div>
