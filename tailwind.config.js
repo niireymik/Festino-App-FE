@@ -77,8 +77,8 @@ export default {
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
         instagram: "url('/icons/instagram.png')",
-        'tino-order-banner': "url('images/orders/tino-order-banner.png')",
-        'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
+        'tino-order-banner': "url('/images/orders/tino-order-banner.png')",
+        'tino-order-shortcut': "url('/images/orders/tino-order-shortcut.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px

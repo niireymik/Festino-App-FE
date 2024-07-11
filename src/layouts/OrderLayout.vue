@@ -9,7 +9,7 @@ const isMain = ref(false);
 watchEffect(() => {
   const currentRoute = router.currentRoute.value;
   const currentRouteName = currentRoute.name;
-  isMain.value = currentRouteName === 'order-main';
+  isMain.value = currentRouteName === 'order';
 });
 </script>
 <template>
