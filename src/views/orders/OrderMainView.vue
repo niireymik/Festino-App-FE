@@ -8,7 +8,7 @@
         테이블 번호 12
       </div>
       <div class="py-11 grid grid-cols-2 gap-x-[10px] mx-auto">
-        <div
+        <div @click="handleClickPayment()"
           class="h-[280px] w-[190px] rounded-3xl flex flex-col justify-center items-center border-4 border-primary-900-lighter gap-6"
         >
           <div class="font-jalnan2 text-2xl text-primary-900 pt-5">주문하기</div>
@@ -28,6 +28,13 @@
 
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const handleClickPayment = () => {
+  router.push({ name: "order-payment" })
+}
 </script>
 
 <style lang="scss" scoped></style>
