@@ -23,6 +23,7 @@ export default {
             DEFAULT: '#0073F0',
             light: 'rgba(0, 115, 240, 0.2)',
             'light-68': 'rgba(0, 115, 240, 0.68)',
+            'light-6': 'rgba(0, 115, 240, 0.06)',
           },
           700: {
             DEFAULT: '#3082F6',

@@ -56,7 +56,7 @@ onMounted(() => {
           />
         </div>
       </div>
-      <div class="flex flex-col w-full h-[78px] bg-primary-900-light rounded-lg-xl gap-3 p-4 text-sm justify-center">
+      <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">
         <div class="flex flex-row justify-between">
           <div>대기번호</div>
           <div>103번</div>
@@ -68,12 +68,12 @@ onMounted(() => {
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button
-          class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl"
+          class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
           @click="closeReserveModal()"
         >
           닫기
         </button>
-        <button class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl">예약하기</button>
+        <button class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl">예약하기</button>
       </div>
     </div>
   </div>
