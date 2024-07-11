@@ -48,7 +48,7 @@ const router = createRouter({
     {
       path: '/order',
       component: OrderLayout,
-      children: [{ path: '', name: 'order', component: OrderMainView }],
+      children: [{ path: '', name: 'order-main', component: OrderMainView }],
     },
   ],
 });
