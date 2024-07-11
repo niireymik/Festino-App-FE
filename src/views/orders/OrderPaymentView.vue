@@ -1,4 +1,12 @@
 <template>
+  <div v-if="orderModalState">
+    <OrderModal
+      :handleCloseOrderModal="handleCloseOrderModal"
+      :handleOpenCheckModal="handleOpenCheckModal" />
+  </div>
+  <div v-if="checkModalState">
+    <OrderCheckModal :handleCloseCheckModal="handleCloseCheckModal" />
+  </div>
   <div class="flex flex-col h-screen justify-between pt-[60px]">
     <div class="p-5">
       <MenuVue v-for="index in 2" :key="index" />
@@ -18,7 +26,28 @@
 <script setup>
 import MenuVue from '@/components/orders/Menus.vue';
 import CouponVue from '@/components/orders/Coupon.vue';
-import OrderButtonVue from '@/components/orders/OrderButton.vue';
+import OrderModal from '@/components/orders/OrderModal.vue';
+import OrderCheckModal from '@/components/orders/OrderCheckModal.vue';
+import { ref } from 'vue';
+
+const orderModalState = ref(false);
+const checkModalState = ref(false);
+
+const handleOpenOrderModal = () => {
+  orderModalState.value = true;
+};
+
+const handleCloseOrderModal = () => {
+  orderModalState.value = false;
+};
+
+const handleOpenCheckModal = () => {
+  checkModalState.value = true;
+};
+
+const handleCloseCheckModal = () => {
+  checkModalState.value = false;
+};
 </script>
 
 <style></style>
