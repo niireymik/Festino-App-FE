@@ -1,7 +1,7 @@
 <template>
   <DateButtons />
   <MoreButton :componentName="timeTable" />
-  <div class="px-4">
+  <div>
     <ShowPreview class="shadow-4xl"/>
   </div>
   <MoreButton :componentName="notification" />
