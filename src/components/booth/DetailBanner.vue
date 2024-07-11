@@ -1,7 +1,10 @@
 <template>
   <div class="relative">
     <div class="w-full h-[250px] bg-booth-detail-banner bg-cover">
-      <i class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px]"></i>
+      <div 
+        @click="handleClickBoothDetailBackArrow()" 
+        class="z-4 bg-back-arrow-white w-[18px] h-[18px] bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto"
+      ></div>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard">부스 상세보기</div>
         <div
@@ -17,6 +20,13 @@
 
 <script setup>
 import 'primeicons/primeicons.css';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const handleClickBoothDetailBackArrow = () => {
+  router.go(-1);
+}
 </script>
 
 <style lang="css" scoped>

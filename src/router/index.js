@@ -33,8 +33,8 @@ const router = createRouter({
       component: BoothView,
     },
     {
-      path: '/booth/detail',
-      name: 'booth-detail',
+      path: '/booth/detail/:id',
+      name: 'detail',
       component: BoothDetailView,
     },
     {

@@ -1,9 +1,18 @@
-<template>
-  <div class="pt-[60px]"></div>
-  <div class="h-[54px] text-[32px] text-primary-900 font-bold ml-4">festino</div>
+<script setup>
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
+const handleClickPrevButton = () => {
+  router.push({ name: 'main' });
+};
+</script>
+<template>
   <div class="relative">
     <div class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-no-repeat bg-right-top relative">
+      <i
+        class="pi pi-arrow-left text-white text-xl absolute top-[20px] left-[20px]"
+        @click="handleClickPrevButton()"
+      ></i>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div class="font-jalnan2 text-xs text-white">예약으로 더 즐거운 축제</div>
         <div
@@ -18,8 +27,6 @@
     ></div>
   </div>
 </template>
-
-<script setup></script>
 
 <style lang="css" scoped>
 .dynamic-top {

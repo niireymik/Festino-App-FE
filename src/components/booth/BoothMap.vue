@@ -28,4 +28,8 @@ export default {};
   padding-right: calc(20 / 430 * 100%) !important;
   padding-bottom: calc(25 / 430 * 100%) !important;
 }
+
+button:active i {
+  color: white;
+}
 </style>

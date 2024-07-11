@@ -8,7 +8,7 @@ export default {
         primary: {
           900: {
             DEFAULT: '#0073F0',
-            light: 'rgba(0, 115, 240, 0.16)',
+            light: 'rgba(0, 115, 240, 0.2)',
           },
         },
         secondary: {
@@ -20,7 +20,7 @@ export default {
         primary: {
           900: {
             DEFAULT: '#0073F0',
-            light: 'rgba(0, 115, 240, 0.06)',
+            light: 'rgba(0, 115, 240, 0.2)',
           },
           700: {
             DEFAULT: '#3082F6',
@@ -77,6 +77,7 @@ export default {
         'x-button': "url('/icons/x.png')",
         'instagram': "url('/icons/instagram.png')",
         'pin-icon': "url('/icons/pin.svg')",
+        'back-arrow-white': "url('/icons/arrow-back-white.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
