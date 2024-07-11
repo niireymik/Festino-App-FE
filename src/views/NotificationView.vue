@@ -5,6 +5,9 @@
       <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px]" @click="handleClickBackArrow()"></div>
       <div>공지사항</div>
     </div>
+    <div v-for="item in 2" :key="item" class="pt-5 px-4 flex justify-center w-full">
+      <PinNotice class="shadow-4xl" />
+    </div>
     <div v-for="item in 3" :key="item" class="pt-5 px-4 flex justify-center w-full">
       <Notice class="shadow-4xl" />
     </div>
@@ -14,6 +17,7 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
+import PinNotice from '@/components/notice/PinNotice.vue';
 import Notice from '@/components/notice/Notice.vue';
 import Header from '@/components/header/Header.vue';
 
