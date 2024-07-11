@@ -21,7 +21,7 @@ const date = ref(["24.06.13", "24.06.14", "24.06.15"]);
 const selectedIndex = ref(0);
 
 const handleClickDateButton = (index) => {
-  if (selectedIndex.value === index) {
+  if (selectedIndex.value == index) {
     return;
   }
   selectedIndex.value = index;
