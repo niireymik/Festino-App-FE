@@ -58,7 +58,7 @@ const handleCloseModal = () => {
   else clubModalState.value = false;
 };
 const handleStopScroll = () => {
-  if (clubModalState.value) document.documentElement.style.overflow = 'hidden';
+  if (clubModalState.value || talentModalState.value) document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
 };
 
