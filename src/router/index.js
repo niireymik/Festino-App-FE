@@ -9,6 +9,7 @@ import BoothDetailView from '@/views/BoothDetailView.vue';
 import OrderMainView from '@/views/orders/OrderMainView.vue';
 import MainLayout from '@/layouts/MainLayout.vue';
 import OrderLayout from '@/layouts/OrderLayout.vue';
+import OrderSearch from '@/views/orders/OrderSearch.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,7 +49,10 @@ const router = createRouter({
     {
       path: '/order',
       component: OrderLayout,
-      children: [{ path: '', name: 'order-main', component: OrderMainView }],
+      children: [
+        { path: '', name: 'order', component: OrderMainView },
+        { path: 'search', name: 'order-search', component: OrderSearch },
+      ],
     },
   ],
 });

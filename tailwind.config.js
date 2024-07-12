@@ -22,6 +22,8 @@ export default {
           900: {
             DEFAULT: '#0073F0',
             light: 'rgba(0, 115, 240, 0.2)',
+            'light-16': 'rgba(0, 115, 240, 0.16)',
+            'light-6': 'rgba(0, 115, 240, 0.06)',
           },
           700: {
             DEFAULT: '#3082F6',
@@ -43,6 +45,7 @@ export default {
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
+        error: 'rgba(255, 109, 109, 0.16)',
       },
       backgroundColor: (theme) => ({
         ...theme('textColor'),
@@ -88,6 +91,7 @@ export default {
         '10xl': '3.125rem', //50px
       },
       borderColor: (theme) => ({
+        ...theme('textColor'),
         primary: 'rgba(0, 115, 240, 0.16)',
         'primary-900': theme('textColor.primary.900'),
         'primary-700': 'rgba(48, 130, 246, 0.6)',
