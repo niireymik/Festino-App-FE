@@ -11,7 +11,7 @@
           <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2" @click="handleClickMoveTabling()">테이블링 탭으로 이동 -></div>
         </div>
       </div>
-      <div class="min-w-full min-h-[178px] bg-slide-banner-2 bg-cover bg-no-repeat bg-right-top relative border-primary border-1" @click="prevSlide()">
+      <div class="min-w-full min-h-[178px] bg-slide-banner-2 bg-cover bg-no-repeat bg-right-top relative border-primary border-1" @click="nextSlide()">
         <div class="absolute top-5 right-4 flex flex-col items-end">
           <div class="px-[18px] py-0.5 font-pretendard text-xs text-primary-700 font-bold bg-white rounded-full">다양한 즐길 거리가 가득!</div>
           <div class="pt-1 px-0.5 font-pretendard text-base text-white">티노와 함께 알아보는</div>
@@ -19,6 +19,16 @@
         </div>
         <div class="absolute bottom-4 right-4">
           <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2" @click="handleClickMoveBooth()">축제 부스 탭으로 이동 -></div>
+        </div>
+      </div>
+      <div class="min-w-full min-h-[178px] bg-slide-banner-3 bg-cover bg-no-repeat bg-center relative border-primary border-1" @click="nextSlide()">
+        <div class="absolute top-5 left-4 flex flex-col items-start">
+          <div class="px-[18px] py-0.5 font-pretendard text-xs text-primary-700 font-bold bg-white rounded-full">축제의 꽃! 다양한 공연</div>
+          <div class="pt-1 px-0.5 font-pretendard text-base text-white">한눈에 보는 축제 공연 정보!</div>
+          <div class="px-0.5 leading-none font-bold font-pretendard text-base text-white">'공연 타임테이블'</div>
+        </div>
+        <div class="absolute bottom-4 left-4">
+          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2" @click="handleClickMoveTimeTable()">타임테이블 탭으로 이동 -></div>
         </div>
       </div>
     </div>
@@ -47,9 +57,13 @@ const handleClickMoveTabling = () => {
   router.push({ name: 'tabling' });
 };
 
+const handleClickMoveTimeTable = () => {
+  router.push({ name: 'timetable' });
+};
+
 const currentIndex = ref(0);
 const sliderContainer = ref(null);
-const totalSlides = 2;
+const totalSlides = 3;
 
 let startX = 0;
 let isDragging = false;
@@ -78,10 +92,6 @@ const handleTouchEnd = () => {
 
 const nextSlide = () => {
   currentIndex.value = (currentIndex.value + 1) % totalSlides;
-};
-
-const prevSlide = () => {
-  currentIndex.value = (currentIndex.value - 1 + totalSlides) % totalSlides;
 };
 
 onMounted(() => {
