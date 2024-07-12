@@ -1,6 +1,6 @@
 <template>
   <DateButtons @day="updateDay" />
-  <div class="px-5 pt-5 pb-1.5">
+  <div>
     <TimeTable class="shadow-4xl" :day="day"/>
   </div>
   <div class="flex justify-between items-center px-5 pt-4 pb-3">
