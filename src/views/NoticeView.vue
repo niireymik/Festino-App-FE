@@ -5,20 +5,18 @@
       <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px]" @click="handleClickBackArrow()"></div>
       <div>공지사항</div>
     </div>
-    <div v-for="item in 2" :key="item" class="pt-5 px-4 flex justify-center w-full">
-      <PinNotice class="shadow-4xl" />
+    <div class="flex flex-col py-5 gap-5 px-4 justify-center w-full">
+      <div class="font-medium text-xl">‘Festino’ 사용 공지사항</div>
+      <NoticePage />
     </div>
-    <div v-for="item in 3" :key="item" class="pt-5 px-4 flex justify-center w-full">
-      <Notice class="shadow-4xl" />
-    </div>
+    <div class="py-30"></div>
   </div>
 </template>
 
 <script setup>
 import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
-import PinNotice from '@/components/notice/PinNotice.vue';
-import Notice from '@/components/notice/Notice.vue';
+import NoticePage from '@/components/notice/NoticePage.vue';
 import Header from '@/components/header/Header.vue';
 
 const router = useRouter();
