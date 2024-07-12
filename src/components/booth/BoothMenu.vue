@@ -1,15 +1,15 @@
 <template>
   <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
-    <div v-for="(item, index) in 6" :key="index">
+    <div v-for="(item, index) in MENU_ITEMS" :key="index">
       <div
         @click="handleClickBoothBox(index)"
-        class="w-[88px] h-[44px] mr-1 rounded-full flex justify-center items-center"
+        class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center"
         :class="{
           'border border-primary-900 bg-primary-900 text-white': selectedIndex == index,
           'border border-primary-900-light text-primary-900-light': selectedIndex != index,
         }"
       >
-        전체
+        {{ item.name }}
       </div>
     </div>
   </div>
@@ -18,7 +18,16 @@
 <script setup>
 import { ref } from 'vue';
 
+const MENU_ITEMS = [
+  { name: "전체" },
+  { name: "운동장" },
+  { name: "벙커" },
+  { name: "푸드트럭" },
+  { name: "편의시설" },
+];
+
 const selectedIndex = ref(0);
+
 const handleClickBoothBox = (index) => {
   if (selectedIndex.value == index) {
     selectedIndex.value = 0;

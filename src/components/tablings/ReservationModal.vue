@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
+import InputPersonNum from './InputPersonNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 
 const name = ref('');
@@ -9,11 +10,6 @@ const phoneNum = ref('');
 const personNum = ref('');
 
 const reserveModal = ref(null);
-
-const handlePersonNumInput = (event) => {
-  const inputValue = event.target.value.replace(/\D/g, '');
-  event.target.value = inputValue;
-};
 
 const { closeReserveModal } = useTablingModalStore();
 
@@ -41,22 +37,9 @@ onMounted(() => {
         <div class="mb-[30px]">
           <InputPhoneNum v-model="phoneNum" />
         </div>
-        <div class="text-xs">인원 수</div>
-        <div class="h-11 w-full flex flex-row border-b-1 border-secondary-500 items-center py-2.5 gap-2.5">
-          <img src="/icons/person-plus.svg" class="w-6 h-6" />
-          <input
-            class="flex-1 focus:outline-none bg-inherit"
-            type="text"
-            placeholder="00명"
-            v-model="personNum"
-            inputmode="numeric"
-            pattern="\d*"
-            maxlength="2"
-            @input="handlePersonNumInput($event)"
-          />
-        </div>
+        <InputPersonNum v-model="personNum" />
       </div>
-      <div class="flex flex-col w-full h-[78px] bg-primary-900-light rounded-lg-xl gap-3 p-4 text-sm justify-center">
+      <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">
         <div class="flex flex-row justify-between">
           <div>대기번호</div>
           <div>103번</div>
@@ -68,12 +51,12 @@ onMounted(() => {
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button
-          class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl"
+          class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
           @click="closeReserveModal()"
         >
           닫기
         </button>
-        <button class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl">예약하기</button>
+        <button class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl">예약하기</button>
       </div>
     </div>
   </div>

@@ -4,6 +4,7 @@ import MainView from '../views/MainView.vue';
 import TimeTableView from '@/views/TimeTableView.vue';
 import TablingView from '@/views/TablingView.vue';
 import NotificationView from '@/views/NotificationView.vue';
+import NoticeView from '@/views/NoticeView.vue';
 import BoothView from '@/views/BoothView.vue';
 import BoothDetailView from '@/views/BoothDetailView.vue';
 import OrderMainView from '@/views/orders/OrderMainView.vue';
@@ -45,6 +46,11 @@ const router = createRouter({
           name: 'booth-detail',
           component: BoothDetailView,
         },
+        {
+          path: '/notice',
+          name: 'notice',
+          component: NoticeView,
+        },
       ],
     },
     {
@@ -52,12 +58,18 @@ const router = createRouter({
       component: OrderLayout,
       children: [
         {
-          path: 'payment',
+          path: '/payment',
           name: 'order-payment',
           component: OrderPaymentView
         },
-        { path: '', name: 'order', component: OrderMainView },
-        { path: 'search', name: 'order-search', component: OrderSearch },
+        { path: '',
+          name: 'order',
+          component: OrderMainView
+        },
+        { path: 'search',
+          name: 'order-search',
+          component: OrderSearch
+        },
       ],
     },
   ],

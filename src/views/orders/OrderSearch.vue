@@ -39,7 +39,7 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="w-full flex flex-col justify-center items-center gap-7 px-5 pb-5">
+  <div class="w-full flex flex-col justify-center items-center gap-7 px-5 pb-5 pt-[74px]">
     <div class="flex flex-col w-full justify-start items-center gap-4">
       <div class="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
       <div class="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">

@@ -9,6 +9,10 @@ const handleClickOrderSearchButton = () => {
   console.log('clicked');
   router.push({ name: 'order-search' });
 };
+
+const handleClickPayment = () => {
+  router.push({ name: "order-payment" })
+}
 </script>
 <template>
   <div class="flex flex-col">
@@ -56,16 +60,5 @@ const handleClickOrderSearchButton = () => {
     </div>
   </div>
 </template>
-
-<script setup>
-import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const handleClickPayment = () => {
-  router.push({ name: "order-payment" })
-}
-</script>
 
 <style lang="scss" scoped></style>

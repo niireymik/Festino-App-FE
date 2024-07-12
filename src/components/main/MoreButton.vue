@@ -16,8 +16,8 @@ const router = useRouter();
 const props = defineProps(["componentName"]);
 
 const handleClickMoreButton = (name) => {
-  if (name == "타임테이블") router.push({ name: "timetable"})
-  else if (name == "공지사항") router.push({ name: "notification"})
+  if (name == "타임테이블") router.push({ name: "timetable"});
+  else if (name == "공지사항") router.push({ name: "notification"});
   else return;
 };
 </script>

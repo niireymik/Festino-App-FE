@@ -17,7 +17,7 @@
           </div>
           <div class="flex flex-row">
             <div
-              class="px-2 py-1 mr-2 w-fit flex justify-center text-center text-3xs text-white bg-primary-900 rounded-full"
+              class="px-2 py-1 mr-2 w-fit flex justify-center text-center text-3xs text-primary-900 bg-primary-900-light-12 rounded-full"
             >
               운영중
             </div>
@@ -34,11 +34,6 @@
         </div>
       </div>
     </div>
-    <button
-      class="w-full h-auto py-4 mt-3 mb-20 shadow-3xl border-1 border-primary-900 rounded-full text-primary-900 font-pretendard text-base active:text-white active:bg-primary-900"
-    >
-      더보기
-    </button>
   </div>
 </template>
 
@@ -56,5 +51,6 @@ const handleClickBoothIntroduction = (i) => {
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
+  padding-bottom: 5rem;
 }
 </style>

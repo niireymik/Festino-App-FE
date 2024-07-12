@@ -35,7 +35,7 @@ onMounted(() => {
           <span>팀이 대기중입니다.</span>
         </div>
       </div>
-      <div class="flex flex-col w-full h-[78px] bg-primary-900-light rounded-lg-xl gap-3 p-4 text-sm justify-center">
+      <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">
         <div class="flex flex-row justify-between">
           <div>대기번호</div>
           <div>103번</div>
@@ -50,9 +50,13 @@ onMounted(() => {
         대기팀이 1팀일 때 알림이 전송됩니다.
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
-        <button class="w-full h-[43px] bg-secondary-100 text-white font-bold rounded-lg-xl">예약 취소</button>
         <button
-          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-lg-xl"
+          class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
+        >
+          예약 취소
+        </button>
+        <button
+          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl"
           @click="closeSearchReserveModal()"
         >
           확인
