@@ -40,9 +40,19 @@ const handleClickReserveButton = () => {
       </div>
     </div>
     <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-20">
-      <button class="bg-secondary-100 h-[54px] rounded-xl w-1/2">자세히보기</button>
+      <!-- TODO: 선택 학과로 이동 -->
       <button
-        class="h-[54px] rounded-xl w-1/2"
+        class="h-[60px] rounded-10xl w-1/2"
+        :class="
+          selectedIndex != -1
+            ? 'bg-white border-1 border-primary-900-light-68 text-primary-900 font-medium'
+            : 'bg-secondary-100'
+        "
+      >
+        자세히보기
+      </button>
+      <button
+        class="h-[60px] rounded-10xl w-1/2"
         :class="selectedIndex != -1 ? 'bg-primary-900' : 'bg-secondary-100'"
         @click="handleClickReserveButton()"
       >

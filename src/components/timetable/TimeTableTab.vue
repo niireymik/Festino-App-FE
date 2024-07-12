@@ -1,19 +1,19 @@
 <template>
   <DateButtons @day="updateDay" />
-  <div class="px-5 pt-5 pb-1.5">
+  <div>
     <TimeTable class="shadow-4xl" :day="day"/>
   </div>
   <div class="flex justify-between items-center px-5 pt-4 pb-3">
     <div class="text-xl font-semibold">동아리 공연</div>
   </div>
   <div>
-    <ShowPreview class="shadow-4xl"/>
+    <ShowPreview class="shadow-4xl" category="club" />
   </div>
   <div class="flex justify-between items-center px-5 pt-4 pb-3">
     <div class="text-xl font-semibold">연예인 공연</div>
   </div>
   <div class="pb-20">
-    <ShowPreview class="shadow-4xl" />
+    <ShowPreview class="shadow-4xl" category="talent" />
   </div>
 </template>
 

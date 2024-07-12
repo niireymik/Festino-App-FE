@@ -1,5 +1,5 @@
 <template>
-  <div class="flex px-4 xs:px-5 pt-5 justify-between">
+  <div class="flex px-4 xs:px-5 justify-between z-50">
     <div v-for="(dateItem, index) in date" :key="index">
       <div 
         class="flex justify-center gap-2 w-[105px] xs:gap-4 xs:w-[122px] sm:gap-5 sm:w-[140px] py-[10px] rounded-full shadow-4xl text-xs items-center cursor-pointer"
