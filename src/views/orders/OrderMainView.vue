@@ -9,6 +9,7 @@ const handleClickOrderSearchButton = () => {
   console.log('clicked');
   router.push({ name: 'order-search' });
 };
+
 const handleClickPayment = () => {
   router.push({ name: "order-payment" })
 }
