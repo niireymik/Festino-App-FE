@@ -5,7 +5,7 @@
     <BoothMap />
     <DetailImportmation />
     <BoothInformation />
-    <DetailImportmation />
+    <MenuList />
     <BoothReservation />
   </div>
 </template>
@@ -17,6 +17,7 @@ import DetailImportmation from "@/components/booth/DetailInformation.vue";
 import BoothInformation from "@/components/booth/BoothInformation.vue";
 import DetailBanner from "@/components/booth/DetailBanner.vue";
 import BoothSelect from "@/components/booth/BoothSelect.vue";
+import MenuList from "@/components/booth/MenuList.vue";
 </script>
 
 <style lang="css" scoped>
