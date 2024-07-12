@@ -10,6 +10,7 @@ export default {
             DEFAULT: '#0073F0',
             light: 'rgba(0, 115, 240, 0.2)',
             lighter: 'rgba(0, 115, 240, 0.12)',
+            lightest: 'rgba(0, 115, 240, 0.06)',
           },
         },
         secondary: {
@@ -46,6 +47,7 @@ export default {
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
+        'warning': '#FF5252',
         error: 'rgba(255, 109, 109, 0.16)',
       },
       backgroundColor: (theme) => ({
@@ -76,6 +78,7 @@ export default {
         'more-arrow': "url('/icons/arrow-right.png')",
         'slide-banner-1': "url('/images/banner/slide-banner-1.png')",
         'slide-banner-2': "url('/images/banner/slide-banner-2.png')",
+        'slide-banner-3': "url('/images/banner/slide-banner-3.png')",
         'tino-sing': "url('/images/tinos/tino-sing.png')",
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
@@ -84,6 +87,9 @@ export default {
         'tino-order-banner': "url('images/orders/tino-order-banner.png')",
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
+        'board-icon': "url('/icons/orders/board.svg')",
+        'tino-cd': "url('/icons/tino-cd.svg')",
+        'play-icon': "url('/icons/play.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
@@ -97,6 +103,7 @@ export default {
         'primary-900': theme('textColor.primary.900'),
         'primary-700': 'rgba(48, 130, 246, 0.6)',
         'primary-700-default': theme('textColor.primary.700'),
+        'secondary-300': theme('textColor.secondary.300'),
       }),
       borderWidth: {
         1: '0.5px',

@@ -1,0 +1,39 @@
+<script setup>
+const props = defineProps({
+  handleCloseModal: {
+    type: Function,
+    required: true,
+  },
+});
+</script>
+
+<template>
+  <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center p-5" @click="handleCloseModal()">
+    <div class="w-[388px] min-w-[320px] h-auto bg-white rounded-2xl flex flex-col items-center" @click.stop>
+      <div class="w-full flex justify-between px-5 pt-5">
+        <div class="w-[20px] h-[20px]"></div>
+        <div class="text-xs text-primary-700 rounded-full w-[56px] h-[22px] flex justify-center items-center border-2 border-primary font-medium">연예인</div>
+        <div class="w-[20px] h-[20px] bg-x-button bg-center bg-no-repeat bg-[length:20px_20px]" @click="handleCloseModal()"></div>
+      </div>
+      <div class="pb-[12px] pt-[24px] flex justify-center">
+        <div class="w-[160px] h-[160px] bg-white rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:98px_99px] border-primary-700-default border-2"></div>
+      </div>
+      <div class="text-secondary-700 font-medium pb-[12px]">'연예인 이름'</div>
+      <div class="w-[95px] h-[22px] text-primary-700 text-xs flex items-center rounded-full bg-instagram-bg justify-center">페스티노 추천곡!</div>
+      <div class="px-[32px] pb-[28px] pt-[8px] w-full">
+        <div class="shadow-3xl text-xs text-primary-700 w-full h-[32px] rounded-full flex items-center justify-between border-2 border-primary">
+          <div class="flex gap-[12px] items-center">
+            <div class="w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
+            <div>‘연예인 이름’ - ‘곡 제목’</div>
+          </div>
+          <div class="pr-[12px]">
+            <div class="w-[11px] h-[13px] bg-play-icon bg-center bg-no-repeat bg-[length:11px_13px]"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="css" scoped>
+</style>

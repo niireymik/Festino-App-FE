@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full rounded-t-3xl bg-white h-[28px] absolute top-[242px] sm:top-[281px]"></div>
+    <div class="w-full rounded-t-3xl bg-white h-[34px] absolute top-[220px] sm:top-[256px]"></div>
   </div>
 </template>
 

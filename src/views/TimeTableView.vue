@@ -1,8 +1,6 @@
 <script setup>
 import TimeTableTab from '@/components/timetable/TimeTableTab.vue';
 import TimeTableBanner from '@/components/timetable/TimeTableBanner.vue';
-import Header from '@/components/header/Header.vue';
-
 import { onMounted } from 'vue';
 
 onMounted(() => {
@@ -12,7 +10,6 @@ onMounted(() => {
 
 <template>
   <div class="flex flex-col">
-    <Header />
     <TimeTableBanner />
     <TimeTableTab />
   </div>
