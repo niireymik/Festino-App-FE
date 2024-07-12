@@ -74,6 +74,7 @@ export default {
         'more-arrow': "url('/icons/arrow-right.png')",
         'slide-banner-1': "url('/images/banner/slide-banner-1.png')",
         'slide-banner-2': "url('/images/banner/slide-banner-2.png')",
+        'slide-banner-3': "url('/images/banner/slide-banner-3.png')",
         'tino-sing': "url('/images/tinos/tino-sing.png')",
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
@@ -83,6 +84,8 @@ export default {
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
         'board-icon': "url('/icons/orders/board.svg')",
+        'tino-cd': "url('/icons/tino-cd.svg')",
+        'play-icon': "url('/icons/play.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
