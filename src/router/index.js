@@ -52,12 +52,18 @@ const router = createRouter({
       component: OrderLayout,
       children: [
         {
-          path: '',
-          name: 'order-main',
+          path: '/payment',
+          name: 'order-payment',
+          component: OrderPaymentView
+        },
+        { path: '',
+          name: 'order',
           component: OrderMainView
         },
-        { path: '', name: 'order', component: OrderMainView },
-        { path: 'search', name: 'order-search', component: OrderSearch },
+        { path: 'search',
+          name: 'order-search',
+          component: OrderSearch
+        },
       ],
     },
   ],
