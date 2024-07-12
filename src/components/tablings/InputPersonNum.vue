@@ -10,16 +10,11 @@ const props = defineProps({
 
 const isFocused = ref(false);
 const emit = defineEmits(['update:modelValue']);
-const inputValue = ref(props.modelValue);
-
-const updateInputValue = (value) => {
-  inputValue.value = value;
-  emit('update:modelValue', value);
-};
 
 const handlePersonNumInput = (event) => {
   const inputValue = event.target.value.replace(/\D/g, '');
   event.target.value = inputValue;
+  emit('update:modelValue', inputValue);
 };
 </script>
 
@@ -37,7 +32,7 @@ const handlePersonNumInput = (event) => {
       inputmode="numeric"
       pattern="\d*"
       maxlength="2"
-      @input="handlePersonNumInput($event), updateInputValue($event.target.value)"
+      @input="handlePersonNumInput($event)"
       @focus="isFocused = true"
       @blur="isFocused = false"
     />

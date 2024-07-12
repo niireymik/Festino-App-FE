@@ -10,18 +10,15 @@ const props = defineProps({
 
 const isFocused = ref(false);
 const emit = defineEmits(['update:modelValue']);
-const inputValue = ref(props.modelValue);
 
-const updateInputValue = (value) => {
-  inputValue.value = value;
-  emit('update:modelValue', value);
-};
 const limitInputLength = (event) => {
   if (event.target.value.length > 10) {
     event.target.value = event.target.value.slice(0, 10);
   }
+  emit('update:modelValue', event.target.value);
 };
 </script>
+
 <template>
   <div class="text-xs">이름</div>
   <div
@@ -32,8 +29,7 @@ const limitInputLength = (event) => {
     <input
       class="flex-1 focus:outline-none bg-inherit"
       type="text"
-      :value="inputValue"
-      @input="limitInputLength($event), updateInputValue($event.target.value)"
+      @input="limitInputLength($event)"
       placeholder="티노"
       maxlength="10"
       @focus="isFocused = true"

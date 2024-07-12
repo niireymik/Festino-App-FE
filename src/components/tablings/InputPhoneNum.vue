@@ -10,12 +10,7 @@ const props = defineProps({
 
 const isFocused = ref(false);
 const emit = defineEmits(['update:modelValue']);
-const inputValue = ref(props.modelValue);
 
-const updateInputValue = (value) => {
-  inputValue.value = value;
-  emit('update:modelValue', value);
-};
 const formattedPhoneNum = (event) => {
   const inputValue = event.target.value.replace(/\D/g, '');
   if (inputValue.length > 3 && inputValue.length < 8) {
@@ -23,6 +18,7 @@ const formattedPhoneNum = (event) => {
   } else {
     event.target.value = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
   }
+  emit('update:modelValue', inputValue);
 };
 </script>
 
@@ -37,7 +33,7 @@ const formattedPhoneNum = (event) => {
       class="flex-1 focus:outline-none bg-inherit"
       type="tel"
       placeholder="010-1234-5678"
-      @input="formattedPhoneNum($event), updateInputValue($event.target.value)"
+      @input="formattedPhoneNum($event)"
       maxlength="13"
       @focus="isFocused = true"
       @blur="isFocused = false"
