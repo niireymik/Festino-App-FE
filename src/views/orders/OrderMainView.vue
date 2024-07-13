@@ -6,13 +6,12 @@ const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
 };
 const handleClickOrderSearchButton = () => {
-  console.log('clicked');
   router.push({ name: 'order-search' });
 };
 
 const handleClickPayment = () => {
-  router.push({ name: "order-payment" })
-}
+  router.push({ name: 'order-payment' });
+};
 </script>
 <template>
   <div class="flex flex-col">
@@ -25,7 +24,8 @@ const handleClickPayment = () => {
       </div>
       <div class="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
         <div class="flex flex-row justify-evenly gap-x-2">
-          <div @click="handleClickPayment()"
+          <div
+            @click="handleClickPayment()"
             class="h-[280px] w-[190px] min-w-[170px] rounded-3xl flex flex-col justify-start items-center border-2 border-primary-900-lighter gap-6 shadow-xs overflow-clip cursor-pointer"
           >
             <div class="font-jalnan2 text-2xl text-primary-900 pt-5">주문하기</div>
