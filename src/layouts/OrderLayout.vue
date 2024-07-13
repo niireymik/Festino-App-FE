@@ -14,9 +14,12 @@ watchEffect(() => {
   if (currentRouteName === 'order-search') {
     title.value = '주문 조회';
   }
-  // ADD 주문하기
+  if (currentRouteName === 'order-payment') {
+    title.value = '주문 하기';
+  }
 });
 </script>
+
 <template>
   <Header v-if="!isMain" :title="title" />
   <RouterView />
