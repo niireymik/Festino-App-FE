@@ -29,7 +29,7 @@
 
 <script setup>
 import MenuOption from '@/components/booth/MenuOption.vue';
-import MenuStatus from '@/components/booth/MenuStatus.vue';
+import MenuStatus from '@/components/booth/ShowState.vue';
 </script>
 
 <style lang="css" scoped>
