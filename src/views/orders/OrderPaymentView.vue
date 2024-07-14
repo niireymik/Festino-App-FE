@@ -17,6 +17,7 @@ const orderModalState = ref(false);
 const checkModalState = ref(false);
 
 const handleOpenOrderModal = () => {
+  if (totalPrice.value === 0) return;
   orderModalState.value = true;
 };
 
