@@ -1,4 +1,9 @@
 <script setup>
+import { useOrderStore } from '@/stores/orderStore';
+import { onMounted, ref } from 'vue';
+
+const { tableNum, totalPrice, orderId, userName, phoneNum, saveOrder, userOrderList } = useOrderStore();
+
 const props = defineProps({
   handleCloseCheckModal: {
     type: Function,
@@ -6,47 +11,49 @@ const props = defineProps({
   },
 });
 
+const orderMenus = ref([]);
+onMounted(() => {
+  orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
+  console.log(JSON.parse(JSON.stringify(orderMenus.value)));
+});
+
 const confirm = () => {
+  saveOrder({
+    tableNum: tableNum,
+    userName: userName,
+    phoneNum: phoneNum,
+    menuInfo: JSON.parse(JSON.stringify(orderMenus.value)),
+    totalPrice: totalPrice,
+    orderId: orderId,
+  });
   props.handleCloseCheckModal();
-}
+};
 </script>
 
 <template>
   <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
     <div class="w-[346px] h-auto bg-white rounded-3xl">
-      <div class="px-[21px] py-[28px] flex flex-col w-full items-center gap-[28px]">
+      <div class="px-[21px] py-7 flex flex-col w-full items-center gap-7">
         <div class="font-semibold text-xl text-secondary-700">주문 확인</div>
-        <div class="w-full gap-[4px]">
-          <div class="font-semibold text-secondary-700">주문자 정보</div>
-          <div class="w-full rounded-xl bg-primary-900-lightest p-4">
-            <div class="flex pb-[12px] justify-between text-secondary-500">
-              <div class="text-sm">입금자명</div>
-              <div class="text-sm">이승민</div>
-            </div>
-            <div class="flex justify-between text-secondary-500">
-              <div class="text-sm">전화번호</div>
-              <div class="text-sm">010-1234-5678</div>
-            </div>
-          </div>
-        </div>
+
         <div class="w-full gap-[4px]">
           <div class="font-semibold text-secondary-700">결제정보 확인</div>
           <div class="w-full rounded-xl bg-primary-900-lightest p-4">
             <div class="font-bold flex pb-[12px] justify-between text-secondary-500">
               <div class="text-sm">신한은행</div>
               <div class="flex gap-[8px] items-center">
-                <div class="text-sm">012-123-123123-123123</div>
+                <div class="text-sm">{{ orderId }}</div>
                 <div class="w-[16px] h-[16px] bg-center bg-board-icon bg-no-repeat bg-[length:16px_16px]"></div>
               </div>
             </div>
             <div class="flex pb-[12px] justify-between text-secondary-500">
               <div class="text-sm">예금주</div>
-              <div class="text-sm">정지훈</div>
+              <div class="text-sm">{{ userName }}</div>
             </div>
             <div class="w-full border-secondary-300 border-1"></div>
             <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-500">
               <div>총 가격</div>
-              <div>20,000원</div>
+              <div>{{ totalPrice }}</div>
             </div>
           </div>
         </div>
@@ -58,13 +65,22 @@ const confirm = () => {
           </div>
         </div>
         <div class="gap-[20px] flex">
-          <div class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700" @click="handleCloseCheckModal()">취소</div>
-          <div class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl" @click="confirm()">입금 완료</div>
+          <div
+            class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
+            @click="handleCloseCheckModal()"
+          >
+            취소
+          </div>
+          <div
+            class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
+            @click="confirm()"
+          >
+            입금 완료
+          </div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

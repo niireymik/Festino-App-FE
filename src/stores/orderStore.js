@@ -45,6 +45,11 @@ export const useOrderStore = defineStore('orderStore', {
     boothId: '3f1f0d0a-001b-4ff0-aea4-9728742f968f',
     menuList: [],
     totalPrice: 0,
+    userOrderList: [],
+    userName: '',
+    phoneNum: '',
+    orderId: '0000-0000-0000-00',
+    tableNum: 0,
   }),
   actions: {
     incrementTotalPrice(amount) {
@@ -53,7 +58,27 @@ export const useOrderStore = defineStore('orderStore', {
     decrementTotalPrice(amount) {
       this.totalPrice -= amount;
     },
-    async saveOrde(payload) {
+    addOrderList(orderInfo) {
+      const existingOrder = this.userOrderList.find((order) => order.menuName === orderInfo.menuName);
+
+      if (existingOrder) {
+        existingOrder.menuCount = orderInfo.menuCount;
+        existingOrder.menuPrice = orderInfo.menuPrice;
+      } else {
+        this.userOrderList.push({
+          menuName: orderInfo.menuName,
+          menuCount: orderInfo.menuCount,
+          menuPrice: orderInfo.menuPrice,
+        });
+      }
+    },
+    setUserName(name) {
+      this.userName = name;
+    },
+    setPhoneNum(num) {
+      this.phoneNum = num;
+    },
+    async saveOrder(payload) {
       const res = await axios.post(`${HOST}/main/order`, payload);
     },
     async getOrder(payload) {

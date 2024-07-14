@@ -1,7 +1,7 @@
 <script setup>
 import { useOrderStore } from '@/stores/orderStore';
-import { onMounted, ref } from 'vue';
-const { incrementTotalPrice, decrementTotalPrice } = useOrderStore();
+import { ref } from 'vue';
+const { incrementTotalPrice, decrementTotalPrice, addOrderList } = useOrderStore();
 
 const props = defineProps({
   menuInfo: {
@@ -10,8 +10,9 @@ const props = defineProps({
   },
 });
 
-const menuPrice = ref(props.menuInfo.menuPrice);
+const menuPrice = ref(0);
 const menuNum = ref(0);
+const menuUnitPrice = ref(props.menuInfo.menuPrice);
 
 const handlemenuNumInput = (event) => {
   const inputValue = event.target.value.replace(/[^0-9]/g, '');
@@ -22,14 +23,24 @@ const hanldeClickmenuNumButton = (type) => {
   if (type === 'plus') {
     if (menuNum.value == 99) return;
     menuNum.value = Number(menuNum.value) + 1;
-    menuPrice.value += menuPrice.value;
-    incrementTotalPrice(props.menuInfo.menuPrice);
+    menuPrice.value += menuUnitPrice.value;
+    incrementTotalPrice(menuUnitPrice.value);
+    addOrderList({
+      menuName: props.menuInfo.menuName,
+      menuCount: menuNum.value,
+      menuPrice: menuUnitPrice.value,
+    });
   }
   if (type === 'minus') {
     if (menuNum.value == 0) return;
     menuNum.value = Number(menuNum.value) - 1;
-    menuPrice.value -= menuPrice.value;
-    decrementTotalPrice(props.menuInfo.menuPrice);
+    menuPrice.value -= menuUnitPrice.value;
+    decrementTotalPrice(menuUnitPrice.value);
+    addOrderList({
+      menuName: props.menuInfo.menuName,
+      menuCount: menuNum.value,
+      menuPrice: menuUnitPrice.value,
+    });
   }
 };
 </script>
@@ -50,7 +61,7 @@ const hanldeClickmenuNumButton = (type) => {
       <div class="font-light text-secondary-300 text-sm">{{ menuInfo.menuDescription }}</div>
       <div class="font-light text-secondary-300 text-sm">가격: {{ menuPrice }}</div>
       <div class="flex pt-[12px] justify-between items-center">
-        <div>{{ menuInfo.menuPrice }}원</div>
+        <div>{{ menuUnitPrice }}원</div>
         <div class="w-[118px] flex flex-row gap-[10px]">
           <img src="/icons/orders/minus.svg" class="cursor-pointer" @click="hanldeClickmenuNumButton('minus')" />
           <input
