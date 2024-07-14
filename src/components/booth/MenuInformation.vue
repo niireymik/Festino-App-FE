@@ -2,7 +2,7 @@
   <div class="dynamic-padding">
     <div class="w-full h-[120px] p-[13px] bg-white border border-primary-900-light rounded-3xl shadow-4xl flex mb-[10px]">
       <!-- food image -->
-      <div class="w-[94px] h-[94px] bg-primary-900-light rounded-3xl"></div>
+      <div class="min-w-[94px] h-full bg-primary-900-light rounded-3xl"></div>
       <div class="w-[359px] flex flex-col justify-center">
         <div class="pl-[12px]">
           <div class="pb-2 flex justify-between">
