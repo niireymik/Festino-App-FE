@@ -4,7 +4,15 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  modalData: {
+    type: Object,
+    required: true,
+  },
 });
+
+const handleClickMusic = () => {
+  window.open(`${props.modalData.msuicList[0].youtubeLink}`, "_blank");
+};
 </script>
 
 <template>
@@ -18,15 +26,15 @@ const props = defineProps({
       <div class="pb-[12px] pt-[24px] flex justify-center">
         <div class="w-[160px] h-[160px] bg-white rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:98px_99px] border-primary-700-default border-2"></div>
       </div>
-      <div class="text-secondary-700 font-medium pb-[12px]">'연예인 이름'</div>
+      <div class="text-secondary-700 font-medium pb-[12px]">{{ modalData.performer }}</div>
       <div class="w-[95px] h-[22px] text-primary-700 text-xs flex items-center rounded-full bg-instagram-bg justify-center">페스티노 추천곡!</div>
       <div class="px-[32px] pb-[28px] pt-[8px] w-full">
         <div class="shadow-3xl text-xs text-primary-700 w-full h-[32px] rounded-full flex items-center justify-between border-2 border-primary">
           <div class="flex gap-[12px] items-center">
             <div class="w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
-            <div>‘연예인 이름’ - ‘곡 제목’</div>
+            <div>{{ modalData.performer }} - {{ modalData.musicList[0].title }}</div>
           </div>
-          <div class="pr-[12px]">
+          <div class="pr-[12px]" @click="handleClickMusic()">
             <div class="w-[11px] h-[13px] bg-play-icon bg-center bg-no-repeat bg-[length:11px_13px]"></div>
           </div>
         </div>

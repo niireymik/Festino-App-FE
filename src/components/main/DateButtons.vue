@@ -20,7 +20,7 @@ const emit = defineEmits(["day"]);
 const date = ref(["24.06.13", "24.06.14", "24.06.15"]);
 const selectedIndex = ref(0);
 
-const handleClickDateButton = (index) => {
+const handleClickDateButton = async (index) => {
   if (selectedIndex.value == index) {
     return;
   }

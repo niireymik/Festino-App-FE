@@ -1,9 +1,13 @@
 <template>
   <div v-if="clubModalState">
-    <ClubModal :handleCloseModal="handleCloseModal" />
+    <ClubModal 
+      :handleCloseModal="handleCloseModal"
+      :modalData="modalData" />
   </div>
   <div v-if="talentModalState">
-    <TalentModal :handleCloseModal="handleCloseModal" />
+    <TalentModal
+      :handleCloseModal="handleCloseModal"
+      :modalData="modalData" />
   </div>
   <div class="w-full px-5 pt-5 pb-1.5">
     <div class="flex flex-col items-center border-2 border-primary rounded-3xl py-5">
@@ -14,23 +18,28 @@
       </div>
       <div class="flex overflow-y-auto h-full w-full justify-center">
         <div class="flex flex-col items-center text-secondary-700 gap-[65px] pt-1">
-          <div v-for="item in 6" :key="item" :class="item == 1 ? 'text-secondary-100' : 'text-secondary-700'">17:00 ~ 17:30</div>
+          <div v-for="data in clubData" :key="data" :class="data.isShowing ? 'text-secondary-700' : 'text-secondary-100'">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
+          <div v-for="data in talentData" :key="data" :class="item == 1 ? 'text-secondary-700' : 'text-secondary-100'">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
         </div>
         <div class="pt-3 pl-3 xs:pl-4 sm:pl-7 pr-1 xs:pr-3 sm:pr-7">
-          <div class="border-2 border-primary-700 h-[450px] w-0 border-dashed flex flex-col items-center gap-[77.6px]">
-            <div class="w-[16px] h-[16px] mt-[-5px] rounded-full flex items-center justify-center" :class="item == 1 ? 'bg-secondary-50' : 'bg-primary-700-light'" v-for="item in 5" :key="item">
-              <div class="w-[8px] h-[8px] rounded-full" :class="item == 1 ? 'bg-secondary-100' : 'bg-primary-700'"></div>
+          <div class="border-2 border-primary-700 h-[456px] w-0 border-dashed flex flex-col items-center gap-[77.6px]">
+            <div class="w-[16px] h-[16px] mt-[-5px] rounded-full flex items-center justify-center" :class="data.isShowing ? 'bg-primary-700-light' : 'bg-secondary-50'" v-for="data in clubData" :key="data">
+              <div class="w-[8px] h-[8px] rounded-full" :class="data.isShowing ? 'bg-primary-700' : 'bg-secondary-100'"></div>
             </div>
-          </div>
-          <div class="w-[16px] h-[16px] mt-[-10px] ml-[-7px] rounded-full bg-primary-700-light flex items-center justify-center">
-            <div class="w-[8px] h-[8px] rounded-full bg-primary-700"></div>
+            <div class="w-[16px] h-[16px] mt-[-5px] rounded-full flex items-center justify-center" :class="data.isShowing ? 'bg-primary-700-light' : 'bg-secondary-50'" v-for="data in talentData" :key="data">
+              <div class="w-[8px] h-[8px] rounded-full" :class="data.isShowing ? 'bg-primary-700' : 'bg-secondary-100'"></div>
+            </div>
           </div>
         </div>
         <div class="flex flex-col items-center gap-6">
           <div class="flex justify-center py-5 rounded-3xl w-[170px] xs:w-[210px] sm:w-[230px] border-2"
-            v-for="item in 6" :key="item"
-            :class="item == 1 ? 'bg-secondary-50 border-secondary-100 text-secondary-100' : 'border-primary text-primary-700'"
-            @click="handleClickOpenModal()">교내 동아리 '~~'</div>
+            v-for="data in clubData" :key="data"
+            :class="data.isShowing ? 'border-primary text-primary-700' : 'bg-secondary-50 border-secondary-100 text-secondary-100'"
+            @click="handleClickOpenClubModal(data)">교내 동아리 ' {{ data.performer }} '</div>
+          <div class="flex justify-center py-5 rounded-3xl w-[170px] xs:w-[210px] sm:w-[230px] border-2"
+            v-for="data in talentData" :key="data"
+            :class="data.isShowing ? 'border-primary text-primary-700' : 'bg-secondary-50 border-secondary-100 text-secondary-100'"
+            @click="handleClickOpenTalentModal(data)">연예인 ' {{ data.performer }} '</div>
         </div>
       </div>
     </div>
@@ -40,30 +49,59 @@
 <script setup>
 import ClubModal from './ClubModal.vue';
 import TalentModal from './TalentModal.vue';
-import { ref, watchEffect } from 'vue';
-import { defineProps } from 'vue';
+import { ref, watchEffect, onMounted } from 'vue';
+import axios from 'axios';
 
-const props = defineProps(["day"]);
+const props = defineProps({
+  day: {
+    type: Number,
+    required: true,
+  },
+});
 
+const clubData = ref([]);
+const talentData = ref([]);
 const clubModalState = ref(false);
 const talentModalState = ref(false);
-const category = ref("club");
+const modalData = ref([]);
 
-const handleClickOpenModal = () => {
-  if (category.value == "talent") talentModalState.value = true;
-  else clubModalState.value = true;
+const handleClickOpenClubModal = (data) => {
+  modalData.value = data;
+  clubModalState.value = true;
 };
+
+const handleClickOpenTalentModal = (data) => {
+  modalData.value = data;
+  talentModalState.value = true;
+};
+
 const handleCloseModal = () => {
-  if (category.value == "talent") talentModalState.value = false;
-  else clubModalState.value = false;
+  talentModalState.value = false;
+  clubModalState.value = false;
 };
+
 const handleStopScroll = () => {
   if (clubModalState.value || talentModalState.value) document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
 };
 
+const getTimetable = async () => {
+  const date = String(props.day + 11)
+  const clubDataResponse = await axios.get(`https://api.festino.dev-tino.com/main/club/all/date/${date}`);
+  const ClubTimetableData = clubDataResponse.data;
+  clubData.value = ClubTimetableData.showInfo;
+
+  const talentDataResponse = await axios.get(`https://api.festino.dev-tino.com/main/talent/all/date/${date}`);
+  const talentTimetableData = talentDataResponse.data;
+  talentData.value = talentTimetableData.showInfo;
+};
+
 watchEffect(() => {
   handleStopScroll();
+});
+
+onMounted(() => {
+  getTimetable();
 });
 </script>
 

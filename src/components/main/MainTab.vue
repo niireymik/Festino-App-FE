@@ -1,8 +1,8 @@
 <template>
-  <DateButtons />
+  <DateButtons @day="updateDay" />
   <MoreButton :componentName="timeTable" />
   <div>
-    <ShowPreview class="shadow-4xl"/>
+    <ShowPreview class="shadow-4xl" category="talent" :day="day" />
   </div>
   <MoreButton :componentName="notification" />
   <div class="px-5">
@@ -40,6 +40,7 @@ const timeTable = ref("타임테이블");
 const notification = ref("공지사항");
 const router = useRouter();
 const mainNotice = ref([]);
+const day = ref(0);
 
 const handleClickNotice = async () => {
   await getNotice(mainNotice.value.noticeId);
@@ -51,6 +52,11 @@ const getMainNotice = async () => {
     const noticeData = noticeResponse.data.noticeInfo;
     mainNotice.value = noticeData;
 };
+
+const updateDay = (selectedDay) => {
+  day.value = selectedDay;
+};
+
 const timeAgo = computed(() => {
   if (!mainNotice.value.updateAt) {
     return "No update time available";

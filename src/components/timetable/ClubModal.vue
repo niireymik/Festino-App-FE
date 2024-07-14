@@ -4,6 +4,10 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  modalData: {
+    type: Object,
+    required: true,
+  },
 });
 </script>
 
@@ -18,14 +22,13 @@ const props = defineProps({
       <div class="pb-[12px] pt-[24px] flex justify-center">
         <div class="w-[160px] h-[160px] bg-white rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:98px_99px] border-primary-700-default border-2"></div>
       </div>
-      <div class="text-secondary-700 font-medium pb-[8px]">댄스 동아리 'Gan.G'</div>
+      <div class="text-secondary-700 font-medium pb-[8px]">{{ modalData.performer }}</div>
       <div class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight">
-        <div>'Gan.G'는 교내 댄스 동아리로,</div>
-        <div>춤을 좋아한다면 누구나 가입할 수 있는 동아리입니다.</div>
+        <div>{{ modalData.clubDescription }}</div>
       </div>
       <div class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px] mb-[24px]">
         <div class="w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]"></div>
-        <div>@tukorea.gan.g</div>
+        <div>{{ modalData.instagram }}</div>
       </div>
     </div>
   </div>
