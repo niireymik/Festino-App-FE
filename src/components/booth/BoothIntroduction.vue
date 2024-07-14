@@ -26,7 +26,7 @@ const handleClickBoothIntroduction = (type, id) => {
 
 <template>
   <div class="dynamic-padding w-full h-auto">
-    <div @click="handleClickBoothIntroduction(item.adminCategory, item.boothId)" v-for="(item, index) in boothList[selectBoothMenu]" :key="index" class="pb-2">
+    <div @click="handleClickBoothIntroduction(item.adminCategory, item.boothId)" v-for="(item, index) in boothList[selectBoothMenu]" :key="index" class="pb-2 cursor-pointer">
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3"
       >

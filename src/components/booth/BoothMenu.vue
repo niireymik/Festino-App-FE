@@ -21,7 +21,7 @@ const MENU_ITEMS = [
     <div v-for="(item, index) in MENU_ITEMS" :key="index">
       <div
         @click="store.handleClickBoothMenu(index)"
-        class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center"
+        class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center cursor-pointer"
         :class="{
           'border border-primary-900 bg-primary-900 text-white': selectBoothMenu == index,
           'border border-primary-900-light text-primary-900-light': selectBoothMenu != index,
