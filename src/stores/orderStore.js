@@ -47,8 +47,8 @@ export const useOrderStore = defineStore('orderStore', {
     totalPrice: 0,
     userOrderList: [],
     userName: '',
-    phoneNum: '',
-    orderId: '0000-0000-0000-00',
+    phoneNum: '0',
+    orderId: '0',
     tableNum: 0,
   }),
   actions: {

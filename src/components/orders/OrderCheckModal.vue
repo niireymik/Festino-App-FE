@@ -42,7 +42,7 @@ const confirm = () => {
             <div class="font-bold flex pb-[12px] justify-between text-secondary-500">
               <div class="text-sm">신한은행</div>
               <div class="flex gap-[8px] items-center">
-                <div class="text-sm">{{ orderId }}</div>
+                <div class="text-sm">0000-0000-0000-00</div>
                 <div class="w-[16px] h-[16px] bg-center bg-board-icon bg-no-repeat bg-[length:16px_16px]"></div>
               </div>
             </div>
