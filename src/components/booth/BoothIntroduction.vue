@@ -1,6 +1,10 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import ShowState from '@/components/booth/ShowState.vue';
+import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
+import { storeToRefs } from 'pinia';
+
+const { boothList, showBoothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const router = useRouter();
 
@@ -11,28 +15,27 @@ const handleClickBoothIntroduction = (i) => {
 
 <template>
   <div class="dynamic-padding w-full h-auto">
-    <div @click="handleClickBoothIntroduction(i)" v-for="i in 5" :key="i" class="pb-2">
+    <div @click="handleClickBoothIntroduction(item.boothId)" v-for="(item, index) in boothList[selectBoothMenu]" :key="index" class="pb-2">
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3"
       >
-        <div class="w-[222px] flex flex-col justify-center pr-1">
+        <div class="w-[222px] h-full flex flex-col justify-between pr-1">
           <div
             class="px-2 py-1 w-fit flex justify-center text-center rounded-3.5xl border border-primary-900 text-primary-900 text-3xs font-pretendard font-semibold"
           >
-            #푸드트럭
+            #{{ item.adminCategory }}
           </div>
-          <div class="py-1.5 text-base font-pretendard font-semibold">치즈닭갈비</div>
+          <div class="py-1.5 text-base font-pretendard font-semibold">{{ item.boothName }}</div>
           <div class="pb-2 text-2xs text-secondary-500">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-            dolore magna aliqua.
+            {{ item.boothIntro }}
           </div>
           <div class="flex flex-row">
-            <ShowState>운영중</ShowState>
+            <ShowState :isState="item.isOpen">{{ item.isOpen ? '운영중' : '준비중' }}</ShowState>
             <div
               class="px-2 py-1 w-fit flex justify-center text-center items-center text-3xs text-secondary-500 bg-primary-100 rounded-full"
             >
               <img class="mr-1 w-2 h-2 flex justify-center" src="/images/booth/booth-clock-icon.png" />
-              <div>12:00 ~ 16:00</div>
+              <div>{{ item.openTime }} ~ {{ item.closeTime }}</div>
             </div>
           </div>
         </div>
