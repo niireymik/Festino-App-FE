@@ -1,3 +1,10 @@
+<script setup>
+import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
+import { storeToRefs } from 'pinia';
+
+const { booth } = storeToRefs(useGetBoothDataStore());
+</script>
+
 <template>
   <div class="w-full h-3 mb-7 bg-secondary-200"></div>
   <div class="dynamic-padding">
@@ -6,7 +13,7 @@
       <div class="absolute right-10 top-7 xs:top-10 sm:top-14 flex flex-col items-center">
         <div class="px-4 py-1 mb-2 w-fit h-fit rounded-full bg-white text-primary-900 font-bold font-pretendard">대기중인 팀</div>
         <div class="flex items-end">
-          <div class="font-bold text-7xl text-white font-pretendard">6</div>
+          <div class="font-bold text-7xl text-white font-pretendard">{{ booth.totalReservationNum }}</div>
           <div class="pb-2 font-semibold text-xl text-white font-pretendard">팀</div>
         </div>
       </div>
@@ -15,8 +22,6 @@
   </div>
 </template>
 
-<script setup>
-</script>
 
 <style lang="css" scoped>
 .dynamic-padding {
