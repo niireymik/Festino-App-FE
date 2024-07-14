@@ -32,18 +32,15 @@ export const useGetBoothDataStore = defineStore('boothData', {
     async getDayBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/day/${this.boothId}`);
       this.booth = res.data.boothInfo;
-      console.log(this.booth)
     },
     async getNightBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/night/${this.boothId}`);
       this.booth = res.data.boothInfo;
       this.handleFoodList(this.booth.menuList);
-      console.log(this.booth)
     },
     async getFoodBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
       this.booth = res.data.boothInfo;
-      console.log(this.booth)
     },
     handleBoothType(type) {
       this.boothType = type;
