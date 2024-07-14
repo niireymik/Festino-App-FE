@@ -47,12 +47,12 @@ export default {
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
-        'warning': '#FF5252',
+        warning: '#FF5252',
         error: 'rgba(255, 109, 109, 0.16)',
       },
       backgroundColor: (theme) => ({
         ...theme('textColor'),
-        'primary-900-light-12': 'rgba(0, 115, 240, 0.12)'
+        'primary-900-light-12': 'rgba(0, 115, 240, 0.12)',
       }),
       fontSize: {
         '3xs': '0.5rem', // 8px
@@ -84,9 +84,8 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        'instagram': "url('/icons/instagram.png')",
+        instagram: "url('/icons/instagram.png')",
         'pin-icon': "url('/icons/pin.svg')",
-        'tino-order-banner': "url('images/orders/tino-order-banner.png')",
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
         'board-icon': "url('/icons/orders/board.svg')",
