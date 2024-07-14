@@ -23,7 +23,7 @@ const limitInputLength = (event) => {
   <div class="text-xs">이름</div>
   <div
     class="h-11 w-full flex flex-row items-center py-2.5 gap-2.5 mb-[30px]"
-    :class="{ 'border-b-2 border-primary-900': isFocused, 'border-b-1 border-secondary-500': !isFocused }"
+    :class="{ 'border-b-2 border-primary-900': isFocused, 'border-b-1 border-secondary-500-light-20': !isFocused }"
   >
     <img src="/icons/person.svg" class="w-6 h-6" />
     <input
