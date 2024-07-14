@@ -9,7 +9,7 @@ const phoneNum = ref('');
 const isInputFill = ref(false);
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13;
+  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
 });
 
 const { openSearchReserveModal } = useTablingModalStore();
