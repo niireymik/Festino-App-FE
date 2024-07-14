@@ -36,7 +36,6 @@ export const useGetBoothDataStore = defineStore('boothData', {
     async getNightBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/night/${this.boothId}`);
       this.booth = res.data.boothInfo;
-      this.handleFoodList(this.booth.menuList);
     },
     async getFoodBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
