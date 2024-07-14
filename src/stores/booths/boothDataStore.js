@@ -6,25 +6,50 @@ const HOST = 'https://api.festino.dev-tino.com';
 export const useGetBoothDataStore = defineStore('boothData', {
   state: () => ({
     allBooth: [],
-    dayBooth: [],
-    nightBooth: [],
-    foodBooth: [],
+    dayBooths: [],
+    nightBooths: [],
+    foodBooths: [],
     boothList: [],
     selectBoothMenu: 0,
+    booth: [],
+    boothType: '',
+    boothId: '4f1f0d0a-001b-4ff0-aea4-9728742f968f',
+    menuList: []
   }),
   actions: {
     async getAllBoothData() {
       const res = await axios.get(`${HOST}/main/booth/all`);
-      this.dayBooth = res.data.boothInfo.dayBoothInfo;
-      this.nightBooth = res.data.boothInfo.nightBoothInfo;
-      this.foodBooth = res.data.boothInfo.foodBoothList;
-      this.allBooth = [...this.nightBooth, ...this.dayBooth, ...this.foodBooth];
+      this.dayBooths = res.data.boothInfo.dayBoothInfo;
+      this.nightBooths = res.data.boothInfo.nightBoothInfo;
+      this.foodBooths = res.data.boothInfo.foodBoothList;
+      this.allBooth = [...this.nightBooths, ...this.dayBooths, ...this.foodBooths];
 
-      this.boothList.push(this.allBooth, this.dayBooth, this.nightBooth, this.foodBooth);
-      console.log(this.boothList)
+      this.boothList.push(this.allBooth, this.nightBooths, this.dayBooths, this.foodBooths);
     },
     handleClickBoothMenu(index) {
       this.selectBoothMenu = index;
     },
+    async getDayBoothData(id) {
+      const res = await axios.get(`${HOST}/main/booth/day/${this.boothId}`);
+      this.booth = res.data.boothInfo;
+      console.log(this.booth)
+    },
+    async getNightBoothData(id) {
+      const res = await axios.get(`${HOST}/main/booth/night/${this.boothId}`);
+      this.booth = res.data.boothInfo;
+      this.handleFoodList(this.booth.menuList);
+      console.log(this.booth)
+    },
+    async getFoodBoothData(id) {
+      const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
+      this.booth = res.data.boothInfo;
+      console.log(this.booth)
+    },
+    handleBoothType(type) {
+      this.boothType = type;
+    },
+    handleFoodList(food) {
+      this.menuList = food;
+    }
   }
 });

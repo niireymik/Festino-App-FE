@@ -4,18 +4,29 @@ import ShowState from '@/components/booth/ShowState.vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
-const { boothList, showBoothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
+const { getDayBoothData, getNightBoothData, getFoodBoothData, handleBoothType } = useGetBoothDataStore();
+const { boothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const router = useRouter();
 
-const handleClickBoothIntroduction = (i) => {
-  router.push({ path: `/booth/detail/${i}` });
+const handleClickBoothIntroduction = (type, id) => {
+  if(type === '야간부스') {
+    handleBoothType('운동장');
+    getNightBoothData(id);
+  } else if(type === '주간부스') {
+    handleBoothType('벙커');
+    getDayBoothData(id);
+  } else if(type === '푸드트럭') {
+    handleBoothType(type);
+    getFoodBoothData(id);
+  }
+  router.push({ path: `/booth/detail/${id}` });
 }
 </script>
 
 <template>
   <div class="dynamic-padding w-full h-auto">
-    <div @click="handleClickBoothIntroduction(item.boothId)" v-for="(item, index) in boothList[selectBoothMenu]" :key="index" class="pb-2">
+    <div @click="handleClickBoothIntroduction(item.adminCategory, item.boothId)" v-for="(item, index) in boothList[selectBoothMenu]" :key="index" class="pb-2">
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3"
       >
