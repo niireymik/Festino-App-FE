@@ -3,6 +3,9 @@ import { ref, watchEffect } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+import { useReservationStore } from '@/stores/reservationStore';
+
+const { getReservation, setUserName } = useReservationStore();
 
 const name = ref('');
 const phoneNum = ref('');
@@ -15,6 +18,9 @@ watchEffect(() => {
 const { openSearchReserveModal } = useTablingModalStore();
 const handleClickSearchButton = () => {
   if (!isInputFill.value) return;
+  const inputInfo = { userName: name.value, phoneNum: phoneNum.value };
+  getReservation(inputInfo);
+  setUserName(name.value);
   openSearchReserveModal();
 };
 </script>

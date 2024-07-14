@@ -1,7 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+import { useReservationStore } from '@/stores/reservationStore';
 const { openReserveModal } = useTablingModalStore();
+const { setBoothId } = useReservationStore();
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -9,6 +11,7 @@ const hanldeClickMajorBox = (index) => {
     selectedIndex.value = -1;
     return;
   }
+  setBoothId(index);
   selectedIndex.value = index;
 };
 
