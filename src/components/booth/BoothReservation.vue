@@ -1,8 +1,13 @@
 <script setup>
+import router from '@/router';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
 const { booth } = storeToRefs(useGetBoothDataStore());
+
+const handleRoutertoReserve = () => {
+  router.push('/reserve')
+}
 </script>
 
 <template>
@@ -18,7 +23,7 @@ const { booth } = storeToRefs(useGetBoothDataStore());
         </div>
       </div>
     </div>
-    <button class="w-full h-auto py-4 mt-3 mb-20 shadow-3xl border-1 border-primary-900 rounded-full text-primary-900 font-pretendard text-base active:text-white active:bg-primary-900">예약하기</button>
+    <button @click="handleRoutertoReserve()" class="w-full h-auto py-4 mt-3 mb-20 shadow-3xl border-1 border-primary-900 rounded-full text-primary-900 font-pretendard text-base active:text-white active:bg-primary-900">예약하기</button>
   </div>
 </template>
 
