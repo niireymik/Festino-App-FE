@@ -1,8 +1,19 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import ShowState from '@/components/booth/ShowState.vue';
+
+const router = useRouter();
+
+const handleClickBoothIntroduction = (i) => {
+  router.push({ path: `/booth/detail/${i}` });
+}
+</script>
+
 <template>
   <div class="dynamic-padding w-full h-auto">
     <div @click="handleClickBoothIntroduction(i)" v-for="i in 5" :key="i" class="pb-2">
       <div
-        class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light px-4 py-3"
+        class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3"
       >
         <div class="w-[222px] flex flex-col justify-center pr-1">
           <div
@@ -16,11 +27,7 @@
             dolore magna aliqua.
           </div>
           <div class="flex flex-row">
-            <div
-              class="px-2 py-1 mr-2 w-fit flex justify-center text-center text-3xs text-primary-900 bg-primary-900-light-12 rounded-full"
-            >
-              운영중
-            </div>
+            <ShowState>운영중</ShowState>
             <div
               class="px-2 py-1 w-fit flex justify-center text-center items-center text-3xs text-secondary-500 bg-primary-100 rounded-full"
             >
@@ -36,16 +43,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const handleClickBoothIntroduction = (i) => {
-  router.push({ path: `/booth/detail/${i}` });
-}
-</script>
 
 <style lang="css" scoped>
 .dynamic-padding {
