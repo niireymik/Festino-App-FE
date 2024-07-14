@@ -36,7 +36,7 @@ const moveSlider = (percentage) => {
     <div class="dynamic-padding mt-[13px] h-auto w-full rounded-3xl bg-inherit z-50 absolute">
       <div class="flex gap-[30px]">
         <div
-          class="w-[86px] h-[32px] flex flex-col items-center justify-between cursor-pointer"
+          class="w-[86px] h-[32px] flex flex-col items-center justify-between cursor-pointer relative"
           @click="toggleTab('예약하기')"
         >
           <div
@@ -45,10 +45,10 @@ const moveSlider = (percentage) => {
           >
             예약하기
           </div>
-          <div v-if="isActive['예약하기']" class="w-full h-4 rounded-full bg-primary-900"></div>
+          <div v-if="isActive['예약하기']" class="w-[86px] h-1 rounded-full bg-primary-900 absolute top-8"></div>
         </div>
         <div
-          class="w-[86px] h-[32px] flex flex-col items-center justify-between cursor-pointer"
+          class="w-[86px] h-[32px] flex flex-col items-center justify-between cursor-pointer relative"
           @click="toggleTab('예약조회')"
         >
           <div
@@ -57,7 +57,7 @@ const moveSlider = (percentage) => {
           >
             예약조회
           </div>
-          <div v-if="isActive['예약조회']" class="w-full h-4 rounded-full bg-primary-900"></div>
+          <div v-if="isActive['예약조회']" class="w-[86px] h-1 rounded-full bg-primary-900 absolute top-8"></div>
         </div>
       </div>
     </div>
