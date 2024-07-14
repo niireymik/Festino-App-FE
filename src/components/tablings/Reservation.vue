@@ -32,8 +32,8 @@ const handleClickReserveButton = () => {
               'bg-secondary-100 opacity-50 rounded-3xl': selectedIndex != index && selectedIndex != -1,
             }"
           >
-            <div class="flex flex-col justify-end text-white p-3">
-              <h2 class="font-bold mb-1 break-keep">에너지 전자 공학과</h2>
+            <div class="flex flex-col justify-end text-white p-5">
+              <h2 class="font-bold mb-0.5 break-keep">에너지 전자 공학과</h2>
               <h2 class="text-2xs">대기중인 팀 : 9</h2>
             </div>
           </div>
