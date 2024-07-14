@@ -21,7 +21,7 @@ export const useGetBoothDataStore = defineStore('boothData', {
       const res = await axios.get(`${HOST}/main/booth/all`);
       this.dayBooths = res.data.boothInfo.dayBoothInfo;
       this.nightBooths = res.data.boothInfo.nightBoothInfo;
-      this.foodBooths = res.data.boothInfo.foodBoothList;
+      this.foodBooths = res.data.boothInfo.foodBoothInfo;
       this.allBooth = [...this.nightBooths, ...this.dayBooths, ...this.foodBooths];
 
       this.boothList.push(this.allBooth, this.nightBooths, this.dayBooths, this.foodBooths);
