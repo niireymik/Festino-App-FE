@@ -41,14 +41,28 @@ export const useOrderStore = defineStore('orderStore', {
         totalPrice: 11000,
       },
     ],
+    // TODO: MODIFY
+    boothId: '3f1f0d0a-001b-4ff0-aea4-9728742f968f',
+    menuList: [],
+    totalPrice: 0,
   }),
   actions: {
+    incrementTotalPrice(amount) {
+      this.totalPrice += amount;
+    },
+    decrementTotalPrice(amount) {
+      this.totalPrice -= amount;
+    },
     async saveOrde(payload) {
       const res = await axios.post(`${HOST}/main/order`, payload);
     },
     async getOrder(payload) {
       const res = await axios.get(`${HOST}/main/order`, { params: payload });
       this.orderList = res.data.bills;
+    },
+    async getMenuAll(boothId) {
+      const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
+      this.menuList = res.data.MenuInfo;
     },
   },
 });
