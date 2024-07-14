@@ -6,7 +6,7 @@
       <div>공지사항</div>
     </div>
     <div class="flex flex-col py-5 gap-5 px-4 justify-center w-full">
-      <div class="font-medium text-xl">‘Festino’ 사용 공지사항</div>
+      <div class="font-medium text-xl">{{ noticeData.title }}</div>
       <NoticePage />
     </div>
     <div class="py-30"></div>
@@ -18,6 +18,9 @@ import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
 import NoticePage from '@/components/notice/NoticePage.vue';
 import Header from '@/components/header/Header.vue';
+import { useMainStore } from '@/stores/mainStore.js';
+
+const { noticeData } = useMainStore();
 
 const router = useRouter();
 

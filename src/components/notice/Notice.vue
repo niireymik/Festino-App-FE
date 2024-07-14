@@ -1,21 +1,39 @@
 <template>
-  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center" @click="handleClickNotice()">
+  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center" @click="handleClickNotice(notice.noticeId)">
     <div class="flex flex-col pl-4 items-start py-3">
-      <div class="py-1 text-base font-normal text-secondary-500 leading-tight">'Festino' 사용 공지사항</div>
+      <div class="py-1 text-base font-normal text-secondary-500 leading-tight">{{ notice.title }}</div>
     </div>
-    <div class="flex justify-end pr-4 text-xs font-normal text-secondary-500 w-[140px]">1시간 전</div>
+    <div class="flex justify-end pr-4 text-xs font-normal text-secondary-500 w-[140px]">{{ timeAgo }}</div>
   </div>
 </template>
 
 <script setup>
+import { computed } from 'vue';
+import { formatDistanceToNow } from 'date-fns';
+import { ko } from 'date-fns/locale';
+
 import { useRouter } from 'vue-router';
+import { useMainStore } from '@/stores/mainStore.js';
+
+const { getNotice } = useMainStore();
 
 const router = useRouter();
+const props = defineProps({
+  notice: {
+    type: Object,
+    required: true
+  }
+});
 
-const handleClickNotice = () => {
-  router.push({ name: "notice" });
+const timeAgo = computed(() => {
+  return formatDistanceToNow(new Date(props.notice.updateAt), { addSuffix: true, locale: ko });
+});
+
+const handleClickNotice = async (noticeId) => {
+  await getNotice(noticeId);
+  router.push({ name: 'notice' });
 };
-
 </script>
 
-<style lang="css" scoped></style>
+<style scoped>
+</style>
