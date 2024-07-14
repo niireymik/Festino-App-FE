@@ -115,6 +115,8 @@ export default {
         2: '1px',
       },
       boxShadow: {
+        's-primary-900': '0 1px 0 0 #0073F0',
+        's-secondary-500-20': '0 1px 0 0 rgba(68, 68, 68, 0.2)',
         xs: '0 0 12px 0 rgba(0, 0, 0, 0.08)',
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
