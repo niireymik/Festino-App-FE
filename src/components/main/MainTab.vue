@@ -7,7 +7,7 @@
   <MoreButton :componentName="notification" />
   <div class="px-5">
     <div
-      class="py-3 px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center"
+      class="py-3 select-none px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center cursor-pointer"
       @click="handleClickNotice()"
     >
       <div class="flex">

@@ -1,8 +1,8 @@
 <template>
-  <div class="flex flex-col min-h-screen h-full items-center bg-notification-bg">
+  <div class="flex flex-col min-h-screen h-full items-center bg-notification-bg select-none">
     <Header />
     <div class="flex flex-row w-full h-[48px] text-secondary-700 bg-white justify-center items-center font-medium text-xl relative">
-      <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px]" @click="handleClickBackArrow()"></div>
+      <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px] cursor-pointer" @click="handleClickBackArrow()"></div>
       <div>공지사항</div>
     </div>
     <div v-for="notice in pinNotices" :key="notice" class="pt-5 px-4 flex justify-center w-full">

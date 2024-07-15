@@ -3,7 +3,7 @@
   <div>
     <TimeTable class="shadow-4xl" :day="day"/>
   </div>
-  <div class="flex justify-between items-center px-5 pt-4 pb-3">
+  <div class="flex justify-between items-center px-5 pt-4 pb-3 select-none">
     <div class="text-xl font-semibold">동아리 공연</div>
   </div>
   <div>
@@ -11,7 +11,7 @@
       category="club"
       :day="day"  />
   </div>
-  <div class="flex justify-between items-center px-5 pt-4 pb-3">
+  <div class="flex justify-between items-center px-5 pt-4 pb-3 select-none">
     <div class="text-xl font-semibold">연예인 공연</div>
   </div>
   <div class="pb-20">

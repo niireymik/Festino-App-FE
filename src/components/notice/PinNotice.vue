@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center" @click="handleClickNotice(notice.noticeId)">
+  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center cursor-pointer select-none" @click="handleClickNotice(notice.noticeId)">
     <div class="flex pl-4 items-center py-3 gap-[12px]">
       <div class="w-[20px] h-[20px] bg-center bg-pin-icon bg-no-repeat bg-[length:20px_20px]"></div>
       <div class="py-1 text-base font-normal text-primary-700 leading-tight">{{ notice.title }}</div>

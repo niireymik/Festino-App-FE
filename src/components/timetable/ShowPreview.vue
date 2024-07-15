@@ -10,9 +10,9 @@
     :modalData = "modalData" />
   </div>
   <div class="px-5">
-    <div class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center" v-bind="$attrs">
+    <div class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center select-none" v-bind="$attrs">
       <div class="flex pt-[17px] w-full dynamic-padding justify-evenly">
-        <div class="flex flex-col items-center" v-for="show in showData" :key="show"  @click="handleClickOpenModal(show)">
+        <div class="flex flex-col items-center cursor-pointer" v-for="show in showData" :key="show"  @click="handleClickOpenModal(show)">
           <div
             class="w-[100px] h-[100px] bg-primary-700 rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:61px_62px]"
           ></div>

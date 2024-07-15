@@ -1,5 +1,5 @@
 <template>
-  <div class="relative rounded-3xl overflow-hidden w-full h-[178px]" ref="sliderContainer">
+  <div class="relative select-none rounded-3xl overflow-hidden w-full h-[178px]" ref="sliderContainer">
     <div class="flex transition-transform duration-500 ease" :style="{ transform: `translateX(-${currentIndex * 100}%)` }">
       <div class="min-w-full min-h-[178px] bg-slide-banner-1 bg-cover bg-no-repeat bg-left-top relative border-primary border-1" @click="nextSlide()">
         <div class="absolute top-5 left-4 flex flex-col items-start">
@@ -8,7 +8,7 @@
           <div class="px-0.5 leading-none font-bold font-pretendard text-base text-white">학과 주점 예약 시스템 '테이블링'</div>
         </div>
         <div class="absolute bottom-4 left-4">
-          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2" @click="handleClickMoveTabling()">테이블링 탭으로 이동 -></div>
+          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2 cursor-pointer" @click="handleClickMoveTabling()">테이블링 탭으로 이동 -></div>
         </div>
       </div>
       <div class="min-w-full min-h-[178px] bg-slide-banner-2 bg-cover bg-no-repeat bg-right-top relative border-primary border-1" @click="nextSlide()">
@@ -18,7 +18,7 @@
           <div class="px-0.5 leading-none font-bold font-pretendard text-base text-white">대동제 축제 부스!</div>
         </div>
         <div class="absolute bottom-4 right-4">
-          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2" @click="handleClickMoveBooth()">축제 부스 탭으로 이동 -></div>
+          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2 cursor-pointer" @click="handleClickMoveBooth()">축제 부스 탭으로 이동 -></div>
         </div>
       </div>
       <div class="min-w-full min-h-[178px] bg-slide-banner-3 bg-cover bg-no-repeat bg-center relative border-primary border-1" @click="nextSlide()">
@@ -28,7 +28,7 @@
           <div class="px-0.5 leading-none font-bold font-pretendard text-base text-white">'공연 타임테이블'</div>
         </div>
         <div class="absolute bottom-4 left-4">
-          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2" @click="handleClickMoveTimeTable()">타임테이블 탭으로 이동 -></div>
+          <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2 cursor-pointer" @click="handleClickMoveTimeTable()">타임테이블 탭으로 이동 -></div>
         </div>
       </div>
     </div>
