@@ -1,11 +1,9 @@
 <script setup>
-import { ref } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
-import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 
-const store = useGetBoothDataStore();
-const { dayBooths, nightBooths, foodBooths, selectBoothMenu } = storeToRefs(store);
+const { handleClickBoothMenu } = useGetBoothDataStore();
+const { dayBooths, nightBooths, foodBooths, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const MENU_ITEMS = [
   { name: "전체" },
@@ -20,11 +18,11 @@ const MENU_ITEMS = [
   <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
     <div v-for="(item, index) in MENU_ITEMS" :key="index">
       <div
-        @click="store.handleClickBoothMenu(index)"
+        @click="handleClickBoothMenu(index)"
         class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center cursor-pointer"
         :class="{
-          'border border-primary-900 bg-primary-900 text-white': selectBoothMenu == index,
-          'border border-primary-900-light text-primary-900-light': selectBoothMenu != index,
+          'border border-primary-900 bg-primary-900 text-white': selectBoothMenu === index,
+          'border border-primary-900-light text-primary-900-light': selectBoothMenu !== index,
         }"
       >
         {{ item.name }}

@@ -54,7 +54,7 @@ export const useGetBoothDataStore = defineStore('boothData', {
       this.mainMenu = [];
       this.subMenu = [];
       for(let i=0; i < this.menuList.length; i++) {
-        if(this.menuList[i].menuType == 0) {
+        if(this.menuList[i].menuType === 0) {
           this.mainMenu.push(this.menuList[i].menuName);
         } else {
           this.subMenu.push(this.menuList[i].menuName);
