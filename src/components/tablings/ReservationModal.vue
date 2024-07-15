@@ -4,14 +4,28 @@ import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
 import InputPersonNum from './InputPersonNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
+import { useReservationStore } from '@/stores/reservationStore';
+
+const { closeReserveModal } = useTablingModalStore();
+const { boothId, saveReservation, setUserName } = useReservationStore();
 
 const name = ref('');
 const phoneNum = ref('');
 const personNum = ref('');
-
 const reserveModal = ref(null);
 
-const { closeReserveModal } = useTablingModalStore();
+const handleClickReserveButton = () => {
+  if (name.value < 2 || phoneNum.value.length !== 11 || personNum == 0) return;
+  saveReservation({
+    userName: name.value,
+    phoneNum: phoneNum.value,
+    personCount: personNum.value,
+    // TODO: CHANGE BOOTHID
+    boothId: '3a44d49f-44c0-4939-b7e8-440544eb47b2',
+  });
+  setUserName(name.value);
+  closeReserveModal();
+};
 
 onMounted(() => {
   const height = reserveModal.value.offsetHeight;
@@ -56,7 +70,12 @@ onMounted(() => {
         >
           닫기
         </button>
-        <button class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl">예약하기</button>
+        <button
+          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl"
+          @click="handleClickReserveButton()"
+        >
+          예약하기
+        </button>
       </div>
     </div>
   </div>
