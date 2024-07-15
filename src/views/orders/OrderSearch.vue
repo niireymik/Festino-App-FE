@@ -4,26 +4,32 @@ import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import OrderDetail from '@/components/orders/OrderDetail.vue';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 import { onMounted, ref, watchEffect } from 'vue';
+import { useOrderStore } from '@/stores/orderStore';
 
 onMounted(() => {
   window.scrollTo(0, 0);
 });
+const { getOrder, orderList } = useOrderStore();
 
 const name = ref('');
 const phoneNum = ref('');
 const isInputFill = ref(false);
 const notExistOrderModal = ref(false);
+// TODO: DELETE
+const showOrderDetail = ref(false);
 
-const handleClickSearchButton = () => {
+const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  handleClickOpenNotExistOrderModal();
-  isOrderExist.value = true;
+
+  try {
+    await getOrder({ userName: name.value, phoneNum: phoneNum.value });
+    showOrderDetail.value = true;
+  } catch (error) {
+    notExistOrderModal.value = true;
+    console.error(error);
+  }
 };
 
-const isOrderExist = ref(false);
-const handleClickOpenNotExistOrderModal = () => {
-  notExistOrderModal.value = true;
-};
 const handleClickCloseNotExistOrderModal = () => {
   notExistOrderModal.value = false;
 };
@@ -34,7 +40,7 @@ const handleScrollStop = () => {
 };
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13;
+  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
   handleScrollStop();
 });
 </script>
@@ -56,9 +62,8 @@ watchEffect(() => {
         </button>
       </div>
     </div>
-    <div class="w-full flex flex-col gap-12">
-      <OrderDetail v-if="isOrderExist" />
-      <OrderDetail v-if="isOrderExist" />
+    <div v-for="item in orderList" v-if="showOrderDetail" class="w-full">
+      <OrderDetail :key="item.id" :orderInfo="item" />
     </div>
   </div>
   <NotExistOrderModal
