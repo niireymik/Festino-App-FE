@@ -27,6 +27,10 @@ export default {
             'light-16': 'rgba(0, 115, 240, 0.16)',
             'light-6': 'rgba(0, 115, 240, 0.06)',
           },
+          800: {
+            DEFAULT: "#F00E00",
+            light: "rgba(240, 14, 0, 0.12)",
+          },
           700: {
             DEFAULT: '#3082F6',
             light: 'rgba(48, 130, 246, 0.4)',
@@ -39,7 +43,10 @@ export default {
         },
         secondary: {
           700: '#222222',
-          500: '#444444',
+          500: {
+            DEFAULT: '#444444',
+            'light-20': 'rgba(68, 68, 68, 0.2)',
+          },
           300: '#999999',
           200: '#F2F4F6',
           100: '#CCCCCC',
@@ -53,6 +60,7 @@ export default {
       backgroundColor: (theme) => ({
         ...theme('textColor'),
         'primary-900-light-12': 'rgba(0, 115, 240, 0.12)',
+        'primary-900-light-16': 'rgba(0, 115, 240, 0.16)'
       }),
       fontSize: {
         '3xs': '0.5rem', // 8px
@@ -86,6 +94,7 @@ export default {
         'x-button': "url('/icons/x.png')",
         instagram: "url('/icons/instagram.png')",
         'pin-icon': "url('/icons/pin.svg')",
+        'tino-order-banner': "url('images/orders/tino-order-banner.png')",
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
         'board-icon': "url('/icons/orders/board.svg')",
@@ -111,6 +120,8 @@ export default {
         2: '1px',
       },
       boxShadow: {
+        's-primary-900': '0 1px 0 0 #0073F0',
+        's-secondary-500-20': '0 1px 0 0 rgba(68, 68, 68, 0.2)',
         xs: '0 0 12px 0 rgba(0, 0, 0, 0.08)',
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',

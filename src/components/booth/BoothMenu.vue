@@ -1,22 +1,11 @@
-<template>
-  <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
-    <div v-for="(item, index) in MENU_ITEMS" :key="index">
-      <div
-        @click="handleClickBoothBox(index)"
-        class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center"
-        :class="{
-          'border border-primary-900 bg-primary-900 text-white': selectedIndex == index,
-          'border border-primary-900-light text-primary-900-light': selectedIndex != index,
-        }"
-      >
-        {{ item.name }}
-      </div>
-    </div>
-  </div>
-</template>
-
 <script setup>
 import { ref } from 'vue';
+import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+
+const store = useGetBoothDataStore();
+const { dayBooths, nightBooths, foodBooths, selectBoothMenu } = storeToRefs(store);
 
 const MENU_ITEMS = [
   { name: "전체" },
@@ -25,17 +14,24 @@ const MENU_ITEMS = [
   { name: "푸드트럭" },
   { name: "편의시설" },
 ];
-
-const selectedIndex = ref(0);
-
-const handleClickBoothBox = (index) => {
-  if (selectedIndex.value == index) {
-    selectedIndex.value = 0;
-    return;
-  }
-  selectedIndex.value = index;
-};
 </script>
+
+<template>
+  <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
+    <div v-for="(item, index) in MENU_ITEMS" :key="index">
+      <div
+        @click="store.handleClickBoothMenu(index)"
+        class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center cursor-pointer"
+        :class="{
+          'border border-primary-900 bg-primary-900 text-white': selectBoothMenu == index,
+          'border border-primary-900-light text-primary-900-light': selectBoothMenu != index,
+        }"
+      >
+        {{ item.name }}
+      </div>
+    </div>
+  </div>
+</template>
 
 <style lang="css" scoped>
 .dynamic-padding {
