@@ -42,7 +42,7 @@ const router = createRouter({
           component: BoothView,
         },
         {
-          path: 'booth/detail',
+          path: 'booth/detail/:id',
           name: 'booth-detail',
           component: BoothDetailView,
         },

@@ -16,7 +16,8 @@
     "primeicons": "^7.0.0",
     "vue": "^3.4.29",
     "vue-meta": "^2.4.0",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "vue3-carousel": "^0.3.3"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

@@ -1,12 +1,7 @@
 <template>
   <div class="relative">
     <div class="w-full h-[220px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
-      <div class="absolute w-auto h-auto top-14 xs:dynamic-top dynamic-padding sm:top-[72px]">
-        <div
-          class="px-3 py-1 mb-2 w-fit flex justify-center text-center rounded-3.5xl border border-white text-white text-3xs font-pretendard"
-        >
-          Festino
-        </div>
+      <div class="absolute w-auto h-auto top-[60px] xs:dynamic-top dynamic-padding sm:top-[72px]">
         <div
           class="bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]"
         >
