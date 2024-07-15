@@ -6,6 +6,7 @@ import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
 const { booth } = storeToRefs(useGetBoothDataStore());
+const defaultOption = 0;
 </script>
 
 <template>
@@ -17,7 +18,7 @@ const { booth } = storeToRefs(useGetBoothDataStore());
           <div class="pb-2 flex justify-between">
             <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
             <div class="flex">
-              <MenuOption class="mr-1">대표 메뉴</MenuOption>
+              <MenuOption class="mr-1">{{ menu.menuType == defaultOption ? '대표 메뉴' : '서브메뉴' }}</MenuOption>
               <MenuStatus :isState="menu.isSoldOut">{{ !menu.isSoldOut ? '준비중' : '판매중' }}</MenuStatus>
             </div>
           </div>

@@ -14,8 +14,10 @@ export const useGetBoothDataStore = defineStore('boothData', {
     booth: [],
     boothType: '',
     boothId: '3f1f0d0a-001b-4ff0-aea4-9728742f968f',
+    imageList: [],
     menuList: [],
-    imageList: []
+    mainMenu: [],
+    subMenu: [],
   }),
   actions: {
     async getAllBoothData() {
@@ -38,6 +40,8 @@ export const useGetBoothDataStore = defineStore('boothData', {
       const res = await axios.get(`${HOST}/main/booth/night/${this.boothId}`);
       this.booth = res.data.boothInfo;
       this.imageList = res.data.boothInfo.boothImage;
+      this.menuList = res.data.boothInfo.menuList;
+      this.handleMenuType();
     },
     async getFoodBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
@@ -46,8 +50,17 @@ export const useGetBoothDataStore = defineStore('boothData', {
     handleBoothType(type) {
       this.boothType = type;
     },
-    handleFoodList(food) {
-      this.menuList = food;
+    handleMenuType() {
+      this.mainMenu = [];
+      this.subMenu = [];
+      for(let i=0; i < this.menuList.length; i++) {
+        if(this.menuList[i].menuType == 0) {
+          this.mainMenu.push(this.menuList[i].menuName);
+        } else {
+          this.subMenu.push(this.menuList[i].menuName);
+        }
+      }
+      console.log(this.mainMenu, this.subMenu);
     }
   }
 });
