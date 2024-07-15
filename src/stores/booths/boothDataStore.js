@@ -13,8 +13,9 @@ export const useGetBoothDataStore = defineStore('boothData', {
     selectBoothMenu: 0,
     booth: [],
     boothType: '',
-    boothId: '4f1f0d0a-001b-4ff0-aea4-9728742f968f',
-    menuList: []
+    boothId: '3f1f0d0a-001b-4ff0-aea4-9728742f968f',
+    menuList: [],
+    imageList: []
   }),
   actions: {
     async getAllBoothData() {
@@ -36,6 +37,7 @@ export const useGetBoothDataStore = defineStore('boothData', {
     async getNightBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/night/${this.boothId}`);
       this.booth = res.data.boothInfo;
+      this.imageList = res.data.boothInfo.boothImage;
     },
     async getFoodBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
