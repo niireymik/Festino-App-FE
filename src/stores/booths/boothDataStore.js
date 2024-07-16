@@ -18,14 +18,13 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const booth = ref([]);
   const boothType = ref('');
   const urlBoothType = ref('');
-  const boothId = ref('3f1f0d0a-001b-4ff0-aea4-9728742f968f');
   const imageList = ref([]);
 
   const menuList = ref([]);
   const mainMenu = ref([]);
   const subMenu = ref([]);
   
-  const getallTypeBoothLsitData = async () => {
+  const getAllTypeBoothLsitData = async () => {
     try {
       const res = await axios.get(`${HOST}/main/booth/all`);
       dayBoothList.value = res.data.boothInfo.dayBoothInfo;
@@ -35,7 +34,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       
       boothList.value.push(allTypeBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
     } catch (error) {
-      console.error('Error getallTypeBoothLsitData', error);
+      console.error('Error getAllTypeBoothLsitData', error);
     }
   };
 
@@ -61,9 +60,9 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       }
 
       const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
+      imageList.value = res.data.boothInfo.boothImage;
       
       if (urlBoothType === 'night') {
-        imageList.value = res.data.boothInfo.boothImage;
         menuList.value = res.data.boothInfo.menuList;
         setMenuType();
       }
@@ -103,12 +102,11 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     booth,
     boothType,
     urlBoothType,
-    boothId,
     imageList,
     menuList,
     mainMenu,
     subMenu,
-    getallTypeBoothLsitData,
+    getAllTypeBoothLsitData,
     convertBoothMenuTab,
     getBoothData,
     setBoothType,
