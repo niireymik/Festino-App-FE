@@ -1,14 +1,9 @@
 <script setup>
-const props = defineProps({
-  handleCloseModal: {
-    type: Function,
-    required: true,
-  },
-  modalData: {
-    type: Object,
-    required: true,
-  },
-});
+import { useModalStore } from '@/stores/modalStore.js';
+import { storeToRefs } from 'pinia';
+
+const { modalData } = storeToRefs(useModalStore());
+const { handleCloseModal } = useModalStore();
 </script>
 
 <template>

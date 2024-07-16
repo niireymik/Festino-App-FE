@@ -18,7 +18,7 @@ onMounted(async () => {
     <div class="w-full aspect-w-1 aspect-h-1">
       <img :src=noticeData.imageUrl class="rounded-3xl">
     </div>
-    <div class="w-full text-xs" v-html="noticeData.content"></div>
+    <div class="w-full text-xs">{{ noticeData.content }}</div>
   </div>
 </template>
 
