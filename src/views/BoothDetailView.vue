@@ -8,8 +8,13 @@ import BoothSelect from "@/components/booth/BoothSelect.vue";
 import MenuList from "@/components/booth/MenuList.vue";
 import { useGetBoothDataStore } from "@/stores/booths/boothDataStore";
 import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
 
 const { boothType } = storeToRefs(useGetBoothDataStore());
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 </script>
 
 <template>
