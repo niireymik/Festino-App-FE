@@ -4,8 +4,10 @@ import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/reservationStore';
+import { storeToRefs } from 'pinia';
 
 const { getReservation, setUserName } = useReservationStore();
+const { isReservationSucces } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');
@@ -15,13 +17,11 @@ watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
 });
 
-const { openSearchReserveModal } = useTablingModalStore();
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
   const inputInfo = { userName: name.value, phoneNum: phoneNum.value };
   await getReservation(inputInfo);
   setUserName(name.value);
-  openSearchReserveModal();
 };
 </script>
 

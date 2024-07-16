@@ -30,7 +30,7 @@ const handleClickDetailButton = () => {
   if (selectedIndex.value == -1) return;
   //TODO: CHANGE BOOTHID
   const boothId = '3f1f0d0a-001b-4ff0-aea4-9728742f968f';
-  router.push(`booth/deatil/${boothId}`);
+  router.push(`booth/detail/${boothId}`);
 };
 
 onMounted(() => {
