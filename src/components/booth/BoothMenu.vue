@@ -3,7 +3,7 @@ import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
 import { storeToRefs } from 'pinia';
 
 const { convertBoothMenuTab } = useGetBoothDataStore();
-const { dayBooths, nightBooths, foodBooths, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
+const { dayBoothList, nightBoothList, foodBoothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const MENU_ITEMS = [
   { name: "전체" },
