@@ -10,6 +10,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
   //TODO: 야간 부스 리스트 받아오고 나서 수정
   const boothId = ref(0);
   const userName = ref('');
+  const nightBoothInfo = ref([]);
 
   const setBoothId = (boothId) => {
     boothId.value = boothId;
@@ -25,7 +26,11 @@ export const useReservationStore = defineStore('reservationStore', () => {
     const res = await axios.get(`${HOST}/main/reservation`, { params: payload });
     reservationInfo.value = res.data.reservationInfo;
   };
-  //TODO: 야간부스 리스트 받아오는 api 추가
+  const getAllNightBooth = async () => {
+    const res = await axios.get(`${HOST}/main/booth/night/all`);
+    console.log(res.data);
+    nightBoothInfo.value = res.data.boothInfo;
+  };
   return {
     isReservationSucces,
     reservationInfo,
@@ -35,5 +40,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
     setUserName,
     saveReservation,
     getReservation,
+    getAllNightBooth,
   };
 });

@@ -1,9 +1,9 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/reservationStore';
 const { openReserveModal } = useTablingModalStore();
-const { setBoothId } = useReservationStore();
+const { setBoothId, getAllNightBooth } = useReservationStore();
 
 const selectedIndex = ref(-1);
 const hanldeClickMajorBox = (index) => {
@@ -19,6 +19,10 @@ const handleClickReserveButton = () => {
   if (selectedIndex.value == -1) return;
   openReserveModal();
 };
+
+onMounted(() => {
+  getAllNightBooth();
+});
 </script>
 <template>
   <div class="w-screen max-w-[500px] min-w-[375px]">
