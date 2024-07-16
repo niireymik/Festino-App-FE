@@ -1,3 +1,16 @@
+<script setup>
+import { ref } from 'vue';
+import DateButtons from "../main/DateButtons.vue";
+import ShowPreview from "./ShowPreview.vue";
+import TimeTable from "./TimeTable.vue";
+
+const day = ref(0);
+
+const updateDay = (selectedDay) => {
+  day.value = selectedDay;
+};
+</script>
+
 <template>
   <DateButtons @day="updateDay" />
   <div>
@@ -20,19 +33,6 @@
       :day="day" />
   </div>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-import DateButtons from "../main/DateButtons.vue";
-import ShowPreview from "./ShowPreview.vue";
-import TimeTable from "./TimeTable.vue";
-
-const day = ref(0);
-
-const updateDay = (selectedDay) => {
-  day.value = selectedDay;
-};
-</script>
 
 <style lang="css" scoped>
 </style>

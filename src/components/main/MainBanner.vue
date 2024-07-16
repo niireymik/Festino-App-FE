@@ -1,3 +1,5 @@
+<script setup></script>
+
 <template>
   <div class="relative select-none">
     <div class="w-full h-full min-h-[251px] sm:min-h-[290px] bg-tino-thumbs-up bg-cover bg-no-repeat bg-right-top relative">
@@ -11,8 +13,6 @@
     <div class="w-full rounded-t-3xl bg-white h-[34px] absolute top-[220px] sm:top-[256px]"></div>
   </div>
 </template>
-
-<script setup></script>
 
 <style lang="css" scoped>
 </style>
