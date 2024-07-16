@@ -1,10 +1,13 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
 import { ref } from "vue";
+import { useRouter } from 'vue-router'; 
 
 const HOST = 'https://api.festino.dev-tino.com';
 
 export const useGetBoothDataStore = defineStore('boothData', () => {
+  const router = useRouter();
+
   const allTypeBoothLsit = ref([]);
   const dayBoothList = ref([]);
   const nightBoothList = ref([]);
@@ -14,6 +17,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const selectBoothMenu = ref(0);
   const booth = ref([]);
   const boothType = ref('');
+  const urlBoothType = ref('');
   const boothId = ref('3f1f0d0a-001b-4ff0-aea4-9728742f968f');
   const imageList = ref([]);
 
@@ -31,7 +35,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       
       boothList.value.push(allTypeBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
     } catch (error) {
-      console.error('Error fetching booth list:', error);
+      console.error('Error getallTypeBoothLsitData', error);
     }
   };
 
@@ -39,20 +43,34 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     selectBoothMenu.value = index;
   };
 
+  const setBoothTypeUseUrl = (type) => {
+    urlBoothType.value = type;
+  }
+
   const getBoothData = async (type, id) => {
     try {
-      let res;
-      if (type === 'day') {
-        res = await axios.get(`${HOST}/main/booth/day/${id}`);
-      } else if (type === 'night') {
-        res = await axios.get(`${HOST}/main/booth/night/${id}`);
+      if (type === '야간부스') {
+        setBoothType('운동장');
+        setBoothTypeUseUrl('night');
+      } else if (type === '주간부스') {
+        setBoothType('벙커');
+        setBoothTypeUseUrl('day');
+      } else if (type === '푸드트럭') {
+        setBoothType('푸드트럭');
+        setBoothTypeUseUrl('food');
+      }
+
+      const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
+      
+      if (urlBoothType === 'night') {
         imageList.value = res.data.boothInfo.boothImage;
         menuList.value = res.data.boothInfo.menuList;
         setMenuType();
-      } else if (type === 'food') {
-        res = await axios.get(`${HOST}/main/booth/food/${id}`);
       }
+
       booth.value = res.data.boothInfo;
+  
+      router.push({ path: `/booth/detail/${id}` });
     } catch (error) {
       console.error(`Error fetching ${type} booth data:`, error);
     }
@@ -84,6 +102,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     selectBoothMenu,
     booth,
     boothType,
+    urlBoothType,
     boothId,
     imageList,
     menuList,

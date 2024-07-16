@@ -1,26 +1,13 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import ShowState from '@/components/booth/ShowState.vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
-const { getDayBoothData, getNightBoothData, getFoodBoothData, setBoothType } = useGetBoothDataStore();
+const { getBoothData, setBoothType } = useGetBoothDataStore();
 const { boothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
-const router = useRouter();
-
 const handleClickBoothIntroduction = (type, id) => {
-  if(type === '야간부스') {
-    setBoothType('운동장');
-    getNightBoothData(id);
-  } else if(type === '주간부스') {
-    setBoothType('벙커');
-    getDayBoothData(id);
-  } else if(type === '푸드트럭') {
-    setBoothType(type);
-    getFoodBoothData(id);
-  }
-  router.push({ path: `/booth/detail/${id}` });
+  getBoothData(type, id);
 }
 </script>
 
