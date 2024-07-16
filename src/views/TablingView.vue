@@ -13,7 +13,13 @@ const { reserveModalState, searchReserveModalState, completeReserveModalState, n
   useTablingModalStore(),
 );
 const handleStopScroll = () => {
-  if (reserveModalState.value || searchReserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  if (
+    reserveModalState.value ||
+    searchReserveModalState.value ||
+    completeReserveModalState.value ||
+    noReserveModalState.value
+  )
+    document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
 };
 
