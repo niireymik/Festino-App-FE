@@ -25,8 +25,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const getReservation = async (payload) => {
     const res = await axios.get(`${HOST}/main/reservation`, { params: payload });
     reservationInfo.value = res.data.reservationInfo;
-
-    console.log(res.data.reservationInfo);
   };
   const getAllNightBooth = async () => {
     const res = await axios.get(`${HOST}/main/booth/night/all`);

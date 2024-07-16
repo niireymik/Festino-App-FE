@@ -17,8 +17,6 @@ const personNum = ref('');
 const reserveModal = ref(null);
 
 const handleClickReserveButton = () => {
-  console.log(name.value, phoneNum.value, personNum.value, selectedNightBoothInfo.value.boothId);
-
   if (name.value < 2 || phoneNum.value.length !== 11 || personNum == 0) return;
   saveReservation({
     boothId: selectedNightBoothInfo.value.boothId,
