@@ -94,11 +94,6 @@ onMounted(() => {
   min-width: calc(375px * 190 / 430) !important;
 }
 
-.dynamic-margin {
-  margin-left: calc(20 / 430 * 100%) !important;
-  margin-right: calc(20 / 430 * 100%) !important;
-}
-
 .dynamic-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
@@ -106,6 +101,8 @@ onMounted(() => {
 
 .dynamic-width {
   width: calc(100vw * 10 / 430) !important;
+  max-width: calc(500px * 10 / 430) !important;
+  min-width: calc(375px * 19 / 430) !important;
 }
 
 #reserve-container::-webkit-scrollbar {
