@@ -2,7 +2,7 @@
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
 import { storeToRefs } from 'pinia';
 
-const { handleClickBoothMenu } = useGetBoothDataStore();
+const { convertBoothMenuTab } = useGetBoothDataStore();
 const { dayBooths, nightBooths, foodBooths, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const MENU_ITEMS = [
@@ -18,7 +18,7 @@ const MENU_ITEMS = [
   <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
     <div v-for="(item, index) in MENU_ITEMS" :key="index">
       <div
-        @click="handleClickBoothMenu(index)"
+        @click="convertBoothMenuTab(index)"
         class="w-[88px] h-[44px] mr-2 rounded-full flex justify-center items-center cursor-pointer"
         :class="{
           'border border-primary-900 bg-primary-900 text-white': selectBoothMenu === index,

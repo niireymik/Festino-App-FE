@@ -29,7 +29,7 @@ export const useGetBoothDataStore = defineStore('boothData', {
 
       this.boothList.push(this.allBooth, this.nightBooths, this.dayBooths, this.foodBooths);
     },
-    handleClickBoothMenu(index) {
+    convertBoothMenuTab(index) {
       this.selectBoothMenu = index;
     },
     async getDayBoothData(id) {
@@ -41,16 +41,16 @@ export const useGetBoothDataStore = defineStore('boothData', {
       this.booth = res.data.boothInfo;
       this.imageList = res.data.boothInfo.boothImage;
       this.menuList = res.data.boothInfo.menuList;
-      this.handleMenuType();
+      this.setMenuType();
     },
     async getFoodBoothData(id) {
       const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
       this.booth = res.data.boothInfo;
     },
-    handleBoothType(type) {
+    setBoothType(type) {
       this.boothType = type;
     },
-    handleMenuType() {
+    setMenuType() {
       this.mainMenu = [];
       this.subMenu = [];
       this.menuList.forEach(menu => {
