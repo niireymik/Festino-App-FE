@@ -8,7 +8,7 @@ const { booth } = storeToRefs(useGetBoothDataStore());
 const router = useRouter();
 
 const handleClickBoothDetailBackArrow = () => {
-  router.go(-1);
+  router.push({ paht: '/booth' });
 }
 </script>
 
