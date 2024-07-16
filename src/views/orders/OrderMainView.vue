@@ -16,7 +16,7 @@ const handleClickPayment = () => {
 <template>
   <div class="flex flex-col">
     <OrderMainBanner />
-    <div class="w-full rounded-t-3xl bg-white pt-[25px] flex flex-col items-center -translate-y-5">
+    <div class="w-full rounded-t-3xl bg-white pt-[25px] flex flex-col items-center -translate-y-12">
       <div
         class="w-[138px] h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center"
       >
@@ -40,7 +40,7 @@ const handleClickPayment = () => {
           </div>
         </div>
         <div class="relative">
-          <img src="/icons/orders/tino-order-shortcut.svg" class="w-full h-full" />
+          <img src="/icons/orders/tino-order-shortcut.svg" class="w-full h-full" @click="handleClickFestinoButton()" />
           <div class="absolute flex flex-col top-[28px] right-[25px] sm:right-[40px] items-end">
             <div class="text-white font-jalnan2 text-xs">Festino와 함께하는 2024 한국공학대학교 축제</div>
             <div
@@ -48,10 +48,7 @@ const handleClickPayment = () => {
             >
               ‘한국공대 축제’
             </div>
-            <button
-              class="border-2 border-white w-[155px] h-[26px] text-white font-bold text-xs rounded-3.5xl mt-1"
-              @click="handleClickFestinoButton()"
-            >
+            <button class="border-2 border-white w-[155px] h-[26px] text-white font-bold text-xs rounded-3.5xl mt-1">
               페스티노 사이트 바로가기 ->
             </button>
           </div>
