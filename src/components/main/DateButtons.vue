@@ -1,5 +1,7 @@
 <script setup>
 import { onMounted } from 'vue';
+import { useTimetableStore } from '@/stores/timetableStore';
+import { storeToRefs } from 'pinia';
 
 const { changeDate } = useTimetableStore();
 const { day } = storeToRefs(useTimetableStore());

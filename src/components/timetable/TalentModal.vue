@@ -1,17 +1,12 @@
 <script setup>
-const props = defineProps({
-  handleCloseModal: {
-    type: Function,
-    required: true,
-  },
-  modalData: {
-    type: Object,
-    required: true,
-  },
-});
+import { useModalStore } from '@/stores/modalStore.js';
+import { storeToRefs } from 'pinia';
 
-const handleClickMusic = () => {
-  window.open(`${props.modalData.msuicList[0].youtubeLink}`, "_blank");
+const { modalData } = storeToRefs(useModalStore());
+const { handleCloseModal } = useModalStore();
+
+const handleClickMusic = (index) => {
+  window.open(`${modalData.value.musicList[index].youtubeLink}`, "_blank");
 };
 </script>
 
@@ -28,13 +23,13 @@ const handleClickMusic = () => {
       </div>
       <div class="text-secondary-700 font-medium pb-[12px]">{{ modalData.performer }}</div>
       <div class="w-[95px] h-[22px] text-primary-700 text-xs flex items-center rounded-full bg-instagram-bg justify-center">페스티노 추천곡!</div>
-      <div class="px-[32px] pb-[28px] pt-[8px] w-full">
-        <div class="shadow-3xl text-xs text-primary-700 w-full h-[32px] rounded-full flex items-center justify-between border-2 border-primary">
+      <div class="px-[32px] pb-[28px] pt-[8px] w-full flex flex-col gap-1">
+        <div v-for="(music, index) in modalData.musicList" :key="index" class="shadow-3xl text-xs text-primary-700 w-full h-[32px] rounded-full flex items-center justify-between border-2 border-primary">
           <div class="flex gap-[12px] items-center">
             <div class="w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
-            <div>{{ modalData.performer }} - {{ modalData.musicList[0].title }}</div>
+            <div>{{ modalData.performer }} - {{ music.title }}</div>
           </div>
-          <div class="pr-[12px]" @click="handleClickMusic()">
+          <div class="pr-[12px]" @click="handleClickMusic(index)">
             <div class="w-[11px] h-[13px] bg-play-icon bg-center bg-no-repeat bg-[length:11px_13px]"></div>
           </div>
         </div>
