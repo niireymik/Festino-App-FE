@@ -14,14 +14,9 @@ const { mainNoticeData } = storeToRefs(useNoticeStore());
 const timeTable = ref("타임테이블");
 const notification = ref("공지사항");
 const router = useRouter();
-const day = ref(0);
 
 const handleClickNotice = async (noticeId) => {
   router.push({ name: 'notice', state: { noticeId } });
-};
-
-const updateDay = (selectedDay) => {
-  day.value = selectedDay;
 };
 
 onMounted(() => {
@@ -30,11 +25,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <DateButtons @day="updateDay" />
+  <DateButtons />
   <MoreButton :componentName="timeTable" />
-  <div>
-    <ShowPreview class="shadow-4xl" category="talent" :day="day" />
-  </div>
+  <ShowPreview class="shadow-4xl" category="talent" />
   <MoreButton :componentName="notification" />
   <div class="px-5">
     <div

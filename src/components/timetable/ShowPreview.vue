@@ -69,8 +69,8 @@ watchEffect(() => {
   handleStopScroll();
 });
 
-watch(() => props.day, () => {
   getTimetable();
+watch(() => day.value, async () => {
 });
 
 onMounted(() => {
