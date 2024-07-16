@@ -1,3 +1,27 @@
+<script setup>
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useRouter } from 'vue-router';
+import { useNoticeStore } from '@/stores/noticeStore.js';
+import PinNotice from '@/components/notice/PinNotice.vue';
+import Notice from '@/components/notice/Notice.vue';
+import Header from '@/components/header/Header.vue';
+
+const { pinNotices, notices } = storeToRefs(useNoticeStore());
+const { getAllNotice } = useNoticeStore();
+
+const router = useRouter();
+
+const handleClickBackArrow = () => {
+  router.go(-1);
+};
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+  getAllNotice();
+});
+</script>
+
 <template>
   <div class="flex flex-col min-h-screen h-full items-center bg-notification-bg select-none">
     <Header />
@@ -13,38 +37,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useMainStore } from '@/stores/mainStore.js';
-import axios from 'axios';
-import PinNotice from '@/components/notice/PinNotice.vue';
-import Notice from '@/components/notice/Notice.vue';
-import Header from '@/components/header/Header.vue';
-
-const { host } = useMainStore();
-
-const router = useRouter();
-const notices = ref([]);
-const pinNotices = ref([]);
-
-const handleClickBackArrow = () => {
-  router.go(-1);
-};
-
-const getAllNotice = async () => {
-  const noticeResponse = await axios.get(`${host}/main/notice/all`);
-  const allNotices = noticeResponse.data.noticesInfo;
-  pinNotices.value = allNotices.filter(notice => notice.isPin);
-  notices.value = allNotices.filter(notice => !notice.isPin);
-};
-
-onMounted(() => {
-  window.scrollTo(0, 0);
-  getAllNotice();
-});
-</script>
 
 <style scoped>
 </style>

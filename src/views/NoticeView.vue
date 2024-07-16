@@ -1,3 +1,24 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import { storeToRefs } from 'pinia';
+import NoticePage from '@/components/notice/NoticePage.vue';
+import Header from '@/components/header/Header.vue';
+import { useNoticeStore } from '@/stores/noticeStore.js';
+
+const { noticeData } = storeToRefs(useNoticeStore());
+
+const router = useRouter();
+
+const handleClickBackArrow = () => {
+  router.go(-1);
+}
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
+</script>
+
 <template>
   <div class="flex flex-col min-h-screen h-full items-center bg-notification-bg select-none">
     <Header />
@@ -12,25 +33,5 @@
     <div class="py-30"></div>
   </div>
 </template>
-
-<script setup>
-import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
-import NoticePage from '@/components/notice/NoticePage.vue';
-import Header from '@/components/header/Header.vue';
-import { useMainStore } from '@/stores/mainStore.js';
-
-const { noticeData } = useMainStore();
-
-const router = useRouter();
-
-const handleClickBackArrow = () => {
-  router.go(-1);
-}
-
-onMounted(() => {
-  window.scrollTo(0, 0);
-});
-</script>
 
 <style lang="css" scoped></style>
