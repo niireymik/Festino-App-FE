@@ -2,12 +2,9 @@
 import { ref, watchEffect } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
-import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/reservationStore';
-import { storeToRefs } from 'pinia';
 
 const { getReservation, setUserName } = useReservationStore();
-const { isReservationSucces } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');

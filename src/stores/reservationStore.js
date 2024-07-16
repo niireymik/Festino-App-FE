@@ -6,7 +6,6 @@ import { useTablingModalStore } from './tablings/tablingModal';
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
-  // const isReservationSucces = ref(false);
   const reservationInfo = ref(null);
 
   const userName = ref('');
@@ -23,7 +22,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
   };
   const saveReservation = async (payload) => {
     const res = await axios.post(`${HOST}/main/reservation`, payload);
-    isReservationSucces.value = res.data.success;
   };
   const getReservation = async (payload) => {
     try {

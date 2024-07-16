@@ -2,9 +2,6 @@
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const handleClickPrevButton = () => {
-  router.push({ name: 'main' });
-};
 </script>
 <template>
   <div class="relative">
