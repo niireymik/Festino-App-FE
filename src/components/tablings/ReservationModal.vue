@@ -8,7 +8,7 @@ import { useReservationStore } from '@/stores/reservationStore';
 import { storeToRefs } from 'pinia';
 
 const { closeReserveModal, openCompleteReserveModal } = useTablingModalStore();
-const { boothId, saveReservation, setUserName } = useReservationStore();
+const { saveReservation, setUserName } = useReservationStore();
 const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');

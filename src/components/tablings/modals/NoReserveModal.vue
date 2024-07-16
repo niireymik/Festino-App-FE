@@ -4,13 +4,13 @@ import { onMounted, ref } from 'vue';
 
 const { closeNoReserveModal } = useTablingModalStore();
 
+const noReserveModal = ref(null);
 onMounted(() => {
   const height = noReserveModal.value.offsetHeight;
   const currentScroll = window.scrollY;
 
   noReserveModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
 });
-const noReserveModal = ref(null);
 </script>
 
 <template>
@@ -26,7 +26,7 @@ const noReserveModal = ref(null);
       <div class="w-12 h-12 bg-error rounded-full grid place-items-center">
         <img src="/icons/orders/error.svg" />
       </div>
-      <div class="w-full flex flex-col gap-3 items-center">
+      <div class="w-full flex flex-col gap-3 items-center break-keep text-center">
         <p class="text-secondary-700 text-xl font-bold">예약자 확인 불가</p>
         <p class="text-secondary-500">
           입력하신 정보의 주문자를 확인할 수 없습니다.<br />이름과 전화번호를 다시 입력해주세요.
