@@ -16,10 +16,10 @@ watchEffect(() => {
 });
 
 const { openSearchReserveModal } = useTablingModalStore();
-const handleClickSearchButton = () => {
+const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
   const inputInfo = { userName: name.value, phoneNum: phoneNum.value };
-  getReservation(inputInfo);
+  await getReservation(inputInfo);
   setUserName(name.value);
   openSearchReserveModal();
 };

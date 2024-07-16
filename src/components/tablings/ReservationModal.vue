@@ -5,9 +5,11 @@ import InputPhoneNum from './InputPhoneNum.vue';
 import InputPersonNum from './InputPersonNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/reservationStore';
+import { storeToRefs } from 'pinia';
 
 const { closeReserveModal } = useTablingModalStore();
 const { boothId, saveReservation, setUserName } = useReservationStore();
+const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');
@@ -15,13 +17,14 @@ const personNum = ref('');
 const reserveModal = ref(null);
 
 const handleClickReserveButton = () => {
+  console.log(name.value, phoneNum.value, personNum.value, selectedNightBoothInfo.value.boothId);
+
   if (name.value < 2 || phoneNum.value.length !== 11 || personNum == 0) return;
   saveReservation({
+    boothId: selectedNightBoothInfo.value.boothId,
     userName: name.value,
     phoneNum: phoneNum.value,
     personCount: personNum.value,
-    // TODO: CHANGE BOOTHID
-    boothId: '3a44d49f-44c0-4939-b7e8-440544eb47b2',
   });
   setUserName(name.value);
   closeReserveModal();
@@ -45,7 +48,7 @@ onMounted(() => {
       ref="reserveModal"
       @click.stop=""
     >
-      <div class="text-secondary-700 text-xl font-semibold">디자인과 부스 예약</div>
+      <div class="text-secondary-700 text-xl font-semibold">{{ selectedNightBoothInfo.adminName }} 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
         <InputName v-model="name" />
         <div class="mb-[30px]">
@@ -56,11 +59,11 @@ onMounted(() => {
       <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">
         <div class="flex flex-row justify-between">
           <div>대기번호</div>
-          <div>103번</div>
+          <div>{{ selectedNightBoothInfo.totalReservationNum }}번</div>
         </div>
         <div class="flex flex-row justify-between">
           <div>현재 대기 팀</div>
-          <div>5팀</div>
+          <div>{{ selectedNightBoothInfo.totalReservationNum }}팀</div>
         </div>
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
