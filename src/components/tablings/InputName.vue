@@ -12,10 +12,15 @@ const isFocused = ref(false);
 const emit = defineEmits(['update:modelValue']);
 
 const limitInputLength = (event) => {
-  if (event.target.value.length > 10) {
-    event.target.value = event.target.value.slice(0, 10);
+  let filteredInput = event.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
+
+  // 10자 제한
+  if (filteredInput.length > 10) {
+    filteredInput = filteredInput.slice(0, 10);
   }
-  emit('update:modelValue', event.target.value);
+
+  event.target.value = filteredInput;
+  emit('update:modelValue', filteredInput);
 };
 </script>
 
