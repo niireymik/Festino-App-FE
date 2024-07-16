@@ -17,12 +17,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
-    <BoothBanner />
-    <BoothMap />
-    <BoothMenu />
-    <BoothIntro />
-  </div>
+  <BoothBanner />
+  <BoothMap />
+  <BoothMenu />
+  <BoothIntro />
 </template>
 
 <style lang="css" scoped></style>
