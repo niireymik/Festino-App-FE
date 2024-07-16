@@ -39,16 +39,16 @@ onUnmounted(() => {
 
 <template>
   <div class="w-full h-3 mb-7 bg-secondary-200"></div>
-  <div class="dynamic-padding relative">
+  <div class="relative pt-[2.33%] pl-[4.65%] pr-[4.65%] pb-6">
     <div 
-      class="absolute right-[40px] top-[30px] flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500"
+      class="absolute right-10 top-7 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500"
     >
       {{ currentIndex + 1 }} / {{ imageList.length }}
     </div>
-    <div ref="containerRef" class="snap-x overflow-x-auto w-full min-h-[390px] sm:h-[440px] flex rounded-3xl image-container">
-      <div v-for="(image, index) in imageList" :key="index" class="snap-center rounded-3xl">
+    <div ref="containerRef" class="snap-x overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4">
+      <div v-for="(image, index) in imageList" :key="index" class="snap-center rounded-3xl min-w-full">
         <div 
-          class="w-full h-full bg-cover bg-no-repeat aspect-1"
+          class="w-full h-full bg-cover bg-no-repeat aspect-square"
           :style="`background-image: url(${image})`" >
         </div>
       </div>
@@ -57,11 +57,5 @@ onUnmounted(() => {
   </div>
 </template>
 
-<style lang="css" scoped>
-.dynamic-padding {
-  padding-top: calc(10 / 430 * 100%) !important;
-  padding-left: calc(20 / 430 * 100%) !important;
-  padding-right: calc(20 / 430 * 100%) !important;
-  padding-bottom: 1.5rem;
-}
+<style scoped>
 </style>
