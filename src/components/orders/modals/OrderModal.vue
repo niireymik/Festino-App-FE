@@ -1,42 +1,34 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore';
-import { onMounted, ref, watchEffect } from 'vue';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { onMounted, ref } from 'vue';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
+const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
 
 const orderMenus = ref([]);
 onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
-const props = defineProps({
-  handleCloseOrderModal: {
-    type: Function,
-    required: true,
-  },
-  handleOpenCheckModal: {
-    type: Function,
-    required: true,
-  },
-});
-
 const name = ref('');
 const phoneNum = ref('');
 
-const confirm = () => {
+const handleClickOrderButton = () => {
   if (name.value.length < 2 || phoneNum.value.length !== 11) return;
   setUserName(name.value);
   setPhoneNum(phoneNum.value);
-  props.handleOpenCheckModal();
-  props.handleCloseOrderModal();
+
+  closeOrderModal();
+  openOrderCheckModal();
 };
 </script>
 
 <template>
   <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="w-[386px] h-auto bg-white rounded-3xl px-7 py-[21px]">
+    <div class="dynamic-modal-width h-auto bg-white rounded-3xl px-7 py-[21px]">
       <div class="flex flex-col gap-7">
         <div class="font-semibold text-xl text-secondary-700 text-center">주문하기</div>
         <div class="px-4 w-full">
@@ -62,23 +54,27 @@ const confirm = () => {
             </div>
           </div>
         </div>
-        <div class="gap-5 flex w-full">
-          <div
+        <div class="gap-5 flex w-full font-bold">
+          <button
             class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
-            @click="handleCloseOrderModal()"
+            @click="closeOrderModal()"
           >
             취소
-          </div>
-          <div
+          </button>
+          <button
             class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
-            @click="confirm()"
+            @click="handleClickOrderButton()"
           >
             확인
-          </div>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.dynamic-modal-width {
+  width: calc(390 / 430 * 100%) !important;
+}
+</style>

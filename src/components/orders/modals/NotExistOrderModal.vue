@@ -1,10 +1,7 @@
 <script setup>
-const props = defineProps({
-  handleClickCloseNotExistOrderModal: {
-    type: Function,
-    required: true,
-  },
-});
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
+
+const { closeNotExistOrderModal } = useOrderModalStore();
 </script>
 
 <template>
@@ -24,7 +21,7 @@ const props = defineProps({
       </div>
       <button
         class="w-[310px] h-12 rounded-3xl bg-primary-900 text-white font-semibold text-xl"
-        @click="handleClickCloseNotExistOrderModal"
+        @click="closeNotExistOrderModal"
       >
         확인
       </button>

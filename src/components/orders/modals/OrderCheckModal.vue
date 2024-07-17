@@ -1,46 +1,36 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
 
-const { tableNum, totalPrice, orderId, userName, phoneNum, saveOrder, userOrderList } = useOrderStore();
+const { tableNum, totalPrice, userName, phoneNum, saveOrder, userOrderList, isCoupon, accountNum } = useOrderStore();
 
-const props = defineProps({
-  handleCloseCheckModal: {
-    type: Function,
-    required: true,
-  },
-});
+const { closeOrderCheckModal } = useOrderModalStore();
 
 const orderMenus = ref([]);
 onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
-  console.log(JSON.parse(JSON.stringify(orderMenus.value)));
 });
 
-const confirm = () => {
+const handleClickConfirmDepositButton = () => {
   saveOrder({
     tableNum: tableNum,
     userName: userName,
     phoneNum: phoneNum,
-    menuInfo: JSON.parse(JSON.stringify(orderMenus.value)),
+    menuInfo: orderMenus.value,
     totalPrice: totalPrice,
-    orderId: orderId,
+    isCoupon: isCoupon,
   });
-  props.handleCloseCheckModal();
 };
 
-const accountNum = '0000-0000-0000-00';
 const clipAccount = () => {
-  const accountInfo = document.getElementById('accountInfo');
-  if (accountInfo) {
-    window.navigator.clipboard.writeText(accountInfo.textContent);
-  }
+  window.navigator.clipboard.writeText(accountNum);
 };
 </script>
 
 <template>
   <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="w-[346px] h-auto bg-white rounded-3xl">
+    <div class="dynamic-modal-width h-auto bg-white rounded-3xl">
       <div class="px-[21px] py-7 flex flex-col w-full items-center gap-7">
         <div class="font-semibold text-xl text-secondary-700">주문 확인</div>
 
@@ -49,12 +39,9 @@ const clipAccount = () => {
           <div class="w-full rounded-xl bg-primary-900-lightest p-4">
             <div class="font-bold flex pb-[12px] justify-between text-secondary-500">
               <div class="text-sm">신한은행</div>
-              <div class="flex gap-[8px] items-center">
-                <div class="text-sm" id="accountInfo">{{ accountNum }}</div>
-                <div
-                  class="w-[16px] h-[16px] bg-center bg-board-icon bg-no-repeat bg-[length:16px_16px]"
-                  @click="clipAccount()"
-                ></div>
+              <div class="flex gap-[8px] items-center cursor-pointer" @click="clipAccount()">
+                <div class="text-sm">{{ accountNum }}</div>
+                <div class="w-[16px] h-[16px] bg-center bg-board-icon bg-no-repeat bg-[length:16px_16px]"></div>
               </div>
             </div>
             <div class="flex pb-[12px] justify-between text-secondary-500">
@@ -75,23 +62,27 @@ const clipAccount = () => {
             <div>입금 완료 버튼을 눌러야 주문이 완료됩니다.</div>
           </div>
         </div>
-        <div class="gap-[20px] flex">
-          <div
+        <div class="gap-[20px] flex font-bold">
+          <button
             class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
-            @click="handleCloseCheckModal()"
+            @click="closeOrderCheckModal()"
           >
             취소
-          </div>
-          <div
+          </button>
+          <button
             class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
-            @click="confirm()"
+            @click="handleClickConfirmDepositButton()"
           >
             입금 완료
-          </div>
+          </button>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.dynamic-modal-width {
+  width: calc(390 / 430 * 100%) !important;
+}
+</style>

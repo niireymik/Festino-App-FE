@@ -8,8 +8,7 @@ const props = defineProps({
   },
 });
 
-const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ');
-const formattedCreatedAt2 = createAt.replaceAll('-', '.');
+const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
 </script>
 <template>
   <div
@@ -22,15 +21,15 @@ const formattedCreatedAt2 = createAt.replaceAll('-', '.');
       </div>
       <div class="flex gap-1 items-center">
         <img src="/icons/orders/clock.svg" />
-        <p>{{ formattedCreatedAt2 }}</p>
+        <p>{{ createAt }}</p>
       </div>
     </div>
-    <div class="grid grid-cols-3 h-[17px] text-center" v-for="(item, index) in orderInfo.menuInfo" :key="index">
+    <div class="grid grid-cols-3 h-[17px] text-center" v-for="(menu, index) in orderInfo.menuInfo" :key="index">
       <p class="text-left">
-        {{ item.menuName }}
+        {{ menu.menuName }}
       </p>
-      <p>{{ item.menuCount }}개</p>
-      <p class="text-right">{{ item.menuPrice }}원</p>
+      <p>{{ menu.menuCount }}개</p>
+      <p class="text-right">{{ menu.menuPrice }}원</p>
     </div>
     <div class="flex justify-between h-[31px] items-center border-t-1 border-secondary-300">
       <p>총 가격</p>
