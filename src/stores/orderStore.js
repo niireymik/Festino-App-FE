@@ -5,42 +5,7 @@ import { ref } from 'vue';
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useOrderStore = defineStore('orderStore', () => {
-  const orderList = ref([
-    {
-      tableNum: 5,
-      createAt: '2024-07-14T17:10:35.793147',
-      menuInfo: [
-        {
-          menuName: '치즈닭꼬치',
-          menuPrice: 1000,
-          menuCount: 4,
-        },
-        {
-          menuName: '돈까스',
-          menuPrice: 7000,
-          menuCount: 1,
-        },
-      ],
-      totalPrice: 11000,
-    },
-    {
-      tableNum: 6,
-      createAt: '2024-07-14T17:10:35.793147',
-      menuInfo: [
-        {
-          menuName: '마라탕',
-          menuPrice: 2300,
-          menuCount: 3,
-        },
-        {
-          menuName: '돈까스',
-          menuPrice: 7000,
-          menuCount: 1,
-        },
-      ],
-      totalPrice: 11000,
-    },
-  ]);
+  const orderList = ref([]);
 
   const boothId = ref('3f1f0d0a-001b-4ff0-aea4-9728742f968f');
   const menuList = ref([]);
@@ -49,7 +14,10 @@ export const useOrderStore = defineStore('orderStore', () => {
   const userName = ref('');
   const phoneNum = ref('');
   const orderId = ref(0);
+  //TODO MODIFY
   const tableNum = ref(0);
+  const isCoupon = ref(false);
+  const accountNum = ref('0000-0000-0000-00');
 
   const handleTotalPrice = (type, amount) => {
     if (type === 'plus') totalPrice.value += amount;
@@ -57,12 +25,14 @@ export const useOrderStore = defineStore('orderStore', () => {
   };
 
   const addOrderList = (orderInfo) => {
-    const existingOrder = userOrderList.value.find((order) => order.menuName === orderInfo.menuName);
+    const existingOrder = userOrderList.value.find((order) => order.menuId === orderInfo.menuId);
     if (existingOrder) {
+      existingOrder.menName = orderInfo.menuName;
       existingOrder.menuCount = orderInfo.menuCount;
       existingOrder.menuPrice = orderInfo.menuPrice;
     } else {
       userOrderList.value.push({
+        menuId: orderInfo.menuId,
         menuName: orderInfo.menuName,
         menuCount: orderInfo.menuCount,
         menuPrice: orderInfo.menuPrice,
@@ -102,6 +72,8 @@ export const useOrderStore = defineStore('orderStore', () => {
     phoneNum,
     orderId,
     tableNum,
+    isCoupon,
+    accountNum,
     handleTotalPrice,
     addOrderList,
     setUserName,

@@ -26,6 +26,7 @@ const hanldeClickmenuNumButton = (type) => {
     menuPrice.value += menuUnitPrice.value;
     handleTotalPrice(type, menuUnitPrice.value);
     addOrderList({
+      menuId: props.menuInfo.menuId,
       menuName: props.menuInfo.menuName,
       menuCount: menuNum.value,
       menuPrice: menuUnitPrice.value,
@@ -37,6 +38,7 @@ const hanldeClickmenuNumButton = (type) => {
     menuPrice.value -= menuUnitPrice.value;
     handleTotalPrice(type, menuUnitPrice.value);
     addOrderList({
+      menuId: props.menuInfo.menuId,
       menuName: props.menuInfo.menuName,
       menuCount: menuNum.value,
       menuPrice: menuUnitPrice.value,
