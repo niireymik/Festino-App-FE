@@ -13,7 +13,6 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
 
   const searchReserveModalState = ref(false);
   const openSearchReserveModal = () => {
-    console.log('openSearchReserveModal');
     searchReserveModalState.value = true;
   };
   const closeSearchReserveModal = () => {
@@ -30,7 +29,6 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
 
   const noReserveModalState = ref(false);
   const openNoReserveModal = () => {
-    console.log('openNoReserveModal');
     noReserveModalState.value = true;
   };
   const closeNoReserveModal = () => {

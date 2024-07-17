@@ -32,6 +32,12 @@ export const useReservationStore = defineStore('reservationStore', () => {
     } catch (error) {
       openNoReserveModal();
     }
+    // reservationInfo.value = res.data.reservationInfo;
+    // await nextTick();
+
+    // console.log(res);
+    // if (res.data.success) openSearchReserveModal();
+    // if (!res.data.success) openNoReserveModal();
   };
 
   const getAllNightBooth = async () => {
