@@ -8,21 +8,19 @@ import { onMounted } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 
 const store = useGetBoothDataStore();
-const { getAllBoothData } = store;
+const { getAllTypeBoothLsitData } = store;
 
 onMounted(() => {
-  getAllBoothData();
+  getAllTypeBoothLsitData();
   window.scrollTo(0, 0);
 });
 </script>
 
 <template>
-  <div>
-    <BoothBanner />
-    <BoothMap />
-    <BoothMenu />
-    <BoothIntro />
-  </div>
+  <BoothBanner />
+  <BoothMap />
+  <BoothMenu />
+  <BoothIntro />
 </template>
 
 <style lang="css" scoped></style>

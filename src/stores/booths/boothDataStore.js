@@ -1,66 +1,115 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
+import { ref } from "vue";
+import { useRouter } from 'vue-router'; 
 
 const HOST = 'https://api.festino.dev-tino.com';
 
-export const useGetBoothDataStore = defineStore('boothData', {
-  state: () => ({
-    allBooth: [],
-    dayBooths: [],
-    nightBooths: [],
-    foodBooths: [],
-    boothList: [],
-    selectBoothMenu: 0,
-    booth: [],
-    boothType: '',
-    boothId: '3f1f0d0a-001b-4ff0-aea4-9728742f968f',
-    imageList: [],
-    menuList: [],
-    mainMenu: [],
-    subMenu: [],
-  }),
-  actions: {
-    async getAllBoothData() {
-      const res = await axios.get(`${HOST}/main/booth/all`);
-      this.dayBooths = res.data.boothInfo.dayBoothInfo;
-      this.nightBooths = res.data.boothInfo.nightBoothInfo;
-      this.foodBooths = res.data.boothInfo.foodBoothInfo;
-      this.allBooth = [...this.nightBooths, ...this.dayBooths, ...this.foodBooths];
+export const useGetBoothDataStore = defineStore('boothData', () => {
+  const router = useRouter();
 
-      this.boothList.push(this.allBooth, this.nightBooths, this.dayBooths, this.foodBooths);
-    },
-    handleClickBoothMenu(index) {
-      this.selectBoothMenu = index;
-    },
-    async getDayBoothData(id) {
-      const res = await axios.get(`${HOST}/main/booth/day/${this.boothId}`);
-      this.booth = res.data.boothInfo;
-    },
-    async getNightBoothData(id) {
-      const res = await axios.get(`${HOST}/main/booth/night/${this.boothId}`);
-      this.booth = res.data.boothInfo;
-      this.imageList = res.data.boothInfo.boothImage;
-      this.menuList = res.data.boothInfo.menuList;
-      this.handleMenuType();
-    },
-    async getFoodBoothData(id) {
-      const res = await axios.get(`${HOST}/main/booth/food/${this.boothId}`);
-      this.booth = res.data.boothInfo;
-    },
-    handleBoothType(type) {
-      this.boothType = type;
-    },
-    handleMenuType() {
-      this.mainMenu = [];
-      this.subMenu = [];
-      for(let i=0; i < this.menuList.length; i++) {
-        if(this.menuList[i].menuType == 0) {
-          this.mainMenu.push(this.menuList[i].menuName);
-        } else {
-          this.subMenu.push(this.menuList[i].menuName);
-        }
-      }
-      console.log(this.mainMenu, this.subMenu);
+  const allTypeBoothLsit = ref([]);
+  const dayBoothList = ref([]);
+  const nightBoothList = ref([]);
+  const foodBoothList = ref([]);
+  const boothList = ref([]);
+
+  const selectBoothMenu = ref(0);
+  const booth = ref([]);
+  const boothType = ref('');
+  const urlBoothType = ref('');
+  const imageList = ref([]);
+
+  const menuList = ref([]);
+  const mainMenu = ref([]);
+  const subMenu = ref([]);
+  
+  const getAllTypeBoothLsitData = async () => {
+    try {
+      const res = await axios.get(`${HOST}/main/booth/all`);
+      dayBoothList.value = res.data.boothInfo.dayBoothInfo;
+      nightBoothList.value = res.data.boothInfo.nightBoothInfo;
+      foodBoothList.value = res.data.boothInfo.foodBoothInfo;
+      allTypeBoothLsit.value = [...nightBoothList.value, ...dayBoothList.value, ...foodBoothList.value];
+      
+      boothList.value.push(allTypeBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
+    } catch (error) {
+      console.error('Error getAllTypeBoothLsitData', error);
     }
+  };
+
+  const convertBoothMenuTab = (index) => {
+    selectBoothMenu.value = index;
+  };
+
+  const setBoothTypeUseUrl = (type) => {
+    urlBoothType.value = type;
+  }
+
+  const getBoothData = async (type, id) => {
+    try {
+      if (type === '야간부스') {
+        setBoothType('운동장');
+        setBoothTypeUseUrl('night');
+      } else if (type === '주간부스') {
+        setBoothType('벙커');
+        setBoothTypeUseUrl('day');
+      } else if (type === '푸드트럭') {
+        setBoothType('푸드트럭');
+        setBoothTypeUseUrl('food');
+      }
+
+      const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
+      imageList.value = res.data.boothInfo.boothImage;
+      
+      if (urlBoothType === 'night') {
+        menuList.value = res.data.boothInfo.menuList;
+        setMenuType();
+      }
+
+      booth.value = res.data.boothInfo;
+  
+      router.push({ path: `/booth/detail/${id}` });
+    } catch (error) {
+      console.error(`Error fetching ${type} booth data:`, error);
+    }
+  };
+
+  const setBoothType = (type) => {
+    boothType.value = type;
+  };
+
+  const setMenuType = () => {
+    mainMenu.value = [];
+    subMenu.value = [];
+
+    menuList.value.forEach(menu => {
+      if (menu.menuType === 0) {
+        mainMenu.value.push(menu.menuName);
+      } else {
+        subMenu.value.push(menu.menuName);
+      }
+    });
+  };
+
+  return {
+    allTypeBoothLsit,
+    dayBoothList,
+    nightBoothList,
+    foodBoothList,
+    boothList,
+    selectBoothMenu,
+    booth,
+    boothType,
+    urlBoothType,
+    imageList,
+    menuList,
+    mainMenu,
+    subMenu,
+    getAllTypeBoothLsitData,
+    convertBoothMenuTab,
+    getBoothData,
+    setBoothType,
+    setMenuType
   }
 });
