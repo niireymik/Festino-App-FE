@@ -21,7 +21,7 @@ const { closeNotExistOrderModal } = useOrderModalStore();
       </div>
       <button
         class="w-[310px] h-12 rounded-3xl bg-primary-900 text-white font-semibold text-xl"
-        @click="closeNotExistOrderModal"
+        @click="closeNotExistOrderModal()"
       >
         확인
       </button>

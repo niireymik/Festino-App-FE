@@ -19,7 +19,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const accountNum = ref('0000-0000-0000-00');
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
 
-  const resetInfo = () => {
+  const resetOrderInfo = () => {
     totalPrice.value = 0;
     userOrderList.value = [];
   };
@@ -103,6 +103,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     saveOrder,
     getOrder,
     getMenuAll,
-    resetInfo,
+    resetOrderInfo,
   };
 });
