@@ -23,7 +23,7 @@ const handleClickConfirmButton = () => {
       <div class="w-12 h-12 rounded-full bg-primary-900-light-16 grid place-items-center">
         <img src="/icons/info.svg" />
       </div>
-      <div class="w-full flex flex-col gap-3 items-center">
+      <div class="w-full flex flex-col gap-3 items-center text-center">
         <p class="text-secondary-700 text-xl font-bold">입금완료</p>
         <p class="text-secondary-500">입금이 완료되었습니다.<br />학과에서 주문을 확인중입니다.</p>
       </div>

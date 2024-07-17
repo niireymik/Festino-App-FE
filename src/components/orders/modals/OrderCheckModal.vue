@@ -40,7 +40,7 @@ const clipAccount = () => {
 
 <template>
   <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="w-[346px] h-auto bg-white rounded-3xl">
+    <div class="dynamic-modal-width h-auto bg-white rounded-3xl">
       <div class="px-[21px] py-7 flex flex-col w-full items-center gap-7">
         <div class="font-semibold text-xl text-secondary-700">주문 확인</div>
 
@@ -91,4 +91,8 @@ const clipAccount = () => {
   </div>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.dynamic-modal-width {
+  width: calc(390 / 430 * 100%) !important;
+}
+</style>

@@ -1,8 +1,8 @@
 <script setup>
 import MenuVue from '@/components/orders/Menus.vue';
 import CouponVue from '@/components/orders/Coupon.vue';
-import OrderModal from '@/components/orders/OrderModal.vue';
-import OrderCheckModal from '@/components/orders/OrderCheckModal.vue';
+import OrderModal from '@/components/orders/modals/OrderModal.vue';
+import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
 import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
 import { onMounted, ref } from 'vue';
 import { useOrderStore } from '@/stores/orderStore';
