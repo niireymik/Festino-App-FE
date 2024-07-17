@@ -2,8 +2,7 @@
 import { useOrderStore } from '@/stores/orderStore';
 import { onMounted, ref } from 'vue';
 
-const { tableNum, totalPrice, orderId, userName, phoneNum, saveOrder, userOrderList, isCoupon, accountNum } =
-  useOrderStore();
+const { tableNum, totalPrice, userName, phoneNum, saveOrder, userOrderList, isCoupon, accountNum } = useOrderStore();
 
 const props = defineProps({
   handleCloseCheckModal: {
@@ -28,7 +27,6 @@ const handleClickConfirmDepositButton = () => {
     phoneNum: phoneNum,
     menuInfo: orderMenus.value,
     totalPrice: totalPrice,
-    orderId: orderId,
     isCoupon: isCoupon,
   });
   props.handleCloseCheckModal();

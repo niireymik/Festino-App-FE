@@ -13,11 +13,15 @@ export const useOrderStore = defineStore('orderStore', () => {
   const userOrderList = ref([]);
   const userName = ref('');
   const phoneNum = ref('');
-  const orderId = ref(0);
   //TODO MODIFY
   const tableNum = ref(0);
   const isCoupon = ref(false);
   const accountNum = ref('0000-0000-0000-00');
+
+  const resetInfo = () => {
+    totalPrice.value = 0;
+    userOrderList.value = [];
+  };
 
   const handleTotalPrice = (type, amount) => {
     if (type === 'plus') totalPrice.value += amount;
@@ -70,7 +74,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     userOrderList,
     userName,
     phoneNum,
-    orderId,
     tableNum,
     isCoupon,
     accountNum,
@@ -81,5 +84,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     saveOrder,
     getOrder,
     getMenuAll,
+    resetInfo,
   };
 });
