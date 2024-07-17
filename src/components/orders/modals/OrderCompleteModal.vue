@@ -1,10 +1,17 @@
 <script setup>
+import { useRouter } from 'vue-router';
 const props = defineProps({
   handleCloseCompleteModal: {
     type: Function,
     required: true,
   },
 });
+
+const router = useRouter();
+const handleClickConfirmButton = () => {
+  props.handleCloseCompleteModal();
+  router.push({ name: 'order' });
+};
 </script>
 
 <template>
@@ -22,7 +29,7 @@ const props = defineProps({
       </div>
       <button
         class="w-full h-12 bg-primary-900 rounded-3xl text-white font-semibold text-xl"
-        @click="handleCloseCompleteModal()"
+        @click="handleClickConfirmButton()"
       >
         확인
       </button>
