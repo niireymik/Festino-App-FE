@@ -50,12 +50,11 @@ const handleCloseCompleteModal = () => {
     :handleOpenCheckModal="handleOpenCheckModal"
   />
 
-  <div v-if="checkModalState">
-    <OrderCheckModal
-      :handleCloseCheckModal="handleCloseCheckModal"
-      :handleOpenCompleteModal="handleOpenCompleteModal"
-    />
-  </div>
+  <OrderCheckModal
+    v-if="checkModalState"
+    :handleCloseCheckModal="handleCloseCheckModal"
+    :handleOpenCompleteModal="handleOpenCompleteModal"
+  />
   <OrderCompleteModal v-if="orderCompleteModalState" :handleCloseCompleteModal="handleCloseCompleteModal" />
   <
   <div class="flex flex-col h-full pt-[60px] gap-16">
