@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
   <div class="relative">
     <div class="w-full h-[220px] xs:h-[255px] sm:h-[295px] bg-booth-banner bg-no-repeat bg-cover z-1">
@@ -17,9 +20,6 @@
     <div class="w-full h-5 bg-white rounded-t-3xl absolute z-2 bottom-[-2px]"></div>
   </div>
 </template>
-
-<script setup>
-</script>
 
 <style lang="css" scoped>
 .dynamic-top {
