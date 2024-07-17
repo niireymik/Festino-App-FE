@@ -5,25 +5,24 @@ import OrderDetail from '@/components/orders/OrderDetail.vue';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 import { onMounted, ref, watchEffect } from 'vue';
 import { useOrderStore } from '@/stores/orderStore';
+import { storeToRefs } from 'pinia';
 
 onMounted(() => {
   window.scrollTo(0, 0);
 });
-const { getOrder, orderList } = useOrderStore();
+const { getOrder } = useOrderStore();
+const { orderList } = storeToRefs(useOrderStore());
 
 const name = ref('');
 const phoneNum = ref('');
 const isInputFill = ref(false);
 const notExistOrderModal = ref(false);
-// TODO: DELETE
-const showOrderDetail = ref(false);
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
 
   try {
     await getOrder({ userName: name.value, phoneNum: phoneNum.value });
-    showOrderDetail.value = true;
   } catch (error) {
     notExistOrderModal.value = true;
     console.error(error);
@@ -62,8 +61,8 @@ watchEffect(() => {
         </button>
       </div>
     </div>
-    <div v-for="item in orderList" v-if="showOrderDetail" class="w-full">
-      <OrderDetail :key="item.id" :orderInfo="item" />
+    <div v-for="order in orderList" class="w-full">
+      <OrderDetail :key="order.id" :orderInfo="order" />
     </div>
   </div>
   <NotExistOrderModal
