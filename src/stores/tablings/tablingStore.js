@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { useTablingModalStore } from './tablings/tablingModal';
+import { useTablingModalStore } from './tablingModal';
 
 const HOST = import.meta.env.VITE_API_URL;
 

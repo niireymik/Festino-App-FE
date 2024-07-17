@@ -4,7 +4,7 @@ import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
 import InputPersonNum from './InputPersonNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
-import { useReservationStore } from '@/stores/reservationStore';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 
 const { closeReserveModal, openCompleteReserveModal } = useTablingModalStore();

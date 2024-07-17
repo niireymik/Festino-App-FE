@@ -2,7 +2,7 @@
 import { ref, watchEffect } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
-import { useReservationStore } from '@/stores/reservationStore';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
 
 const { getReservation, setUserName } = useReservationStore();
 

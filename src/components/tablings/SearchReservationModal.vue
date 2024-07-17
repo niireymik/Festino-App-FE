@@ -1,5 +1,5 @@
 <script setup>
-import { useReservationStore } from '@/stores/reservationStore';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';

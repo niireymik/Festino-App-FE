@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
-import { useReservationStore } from '@/stores/reservationStore';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
