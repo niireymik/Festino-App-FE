@@ -51,7 +51,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const orderId = ref(0);
   const tableNum = ref(0);
 
-  const incrementTotalPrice = (type, amount) => {
+  const handleTotalPrice = (type, amount) => {
     if (type === 'plus') totalPrice.value += amount;
     if (type === 'minus') totalPrice.value -= amount;
   };
@@ -102,7 +102,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     phoneNum,
     orderId,
     tableNum,
-    incrementTotalPrice,
+    handleTotalPrice,
     addOrderList,
     setUserName,
     setPhoneNum,

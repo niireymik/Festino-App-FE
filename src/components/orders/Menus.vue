@@ -1,7 +1,7 @@
 <script setup>
 import { useOrderStore } from '@/stores/orderStore';
 import { ref } from 'vue';
-const { incrementTotalPrice, decrementTotalPrice, addOrderList } = useOrderStore();
+const { handleTotalPrice, addOrderList } = useOrderStore();
 
 const props = defineProps({
   menuInfo: {
@@ -24,7 +24,7 @@ const hanldeClickmenuNumButton = (type) => {
     if (menuNum.value == 99) return;
     menuNum.value = Number(menuNum.value) + 1;
     menuPrice.value += menuUnitPrice.value;
-    incrementTotalPrice(menuUnitPrice.value);
+    handleTotalPrice(type, menuUnitPrice.value);
     addOrderList({
       menuName: props.menuInfo.menuName,
       menuCount: menuNum.value,
@@ -35,7 +35,7 @@ const hanldeClickmenuNumButton = (type) => {
     if (menuNum.value == 0) return;
     menuNum.value = Number(menuNum.value) - 1;
     menuPrice.value -= menuUnitPrice.value;
-    decrementTotalPrice(menuUnitPrice.value);
+    handleTotalPrice(type, menuUnitPrice.value);
     addOrderList({
       menuName: props.menuInfo.menuName,
       menuCount: menuNum.value,

@@ -1,6 +1,6 @@
 <script setup>
 import { useOrderStore } from '@/stores/orderStore';
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref } from 'vue';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 
