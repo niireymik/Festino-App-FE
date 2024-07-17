@@ -62,7 +62,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
       imageList.value = res.data.boothInfo.boothImage;
       
-      if (urlBoothType === 'night') {
+      if (urlBoothType.value === 'night') {
         menuList.value = res.data.boothInfo.menuList;
         setMenuType();
       }
