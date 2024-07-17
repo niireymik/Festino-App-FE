@@ -10,6 +10,10 @@ const props = defineProps({
     type: Function,
     required: true,
   },
+  handleOpenCompleteModal: {
+    type: Function,
+    required: true,
+  },
 });
 
 const orderMenus = ref([]);
@@ -28,6 +32,7 @@ const handleClickConfirmDepositButton = () => {
     isCoupon: isCoupon,
   });
   props.handleCloseCheckModal();
+  props.handleOpenCompleteModal();
 };
 
 const clipAccount = () => {

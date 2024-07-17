@@ -3,6 +3,7 @@ import MenuVue from '@/components/orders/Menus.vue';
 import CouponVue from '@/components/orders/Coupon.vue';
 import OrderModal from '@/components/orders/OrderModal.vue';
 import OrderCheckModal from '@/components/orders/OrderCheckModal.vue';
+import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
 import { onMounted, ref } from 'vue';
 import { useOrderStore } from '@/stores/orderStore';
 import { storeToRefs } from 'pinia';
@@ -15,6 +16,7 @@ onMounted(() => {
 
 const orderModalState = ref(false);
 const checkModalState = ref(false);
+const orderCompleteModalState = ref(false);
 
 const handleOpenOrderModal = () => {
   if (totalPrice.value === 0) return;
@@ -32,15 +34,30 @@ const handleOpenCheckModal = () => {
 const handleCloseCheckModal = () => {
   checkModalState.value = false;
 };
+
+const handleOpenCompleteModal = () => {
+  orderCompleteModalState.value = true;
+};
+const handleCloseCompleteModal = () => {
+  orderCompleteModalState.value = false;
+};
 </script>
 
 <template>
-  <div v-if="orderModalState">
-    <OrderModal :handleCloseOrderModal="handleCloseOrderModal" :handleOpenCheckModal="handleOpenCheckModal" />
-  </div>
+  <OrderModal
+    v-if="orderModalState"
+    :handleCloseOrderModal="handleCloseOrderModal"
+    :handleOpenCheckModal="handleOpenCheckModal"
+  />
+
   <div v-if="checkModalState">
-    <OrderCheckModal :handleCloseCheckModal="handleCloseCheckModal" />
+    <OrderCheckModal
+      :handleCloseCheckModal="handleCloseCheckModal"
+      :handleOpenCompleteModal="handleOpenCompleteModal"
+    />
   </div>
+  <OrderCompleteModal v-if="orderCompleteModalState" :handleCloseCompleteModal="handleCloseCompleteModal" />
+  <
   <div class="flex flex-col h-full pt-[60px] gap-16">
     <div class="p-5 mb-5">
       <div v-for="(menuInfo, index) in menuList" :key="index">
