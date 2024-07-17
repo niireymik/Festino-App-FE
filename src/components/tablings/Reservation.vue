@@ -48,17 +48,17 @@ onMounted(() => {
             :key="nightBooth.boothId"
             @click="handleClickMajorBox(index, nightBooth)"
             class="aspect-w-1 aspect-h-1 dynamic-item rounded-3xl bg-no-repeat bg-cover"
-            :class="{
-              'outline -outline-offset-4 outline-4 outline-primary-900': selectedIndex == index,
-              'bg-secondary-100 opacity-50 rounded-3xl': selectedIndex != index && selectedIndex != -1,
-            }"
             :style="{ backgroundImage: `url(${nightBooth.boothImage})` }"
           >
-            <div class="flex flex-col justify-end text-white p-5">
+            <div
+              class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40"
+            >
               <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
               <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>
             </div>
+            <div v-if="selectedIndex == index" class="absolute rounded-3xl border-4 border-primary-900"></div>
           </div>
+
           <div class="row-span-2 dynamic-width"></div>
         </div>
       </div>
