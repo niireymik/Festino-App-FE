@@ -7,7 +7,7 @@ import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 
-const { closeReserveModal, openCompleteReserveModal } = useTablingModalStore();
+const { closeReserveModal } = useTablingModalStore();
 const { saveReservation, setUserName } = useReservationStore();
 const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
@@ -25,8 +25,6 @@ const handleClickReserveButton = () => {
     personCount: personNum.value,
   });
   setUserName(name.value);
-  closeReserveModal();
-  openCompleteReserveModal();
 };
 
 onMounted(() => {

@@ -12,7 +12,13 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const nightBoothInfo = ref(null);
   const selectedNightBoothInfo = ref(null);
 
-  const { openSearchReserveModal, openNoReserveModal } = useTablingModalStore();
+  const {
+    openSearchReserveModal,
+    openNoReserveModal,
+    openFailReserveModal,
+    closeReserveModal,
+    openCompleteReserveModal,
+  } = useTablingModalStore();
 
   const setUserName = (name) => {
     userName.value = name;
@@ -21,7 +27,16 @@ export const useReservationStore = defineStore('reservationStore', () => {
     selectedNightBoothInfo.value = { ...boothInfo };
   };
   const saveReservation = async (payload) => {
-    const res = await axios.post(`${HOST}/main/reservation`, payload);
+    try {
+      const res = await axios.post(`${HOST}/main/reservation`, payload);
+      if (res.data.success) {
+        closeReserveModal();
+        openCompleteReserveModal();
+      }
+    } catch (error) {
+      closeReserveModal();
+      openFailReserveModal();
+    }
   };
   const getReservation = async (payload) => {
     try {

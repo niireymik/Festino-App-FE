@@ -34,6 +34,14 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
   const closeNoReserveModal = () => {
     noReserveModalState.value = false;
   };
+
+  const failReserveModalState = ref(false);
+  const openFailReserveModal = () => {
+    failReserveModalState.value = true;
+  };
+  const closeFailReserveModal = () => {
+    failReserveModalState.value = false;
+  };
   return {
     reserveModalState,
     openReserveModal,
@@ -47,5 +55,8 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     noReserveModalState,
     openNoReserveModal,
     closeNoReserveModal,
+    failReserveModalState,
+    openFailReserveModal,
+    closeFailReserveModal,
   };
 });
