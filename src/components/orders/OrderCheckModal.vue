@@ -17,7 +17,7 @@ onMounted(() => {
   console.log(JSON.parse(JSON.stringify(orderMenus.value)));
 });
 
-const confirm = () => {
+const handleClickConfirmDepositButton = () => {
   saveOrder({
     tableNum: tableNum,
     userName: userName,
@@ -84,7 +84,7 @@ const clipAccount = () => {
           </div>
           <div
             class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
-            @click="confirm()"
+            @click="handleClickConfirmDepositButton()"
           >
             입금 완료
           </div>

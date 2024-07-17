@@ -25,7 +25,7 @@ const props = defineProps({
 const name = ref('');
 const phoneNum = ref('');
 
-const confirm = () => {
+const handleClickOrderButton = () => {
   if (name.value.length < 2 || phoneNum.value.length !== 11) return;
   setUserName(name.value);
   setPhoneNum(phoneNum.value);
@@ -71,7 +71,7 @@ const confirm = () => {
           </div>
           <div
             class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
-            @click="confirm()"
+            @click="handleClickOrderButton()"
           >
             확인
           </div>
