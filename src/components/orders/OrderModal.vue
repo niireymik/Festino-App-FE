@@ -62,19 +62,19 @@ const handleClickOrderButton = () => {
             </div>
           </div>
         </div>
-        <div class="gap-5 flex w-full">
-          <div
+        <div class="gap-5 flex w-full font-bold">
+          <button
             class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
             @click="handleCloseOrderModal()"
           >
             취소
-          </div>
-          <div
+          </button>
+          <button
             class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
             @click="handleClickOrderButton()"
           >
             확인
-          </div>
+          </button>
         </div>
       </div>
     </div>

@@ -27,7 +27,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const addOrderList = (orderInfo) => {
     const existingOrder = userOrderList.value.find((order) => order.menuId === orderInfo.menuId);
     if (existingOrder) {
-      existingOrder.menName = orderInfo.menuName;
+      existingOrder.menuName = orderInfo.menuName;
       existingOrder.menuCount = orderInfo.menuCount;
       existingOrder.menuPrice = orderInfo.menuPrice;
     } else {
