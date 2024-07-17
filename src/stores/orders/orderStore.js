@@ -7,7 +7,7 @@ const HOST = import.meta.env.VITE_API_URL;
 
 export const useOrderStore = defineStore('orderStore', () => {
   const orderList = ref([]);
-  const boothId = ref('3f1f0d0a-001b-4ff0-aea4-9728742f968f');
+  const boothId = ref('4c0fdc4d-4a3d-4ba7-acc3-0d5d46d7f6f1');
   const menuList = ref([]);
   const totalPrice = ref(0);
   const userOrderList = ref([]);
