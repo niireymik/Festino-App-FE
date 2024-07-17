@@ -37,8 +37,12 @@ const handleClickBoothIntroduction = (type, id) => {
             </div>
           </div>
         </div>
-        <div class="w-32 h-32 flex justify-center items-center">
-          <div class="w-full h-full bg-primary-300 rounded-3.5xl"></div>
+        <div class="w-32 min-w-[128px] h-32 flex justify-center items-center">
+          <div
+            class="w-full h-full bg-cover rounded-3.5xl"
+            :class="{'bg-booth-default-image': !booth.boothImage}"
+            :style="booth.boothImage ? `background-image: url(${ booth.boothImage })` : ''"
+          ></div>
         </div>
       </div>
     </div>
