@@ -28,7 +28,7 @@ const handleClickReserveButton = () => {
   <div class="flex flex-col h-full pt-[60px] gap-16">
     <div class="p-5 mb-5">
       <div v-for="(menuInfo, index) in menuList" :key="index">
-        <MenuVue :menuInfo="menuInfo" />
+        <MenuVue :menuInfo="menuInfo" v-if="!menuInfo.isSoldOut" />
       </div>
     </div>
     <div>
