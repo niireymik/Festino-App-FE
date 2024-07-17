@@ -1,6 +1,10 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
 import router from '@/router';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { onMounted } from 'vue';
+
+const { resetInfo } = useOrderStore();
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
@@ -12,6 +16,10 @@ const handleClickOrderSearchButton = () => {
 const handleClickPayment = () => {
   router.push({ name: 'order-payment' });
 };
+
+onMounted(() => {
+  resetInfo();
+});
 </script>
 <template>
   <div class="flex flex-col">
