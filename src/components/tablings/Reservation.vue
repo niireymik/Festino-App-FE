@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
@@ -38,7 +38,12 @@ onMounted(() => {
 <template>
   <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-start">
-      <div class="overflow-x-auto pt-10" @touchstart.stop="" id="reserve-container">
+      <div
+        class="pt-10"
+        @touchstart.stop=""
+        id="reserve-container"
+        :class="{ 'overflow-auto': (nightBoothInfo?.value?.length || 0) > 4 }"
+      >
         <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
           <div class="row-span-2 dynamic-width"></div>
           <div
