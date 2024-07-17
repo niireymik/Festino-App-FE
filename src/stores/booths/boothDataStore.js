@@ -1,9 +1,9 @@
 import axios from "axios";
 import { defineStore } from 'pinia';
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { useRouter } from 'vue-router'; 
 
-const HOST = 'https://api.festino.dev-tino.com';
+const HOST = import.meta.env.VITE_API_URL;
 
 export const useGetBoothDataStore = defineStore('boothData', () => {
   const router = useRouter();
