@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
@@ -8,6 +8,10 @@ import { useRouter } from 'vue-router';
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
 const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
+
+onMounted(() => {
+  getAllNightBooth();
+});
 
 const selectedIndex = ref(-1);
 const handleClickMajorBox = (index, boothInfo) => {
@@ -31,8 +35,9 @@ const handleClickDetailButton = () => {
   router.push(`booth/detail/${selectedNightBoothInfo.value.boothId}`);
 };
 
-onMounted(() => {
-  getAllNightBooth();
+const nightBoothInfoLength = ref(0);
+watch(nightBoothInfo, () => {
+  nightBoothInfoLength.value = nightBoothInfo.value.length;
 });
 </script>
 <template>
@@ -42,7 +47,7 @@ onMounted(() => {
         class="pt-10"
         @touchstart.stop=""
         id="reserve-container"
-        :class="{ 'overflow-auto': (nightBoothInfo?.value?.length || 0) > 4 }"
+        :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
       >
         <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
           <div class="row-span-2 dynamic-width"></div>
@@ -67,7 +72,6 @@ onMounted(() => {
       </div>
     </div>
     <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-20">
-      <!-- TODO: 선택 학과로 이동 -->
       <button
         class="h-[60px] rounded-10xl w-1/2"
         :class="
