@@ -8,8 +8,7 @@ const props = defineProps({
   },
 });
 
-const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ');
-const formattedCreatedAt2 = createAt.replaceAll('-', '.');
+const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
 </script>
 <template>
   <div
@@ -22,7 +21,7 @@ const formattedCreatedAt2 = createAt.replaceAll('-', '.');
       </div>
       <div class="flex gap-1 items-center">
         <img src="/icons/orders/clock.svg" />
-        <p>{{ formattedCreatedAt2 }}</p>
+        <p>{{ createAt }}</p>
       </div>
     </div>
     <div class="grid grid-cols-3 h-[17px] text-center" v-for="(item, index) in orderInfo.menuInfo" :key="index">
