@@ -10,10 +10,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div v-if="isState" class="is-state-show-true">
-    <slot></slot>
-  </div>
-  <div v-else class="is-state-show-false">
+  <div :class="isState ? 'is-state-show-true' : 'is-state-show-false'">
     <slot></slot>
   </div>
 </template>

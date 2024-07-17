@@ -6,7 +6,7 @@ import { storeToRefs } from 'pinia';
 const { booth } = storeToRefs(useGetBoothDataStore());
 
 const handleRoutertoReserve = () => {
-  router.push('/reserve')
+  router.push({ path: '/reserve' })
 }
 </script>
 

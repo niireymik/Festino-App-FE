@@ -1,6 +1,6 @@
 <script setup>
 import MenuInformation from "./MenuInformation.vue";
-import MenuSummary from "@/components/booth/MenuSummary.vue"
+import MenuSummary from "@/components/booth/MenuSummary.vue";
 </script>
 
 <template>
