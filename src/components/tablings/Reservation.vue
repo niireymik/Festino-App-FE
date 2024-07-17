@@ -7,7 +7,7 @@ import { useRouter } from 'vue-router';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
-const { nightBoothInfo } = storeToRefs(useReservationStore());
+const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
 const selectedIndex = ref(-1);
 const handleClickMajorBox = (index, boothInfo) => {
@@ -28,9 +28,7 @@ const handleClickReserveButton = () => {
 const router = useRouter();
 const handleClickDetailButton = () => {
   if (selectedIndex.value == -1) return;
-  //TODO: CHANGE BOOTHID
-  const boothId = '3f1f0d0a-001b-4ff0-aea4-9728742f968f';
-  router.push(`booth/detail/${boothId}`);
+  router.push(`booth/detail/${selectedNightBoothInfo.value.boothId}`);
 };
 
 onMounted(() => {
