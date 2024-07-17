@@ -1,5 +1,5 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { ref } from 'vue';
 const { handleTotalPrice, addOrderList } = useOrderStore();
 
@@ -53,7 +53,6 @@ const hanldeClickmenuNumButton = (type) => {
         <div class="font-semibold text-secondary-700">{{ menuInfo.menuName }}</div>
         <div
           class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex"
-          @click="handleClick()"
         >
           {{ menuType }}
         </div>

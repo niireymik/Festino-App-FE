@@ -1,7 +1,7 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
 import router from '@/router';
-import { useOrderStore } from '@/stores/orderStore';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted } from 'vue';
 
 const { resetInfo } = useOrderStore();

@@ -1,19 +1,11 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
 
 const { tableNum, totalPrice, userName, phoneNum, saveOrder, userOrderList, isCoupon, accountNum } = useOrderStore();
 
-const props = defineProps({
-  handleCloseCheckModal: {
-    type: Function,
-    required: true,
-  },
-  handleOpenCompleteModal: {
-    type: Function,
-    required: true,
-  },
-});
+const { closeOrderCheckModal } = useOrderModalStore();
 
 const orderMenus = ref([]);
 onMounted(() => {
@@ -29,8 +21,6 @@ const handleClickConfirmDepositButton = () => {
     totalPrice: totalPrice,
     isCoupon: isCoupon,
   });
-  props.handleCloseCheckModal();
-  props.handleOpenCompleteModal();
 };
 
 const clipAccount = () => {
@@ -75,7 +65,7 @@ const clipAccount = () => {
         <div class="gap-[20px] flex font-bold">
           <button
             class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
-            @click="handleCloseCheckModal()"
+            @click="closeOrderCheckModal()"
           >
             취소
           </button>

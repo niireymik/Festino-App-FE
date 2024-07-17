@@ -1,15 +1,11 @@
 <script setup>
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useRouter } from 'vue-router';
-const props = defineProps({
-  handleCloseCompleteModal: {
-    type: Function,
-    required: true,
-  },
-});
 
+const { closeOrderCompleteModal } = useOrderModalStore();
 const router = useRouter();
 const handleClickConfirmButton = () => {
-  props.handleCloseCompleteModal();
+  closeOrderCompleteModal();
   router.push({ name: 'order' });
 };
 </script>

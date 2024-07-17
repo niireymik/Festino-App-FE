@@ -1,25 +1,16 @@
 <script setup>
-import { useOrderStore } from '@/stores/orderStore';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
+const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
 
 const orderMenus = ref([]);
 onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
-});
-
-const props = defineProps({
-  handleCloseOrderModal: {
-    type: Function,
-    required: true,
-  },
-  handleOpenCheckModal: {
-    type: Function,
-    required: true,
-  },
 });
 
 const name = ref('');
@@ -29,8 +20,9 @@ const handleClickOrderButton = () => {
   if (name.value.length < 2 || phoneNum.value.length !== 11) return;
   setUserName(name.value);
   setPhoneNum(phoneNum.value);
-  props.handleOpenCheckModal();
-  props.handleCloseOrderModal();
+
+  closeOrderModal();
+  openOrderCheckModal();
 };
 </script>
 
@@ -65,7 +57,7 @@ const handleClickOrderButton = () => {
         <div class="gap-5 flex w-full font-bold">
           <button
             class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
-            @click="handleCloseOrderModal()"
+            @click="closeOrderModal()"
           >
             취소
           </button>

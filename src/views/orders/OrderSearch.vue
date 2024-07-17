@@ -2,45 +2,31 @@
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import OrderDetail from '@/components/orders/OrderDetail.vue';
-import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 import { onMounted, ref, watchEffect } from 'vue';
-import { useOrderStore } from '@/stores/orderStore';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 
 onMounted(() => {
   window.scrollTo(0, 0);
 });
+
 const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
+const { notExistOrderModalState } = storeToRefs(useOrderModalStore());
 
 const name = ref('');
 const phoneNum = ref('');
 const isInputFill = ref(false);
-const notExistOrderModal = ref(false);
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-
-  try {
-    await getOrder({ userName: name.value, phoneNum: phoneNum.value });
-  } catch (error) {
-    notExistOrderModal.value = true;
-    console.error(error);
-  }
-};
-
-const handleClickCloseNotExistOrderModal = () => {
-  notExistOrderModal.value = false;
-};
-
-const handleScrollStop = () => {
-  if (notExistOrderModal.value) document.documentElement.style.overflow = 'hidden';
-  else document.documentElement.style.overflow = 'auto';
+  getOrder({ userName: name.value, phoneNum: phoneNum.value });
 };
 
 watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
-  handleScrollStop();
 });
 </script>
 <template>
@@ -65,10 +51,7 @@ watchEffect(() => {
       <OrderDetail :key="order.id" :orderInfo="order" />
     </div>
   </div>
-  <NotExistOrderModal
-    v-if="notExistOrderModal"
-    :handleClickCloseNotExistOrderModal="handleClickCloseNotExistOrderModal"
-  />
+  <NotExistOrderModal v-if="notExistOrderModalState" />
 </template>
 
 <style lang="scss" scoped></style>

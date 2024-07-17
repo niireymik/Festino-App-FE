@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { useOrderModalStore } from './orderModalState';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useOrderStore = defineStore('orderStore', () => {
   const orderList = ref([]);
-
   const boothId = ref('3f1f0d0a-001b-4ff0-aea4-9728742f968f');
   const menuList = ref([]);
   const totalPrice = ref(0);
@@ -17,6 +17,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const tableNum = ref(0);
   const isCoupon = ref(false);
   const accountNum = ref('0000-0000-0000-00');
+  const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
 
   const resetInfo = () => {
     totalPrice.value = 0;
@@ -53,17 +54,35 @@ export const useOrderStore = defineStore('orderStore', () => {
   };
 
   const saveOrder = async (payload) => {
-    const res = await axios.post(`${HOST}/main/order`, payload);
+    try {
+      const res = await axios.post(`${HOST}/main/order`, payload);
+      if (res.data.success) {
+        closeOrderCheckModal();
+        openOrderCompleteModal();
+      }
+    } catch (error) {
+      closeOrderCheckModal();
+      console.error('Error save order data :', error);
+    }
   };
 
   const getOrder = async (payload) => {
-    const res = await axios.get(`${HOST}/main/order`, { params: payload });
-    orderList.value = res.data.bills;
+    try {
+      const res = await axios.get(`${HOST}/main/order`, { params: payload });
+      if (res.data.success) orderList.value = res.data.bills;
+    } catch (error) {
+      openNotExistOrderModal();
+      console.error('Error get order data :', error);
+    }
   };
 
   const getMenuAll = async (boothId) => {
-    const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
-    menuList.value = res.data.MenuInfo;
+    try {
+      const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
+      if (res.data.success) menuList.value = res.data.MenuInfo;
+    } catch (error) {
+      console.error('Error get menu data :', error);
+    }
   };
 
   return {
