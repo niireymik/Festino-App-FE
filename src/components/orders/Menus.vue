@@ -12,6 +12,7 @@ const props = defineProps({
 
 const menuNum = ref(0);
 const menuUnitPrice = ref(props.menuInfo.menuPrice);
+const menuType = props.menuInfo.menuType === 0 ? '메인 메뉴' : '서브 메뉴';
 
 const handlemenuNumInput = (event) => {
   const inputValue = event.target.value.replace(/[^0-9]/g, '');
@@ -54,7 +55,7 @@ const hanldeClickmenuNumButton = (type) => {
           class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex"
           @click="handleClick()"
         >
-          메인 메뉴
+          {{ menuType }}
         </div>
       </div>
       <div class="font-light text-secondary-300 text-sm">{{ menuInfo.menuDescription }}</div>
