@@ -33,7 +33,6 @@ const handleClickReserveButton = () => {
 const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
-  console.log(selectedBoothId.value)
   if (!selectedBoothId.value) return;
   router.push({ path: `/booth/detail/${selectedBoothId.value}`});
 };
