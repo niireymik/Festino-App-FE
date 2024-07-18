@@ -32,6 +32,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       foodBoothList.value = res.data.boothInfo.foodBoothInfo;
       allTypeBoothLsit.value = [...nightBoothList.value, ...dayBoothList.value, ...foodBoothList.value];
       
+      boothList.value = [];
       boothList.value.push(allTypeBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
 
       localStorage.setItem('boothList', JSON.stringify(boothList.value));
