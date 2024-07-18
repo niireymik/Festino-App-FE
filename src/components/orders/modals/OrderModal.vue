@@ -37,7 +37,7 @@ const handleClickOrderButton = () => {
         </div>
         <div class="w-full gap-1">
           <div class="font-semibold text-secondary-700">주문하기</div>
-          <div class="w-full rounded-xl bg-primary-900-lightest p-4">
+          <div class="w-full rounded-xl bg-primary-900-lightest p-4 max-h-[250px] overflow-auto">
             <div
               v-for="orderMenu in orderMenus"
               :key="orderMenu.menuName"
