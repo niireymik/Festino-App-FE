@@ -59,7 +59,7 @@ const getNightBoothImage = (nightBoothImage) => {
   <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-start">
       <div
-        class="pt-10"
+        class="pt-10 w-full"
         @touchstart.stop=""
         id="reserve-container"
         :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
@@ -126,5 +126,13 @@ const getNightBoothImage = (nightBoothImage) => {
 
 .dynamic-width {
   width: calc(100vw * 10 / 430) !important;
+  max-width: calc(500px * 10 / 430) !important;
+}
+
+#reserve-container::-webkit-scrollbar {
+  display: none;
+}
+#reserve-container {
+  scrollbar-width: none;
 }
 </style>
