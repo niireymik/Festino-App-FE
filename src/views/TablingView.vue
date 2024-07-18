@@ -6,6 +6,7 @@ import SearchReservationModal from '@/components/tablings/SearchReservationModal
 import CompleteReserveModal from '@/components/tablings/modals/CompleteReserveModal.vue';
 import NoReserveModal from '@/components/tablings/modals/NoReserveModal.vue';
 import FailReservationModal from '@/components/tablings/modals/FailReservationModal.vue';
+import EnterBoothModal from '@/components/tablings/modals/EnterBoothModal.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { storeToRefs } from 'pinia';
 import { onMounted, watchEffect } from 'vue';
@@ -16,6 +17,7 @@ const {
   completeReserveModalState,
   noReserveModalState,
   failReserveModalState,
+  enterBoothModalState,
 } = storeToRefs(useTablingModalStore());
 const handleStopScroll = () => {
   if (
@@ -23,7 +25,8 @@ const handleStopScroll = () => {
     searchReserveModalState.value ||
     completeReserveModalState.value ||
     noReserveModalState.value ||
-    failReserveModalState.value
+    failReserveModalState.value ||
+    enterBoothModalState.value
   )
     document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
@@ -45,6 +48,7 @@ onMounted(() => {
     <CompleteReserveModal v-if="completeReserveModalState" />
     <NoReserveModal v-if="noReserveModalState" />
     <FailReservationModal v-if="failReserveModalState" />
+    <EnterBoothModal v-if="enterBoothModalState" />
   </div>
 </template>
 
