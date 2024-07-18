@@ -3,7 +3,7 @@ import { onMounted, ref, watch } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
@@ -11,6 +11,7 @@ const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationSto
 
 onMounted(() => {
   getAllNightBooth();
+  selectedBoothId.value = route.params.boothId;
 });
 
 const selectedBoothId = ref('');
@@ -30,9 +31,10 @@ const handleClickReserveButton = () => {
 };
 
 const router = useRouter();
+const route = useRoute();
 const handleClickDetailButton = () => {
   if (selectedBoothId.value == '') return;
-  router.push(`booth/detail/${selectedNightBoothInfo.value.boothId}`);
+  router.push(`/booth/detail/${selectedBoothId.value}`);
 };
 
 const nightBoothInfoLength = ref(0);
@@ -40,6 +42,7 @@ watch(nightBoothInfo, () => {
   nightBoothInfoLength.value = nightBoothInfo.value.length;
 });
 </script>
+
 <template>
   <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-start">
@@ -111,14 +114,5 @@ watch(nightBoothInfo, () => {
 
 .dynamic-width {
   width: calc(100vw * 10 / 430) !important;
-  max-width: calc(500px * 10 / 430) !important;
-  min-width: calc(375px * 19 / 430) !important;
-}
-
-#reserve-container::-webkit-scrollbar {
-  display: none;
-}
-#reserve-container {
-  scrollbar-width: none;
 }
 </style>

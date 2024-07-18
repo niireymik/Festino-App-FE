@@ -17,7 +17,7 @@ const handleClickBoothDetailBackArrow = () => {
     <div class="w-full h-[220px] xs:h-[255px] sm:h-[295px] bg-booth-detail-banner bg-cover">
       <div 
         @click="handleClickBoothDetailBackArrow()" 
-        class="z-4 bg-back-arrow-white w-[18px] h-[18px] bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto"
+        class="z-4 bg-back-arrow-white w-[18px] h-[18px] bg-no-repeat text-xl absolute top-[24px] left-[24px] bg-cover pointer-events-auto cursor-pointer"
       ></div>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div

@@ -32,6 +32,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       foodBoothList.value = res.data.boothInfo.foodBoothInfo;
       allTypeBoothLsit.value = [...nightBoothList.value, ...dayBoothList.value, ...foodBoothList.value];
       
+      boothList.value = [];
       boothList.value.push(allTypeBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
 
       localStorage.setItem('boothList', JSON.stringify(boothList.value));
@@ -64,14 +65,16 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       }
 
       const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
+      booth.value = res.data.boothInfo;
       imageList.value = res.data.boothInfo.boothImage;
+      console.log(booth.value)
       
+      menuList.value = [];
       if (urlBoothType.value === 'night') {
         menuList.value = res.data.boothInfo.menuList;
         setMenuType();
       }
 
-      booth.value = res.data.boothInfo;
       localStorage.setItem('booth', JSON.stringify(booth.value));
       localStorage.setItem('imageList', JSON.stringify(imageList.value));
       localStorage.setItem('menuList', JSON.stringify(menuList.value));

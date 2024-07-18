@@ -8,7 +8,14 @@ const { boothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const handleClickBoothIntroduction = (type, id) => {
   getBoothData(type, id);
-}
+};
+
+const getBoothImageProps = (boothImage) => {
+  return {
+    class: {'bg-booth-default-image': !boothImage},
+    style: boothImage ? `background-image: url(${ boothImage })` : ''
+  };
+};
 </script>
 
 <template>
@@ -35,9 +42,8 @@ const handleClickBoothIntroduction = (type, id) => {
         </div>
         <div class="w-32 min-w-[128px] h-32 flex justify-center items-center">
           <div 
-            class="w-full h-full bg-cover rounded-3.5xl" 
-            :class="{'bg-booth-default-image': !booth.boothImage}" 
-            :style="booth.boothImage ? `background-image: url(${ booth.boothImage })` : ''">
+            class="w-full h-full bg-cover rounded-3.5xl border" 
+            v-bind="getBoothImageProps(booth.boothImage)">
           </div>
         </div>
       </div>
