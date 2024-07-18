@@ -8,7 +8,6 @@ export const useModalStore = defineStore('modalStore', () => {
 
   const handleClickOpenModal = (category, show) => {
     modalData.value = show;
-    console.log(modalData.value)
     if (category == "talent") talentModalState.value = true;
     else clubModalState.value = true;
   };
