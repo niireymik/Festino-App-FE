@@ -13,25 +13,25 @@ onMounted(() => {
   getAllNightBooth();
 });
 
-const selectedIndex = ref(-1);
-const handleClickMajorBox = (index, boothInfo) => {
-  if (selectedIndex.value == index) {
-    selectedIndex.value = -1;
+const selectedBoothId = ref('');
+const handleClickMajorBox = (boothInfo) => {
+  if (selectedBoothId.value === boothInfo.boothId) {
+    selectedBoothId.value = '';
     setSelectedNightBoothInfo(null);
     return;
   }
-  selectedIndex.value = index;
+  selectedBoothId.value = boothInfo.boothId;
   setSelectedNightBoothInfo({ ...boothInfo });
 };
 
 const handleClickReserveButton = () => {
-  if (selectedIndex.value == -1) return;
+  if (selectedBoothId.value == '') return;
   openReserveModal();
 };
 
 const router = useRouter();
 const handleClickDetailButton = () => {
-  if (selectedIndex.value == -1) return;
+  if (selectedBoothId.value == '') return;
   router.push(`booth/detail/${selectedNightBoothInfo.value.boothId}`);
 };
 
@@ -52,9 +52,9 @@ watch(nightBoothInfo, () => {
         <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
           <div class="row-span-2 dynamic-width"></div>
           <div
-            v-for="(nightBooth, index) in nightBoothInfo"
+            v-for="nightBooth in nightBoothInfo"
             :key="nightBooth.boothId"
-            @click="handleClickMajorBox(index, nightBooth)"
+            @click="handleClickMajorBox(nightBooth)"
             class="aspect-w-1 aspect-h-1 dynamic-item rounded-3xl bg-no-repeat bg-cover"
             :style="{ backgroundImage: `url(${nightBooth.boothImage})` }"
           >
@@ -64,7 +64,10 @@ watch(nightBoothInfo, () => {
               <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
               <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>
             </div>
-            <div v-if="selectedIndex == index" class="absolute rounded-3xl border-4 border-primary-900"></div>
+            <div
+              v-if="selectedBoothId == nightBooth.boothId"
+              class="absolute rounded-3xl border-4 border-primary-900"
+            ></div>
           </div>
 
           <div class="row-span-2 dynamic-width"></div>
@@ -75,7 +78,7 @@ watch(nightBoothInfo, () => {
       <button
         class="h-[60px] rounded-10xl w-1/2"
         :class="
-          selectedIndex != -1
+          selectedBoothId != ''
             ? 'bg-white border-1 border-primary-900-light-68 text-primary-900 font-medium'
             : 'bg-secondary-100'
         "
@@ -85,7 +88,7 @@ watch(nightBoothInfo, () => {
       </button>
       <button
         class="h-[60px] rounded-10xl w-1/2"
-        :class="selectedIndex != -1 ? 'bg-primary-900' : 'bg-secondary-100'"
+        :class="selectedBoothId != '' ? 'bg-primary-900' : 'bg-secondary-100'"
         @click="handleClickReserveButton()"
       >
         예약하기
