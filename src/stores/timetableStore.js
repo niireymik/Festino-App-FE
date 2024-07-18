@@ -15,7 +15,7 @@ export const useTimetableStore = defineStore('timetableStore', () => {
       const clubDataResponse = await axios.get(`${HOST}/main/club/all/date/${date.value}`);
       clubData.value = clubDataResponse.data;
     } catch (error) {
-      console.error("Error fetching main notice:", error);
+      console.error(error);
     }
   };
 
@@ -24,20 +24,21 @@ export const useTimetableStore = defineStore('timetableStore', () => {
       const talentDataResponse = await axios.get(`${HOST}/main/talent/all/date/${date.value}`);
       talentData.value = talentDataResponse.data;
     } catch (error) {
-      console.error("Error fetching main notice:", error);
+      console.error(error);
     }
   };
 
   const getAllTimetable = async () => {
     await getClubTimetable();
     await getTalentTimetable();
-    timetableData.value = [...clubData.value.showInfo, ...talentData.value.showInfo];
+    if (clubData.value.showInfo && talentData.value.showInfo) timetableData.value = [...clubData.value.showInfo, ...talentData.value.showInfo];
+    else timetableData.value = [];
   };
 
   const changeDate = (index) => {
     day.value = index
     date.value = day.value + 10
-  }
+  };
 
   return {
     clubData,

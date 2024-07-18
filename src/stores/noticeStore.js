@@ -16,7 +16,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
       const noticeResponse = await axios.get(`${HOST}/main/notice`);
       mainNoticeData.value = noticeResponse.data.noticeInfo;
     } catch (error) {
-      console.error("Error fetching main notice:", error);
+      console.error(error);
     }
   };
 
@@ -25,7 +25,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
       const noticeResponse = await axios.get(`${HOST}/main/notice/${noticeId}`);
       noticeData.value = noticeResponse.data.noticeInfo;
     } catch (error) {
-      console.error("Error fetching notice:", error);
+      console.error(error);
     }
   };
 
@@ -36,7 +36,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
       pinNotices.value = allNotices.filter(notice => notice.isPin);
       notices.value = allNotices.filter(notice => !notice.isPin);
     } catch (error) {
-      console.error("Error fetching all notices:", error);
+      console.error(error);
     }
   };
 
@@ -45,7 +45,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
     try {
       return formatDistanceToNow(new Date(uploadTime), { addSuffix: true, locale: ko });
     } catch (error) {
-      console.error("Error formatting date:", error);
+      console.error(error);
     }
   };
 
