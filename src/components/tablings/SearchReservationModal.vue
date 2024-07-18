@@ -56,20 +56,14 @@ onMounted(() => {
         <span class="text-base">※ </span>
         대기팀이 1팀일 때 알림이 전송됩니다.
       </div>
-      <div class="w-full flex flex-row justify-between gap-[10px]">
-        <!-- TODO: MAKE ONE BUTTON -->
-        <button
-          class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
-        >
-          예약 취소
-        </button>
-        <button
-          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl"
-          @click="closeSearchReserveModal()"
-        >
-          확인
-        </button>
-      </div>
+      <!-- <div class="w-full flex flex-row justify-between gap-[10px]"> -->
+      <button
+        class="w-full h-[43px] text-white font-bold rounded-10xl border-1 border-primary-900-light-68 shrink-0 bg-primary-900"
+        @click="closeSearchReserveModal()"
+      >
+        확인
+      </button>
+      <!-- </div> -->
     </div>
   </div>
 </template>

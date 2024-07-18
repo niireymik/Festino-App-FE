@@ -41,6 +41,14 @@ const nightBoothInfoLength = ref(0);
 watch(nightBoothInfo, () => {
   nightBoothInfoLength.value = nightBoothInfo.value.length;
 });
+
+const getNightBoothImage = (nightBoothImage) => {
+  return {
+    style: nightBoothImage
+      ? `background-image: url(${nightBoothImage})`
+      : 'background-image: url(/images/booth/booth-default-image.png)',
+  };
+};
 </script>
 
 <template>
@@ -59,7 +67,7 @@ watch(nightBoothInfo, () => {
             :key="nightBooth.boothId"
             @click="handleClickMajorBox(nightBooth)"
             class="aspect-w-1 aspect-h-1 dynamic-item rounded-3xl bg-no-repeat bg-cover"
-            :style="{ backgroundImage: `url(${nightBooth.boothImage})` }"
+            v-bind="getNightBoothImage(nightBooth.boothImage)"
           >
             <div
               class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40"
