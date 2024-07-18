@@ -1,6 +1,26 @@
 <script setup>
+import ClubModal from '@/components/timetable/ClubModal.vue';
+import TalentModal from '@/components/timetable/TalentModal.vue';
 import { RouterView } from 'vue-router';
 import { useHead } from '@vueuse/head';
+import { useModalStore } from '@/stores/modalStore.js';
+import { storeToRefs } from 'pinia';
+import { onMounted, watchEffect } from 'vue';
+
+const { clubModalState, talentModalState } = storeToRefs(useModalStore());
+
+const handleStopScroll = () => {
+  if (clubModalState.value || talentModalState.value) document.documentElement.style.overflow = 'hidden';
+  else document.documentElement.style.overflow = 'auto';
+};
+
+watchEffect(() => {
+  handleStopScroll();
+});
+
+onMounted(() => {
+  window.scrollTo(0, 0);
+});
 
 useHead({
   title: 'Festino!',
@@ -18,6 +38,8 @@ useHead({
 
 <template>
   <RouterView />
+  <ClubModal v-if="clubModalState" />
+  <TalentModal  v-if="talentModalState"/>
 </template>
 
 <style scoped></style>

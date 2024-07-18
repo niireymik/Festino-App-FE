@@ -1,40 +1,50 @@
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useRouter } from 'vue-router';
+import { useNoticeStore } from '@/stores/noticeStore.js';
+import { storeToRefs } from 'pinia';
+import DateButtons from './DateButtons.vue';
+import ShowPreview from '../timetable/ShowPreview.vue';
+import SlideBanner from './SlideBanner.vue';
+import MoreButton from './MoreButton.vue';
+
+const { getMainNotice, timeAgo } = useNoticeStore();
+const { mainNoticeData } = storeToRefs(useNoticeStore());
+
+const timeTable = ref("타임테이블");
+const notification = ref("공지사항");
+const router = useRouter();
+
+const handleClickNotice = async (noticeId) => {
+  router.push({ name: 'notice', state: { noticeId } });
+};
+
+onMounted(() => {
+  getMainNotice();
+});
+</script>
+
 <template>
   <DateButtons />
   <MoreButton :componentName="timeTable" />
-  <div>
-    <ShowPreview class="shadow-4xl"/>
-  </div>
+  <ShowPreview class="shadow-4xl" category="talent" />
   <MoreButton :componentName="notification" />
   <div class="px-5">
-    <div class="py-3 px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center" @click="handleClickNotice()">
+    <div
+      class="py-3 select-none px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center cursor-pointer"
+      @click="handleClickNotice(mainNoticeData.noticeId)"
+    >
       <div class="flex">
         <div class="w-[57px] text-secondary-700 text-xs font-medium">Festino</div>
-        <div class="text-secondary-500 text-xs font-normal">'Festino' 사용 공지사항</div>
+        <div class="text-secondary-500 text-xs font-normal">{{ mainNoticeData.title }}</div>
       </div>
-      <div class="text-secondary-700 text-2xs font-normal">1시간 전</div>
+      <div class="text-secondary-700 text-2xs font-normal">{{ timeAgo(mainNoticeData.updateAt) }}</div>
     </div>
   </div>
   <div class="px-5 pt-5 pb-20">
     <SlideBanner />
   </div>
 </template>
-  
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import DateButtons from './DateButtons.vue';
-import ShowPreview from '../timetable/ShowPreview.vue';
-import SlideBanner from './SlideBanner.vue';
-import MoreButton from './MoreButton.vue';
 
-const timeTable = ref("타임테이블");
-const notification = ref("공지사항");
-const router = useRouter();
-
-const handleClickNotice = () => {
-  router.push({ name: "notice" });
-};
-</script>
-  
 <style lang="css" scoped>
 </style>

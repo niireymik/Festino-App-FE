@@ -1,21 +1,30 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import { useNoticeStore } from '@/stores/noticeStore.js';
+
+const { timeAgo } = useNoticeStore();
+
+const router = useRouter();
+const props = defineProps({
+  notice: {
+    type: Object,
+    required: true
+  }
+});
+
+const handleClickNotice = async (noticeId) => {
+  router.push({ name: 'notice', state: { noticeId } });
+};
+</script>
+
 <template>
-  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center" @click="handleClickNotice()">
+  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center cursor-pointer select-none" @click="handleClickNotice(notice.noticeId)">
     <div class="flex flex-col pl-4 items-start py-3">
-      <div class="py-1 text-base font-normal text-secondary-500 leading-tight">'Festino' 사용 공지사항</div>
+      <div class="py-1 text-base font-normal text-secondary-500 leading-tight">{{ notice.title }}</div>
     </div>
-    <div class="flex justify-end pr-4 text-xs font-normal text-secondary-500 w-[140px]">1시간 전</div>
+    <div class="flex justify-end pr-4 text-xs font-normal text-secondary-500 w-[140px]">{{ timeAgo(notice.updateAt) }}</div>
   </div>
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
-
-const handleClickNotice = () => {
-  router.push({ name: "notice" });
-};
-
-</script>
-
-<style lang="css" scoped></style>
+<style scoped>
+</style>
