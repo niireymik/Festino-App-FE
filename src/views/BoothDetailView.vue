@@ -12,7 +12,7 @@ import { onMounted } from "vue";
 import { useRoute } from "vue-router";
 
 const { getBoothData } = useGetBoothDataStore();
-const { boothType } = storeToRefs(useGetBoothDataStore());
+const { boothType, menuList } = storeToRefs(useGetBoothDataStore());
 
 const route = useRoute();
 
@@ -32,7 +32,7 @@ onMounted(() => {
     <BoothMap />
     <DetailImportmation />
     <BoothInformation />
-    <MenuList v-if="boothType === '운동장'" />
+    <MenuList v-if="menuList != ''" />
     <BoothReservation v-if="boothType === '운동장'" />
   </div>
 </template>
