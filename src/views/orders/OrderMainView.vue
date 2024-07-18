@@ -18,6 +18,7 @@ const handleClickPayment = () => {
 };
 
 onMounted(() => {
+  window.scrollTo(0, 0);
   resetOrderInfo();
 });
 </script>

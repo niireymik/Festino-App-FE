@@ -12,6 +12,7 @@ import { useOrderModalStore } from '@/stores/orders/orderModalState';
 const { getMenuAll, boothId } = useOrderStore();
 const { menuList, totalPrice } = storeToRefs(useOrderStore());
 onMounted(() => {
+  window.scrollTo(0, 0);
   getMenuAll(boothId);
 });
 
