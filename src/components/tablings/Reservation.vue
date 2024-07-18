@@ -11,7 +11,11 @@ const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationSto
 
 onMounted(() => {
   getAllNightBooth();
-  selectedBoothId.value = route.params.boothId;
+  if(route.params.boothId != '') {
+    selectedBoothId.value = route.params.boothId;
+  } else {
+    selectedBoothId.value = '';
+  }
 });
 
 const selectedBoothId = ref('');
@@ -89,7 +93,7 @@ const getNightBoothImage = (nightBoothImage) => {
       <button
         class="h-[60px] rounded-10xl w-1/2"
         :class="
-          selectedBoothId != ''
+          selectedBoothId
             ? 'bg-white border-1 border-primary-900-light-68 text-primary-900 font-medium'
             : 'bg-secondary-100'
         "
@@ -99,7 +103,7 @@ const getNightBoothImage = (nightBoothImage) => {
       </button>
       <button
         class="h-[60px] rounded-10xl w-1/2"
-        :class="selectedBoothId != '' ? 'bg-primary-900' : 'bg-secondary-100'"
+        :class="selectedBoothId ? 'bg-primary-900' : 'bg-secondary-100'"
         @click="handleClickReserveButton()"
       >
         예약하기
