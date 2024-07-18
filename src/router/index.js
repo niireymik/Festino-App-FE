@@ -30,7 +30,12 @@ const router = createRouter({
           name: 'timetable',
           component: TimeTableView,
         },
-        { path: 'reserve', name: 'tabling', component: TablingView },
+        {
+          path: '/reserve/:boothId?',
+          name: 'reserve',
+          component: TablingView,
+          props: true,
+        },
         {
           path: 'notification',
           name: 'notification',
