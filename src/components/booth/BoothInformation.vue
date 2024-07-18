@@ -46,8 +46,8 @@ onUnmounted(() => {
       >
         {{ currentIndex + 1 }} / {{ imageList.length }}
       </div>
-      <div ref="containerRef" class="snap-x overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4">
-        <div v-for="(image, index) in imageList" :key="index" class="snap-center rounded-3xl min-w-full">
+      <div ref="containerRef" class="snap-x overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4 border">
+        <div v-for="(image, index) in imageList" :key="index" class="snap-center min-w-full">
           <div 
             class="w-full h-full bg-cover bg-no-repeat aspect-square"
             :style="`background-image: url(${image})`" >
