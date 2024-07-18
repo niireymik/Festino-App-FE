@@ -100,7 +100,8 @@ export default {
         'board-icon': "url('/icons/orders/board.svg')",
         'tino-cd': "url('/icons/tino-cd.svg')",
         'play-icon': "url('/icons/play.svg')",
-        'booth-default-image': "url('/images/booth/booth-default-image.png')"
+        'booth-default-image': "url('/images/booth/booth-default-image.png')",
+        'booth-map': "url('/images/booth/map.svg')"
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
