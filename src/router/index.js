@@ -50,6 +50,7 @@ const router = createRouter({
           path: 'booth/detail/:id',
           name: 'booth-detail',
           component: BoothDetailView,
+          props: true,
         },
         {
           path: '/notice',

@@ -11,11 +11,7 @@ const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationSto
 
 onMounted(() => {
   getAllNightBooth();
-  if(route.params.boothId != '') {
-    selectedBoothId.value = route.params.boothId;
-  } else {
-    selectedBoothId.value = '';
-  }
+  selectedBoothId.value = route.params.boothId;
 });
 
 const selectedBoothId = ref('');
@@ -30,15 +26,16 @@ const handleClickMajorBox = (boothInfo) => {
 };
 
 const handleClickReserveButton = () => {
-  if (selectedBoothId.value == '') return;
+  if (!selectedBoothId.value ) return;
   openReserveModal();
 };
 
 const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
-  if (selectedBoothId.value == '') return;
-  router.push(`/booth/detail/${selectedBoothId.value}`);
+  console.log(selectedBoothId.value)
+  if (!selectedBoothId.value) return;
+  router.push({ path: `/booth/detail/${selectedBoothId.value}`});
 };
 
 const nightBoothInfoLength = ref(0);

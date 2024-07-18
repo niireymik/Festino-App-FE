@@ -17,7 +17,8 @@ const { menuList, booth } = storeToRefs(useGetBoothDataStore());
 const route = useRoute();
 
 onMounted(() => {
-  const boothId = route.params.boothId;
+  const boothId = route.params.id;
+  console.log(boothId);
   if (boothId) {
     getBoothData('야간부스', boothId);
   }
