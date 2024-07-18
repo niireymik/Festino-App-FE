@@ -34,7 +34,7 @@ const handleClickFooter = (index) => {
     class="w-full h-[60px] bg-white flex items-center justify-around fixed bottom-0 border-t-secondary-100 border-t-1"
   >
     <div
-      class="flex flex-col items-center justify-center"
+      class="flex flex-col items-center justify-center cursor-pointer"
       v-for="(item, index) in ICON_URL_MAP"
       :class="`w-[${item.width}]`"
       @click="handleClickFooter(index)"
