@@ -19,6 +19,21 @@ const handleClickOpenTalentModal = (show) => {
   handleClickOpenModal(category, show);
 };
 
+const isShowingTime = (isShowing) => {
+  if(isShowing) return 'text-secondary-700'
+  else return 'text-secondary-100'
+};
+
+const isShowingPin = (isShowing) => {
+  if(isShowing) return 'bg-primary-700'
+  else return 'bg-secondary-100'
+};
+
+const isShowingBgPin = (isShowing) => {
+  if(isShowing) return 'bg-primary-700-light'
+  else return 'bg-secondary-50'
+};
+
 watch(() => day.value, () => {
   getAllTimetable();
 });
@@ -39,12 +54,12 @@ onMounted(async () => {
       <div v-if="timetableData.length == 0" class="py-5">공연정보가 없습니다.</div>
       <div class="flex overflow-y-auto h-full w-full justify-center">
         <div class="flex flex-col items-center text-secondary-700 gap-[65px] pt-1">
-          <div v-for="data in timetableData" :key="data" :class="data.isShowing ? 'text-secondary-700' : 'text-secondary-100'">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
+          <div v-for="data in timetableData" :key="data" :class="isShowingTime(data.isShowing)">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
         </div>
         <div class="pt-3 pl-3 xs:pl-4 sm:pl-7 pr-1 xs:pr-3 sm:pr-7">
           <div class="border-2 border-primary-700 h-[auto] w-0 border-dashed flex flex-col items-center gap-[77.6px]">
-            <div class="w-[16px] h-[16px] mt-[-5px] rounded-full flex items-center justify-center" :class="data.isShowing ? 'bg-primary-700-light' : 'bg-secondary-50'" v-for="data in timetableData" :key="data">
-              <div class="w-[8px] h-[8px] rounded-full" :class="data.isShowing ? 'bg-primary-700' : 'bg-secondary-100'"></div>
+            <div class="w-[16px] h-[16px] mt-[-5px] rounded-full flex items-center justify-center" :class="isShowingBgPin(data.isShowing)" v-for="data in timetableData" :key="data">
+              <div class="w-[8px] h-[8px] rounded-full" :class="isShowingPin(data.isShowing)"></div>
             </div>
           </div>
         </div>
