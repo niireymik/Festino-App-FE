@@ -3,7 +3,7 @@ import Home from './footers/HomeIcon.vue';
 import TimeTableIcon from './footers/TimeTableIcon.vue';
 import BoothIcon from './footers/BoothIcon.vue';
 import TablingIcon from './footers/TablingIcon.vue';
-import { ref, watchEffect } from 'vue';
+import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
@@ -17,12 +17,17 @@ const ICON_URL_MAP = [
 
 const selectedFooterIndex = ref(-1);
 
-watchEffect(() => {
-  const currentRoute = router.currentRoute.value;
-  const currentRouteName = currentRoute.name;
-  const index = ICON_URL_MAP.findIndex((item) => item.router === currentRouteName);
-  selectedFooterIndex.value = index;
-});
+watch(
+  () => router.currentRoute.value,
+  (currentRoute) => {
+    const currentRouteName = currentRoute.name;
+    if (currentRouteName === 'booth-detail') return (selectedFooterIndex.value = 2);
+
+    const index = ICON_URL_MAP.findIndex((item) => item.router === currentRouteName);
+    selectedFooterIndex.value = index;
+  },
+  { immediate: true },
+);
 
 const handleClickFooter = (index) => {
   selectedFooterIndex.value = index;
