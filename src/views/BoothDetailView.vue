@@ -9,10 +9,18 @@ import MenuList from "@/components/booth/MenuList.vue";
 import { useGetBoothDataStore } from "@/stores/booths/boothDataStore";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
+import { useRoute } from "vue-router";
 
+const { getBoothData } = useGetBoothDataStore();
 const { boothType } = storeToRefs(useGetBoothDataStore());
 
+const route = useRoute();
+
 onMounted(() => {
+  const boothId = route.params.boothId;
+  if (boothId) {
+    getBoothData('야간부스', boothId);
+  }
   window.scrollTo(0, 0);
 });
 </script>
