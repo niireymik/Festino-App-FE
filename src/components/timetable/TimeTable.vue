@@ -3,19 +3,20 @@ import { onMounted, watch } from 'vue';
 import { useModalStore } from '@/stores/modalStore.js';
 import { useTimetableStore } from '@/stores/timetableStore.js';
 import { storeToRefs } from 'pinia';
+import TimeTableDetail from './TimeTableDetail.vue';
 
 const { handleClickOpenModal } = useModalStore();
 const { getAllTimetable } = useTimetableStore();
 const { timetableData, day } = storeToRefs(useTimetableStore());
 
-const handleClickOpenClubModal = () => {
-  const category = "club"
-  handleClickOpenModal(category)
+const handleClickOpenClubModal = (show) => {
+  const category = "club";
+  handleClickOpenModal(category, show);
 };
 
-const handleClickOpenTalentModal = () => {
-  const category = "talent"
-  handleClickOpenModal(category)
+const handleClickOpenTalentModal = (show) => {
+  const category = "talent";
+  handleClickOpenModal(category, show);
 };
 
 watch(() => day.value, () => {
@@ -48,10 +49,14 @@ onMounted(async () => {
           </div>
         </div>
         <div class="flex flex-col items-center gap-6">
-          <div class="cursor-pointer flex justify-center py-5 rounded-3xl w-[170px] xs:w-[210px] sm:w-[230px] border-2"
-            v-for="data in timetableData" :key="data"
-            :class="data.isShowing ? 'border-primary text-primary-700' : 'bg-secondary-50 border-secondary-100 text-secondary-100'"
-            @click="handleClickOpenClubModal()">교내 동아리 ' {{ data.performer }} '</div>
+          <div v-for="data in timetableData" :key="data">
+            <TimeTableDetail @click="handleClickOpenClubModal(data)" v-if="data.clubId"
+              :data="data"
+              category="교내 동아리"/>
+            <TimeTableDetail @click="handleClickOpenTalentModal(data)" v-if="data.talentId"
+              :data="data"
+              category="연예인"/>
+          </div>
         </div>
       </div>
     </div>
