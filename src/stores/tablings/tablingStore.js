@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { useTablingModalStore } from './tablingModal';
 
 const HOST = import.meta.env.VITE_API_URL;
@@ -18,6 +18,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
     openFailReserveModal,
     closeReserveModal,
     openCompleteReserveModal,
+    openEnterBoothModal,
   } = useTablingModalStore();
 
   const setUserName = (name) => {
@@ -29,30 +30,30 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const saveReservation = async (payload) => {
     try {
       const res = await axios.post(`${HOST}/main/reservation`, payload);
-      if (res.data.success) {
-        closeReserveModal();
-        openCompleteReserveModal();
-      }
-    } catch (error) {
       closeReserveModal();
-      openFailReserveModal();
+      if (res.data.success) return openCompleteReserveModal();
+      if (!res.data.success) return openFailReserveModal();
+    } catch (error) {
+      console.error(error);
     }
   };
   const getReservation = async (payload) => {
     try {
       const res = await axios.get(`${HOST}/main/reservation`, { params: payload });
       reservationInfo.value = res.data.reservationInfo;
-      console.log(res.data);
-      if (res.data.success) openSearchReserveModal();
+      await nextTick();
+      console.log(res.data.success);
+      if (res.data.success) {
+        if (reservationInfo.value.totalTeamCount === 0) {
+          console.log(reservationInfo.value.totalTeamCount);
+          return openEnterBoothModal();
+        }
+        return openSearchReserveModal();
+      }
+      if (!res.data.success) return openNoReserveModal();
     } catch (error) {
-      openNoReserveModal();
+      console.error(error);
     }
-    // reservationInfo.value = res.data.reservationInfo;
-    // await nextTick();
-
-    // console.log(res);
-    // if (res.data.success) openSearchReserveModal();
-    // if (!res.data.success) openNoReserveModal();
   };
 
   const getAllNightBooth = async () => {

@@ -43,13 +43,21 @@ const hanldeClickmenuNumButton = (type) => {
     });
   }
 };
+
+const getMenuImage = (menuImage) => {
+  return {
+    style: menuImage
+      ? `background-image: url(${menuImage})`
+      : 'background-image: url(/images/booth/booth-default-image.png)',
+  };
+};
 </script>
 
 <template>
   <div class="flex gap-5 py-4 items-center w-full bottom-line">
     <div
       class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover"
-      :style="`background-image: url(${menuInfo.menuImage})`"
+      v-bind="getMenuImage(menuInfo.menuImage)"
     ></div>
     <div class="flex flex-col w-full">
       <div class="flex justify-between items-center">
