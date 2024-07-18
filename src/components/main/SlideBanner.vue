@@ -54,7 +54,7 @@ const handleClickMoveBooth = () => {
 };
 
 const handleClickMoveTabling = () => {
-  router.push({ name: 'tabling' });
+  router.push({ name: 'reserve' });
 };
 
 const handleClickMoveTimeTable = () => {
