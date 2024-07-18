@@ -1,22 +1,26 @@
 <script setup>
+import { onMounted, watchEffect } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import MenuVue from '@/components/orders/Menus.vue';
 import CouponVue from '@/components/orders/Coupon.vue';
 import OrderModal from '@/components/orders/modals/OrderModal.vue';
 import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
 import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
-import { onMounted, ref } from 'vue';
-import { useOrderStore } from '@/stores/orders/orderStore';
-import { storeToRefs } from 'pinia';
-import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import { handleStopScroll } from '@/utils/handleScrollStop';
 
 const { getMenuAll, boothId } = useOrderStore();
+const { openOrderModal } = useOrderModalStore();
 const { menuList, totalPrice } = storeToRefs(useOrderStore());
+const { orderModalState, orderCheckModalState, orderCompleteModalState } = storeToRefs(useOrderModalStore());
+
 onMounted(() => {
+  window.scrollTo(0, 0);
   getMenuAll(boothId);
 });
 
-const { orderModalState, orderCheckModalState, orderCompleteModalState } = storeToRefs(useOrderModalStore());
-const { openOrderModal } = useOrderModalStore();
+watchEffect(() => handleStopScroll([orderModalState.value, orderCheckModalState.value, orderCompleteModalState.value]));
 
 const handleClickReserveButton = () => {
   if (totalPrice.value === 0) return;
@@ -28,7 +32,7 @@ const handleClickReserveButton = () => {
   <div class="flex flex-col h-full pt-[60px] gap-16">
     <div class="p-5 mb-5">
       <div v-for="(menuInfo, index) in menuList" :key="index">
-        <MenuVue :menuInfo="menuInfo" />
+        <MenuVue :menuInfo="menuInfo" v-if="!menuInfo.isSoldOut" />
       </div>
     </div>
     <div>

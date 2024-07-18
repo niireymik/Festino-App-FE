@@ -7,6 +7,7 @@ import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
+import { handleStopScroll } from '@/utils/handleScrollStop';
 
 onMounted(() => {
   window.scrollTo(0, 0);
@@ -27,6 +28,7 @@ const handleClickSearchButton = async () => {
 
 watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
+  handleStopScroll([notExistOrderModalState.value]);
 });
 </script>
 <template>

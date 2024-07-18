@@ -3,13 +3,29 @@ import TablingBanner from '@/components/tablings/TablingBanner.vue';
 import TablingTabs from '@/components/tablings/TablingTabs.vue';
 import ReservationModal from '@/components/tablings/ReservationModal.vue';
 import SearchReservationModal from '@/components/tablings/SearchReservationModal.vue';
+import CompleteReserveModal from '@/components/tablings/modals/CompleteReserveModal.vue';
+import NoReserveModal from '@/components/tablings/modals/NoReserveModal.vue';
+import FailReservationModal from '@/components/tablings/modals/FailReservationModal.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { storeToRefs } from 'pinia';
 import { onMounted, watchEffect } from 'vue';
 
-const { reserveModalState, searchReserveModalState } = storeToRefs(useTablingModalStore());
+const {
+  reserveModalState,
+  searchReserveModalState,
+  completeReserveModalState,
+  noReserveModalState,
+  failReserveModalState,
+} = storeToRefs(useTablingModalStore());
 const handleStopScroll = () => {
-  if (reserveModalState.value || searchReserveModalState.value) document.documentElement.style.overflow = 'hidden';
+  if (
+    reserveModalState.value ||
+    searchReserveModalState.value ||
+    completeReserveModalState.value ||
+    noReserveModalState.value ||
+    failReserveModalState.value
+  )
+    document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
 };
 
@@ -26,6 +42,9 @@ onMounted(() => {
     <TablingTabs />
     <ReservationModal v-if="reserveModalState" />
     <SearchReservationModal v-if="searchReserveModalState" />
+    <CompleteReserveModal v-if="completeReserveModalState" />
+    <NoReserveModal v-if="noReserveModalState" />
+    <FailReservationModal v-if="failReserveModalState" />
   </div>
 </template>
 

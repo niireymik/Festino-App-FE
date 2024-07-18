@@ -2,8 +2,7 @@
 import { ref, watchEffect } from 'vue';
 import InputName from './InputName.vue';
 import InputPhoneNum from './InputPhoneNum.vue';
-import { useTablingModalStore } from '@/stores/tablings/tablingModal';
-import { useReservationStore } from '@/stores/reservationStore';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
 
 const { getReservation, setUserName } = useReservationStore();
 
@@ -15,13 +14,11 @@ watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
 });
 
-const { openSearchReserveModal } = useTablingModalStore();
-const handleClickSearchButton = () => {
+const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
   const inputInfo = { userName: name.value, phoneNum: phoneNum.value };
-  getReservation(inputInfo);
+  await getReservation(inputInfo);
   setUserName(name.value);
-  openSearchReserveModal();
 };
 </script>
 

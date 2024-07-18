@@ -17,7 +17,7 @@ const handleClickConfirmDepositButton = () => {
     tableNum: tableNum,
     userName: userName,
     phoneNum: phoneNum,
-    menuInfo: orderMenus.value,
+    menuInfo: orderMenus.value.map(({ menuId, ...rest }) => rest),
     totalPrice: totalPrice,
     isCoupon: isCoupon,
   });
@@ -62,15 +62,15 @@ const clipAccount = () => {
             <div>입금 완료 버튼을 눌러야 주문이 완료됩니다.</div>
           </div>
         </div>
-        <div class="gap-[20px] flex font-bold">
+        <div class="gap-5 w-full flex font-bold">
           <button
-            class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
+            class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
             @click="closeOrderCheckModal()"
           >
             취소
           </button>
           <button
-            class="w-[142px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
+            class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
             @click="handleClickConfirmDepositButton()"
           >
             입금 완료

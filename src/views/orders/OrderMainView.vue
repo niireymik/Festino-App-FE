@@ -4,7 +4,7 @@ import router from '@/router';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted } from 'vue';
 
-const { resetInfo } = useOrderStore();
+const { resetOrderInfo } = useOrderStore();
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
@@ -18,7 +18,8 @@ const handleClickPayment = () => {
 };
 
 onMounted(() => {
-  resetInfo();
+  window.scrollTo(0, 0);
+  resetOrderInfo();
 });
 </script>
 <template>

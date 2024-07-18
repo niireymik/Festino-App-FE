@@ -47,7 +47,10 @@ const hanldeClickmenuNumButton = (type) => {
 
 <template>
   <div class="flex gap-5 py-4 items-center w-full bottom-line">
-    <div class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700"></div>
+    <div
+      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover"
+      :style="`background-image: url(${menuInfo.menuImage})`"
+    ></div>
     <div class="flex flex-col w-full">
       <div class="flex justify-between items-center">
         <div class="font-semibold text-secondary-700">{{ menuInfo.menuName }}</div>

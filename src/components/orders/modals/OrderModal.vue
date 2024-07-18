@@ -37,7 +37,7 @@ const handleClickOrderButton = () => {
         </div>
         <div class="w-full gap-1">
           <div class="font-semibold text-secondary-700">주문하기</div>
-          <div class="w-full rounded-xl bg-primary-900-lightest p-4">
+          <div class="w-full rounded-xl bg-primary-900-lightest p-4 max-h-[250px] overflow-auto">
             <div
               v-for="orderMenu in orderMenus"
               :key="orderMenu.menuName"
@@ -56,13 +56,13 @@ const handleClickOrderButton = () => {
         </div>
         <div class="gap-5 flex w-full font-bold">
           <button
-            class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
+            class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
             @click="closeOrderModal()"
           >
             취소
           </button>
           <button
-            class="w-[162px] h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
+            class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
             @click="handleClickOrderButton()"
           >
             확인
