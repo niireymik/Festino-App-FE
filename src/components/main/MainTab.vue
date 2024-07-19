@@ -27,7 +27,9 @@ onMounted(() => {
 <template>
   <DateButtons />
   <MoreButton :componentName="timeTable" />
-  <ShowPreview class="shadow-4xl" category="talent" />
+  <div class="px-5">
+    <ShowPreview class="shadow-4xl" category="talent" />
+  </div>
   <MoreButton :componentName="notification" />
   <div class="px-5">
     <div

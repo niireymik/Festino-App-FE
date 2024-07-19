@@ -5,7 +5,7 @@ import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 export const useNoticeStore = defineStore('noticeStore', () => {
-  const HOST = "https://api.festino.dev-tino.com";
+  const HOST = import.meta.env.VITE_API_URL;
   const mainNoticeData = ref([]);
   const noticeData = ref([]);
   const pinNotices = ref([]);
