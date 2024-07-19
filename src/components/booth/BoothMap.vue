@@ -26,7 +26,7 @@ const markers = ref([
 const selectedMarker = ref(null);
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.1, 2);
+  zoomLevel.value = Math.min(zoomLevel.value + 0.1, 1.2);
 };
 
 const zoomOut = () => {
@@ -92,10 +92,10 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
             :style="{
               left: `${marker.left * zoomLevel}px`,
               bottom: `${marker.bottom * zoomLevel}px`,
-              transform: `scale(${selectedMarker === index ? 1.25 : 1})`,
+              transform: `scale(${selectedMarker === index ? 1.25 : 1}) translateY(${selectedMarker === index ? (1.25 - 1) : 0}px)`,
               opacity: selectedMarker === index ? '1' : '0.75',
-              width: `${selectedMarker === index ? 57 : 45 * zoomLevel}px`,
-              height: `${selectedMarker === index ? 56 : 44 * zoomLevel}px`
+              width: `${selectedMarker === index ? 51 : 45 * zoomLevel}px`,
+              height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`
             }"
             @click="handleMarkerClick(index)"
           >
@@ -137,11 +137,11 @@ button:active i {
 
 .marker {
   transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-  transform-origin: center center;
+  transform-origin: center bottom;
 }
 
 .marker img {
   transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
-  transform-origin: center center;
+  transform-origin: center bottom;
 }
 </style>
