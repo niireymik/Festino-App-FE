@@ -20,18 +20,18 @@ const handleClickOpenTalentModal = (show) => {
 };
 
 const isShowingTime = (isShowing) => {
-  if(isShowing) return 'text-secondary-700'
-  else return 'text-secondary-100'
+  if(isShowing) return 'text-secondary-700';
+  else return 'text-secondary-100';
 };
 
 const isShowingPin = (isShowing) => {
-  if(isShowing) return 'bg-primary-700'
-  else return 'bg-secondary-100'
+  if(isShowing) return 'bg-primary-700';
+  else return 'bg-secondary-100';
 };
 
 const isShowingBgPin = (isShowing) => {
-  if(isShowing) return 'bg-primary-700-light'
-  else return 'bg-secondary-50'
+  if(isShowing) return 'bg-primary-700-light';
+  else return 'bg-secondary-50';
 };
 
 watch(() => day.value, () => {
