@@ -7,7 +7,23 @@ const { selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const zoomLevel = ref(1);
 const containerRef = ref(null);
-const imageLoaded = ref(false);
+const imageLoaded = ref(-1);
+const markers = ref([
+  { left: 140, bottom: 152 },
+  { left: 185, bottom: 152 },
+  { left: 230, bottom: 152 },
+  { left: 275, bottom: 152 },
+  { left: 320, bottom: 152 },
+  { left: 100, bottom: 185 },
+  { left: 100, bottom: 235 },
+  { left: 100, bottom: 285 },
+  { left: 140, bottom: 330 },
+  { left: 185, bottom: 330 },
+  { left: 230, bottom: 330 },
+  { left: 275, bottom: 330 },
+]);
+
+const selectedMarker = ref(null);
 
 const zoomIn = () => {
   zoomLevel.value = Math.min(zoomLevel.value + 0.1, 2);
@@ -27,26 +43,29 @@ const scrollToBottomLeft = () => {
 
 const moveScroll = () => {
   const container = containerRef.value;
-
-  if (selectBoothMenu.value === 0 || selectBoothMenu.value === 1) {
-    scrollToBottomLeft();
-  } else if (selectBoothMenu.value === 2 || selectBoothMenu.value === 3) {
-    if (container) {
+  if (container) {
+    if (selectBoothMenu.value === 0 || selectBoothMenu.value === 1) {
+      scrollToBottomLeft();
+    } else if (selectBoothMenu.value === 2 || selectBoothMenu.value === 3) {
       container.scrollTop = 310;
       container.scrollLeft = 1000;
     }
   }
-}
+};
+
+const handleMarkerClick = (index) => {
+  selectedMarker.value = index;
+};
 
 onMounted(() => {
-  scrollToBottomLeft();
+  if (containerRef.value) {
+    scrollToBottomLeft();
+  }
 });
 
 watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
-  if (imageLoaded.value) {
+  if (imageLoaded.value && containerRef.value) {
     scrollToBottomLeft();
-  }
-  if(selectBoothMenu.value) {
     moveScroll();
   }
 });
@@ -56,12 +75,35 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
   <div class="dynamic-booth-map-padding">
     <div class="relative">
       <div ref="containerRef" class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
-        <img
-          class="max-w-none h-auto bg-no-repeat"
-          :style="{ width: `${zoomLevel * 250}%`, transform: `scale(${zoomLevel})`, transformOrigin: 'left bottom' }"
-          src="/images/booth/map.svg"
-          @load="imageLoaded = true"
-        />
+        <div
+          class="relative"
+          :style="{ width: `${zoomLevel * 250}%` }"
+        >
+          <img
+            src="/images/booth/map.svg"
+            alt="Booth Map"
+            class="w-full"
+            @load="imageLoaded = true"
+          />
+          <div 
+            v-for="(marker, index) in markers" 
+            :key="index"
+            class="absolute marker"
+            :style="{
+              left: `${marker.left * zoomLevel}px`,
+              bottom: `${marker.bottom * zoomLevel}px`,
+              transform: `scale(${selectedMarker === index ? 1.25 : 1})`,
+              opacity: selectedMarker === index ? '1' : '0.75',
+              width: `${selectedMarker === index ? 57 : 45 * zoomLevel}px`,
+              height: `${selectedMarker === index ? 56 : 44 * zoomLevel}px`
+            }"
+            @click="handleMarkerClick(index)"
+          >
+            <img 
+              src="/icons/booth/marker.svg"
+            />
+          </div>
+        </div>
       </div>
       <div class="absolute bottom-5 left-5">
         <button
@@ -91,5 +133,15 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
 
 button:active i {
   color: white;
+}
+
+.marker {
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  transform-origin: center center;
+}
+
+.marker img {
+  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  transform-origin: center center;
 }
 </style>
