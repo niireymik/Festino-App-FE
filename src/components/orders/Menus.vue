@@ -28,7 +28,7 @@ const hanldeClickmenuNumButton = (type) => {
       menuId: props.menuInfo.menuId,
       menuName: props.menuInfo.menuName,
       menuCount: menuNum.value,
-      menuPrice: menuUnitPrice.value,
+      menuPrice: menuUnitPrice.value * menuNum.value,
     });
   }
   if (type === 'minus') {
@@ -39,7 +39,7 @@ const hanldeClickmenuNumButton = (type) => {
       menuId: props.menuInfo.menuId,
       menuName: props.menuInfo.menuName,
       menuCount: menuNum.value,
-      menuPrice: menuUnitPrice.value,
+      menuPrice: menuUnitPrice.value * menuNum.value,
     });
   }
 };
@@ -63,7 +63,7 @@ const getMenuImage = (menuImage) => {
       <div class="flex justify-between items-center">
         <div class="font-semibold text-secondary-700">{{ menuInfo.menuName }}</div>
         <div
-          class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex"
+          class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex flex-shrink-0"
         >
           {{ menuType }}
         </div>
