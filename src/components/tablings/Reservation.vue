@@ -26,7 +26,7 @@ const handleClickMajorBox = (boothInfo) => {
 };
 
 const handleClickReserveButton = () => {
-  if (!selectedBoothId.value ) return;
+  if (!selectedBoothId.value) return;
   openReserveModal();
 };
 
@@ -68,6 +68,7 @@ const getNightBoothImage = (nightBoothImage) => {
             @click="handleClickMajorBox(nightBooth)"
             class="aspect-w-1 aspect-h-1 dynamic-item rounded-3xl bg-no-repeat bg-cover"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
+            :class="{ hidden: !nightBooth.isOpen }"
           >
             <div
               class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40"

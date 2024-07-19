@@ -32,7 +32,7 @@ onMounted(() => {
       <div class="w-full h-[122px] flex flex-col gap-1 items-center justify-start leading-none mb-3">
         <div class="text-primary-900 font-bold relative h-[94px]">
           <div class="text-10xl relative">
-            {{ reservationInfo.totalTeamCount }}
+            {{ reservationInfo.reservationNum }}
             <span class="text-xl absolute bottom-2 w-[35px]">번째</span>
           </div>
         </div>
