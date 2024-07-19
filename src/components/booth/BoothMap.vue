@@ -13,7 +13,7 @@ const zoomOut = () => {
 </script>
 
 <template>
-  <div class="dynamic-padding">
+  <div class="dynamic-booth-map-padding">
     <div class="relative">
       <div class="w-full min-h-[340px] sm:h-[440px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
         <img
@@ -41,7 +41,7 @@ const zoomOut = () => {
 </template>
 
 <style lang="css">
-.dynamic-padding {
+.dynamic-booth-map-padding {
   padding-top: calc(10 / 430 * 100%) !important;
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;

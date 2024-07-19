@@ -15,7 +15,7 @@ const MENU_ITEMS = [
 </script>
 
 <template>
-  <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
+  <div class="overflow-x-auto flex dynamic-booth-category-padding booth-menu">
     <div v-for="(item, index) in MENU_ITEMS" :key="index">
       <div
         @click="convertBoothMenuTab(index)"
@@ -32,8 +32,9 @@ const MENU_ITEMS = [
 </template>
 
 <style lang="css" scoped>
-.dynamic-padding {
+.dynamic-booth-category-padding {
   padding-left: calc(20 / 430 * 100%) !important;
+  padding-bottom: 15px;
 }
 .booth-menu::-webkit-scrollbar {
   display: none;

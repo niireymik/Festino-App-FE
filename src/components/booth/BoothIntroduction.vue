@@ -19,7 +19,7 @@ const getBoothImageProps = (boothImage) => {
 </script>
 
 <template>
-  <div class="dynamic-padding w-full h-auto">
+  <div class="dynamic-booth-list-padding w-full h-auto">
     <div @click="handleClickBoothIntroduction(booth.adminCategory, booth.boothId)" v-for="(booth, index) in boothList[selectBoothMenu]" :key="index" class="pb-2 cursor-pointer">
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3"
@@ -52,7 +52,7 @@ const getBoothImageProps = (boothImage) => {
 </template>
 
 <style lang="css" scoped>
-.dynamic-padding {
+.dynamic-booth-list-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-right: calc(20 / 430 * 100%) !important;
   padding-bottom: 5rem;
