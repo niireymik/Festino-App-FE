@@ -1,24 +1,39 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 
 const zoomLevel = ref(1);
+const containerRef = ref(null);
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.2, 2);
+  zoomLevel.value = Math.min(zoomLevel.value + 0.1, 2);
 };
 
 const zoomOut = () => {
-  zoomLevel.value = Math.max(zoomLevel.value - 0.2, 1);
+  zoomLevel.value = Math.max(zoomLevel.value - 0.1, 1);
 };
+
+const scrollToBottomLeft = () => {
+  const container = containerRef.value;
+  if (container) {
+    container.scrollTop = container.scrollHeight;
+    container.scrollLeft = 0;
+  }
+};
+
+onMounted(scrollToBottomLeft);
+
+watch(zoomLevel, () => {
+  setTimeout(scrollToBottomLeft, 0);
+});
 </script>
 
 <template>
   <div class="dynamic-booth-map-padding">
     <div class="relative">
-      <div class="w-full min-h-[340px] sm:h-[440px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
+      <div ref="containerRef" class="w-full min-h-[340px] sm:h-[440px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
         <img
           class="max-w-none h-auto"
-          :style="{ width: `${zoomLevel * 160}%`, transform: `scale(${zoomLevel})`, transformOrigin: 'left top' }"
+          :style="{ width: `${zoomLevel * 180}%`, transform: `scale(${zoomLevel})`, transformOrigin: 'left bottom' }"
           src="/images/booth/map.svg"
         />
       </div>
