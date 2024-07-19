@@ -74,8 +74,9 @@ const router = createRouter({
       ],
     },
     {
-      path: '/error',
+      path: '/error/:page',
       name: 'error',
+      props: true,
       component: ErrorView,
     },
   ],

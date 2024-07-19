@@ -2,10 +2,13 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useOrderModalStore } from './orderModalState';
+import { useRouter } from 'vue-router';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useOrderStore = defineStore('orderStore', () => {
+  const router = useRouter();
+
   const orderList = ref([]);
   const boothId = ref('4c0fdc4d-4a3d-4ba7-acc3-0d5d46d7f6f1');
   const menuList = ref([]);
@@ -56,12 +59,13 @@ export const useOrderStore = defineStore('orderStore', () => {
   const saveOrder = async (payload) => {
     try {
       const res = await axios.post(`${HOST}/main/order`, payload);
+      closeOrderCheckModal();
+
       if (res.data.success) {
-        closeOrderCheckModal();
         openOrderCompleteModal();
       }
     } catch (error) {
-      closeOrderCheckModal();
+      router.push({ name: 'error', params: { page: 'order' } });
       console.error('Error save order data :', error);
     }
   };
@@ -70,8 +74,9 @@ export const useOrderStore = defineStore('orderStore', () => {
     try {
       const res = await axios.get(`${HOST}/main/order`, { params: payload });
       if (res.data.success) orderList.value = res.data.bills;
+      if (!res.data.success) openNotExistOrderModal();
     } catch (error) {
-      openNotExistOrderModal();
+      router.push({ name: 'error', params: { page: 'order' } });
       console.error('Error get order data :', error);
     }
   };
