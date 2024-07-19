@@ -19,7 +19,7 @@ const handleClickMusic = (index) => {
         <div class="w-[20px] h-[20px] bg-x-button bg-center bg-no-repeat bg-[length:20px_20px] cursor-pointer" @click="handleCloseModal()"></div>
       </div>
       <div class="pb-[12px] pt-[24px] flex justify-center">
-        <div class="w-[160px] h-[160px] bg-white rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:98px_99px] border-primary-700-default border-2"></div>
+        <img :src="`${modalData.talentImage}`" class="w-[160px] h-[160px] rounded-full" />
       </div>
       <div class="text-secondary-700 font-medium pb-[12px]">{{ modalData.performer }}</div>
       <div class="w-[95px] h-[22px] text-primary-700 text-xs flex items-center rounded-full bg-instagram-bg justify-center">페스티노 추천곡!</div>

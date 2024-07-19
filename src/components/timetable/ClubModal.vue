@@ -15,7 +15,7 @@ const { handleCloseModal } = useModalStore();
         <div class="w-[20px] h-[20px] bg-x-button bg-center bg-no-repeat bg-[length:20px_20px] cursor-pointer" @click="handleCloseModal()"></div>
       </div>
       <div class="pb-[12px] pt-[24px] flex justify-center">
-        <div class="w-[160px] h-[160px] bg-white rounded-full bg-tino-cheer-up bg-center bg-no-repeat bg-[length:98px_99px] border-primary-700-default border-2"></div>
+        <img :src="`${modalData.clubImage}`" class="w-[160px] h-[160px] rounded-full" />
       </div>
       <div class="text-secondary-700 font-medium pb-[8px]">{{ modalData.performer }}</div>
       <div class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight">
