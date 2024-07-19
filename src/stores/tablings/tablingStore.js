@@ -42,10 +42,8 @@ export const useReservationStore = defineStore('reservationStore', () => {
       const res = await axios.get(`${HOST}/main/reservation`, { params: payload });
       reservationInfo.value = res.data.reservationInfo;
       await nextTick();
-      console.log(res.data.success);
       if (res.data.success) {
         if (reservationInfo.value.totalTeamCount === 0) {
-          console.log(reservationInfo.value.totalTeamCount);
           return openEnterBoothModal();
         }
         return openSearchReserveModal();

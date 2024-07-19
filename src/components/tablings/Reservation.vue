@@ -26,15 +26,15 @@ const handleClickMajorBox = (boothInfo) => {
 };
 
 const handleClickReserveButton = () => {
-  if (selectedBoothId.value == '') return;
+  if (!selectedBoothId.value ) return;
   openReserveModal();
 };
 
 const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
-  if (selectedBoothId.value == '') return;
-  router.push(`/booth/detail/${selectedBoothId.value}`);
+  if (!selectedBoothId.value) return;
+  router.push({ path: `/booth/detail/${selectedBoothId.value}`});
 };
 
 const nightBoothInfoLength = ref(0);
@@ -89,7 +89,7 @@ const getNightBoothImage = (nightBoothImage) => {
       <button
         class="h-[60px] rounded-10xl w-1/2"
         :class="
-          selectedBoothId != ''
+          selectedBoothId
             ? 'bg-white border-1 border-primary-900-light-68 text-primary-900 font-medium'
             : 'bg-secondary-100'
         "
@@ -99,7 +99,7 @@ const getNightBoothImage = (nightBoothImage) => {
       </button>
       <button
         class="h-[60px] rounded-10xl w-1/2"
-        :class="selectedBoothId != '' ? 'bg-primary-900' : 'bg-secondary-100'"
+        :class="selectedBoothId ? 'bg-primary-900' : 'bg-secondary-100'"
         @click="handleClickReserveButton()"
       >
         예약하기
