@@ -27,9 +27,10 @@ export const useOrderStore = defineStore('orderStore', () => {
     userOrderList.value = [];
   };
 
-  const handleTotalPrice = (type, amount) => {
-    if (type === 'plus') totalPrice.value += amount;
-    if (type === 'minus') totalPrice.value -= amount;
+  const handleTotalPrice = () => {
+    totalPrice.value = userOrderList.value.reduce((acc, cur) => {
+      return acc + cur.menuPrice;
+    }, 0);
   };
 
   const addOrderList = (orderInfo) => {
