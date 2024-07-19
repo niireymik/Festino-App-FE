@@ -20,7 +20,7 @@ const zoomOut = () => {
 const scrollToBottomLeft = () => {
   const container = containerRef.value;
   if (container) {
-    container.scrollTop = 530;
+    container.scrollTop = 520;
     container.scrollLeft = 40;
   }
 };
@@ -55,9 +55,9 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
 <template>
   <div class="dynamic-booth-map-padding">
     <div class="relative">
-      <div ref="containerRef" class="w-full min-h-[340px] sm:h-[440px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
+      <div ref="containerRef" class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
         <img
-          class="max-w-none h-auto"
+          class="max-w-none h-auto bg-no-repeat"
           :style="{ width: `${zoomLevel * 250}%`, transform: `scale(${zoomLevel})`, transformOrigin: 'left bottom' }"
           src="/images/booth/map.svg"
           @load="imageLoaded = true"
