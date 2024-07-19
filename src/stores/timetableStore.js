@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useTimetableStore = defineStore('timetableStore', () => {
-  const HOST = "https://api.festino.dev-tino.com";
+  const HOST = import.meta.env.VITE_API_URL;
   const clubData = ref([]);
   const talentData = ref([]);
   const timetableData = ref([]);
