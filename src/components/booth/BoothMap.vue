@@ -9,18 +9,18 @@ const zoomLevel = ref(1);
 const containerRef = ref(null);
 const imageLoaded = ref(false);
 const markers = ref([
-  { left: 120, bottom: 135 },
-  { left: 160, bottom: 135 },
-  { left: 200, bottom: 135 },
-  { left: 240, bottom: 135 },
-  { left: 280, bottom: 135 },
-  { left: 80, bottom: 160 },
-  { left: 80, bottom: 205 },
-  { left: 80, bottom: 250 },
-  { left: 120, bottom: 280 },
-  { left: 160, bottom: 280 },
-  { left: 200, bottom: 280 },
-  { left: 240, bottom: 280 },
+  { left: 140, bottom: 152 },
+  { left: 185, bottom: 152 },
+  { left: 230, bottom: 152 },
+  { left: 275, bottom: 152 },
+  { left: 320, bottom: 152 },
+  { left: 100, bottom: 185 },
+  { left: 100, bottom: 235 },
+  { left: 100, bottom: 285 },
+  { left: 140, bottom: 330 },
+  { left: 185, bottom: 330 },
+  { left: 230, bottom: 330 },
+  { left: 275, bottom: 330 },
 ]);
 
 const selectedMarker = ref(null);
@@ -36,7 +36,7 @@ const zoomOut = () => {
 const scrollToBottomLeft = () => {
   const container = containerRef.value;
   if (container) {
-    container.scrollTop = 520;
+    container.scrollTop = 530;
     container.scrollLeft = 40;
   }
 };
@@ -48,7 +48,7 @@ const moveScroll = () => {
       scrollToBottomLeft();
     } else if (selectBoothMenu.value === 2 || selectBoothMenu.value === 3) {
       container.scrollTop = 310;
-      container.scrollLeft = 1000;
+      container.scrollLeft = 40;
     }
   }
 };
@@ -83,7 +83,7 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
             ref="imageRef"
             src="/images/booth/map.svg"
             alt="Booth Map"
-            class="w-[1000px] h-auto max-w-full"
+            class="min-w-[1128px] h-auto max-w-full"
             @load="imageLoaded = true"
           />
           <div 
@@ -91,12 +91,12 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
             :key="index"
             class="absolute marker"
             :style="{
-              left: `calc(${marker.left}px`,
-              bottom: `calc(${marker.bottom}px`,
+              left: `calc(${marker.left * zoomLevel}px)`,
+              bottom: `calc(${marker.bottom * zoomLevel}px)`,
               transform: `scale(${selectedMarker === index ? 1.25 : 1}) translateY(${selectedMarker === index ? (1.25 - 1) : 0}px)`,
               opacity: selectedMarker === index ? '1' : '0.75',
-              width: `${selectedMarker === index ? 51 / zoomLevel : 45 / zoomLevel}px`,
-              height: `${selectedMarker === index ? 50 / zoomLevel : 44 / zoomLevel}px`
+              width: `${selectedMarker === index ? 51 : 45 * zoomLevel}px`,
+              height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`
             }"
             @click="handleMarkerClick(index)"
           >
