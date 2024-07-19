@@ -1,6 +1,7 @@
 <script setup>
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 
 const { convertBoothMenuTab } = useGetBoothDataStore();
 const { dayBoothList, nightBoothList, foodBoothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
@@ -12,6 +13,10 @@ const MENU_ITEMS = [
   { name: "푸드트럭" },
   { name: "편의시설" },
 ];
+
+onMounted(() => {
+  selectBoothMenu.value = 0;
+});
 </script>
 
 <template>
