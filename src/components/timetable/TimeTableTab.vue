@@ -6,16 +6,16 @@ import TimeTable from "./TimeTable.vue";
 
 <template>
   <DateButtons />
-  <TimeTable class="shadow-4xl" />
-  <div class="flex justify-between items-center px-5 pt-4 pb-3 select-none">
+  <TimeTable />
+  <div class="flex flex-col px-5 pt-4 gap-3 select-none">
     <div class="text-xl font-semibold">동아리 공연</div>
+    <ShowPreview class="shadow-4xl" category="club" />
   </div>
-  <ShowPreview class="shadow-4xl" category="club" />
-  <div class="flex justify-between items-center px-5 pt-4 pb-3 select-none">
+  <div class="flex flex-col px-5 pt-4 gap-3 select-none">
     <div class="text-xl font-semibold">연예인 공연</div>
-  </div>
-  <div class="pb-20">
+    <div class="pb-20">
     <ShowPreview class="shadow-4xl" category="talent" />
+  </div>
   </div>
 </template>
 
