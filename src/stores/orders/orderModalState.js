@@ -33,6 +33,13 @@ export const useOrderModalStore = defineStore('orderModal', () => {
   const closeNotExistOrderModal = () => {
     notExistOrderModalState.value = false;
   };
+
+  const resetModalState = () => {
+    orderModalState.value = false;
+    orderCheckModalState.value = false;
+    orderCompleteModalState.value = false;
+    notExistOrderModalState.value = false;
+  };
   return {
     orderModalState,
     openOrderModal,
@@ -46,5 +53,6 @@ export const useOrderModalStore = defineStore('orderModal', () => {
     notExistOrderModalState,
     openNotExistOrderModal,
     closeNotExistOrderModal,
+    resetModalState,
   };
 });
