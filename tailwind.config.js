@@ -116,6 +116,7 @@ export default {
         'primary-700': 'rgba(48, 130, 246, 0.6)',
         'primary-700-default': theme('textColor.primary.700'),
         'secondary-300': theme('textColor.secondary.300'),
+        'primary-900-light-40': 'rgba(0, 115, 240, 0.40)'
       }),
       borderWidth: {
         1: '0.5px',
