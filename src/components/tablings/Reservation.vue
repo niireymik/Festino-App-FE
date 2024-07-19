@@ -4,10 +4,12 @@ import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
+import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
 const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
+const { getBoothData } = useGetBoothDataStore();
 
 onMounted(() => {
   getAllNightBooth();
@@ -34,6 +36,7 @@ const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
   if (!selectedBoothId.value) return;
+  getBoothData('야간부스', boothId);
   router.push({ path: `/booth/detail/${selectedBoothId.value}`});
 };
 

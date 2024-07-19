@@ -9,18 +9,11 @@ import MenuList from "@/components/booth/MenuList.vue";
 import { useGetBoothDataStore } from "@/stores/booths/boothDataStore";
 import { storeToRefs } from "pinia";
 import { onMounted } from "vue";
-import { useRoute } from "vue-router";
 
 const { getBoothData } = useGetBoothDataStore();
-const { menuList, booth } = storeToRefs(useGetBoothDataStore());
-
-const route = useRoute();
+const { menuList, booth, boothType } = storeToRefs(useGetBoothDataStore());
 
 onMounted(() => {
-  const boothId = route.params.id;
-  if (boothId) {
-    getBoothData('야간부스', boothId);
-  }
   window.scrollTo(0, 0);
 });
 </script>
@@ -33,7 +26,7 @@ onMounted(() => {
     <DetailImportmation />
     <BoothInformation />
     <MenuList v-if="menuList != ''" />
-    <BoothReservation v-if="booth.isReservation" />
+    <BoothReservation v-if="boothType === '운동장' && booth.isReservation" />
   </div>
 </template>
 
