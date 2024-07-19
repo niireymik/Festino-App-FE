@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, watch } from 'vue';
+import { onMounted, watch, ref } from 'vue';
 import { useModalStore } from '@/stores/modalStore.js';
 import { useTimetableStore } from '@/stores/timetableStore.js';
 import { storeToRefs } from 'pinia';
@@ -8,6 +8,7 @@ import TimeTableDetail from './TimeTableDetail.vue';
 const { handleClickOpenModal } = useModalStore();
 const { getAllTimetable } = useTimetableStore();
 const { timetableData, day } = storeToRefs(useTimetableStore());
+const activateTimetable = ref(false);
 
 const handleClickOpenClubModal = (show) => {
   const category = "club";
@@ -34,12 +35,27 @@ const isShowingBgPin = (isShowing) => {
   else return 'bg-secondary-50';
 };
 
-watch(() => day.value, () => {
-  getAllTimetable();
+const updateActiveTimetable = () => {
+  activateTimetable.value = false;
+  timetableData.value.forEach((data) => {
+    if(data.isShowing) activateTimetable.value = true;
+    if(activateTimetable.value) data.isShowing = true;
+  });
+  if (!activateTimetable.value) {
+      timetableData.value.forEach((data) => {
+      data.isShowing = true;
+    });
+  }
+};
+
+watch(() => day.value, async () => {
+  await getAllTimetable();
+  updateActiveTimetable();
 });
 
 onMounted(async () => {
   await getAllTimetable();
+  updateActiveTimetable();
 });
 </script>
 
