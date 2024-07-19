@@ -2,6 +2,7 @@
 import { ref, onMounted, watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
+import MapSpeechBubble from '@/components/booth/MapSpeechBubble.vue';
 
 const { selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
@@ -77,13 +78,12 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
       <div ref="containerRef" class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
         <div
           class="relative"
-          :style="{ width: `${zoomLevel * 250}%` }"
+          :style="{ width: `${zoomLevel * 250}%`, transition: 'width 0.3s ease, height 0.3s ease' }"
         >
           <img
-            ref="imageRef"
             src="/images/booth/map.svg"
             alt="Booth Map"
-            class="min-w-[1128px] h-auto max-w-full"
+            class="w-full h-full"
             @load="imageLoaded = true"
           />
           <div 
@@ -93,16 +93,22 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
             :style="{
               left: `calc(${marker.left * zoomLevel}px)`,
               bottom: `calc(${marker.bottom * zoomLevel}px)`,
-              transform: `scale(${selectedMarker === index ? 1.25 : 1}) translateY(${selectedMarker === index ? (1.25 - 1) : 0}px)`,
+              transform: `scale(${selectedMarker === index ? 1.2 : 1}) translateY(${selectedMarker === index ? -75 : 0}px)`,
               opacity: selectedMarker === index ? '1' : '0.75',
               width: `${selectedMarker === index ? 51 : 45 * zoomLevel}px`,
-              height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`
+              height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`,
+              zIndex: selectedMarker === index ? 10 : 1
             }"
             @click="handleMarkerClick(index)"
           >
-            <img 
-              src="/icons/booth/marker.svg"
-            />
+            <div class="relative">
+              <MapSpeechBubble v-if="selectedMarker === index" class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2" />
+              <div class="absolute">
+                <img 
+                  src="/icons/booth/marker.svg"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -137,7 +143,7 @@ button:active i {
 }
 
 .marker {
-  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  transition: transform 0s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
   transform-origin: center bottom;
 }
 
