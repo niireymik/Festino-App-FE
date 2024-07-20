@@ -32,6 +32,8 @@ export const useTimetableStore = defineStore('timetableStore', () => {
     await getClubTimetable();
     await getTalentTimetable();
     if (clubData.value.showInfo && talentData.value.showInfo) timetableData.value = [...clubData.value.showInfo, ...talentData.value.showInfo];
+    else if (!clubData.value.showInfo) timetableData.value = talentData.value.showInfo;
+    else if (!talentData.value.showInfo) timetableData.value = clubData.value.showInfo;
     else timetableData.value = [];
   };
 
