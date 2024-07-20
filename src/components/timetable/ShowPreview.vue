@@ -47,7 +47,7 @@ onMounted(async () => {
     <div class="flex pt-[17px] w-full px-3 justify-evenly gap-1 overflow-x-auto reserve-container">
       <div v-if="!showData" class="pt-14">공연정보가 없습니다.</div>
       <div class="flex flex-col items-center cursor-pointer" v-for="show in showData" :key="show" @click="handleClickOpenModal(props.category, show)">
-        <div :style="getImage(show)" class="bg-cover bg-center w-[100px] h-[100px] rounded-full"></div>
+        <div :style="getImage(show)" class="border-2 border-primary bg-cover bg-center w-[100px] h-[100px] rounded-full"></div>
         <div class="text-xs font-normal pt-2">{{ show.showStartTime }}</div>
         <div class="text-primary-700 font-medium">{{ show.performer }}</div>
       </div>

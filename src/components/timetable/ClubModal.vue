@@ -19,7 +19,7 @@ const getImage = () => {
         <div class="w-[20px] h-[20px] bg-x-button bg-center bg-no-repeat bg-[length:20px_20px] cursor-pointer" @click="handleCloseModal()"></div>
       </div>
       <div class="pb-[12px] pt-[24px] flex justify-center">
-        <div :style="getImage()" class="bg-cover bg-center w-[160px] h-[160px] rounded-full"></div>
+        <div :style="getImage()" class="border-2 border-primary bg-cover bg-center w-[160px] h-[160px] rounded-full"></div>
       </div>
       <div class="text-secondary-700 font-medium pb-[8px]">{{ modalData.performer }}</div>
       <div class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight">
