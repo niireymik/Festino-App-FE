@@ -50,6 +50,15 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
   const closeEnterBoothModal = () => {
     enterBoothModalState.value = false;
   };
+
+  const resetModalState = () => {
+    reserveModalState.value = false;
+    searchReserveModalState.value = false;
+    completeReserveModalState.value = false;
+    noReserveModalState.value = false;
+    failReserveModalState.value = false;
+    enterBoothModalState.value = false;
+  };
   return {
     reserveModalState,
     openReserveModal,
@@ -69,5 +78,6 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     enterBoothModalState,
     openEnterBoothModal,
     closeEnterBoothModal,
+    resetModalState,
   };
 });

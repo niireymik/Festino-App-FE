@@ -1,10 +1,12 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
 import router from '@/router';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted } from 'vue';
 
 const { resetOrderInfo } = useOrderStore();
+const { resetModalState } = useOrderModalStore();
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
@@ -20,6 +22,7 @@ const handleClickPayment = () => {
 onMounted(() => {
   window.scrollTo(0, 0);
   resetOrderInfo();
+  resetModalState();
 });
 </script>
 <template>

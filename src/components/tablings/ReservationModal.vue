@@ -53,15 +53,9 @@ onMounted(() => {
         </div>
         <InputPersonNum v-model="personNum" />
       </div>
-      <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">
-        <div class="flex flex-row justify-between">
-          <div>대기번호</div>
-          <div>{{ selectedNightBoothInfo.totalReservationNum }}번</div>
-        </div>
-        <div class="flex flex-row justify-between">
-          <div>현재 대기 팀</div>
-          <div>{{ selectedNightBoothInfo.totalReservationNum }}팀</div>
-        </div>
+      <div class="flex flex-row justify-between p-4 bg-primary-900-light-6 rounded-lg-xl w-full">
+        <div>현재 대기 팀</div>
+        <div>{{ selectedNightBoothInfo.totalReservationNum }} 팀</div>
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button

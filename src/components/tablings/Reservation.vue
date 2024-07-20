@@ -26,7 +26,7 @@ const handleClickMajorBox = (boothInfo) => {
 };
 
 const handleClickReserveButton = () => {
-  if (!selectedBoothId.value ) return;
+  if (!selectedBoothId.value) return;
   openReserveModal();
 };
 
@@ -34,12 +34,12 @@ const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
   if (!selectedBoothId.value) return;
-  router.push({ path: `/booth/detail/${selectedBoothId.value}`});
+  router.push({ path: `/booth/detail/${selectedBoothId.value}` });
 };
 
 const nightBoothInfoLength = ref(0);
 watch(nightBoothInfo, () => {
-  nightBoothInfoLength.value = nightBoothInfo.value.length;
+  nightBoothInfoLength.value = nightBoothInfo.value.filter((booth) => booth.isOpen).length;
 });
 
 const getNightBoothImage = (nightBoothImage) => {
@@ -60,27 +60,27 @@ const getNightBoothImage = (nightBoothImage) => {
         id="reserve-container"
         :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
       >
-        <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
+        <div class="grid place-content-start grid-rows-2 gap-2 grid-flow-col">
           <div class="row-span-2 dynamic-width"></div>
           <div
             v-for="nightBooth in nightBoothInfo"
             :key="nightBooth.boothId"
             @click="handleClickMajorBox(nightBooth)"
-            class="aspect-w-1 aspect-h-1 dynamic-item rounded-3xl bg-no-repeat bg-cover"
+            class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
+            :class="{ hidden: !nightBooth.isOpen }"
           >
             <div
-              class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40"
+              class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40 dynamic-item"
             >
               <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
               <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>
             </div>
             <div
               v-if="selectedBoothId == nightBooth.boothId"
-              class="absolute rounded-3xl border-4 border-primary-900"
+              class="absolute rounded-3xl border-4 border-primary-900 top-0 left-0 dynamic-item"
             ></div>
           </div>
-
           <div class="row-span-2 dynamic-width"></div>
         </div>
       </div>
@@ -113,6 +113,9 @@ const getNightBoothImage = (nightBoothImage) => {
   width: calc(100vw * 190 / 430) !important;
   max-width: calc(500px * 190 / 430) !important;
   min-width: calc(375px * 190 / 430) !important;
+  height: calc(100vw * 190 / 430) !important;
+  max-height: calc(500px * 190 / 430) !important;
+  min-height: calc(375px * 190 / 430) !important;
 }
 
 .dynamic-padding {
