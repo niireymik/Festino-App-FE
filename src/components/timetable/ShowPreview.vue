@@ -16,23 +16,28 @@ const props = defineProps({
   },
 });
 
+const getImage = (data) => {
+  if(data.talentImage) return { backgroundImage: `url('${data.talentImage}')` }
+  if(data.clubImage) return { backgroundImage: `url('${data.clubImage}')` }
+};
+
 watch(() => day.value, async () => {
   if (props.category === "talent") {
     await getTalentTimetable();
-    showData.value = talentData.value.showInfo
+    showData.value = talentData.value.showInfo;
   } else {
     await getClubTimetable();
-    showData.value = clubData.value.showInfo
+    showData.value = clubData.value.showInfo;
   }
 });
 
 onMounted(async () => {
   if (props.category === "talent") {
     await getTalentTimetable();
-    showData.value = talentData.value.showInfo
+    showData.value = talentData.value.showInfo;
   } else {
     await getClubTimetable();
-    showData.value = clubData.value.showInfo
+    showData.value = clubData.value.showInfo;
   }
 });
 </script>
@@ -42,8 +47,7 @@ onMounted(async () => {
     <div class="flex pt-[17px] w-full px-3 justify-evenly gap-1 overflow-x-auto reserve-container">
       <div v-if="!showData" class="pt-14">공연정보가 없습니다.</div>
       <div class="flex flex-col items-center cursor-pointer" v-for="show in showData" :key="show" @click="handleClickOpenModal(props.category, show)">
-        <img v-if="show.talentImage" :src="`${show.talentImage}`" class="w-[100px] h-[100px] rounded-full" />
-        <img v-if="show.clubImage" :src="`${show.clubImage}`" class="w-[100px] h-[100px] rounded-full" />
+        <div :style="getImage(show)" class="bg-cover bg-center w-[100px] h-[100px] rounded-full"></div>
         <div class="text-xs font-normal pt-2">{{ show.showStartTime }}</div>
         <div class="text-primary-700 font-medium">{{ show.performer }}</div>
       </div>
