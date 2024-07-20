@@ -73,8 +73,8 @@ onMounted(async () => {
           <div v-for="data in timetableData" :key="data" :class="isShowingTime(data.isShowing)">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
         </div>
         <div v-if="timetableData.length != 0" class="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
-          <div class="border-2 border-primary-700 h-[auto] w-0 border-dashed flex flex-col items-center gap-[77.6px]">
-            <div class="w-[16px] h-[16px] mt-[-5px] rounded-full flex items-center justify-center" :class="isShowingBgPin(data.isShowing)" v-for="data in timetableData" :key="data">
+          <div class="border-2 border-primary-700 h-[auto] w-0 border-dashed flex flex-col items-center gap-[82.7px]">
+            <div class="w-[16px] h-[16px] mt-[-5px] mb-[-5px] rounded-full flex items-center justify-center" :class="isShowingBgPin(data.isShowing)" v-for="data in timetableData" :key="data">
               <div class="w-[8px] h-[8px] rounded-full" :class="isShowingPin(data.isShowing)"></div>
             </div>
           </div>
