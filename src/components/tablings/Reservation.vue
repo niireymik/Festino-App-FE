@@ -7,7 +7,7 @@ import { useRouter, useRoute } from 'vue-router';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
-const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
+const { nightBoothInfo } = storeToRefs(useReservationStore());
 
 onMounted(() => {
   getAllNightBooth();
@@ -55,18 +55,24 @@ const getNightBoothImage = (nightBoothImage) => {
   <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-start">
       <div
-        class="pt-10 w-full"
+        :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
+        class="pt-10 w-full flex"
         @touchstart.stop=""
         id="reserve-container"
-        :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
       >
-        <div class="grid place-content-start grid-rows-2 gap-2 grid-flow-col">
-          <div class="row-span-2 dynamic-width"></div>
+        <div class="dynamic-width"></div>
+        <div
+          class="gap-2"
+          :class="{
+            'flex justify-start': nightBoothInfoLength <= 2,
+            'grid place-content-start grid-rows-2 grid-flow-col': nightBoothInfoLength > 2,
+          }"
+        >
           <div
             v-for="nightBooth in nightBoothInfo"
             :key="nightBooth.boothId"
             @click="handleClickMajorBox(nightBooth)"
-            class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative"
+            class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative shrink-0"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
             :class="{ hidden: !nightBooth.isOpen }"
           >
@@ -81,8 +87,8 @@ const getNightBoothImage = (nightBoothImage) => {
               class="absolute rounded-3xl border-4 border-primary-900 top-0 left-0 dynamic-item"
             ></div>
           </div>
-          <div class="row-span-2 dynamic-width"></div>
         </div>
+        <div class="dynamic-width"></div>
       </div>
     </div>
     <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-20">
@@ -124,8 +130,9 @@ const getNightBoothImage = (nightBoothImage) => {
 }
 
 .dynamic-width {
-  width: calc(100vw * 10 / 430) !important;
-  max-width: calc(500px * 10 / 430) !important;
+  width: calc(100vw * 20 / 430) !important;
+  max-width: calc(500px * 20 / 430) !important;
+  flex-shrink: 0;
 }
 
 #reserve-container::-webkit-scrollbar {
