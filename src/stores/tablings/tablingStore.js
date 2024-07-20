@@ -35,8 +35,9 @@ export const useReservationStore = defineStore('reservationStore', () => {
     try {
       const res = await axios.post(`${HOST}/main/reservation`, payload);
       closeReserveModal();
-      if (res.data.success) return openCompleteReserveModal();
-      if (!res.data.success) return openFailReserveModal();
+      if (res.data.success) openCompleteReserveModal();
+      if (!res.data.success) openFailReserveModal();
+      getAllNightBooth();
     } catch (error) {
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);

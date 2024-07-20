@@ -7,11 +7,11 @@ import { useRouter, useRoute } from 'vue-router';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
-const { nightBoothInfo } = storeToRefs(useReservationStore());
+const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
 onMounted(() => {
   getAllNightBooth();
-  selectedBoothId.value = route.params.boothId;
+  selectedBoothId.value = route.params.boothId ?? selectedNightBoothInfo.value.boothId;
 });
 
 const selectedBoothId = ref('');
