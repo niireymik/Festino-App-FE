@@ -8,9 +8,14 @@ const props = defineProps({
   },
 });
 
+const orderStatus = ['입금대기', '조리중', '조리완료', '주문취소'];
+
 const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
 </script>
 <template>
+  <div class="py-2 font-bold">
+    {{ orderStatus[orderInfo.orderType] }}
+  </div>
   <div
     class="w-full bg-primary-900-light-6 border-2 border-primary-900-light-16 flex flex-col p-4 gap-3 rounded-3xl text-sm"
   >
@@ -18,7 +23,6 @@ const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replace
       <div class="flex gap-1 items-center">
         <img src="/icons/orders/map.svg" />
         <p>{{ orderInfo.adminName }} No.{{ orderInfo.tableNum }}</p>
-        <!-- TODO: ADD ORDER STATUS -->
       </div>
       <div class="flex gap-1 items-center">
         <img src="/icons/orders/clock.svg" />
