@@ -5,6 +5,7 @@ import { storeToRefs } from 'pinia';
 
 const { changeDate } = useTimetableStore();
 const { day } = storeToRefs(useTimetableStore());
+const { isMoreButton } = history.state;
 
 const handleClickDateButton = async (index) => {
   if (day.value === index) {
@@ -13,8 +14,17 @@ const handleClickDateButton = async (index) => {
   changeDate(index);
 };
 
+const defineButtonDate = () => {
+  const date = new Date();
+  if (date.getMonth() < 9) changeDate(1);
+  else if (date.getMonth() > 9) changeDate(3);
+  else if (date.getDate() <= 11) changeDate(1);
+  else if (date.getDate() >= 13) changeDate(3);
+  else if (date.getDate() == 12) changeDate(2);
+}
+
 onMounted(() => {
-  changeDate(1);
+  if (!isMoreButton) defineButtonDate();
 });
 </script>
 
@@ -27,7 +37,7 @@ onMounted(() => {
         @click="handleClickDateButton(date)"
       >
         <div>DAY {{ date }}</div>
-        <div>24.06.{{ date + 12 }}</div>
+        <div>24.09.{{ date + 10 }}</div>
       </div>
     </div>
   </div>
