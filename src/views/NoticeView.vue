@@ -11,7 +11,7 @@ const { noticeData } = storeToRefs(useNoticeStore());
 const router = useRouter();
 
 const handleClickBackArrow = () => {
-  router.go(-1);
+  router.push({ name: "notification"});
 }
 
 onMounted(() => {

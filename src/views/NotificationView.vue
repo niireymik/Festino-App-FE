@@ -13,7 +13,7 @@ const { getAllNotice } = useNoticeStore();
 const router = useRouter();
 
 const handleClickBackArrow = () => {
-  router.go(-1);
+  router.push({ name: "main"});
 };
 
 onMounted(() => {
