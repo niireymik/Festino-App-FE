@@ -8,7 +8,7 @@ const HOST = import.meta.env.VITE_API_URL;
 export const useGetBoothDataStore = defineStore('boothData', () => {
   const router = useRouter();
 
-  const allTypeBoothLsit = ref([]);
+  const allBoothLsit = ref([]);
   const dayBoothList = ref([]);
   const nightBoothList = ref([]);
   const foodBoothList = ref([]);
@@ -26,20 +26,32 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   
   const getAllTypeBoothLsitData = async () => {
     try {
-      const res = await axios.get(`${HOST}/main/booth/all`);
-      dayBoothList.value = res.data.boothInfo.dayBoothInfo;
-      nightBoothList.value = res.data.boothInfo.nightBoothInfo;
-      foodBoothList.value = res.data.boothInfo.foodBoothInfo;
-      allTypeBoothLsit.value = [...nightBoothList.value, ...dayBoothList.value, ...foodBoothList.value];
-      
+      const urls = [
+        `${HOST}/main/booth/all`,
+        `${HOST}/main/booth/night/all`,
+        `${HOST}/main/booth/day/all`,
+        `${HOST}/main/booth/food/all`
+      ];
+  
+      const results = [];
+      for (const url of urls) {
+        const res = await axios.get(url);
+        results.push(res);
+      }
+  
+      allBoothLsit.value = results[0].data.boothInfo;
+      nightBoothList.value = results[1].data.boothList;
+      dayBoothList.value = results[2].data.boothList;
+      foodBoothList.value = results[3].data.boothList;
+  
       boothList.value = [];
-      boothList.value.push(allTypeBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
-
+      boothList.value.push(allBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
+  
       localStorage.setItem('boothList', JSON.stringify(boothList.value));
     } catch (error) {
       console.error('Error getAllTypeBoothLsitData', error);
     }
-  };
+  };  
 
   const convertBoothMenuTab = (index) => {
     selectBoothMenu.value = index;
@@ -156,7 +168,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   initializeStore();
 
   return {
-    allTypeBoothLsit,
+    allBoothLsit,
     dayBoothList,
     nightBoothList,
     foodBoothList,
