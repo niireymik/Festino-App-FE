@@ -29,24 +29,18 @@ const handleClickReserveButton = () => {
 </script>
 
 <template>
-  <div class="flex flex-col h-full pt-[60px] gap-16">
+  <div class="flex flex-col h-full pt-[60px]">
     <div class="p-5 mb-5">
       <div v-for="(menuInfo, index) in menuList" :key="index">
         <MenuVue :menuInfo="menuInfo" v-if="!menuInfo.isSoldOut" />
       </div>
     </div>
-    <div>
-      <div class="flex flex-col px-5 gap-[12px]">
-        <div>쿠폰</div>
-        <CouponVue />
-      </div>
-      <div class="flex justify-center px-[20px] py-[30px]">
-        <div
-          class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold"
-          @click="handleClickReserveButton()"
-        >
-          {{ totalPrice }}원 • 주문하기
-        </div>
+    <div class="flex justify-center px-[20px] py-[30px]">
+      <div
+        class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold"
+        @click="handleClickReserveButton()"
+      >
+        {{ totalPrice }}원 • 주문하기
       </div>
     </div>
   </div>
