@@ -11,7 +11,7 @@ const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationSto
 
 onMounted(() => {
   getAllNightBooth();
-  selectedBoothId.value = route.params.boothId ?? selectedNightBoothInfo.value.boothId;
+  selectedBoothId.value = route.params?.boothId ?? selectedNightBoothInfo.value?.boothId ?? '';
 });
 
 const selectedBoothId = ref('');
@@ -40,6 +40,7 @@ const handleClickDetailButton = () => {
 const nightBoothInfoLength = ref(0);
 watch(nightBoothInfo, () => {
   nightBoothInfoLength.value = nightBoothInfo.value.filter((booth) => booth.isOpen).length;
+  console.log(selectedBoothId.value);
 });
 
 const getNightBoothImage = (nightBoothImage) => {
