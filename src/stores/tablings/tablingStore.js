@@ -21,6 +21,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
     closeReserveModal,
     openCompleteReserveModal,
     openEnterBoothModal,
+    openMessageFailModal,
   } = useTablingModalStore();
 
   const setUserName = (name) => {
@@ -38,6 +39,8 @@ export const useReservationStore = defineStore('reservationStore', () => {
       if (res.data.success) openCompleteReserveModal();
       if (!res.data.success) openFailReserveModal();
       getAllNightBooth();
+      // TODO: 메시지 실패일 때 띄울 모달
+      // openMessageFailModal();
     } catch (error) {
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
