@@ -1,14 +1,7 @@
 <script setup>
-import { useNoticeStore } from '@/stores/noticeStore.js';
-import { onMounted } from 'vue';
-import { storeToRefs } from 'pinia';
 
-const { getNotice } = useNoticeStore();
-const { noticeData } = storeToRefs(useNoticeStore());
-const { noticeId } = history.state;
 
 onMounted(async () => {
-  await getNotice(noticeId);
   window.scrollTo(0, 0);
 });
 </script>
