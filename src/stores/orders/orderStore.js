@@ -91,6 +91,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     try {
       const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
       if (res.data.success) menuList.value = res.data.MenuInfo;
+      if (!res.data.success) router.push({ name: 'error', params: { page: 'order' } });
     } catch (error) {
       router.push({ name: 'error', params: { page: 'order' } });
       console.error('Error get menu data :', error);
