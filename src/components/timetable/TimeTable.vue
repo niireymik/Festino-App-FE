@@ -67,7 +67,10 @@ onMounted(async () => {
           DAY {{ day }} 공연 타임테이블
         </div>
       </div>
-      <div v-if="timetableData.length == 0" class="py-5">공연정보가 없습니다.</div>
+      <div v-if="timetableData.length == 0" class="gap-2 text-xs flex flex-col items-center">
+        <div class="bg-error-tino bg-cover bg-center w-[110px] h-[100px]"></div>
+        <div>공연정보가 없습니다</div>
+      </div>
       <div class="flex h-full w-full justify-center">
         <div class="flex flex-col items-center text-secondary-700 gap-[65px] pt-1">
           <div v-for="data in timetableData" :key="data" :class="isShowingTime(data.isShowing)">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>

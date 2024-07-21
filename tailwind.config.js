@@ -101,7 +101,8 @@ export default {
         'tino-cd': "url('/icons/tino-cd.svg')",
         'booth-default-image': "url('/images/booth/booth-default-image.png')",
         'booth-map': "url('/images/booth/map.svg')",
-        'link-icon': "url('/icons/link.svg')"
+        'link-icon': "url('/icons/link.svg')",
+        'error-tino': "url('/icons/tino-error.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
