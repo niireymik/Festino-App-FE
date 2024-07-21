@@ -10,7 +10,7 @@ const props = defineProps({
   },
 });
 
-const menuNum = ref(null);
+const menuNum = ref(0);
 const menuUnitPrice = ref(props.menuInfo.menuPrice);
 const menuType = props.menuInfo.menuType === 0 ? '메인 메뉴' : '서브 메뉴';
 
@@ -67,9 +67,9 @@ const getMenuImage = (menuImage) => {
         </div>
       </div>
       <div class="font-light text-secondary-300 text-sm">{{ menuInfo.menuDescription }}</div>
-      <div class="font-light text-secondary-300 text-sm">가격: {{ menuUnitPrice * menuNum }}원</div>
+      <div class="font-light text-secondary-300 text-sm">가격: {{ menuUnitPrice }}원</div>
       <div class="flex pt-[12px] justify-between items-center">
-        <div>{{ menuUnitPrice }}원</div>
+        <div :class="{ 'text-secondary-100': !menuNum }">{{ menuUnitPrice * menuNum }}원</div>
         <div class="w-[118px] flex flex-row gap-[10px]">
           <img src="/icons/orders/minus.svg" class="cursor-pointer" @click="handleClickMenuNumButton('minus')" />
           <input
