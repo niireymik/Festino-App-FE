@@ -1,13 +1,18 @@
 <script setup>
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
 const pageName = route.params.page;
 
+const { boothId, tableNum } = storeToRefs(useOrderStore());
+
 const handleClickGoMainButton = () => {
   if (pageName === 'main') router.push({ name: 'main' });
-  if (pageName === 'order') router.push({ name: 'order' });
+  if (pageName === 'order')
+    router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
 };
 </script>
 
@@ -18,6 +23,7 @@ const handleClickGoMainButton = () => {
     <button
       @click="handleClickGoMainButton()"
       class="h-12 text-xl text-white bg-primary-900 rounded-3xl font-semibold w-4/5"
+      v-if="pageName === 'main'"
     >
       메인으로 가기
     </button>

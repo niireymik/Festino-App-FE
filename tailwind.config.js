@@ -47,10 +47,26 @@ export default {
             DEFAULT: '#444444',
             'light-20': 'rgba(68, 68, 68, 0.2)',
           },
+          400: '#888888',
           300: '#999999',
           200: '#F2F4F6',
           100: '#CCCCCC',
           50: '#EEEEEE',
+        },
+        third: {
+          400: {
+            DEFAULT: '#888888',
+            lighter: 'rgba(136, 136, 136, 0.1)',
+          },
+          300: { DEFAULT: '#66CF55', lighter: 'rgba(102, 207, 85, 0.1)' },
+          200: {
+            DEFAULT: '#3082F6',
+            lighter: 'rgba(48, 130, 246, 0.1)',
+          },
+          100: {
+            DEFAULT: '#FF6D6D',
+            lighter: 'rgba(255, 109, 109, 0.1)',
+          },
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
@@ -117,7 +133,7 @@ export default {
         'primary-700': 'rgba(48, 130, 246, 0.6)',
         'primary-700-default': theme('textColor.primary.700'),
         'secondary-300': theme('textColor.secondary.300'),
-        'primary-900-light-40': 'rgba(0, 115, 240, 0.40)'
+        'primary-900-light-40': 'rgba(0, 115, 240, 0.40)',
       }),
       borderWidth: {
         1: '0.5px',

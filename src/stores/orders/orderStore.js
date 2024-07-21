@@ -10,17 +10,21 @@ export const useOrderStore = defineStore('orderStore', () => {
   const router = useRouter();
 
   const orderList = ref([]);
-  const boothId = ref('bea7a89e-af60-416f-a43f-5f3ee2ba5f61');
+  const boothId = ref('');
   const menuList = ref([]);
   const totalPrice = ref(0);
   const userOrderList = ref([]);
   const userName = ref('');
   const phoneNum = ref('');
-  //TODO MODIFY
   const tableNum = ref(0);
   const isCoupon = ref(false);
   const accountNum = ref('0000-0000-0000-00');
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
+
+  const setBoothInfo = (id, num) => {
+    boothId.value = id;
+    tableNum.value = num;
+  };
 
   const resetOrderInfo = () => {
     totalPrice.value = 0;
@@ -87,10 +91,31 @@ export const useOrderStore = defineStore('orderStore', () => {
     try {
       const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
       if (res.data.success) menuList.value = res.data.MenuInfo;
+      if (!res.data.success) router.push({ name: 'error', params: { page: 'order' } });
     } catch (error) {
+      router.push({ name: 'error', params: { page: 'order' } });
       console.error('Error get menu data :', error);
     }
   };
+
+  const isUUID = (uuid) => {
+    const uuidRegex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$');
+    return uuidRegex.test(uuid);
+  };
+
+  router.beforeEach(async (to, from) => {
+    if (to.name === 'order' || to.name === 'order-payment' || to.name === 'order-search') {
+      if (isUUID(to.params.boothId) && !isNaN(to.params.tableNum)) return true;
+      else {
+        return {
+          name: 'error',
+          params: { page: 'order' },
+        };
+      }
+    } else {
+      return true;
+    }
+  });
 
   return {
     orderList,
@@ -111,5 +136,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     getOrder,
     getMenuAll,
     resetOrderInfo,
+    setBoothInfo,
+    isUUID,
   };
 });

@@ -1,26 +1,37 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
-import router from '@/router';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const { resetOrderInfo } = useOrderStore();
-const { resetModalState } = useOrderModalStore();
+const orderStore = useOrderStore();
+const orderModalStore = useOrderModalStore();
+const { resetOrderInfo, setBoothInfo, isUUID } = orderStore;
+const { resetModalState } = orderModalStore;
+const { tableNum } = storeToRefs(orderStore);
+const route = useRoute();
+const router = useRouter();
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
 };
+
 const handleClickOrderSearchButton = () => {
-  router.push({ name: 'order-search' });
+  router.push({ name: 'order-search', params: { boothId: route.params.boothId } });
 };
 
 const handleClickPayment = () => {
-  router.push({ name: 'order-payment' });
+  router.push({ name: 'order-payment', params: { boothId: route.params.boothId } });
 };
 
 onMounted(() => {
   window.scrollTo(0, 0);
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
+    return router.push({ name: 'error', params: { page: 'order' } });
+  }
+  setBoothInfo(route.params.boothId, route.params.tableNum);
   resetOrderInfo();
   resetModalState();
 });
@@ -32,7 +43,7 @@ onMounted(() => {
       <div
         class="w-[138px] h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center"
       >
-        테이블 번호 12
+        테이블 번호 {{ tableNum }}
       </div>
       <div class="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
         <div class="flex flex-row justify-evenly gap-x-2">
