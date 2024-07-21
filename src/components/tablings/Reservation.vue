@@ -76,7 +76,10 @@ const getNightBoothImage = (nightBoothImage) => {
             @click="handleClickMajorBox(nightBooth)"
             class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative shrink-0"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
-            :class="{ hidden: !nightBooth.isOpen }"
+            :class="{
+              hidden: !nightBooth.isOpen,
+              'opacity-50': selectedBoothId && selectedBoothId !== nightBooth.boothId,
+            }"
           >
             <div
               class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40 dynamic-item"
