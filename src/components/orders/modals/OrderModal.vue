@@ -15,9 +15,10 @@ onMounted(() => {
 
 const name = ref('');
 const phoneNum = ref('');
+const regex = /^010/;
 
 const handleClickOrderButton = () => {
-  if (name.value.length < 2 || phoneNum.value.length !== 11) return;
+  if (name.value.length < 2 || phoneNum.value.length !== 11 || !regex.test(phoneNum.value)) return;
   setUserName(name.value);
   setPhoneNum(phoneNum.value);
 
