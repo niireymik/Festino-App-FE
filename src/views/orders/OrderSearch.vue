@@ -20,6 +20,7 @@ const { notExistOrderModalState } = storeToRefs(useOrderModalStore());
 const name = ref('');
 const phoneNum = ref('');
 const isInputFill = ref(false);
+const regex = /^010/;
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
@@ -27,7 +28,7 @@ const handleClickSearchButton = async () => {
 };
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11;
+  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11 && regex.test(phoneNum.value);
   handleStopScroll([notExistOrderModalState.value]);
 });
 </script>
