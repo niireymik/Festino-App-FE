@@ -5,6 +5,7 @@ import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
+import NoBooth from '@/components/tablings/NoBooth.vue';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
@@ -63,6 +64,7 @@ const getNightBoothImage = (nightBoothImage) => {
         id="reserve-container"
       >
         <div class="dynamic-width"></div>
+        <NoBooth v-if="nightBoothInfoLength === 0" />
         <div
           class="gap-2"
           :class="{
