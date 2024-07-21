@@ -26,7 +26,7 @@ onMounted(() => {
     <DetailImportmation />
     <BoothInformation />
     <MenuList v-if="menuList != ''" />
-    <BoothReservation v-if="boothType === '운동장' && booth.isReservation" />
+    <BoothReservation v-if="boothType === '운동장' && booth?.isReservation" />
   </div>
 </template>
 
