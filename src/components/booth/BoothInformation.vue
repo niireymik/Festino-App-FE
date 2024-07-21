@@ -53,10 +53,10 @@ const getBoothIntroduceImageProps = (boothImage) => {
       >
         {{ currentIndex + 1 }} / {{ imageList.length }}
       </div>
-      <div ref="containerRef" class="snap-x overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4 border">
-        <div v-for="(image, index) in imageList" :key="index" class="snap-center min-w-full">
+      <div ref="containerRef" class="snap-x snap-mandatory overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4 border">
+        <div v-for="(image, index) in imageList" :key="index" class="sanp-always snap-center min-w-full">
           <div 
-            class="w-full h-full bg-cover bg-no-repeat aspect-square"
+            class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
             v-bind="getBoothIntroduceImageProps(image)" >
           </div>
         </div>

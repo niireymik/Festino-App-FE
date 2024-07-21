@@ -35,8 +35,8 @@ const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
   if (!selectedBoothId.value) return;
-  getBoothData('야간부스', boothId);
-  router.push({ path: `/booth/detail/${selectedBoothId.value}` });
+  getBoothData('야간부스', selectedBoothId.value);
+  router.push({ path: `/booth/detail/${selectedBoothId.value}`});
 };
 
 const nightBoothInfoLength = ref(0);

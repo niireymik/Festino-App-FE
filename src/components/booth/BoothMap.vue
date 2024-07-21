@@ -37,8 +37,8 @@ const zoomOut = () => {
 const scrollToBottomLeft = () => {
   const container = containerRef.value;
   if (container) {
-    container.scrollTop = 530;
-    container.scrollLeft = 40;
+    container.scrollTop = 560;
+    container.scrollLeft = 85;
   }
 };
 
@@ -48,8 +48,8 @@ const moveScroll = () => {
     if (selectBoothMenu.value === 0 || selectBoothMenu.value === 1) {
       scrollToBottomLeft();
     } else if (selectBoothMenu.value === 2 || selectBoothMenu.value === 3) {
-      container.scrollTop = 310;
-      container.scrollLeft = 40;
+      container.scrollTop = 300;
+      container.scrollLeft = 1128;
     }
   }
 };
@@ -78,7 +78,7 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
       <div ref="containerRef" class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
         <div
           class="relative"
-          :style="{ width: `${zoomLevel * 250}%`, transition: 'width 0.3s ease, height 0.3s ease' }"
+          :style="{ width: `${zoomLevel * 300}%`, transition: 'width 0.3s ease, height 0.3s ease' }"
         >
           <img
             src="/images/booth/map.svg"
@@ -97,7 +97,7 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
               opacity: selectedMarker === index ? '1' : '0.75',
               width: `${selectedMarker === index ? 51 : 45 * zoomLevel}px`,
               height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`,
-              zIndex: selectedMarker === index ? 10 : 1
+              zIndex: selectedMarker === index ? 2 : 1
             }"
             @click="handleMarkerClick(index)"
           >
@@ -112,7 +112,7 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
           </div>
         </div>
       </div>
-      <div class="absolute bottom-5 left-5">
+      <div class="z-10 absolute bottom-5 left-5">
         <button
           @click="zoomIn"
           class="shadow-3xl bg-white rounded-t-full border-1 border-primary-900-light-40 p-4 flex justify-center items-center active:bg-primary-900 active:text-white"
