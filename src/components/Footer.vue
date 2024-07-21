@@ -22,6 +22,8 @@ watch(
   (currentRoute) => {
     const currentRouteName = currentRoute.name;
     if (currentRouteName === 'booth-detail') return (selectedFooterIndex.value = 2);
+    if (currentRouteName === 'notification') return (selectedFooterIndex.value = 0);
+    if (currentRouteName === 'notice') return (selectedFooterIndex.value = 0);
 
     const index = ICON_URL_MAP.findIndex((item) => item.router === currentRouteName);
     selectedFooterIndex.value = index;
