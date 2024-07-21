@@ -51,6 +51,14 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     enterBoothModalState.value = false;
   };
 
+  const messageFailModalState = ref(false);
+  const openMessageFailModal = () => {
+    messageFailModalState.value = true;
+  };
+  const closeMessageFailModal = () => {
+    messageFailModalState.value = false;
+  };
+
   const resetModalState = () => {
     reserveModalState.value = false;
     searchReserveModalState.value = false;
@@ -58,6 +66,7 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     noReserveModalState.value = false;
     failReserveModalState.value = false;
     enterBoothModalState.value = false;
+    messageFailModalState.value = false;
   };
   return {
     reserveModalState,
@@ -79,5 +88,8 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     openEnterBoothModal,
     closeEnterBoothModal,
     resetModalState,
+    messageFailModalState,
+    openMessageFailModal,
+    closeMessageFailModal,
   };
 });

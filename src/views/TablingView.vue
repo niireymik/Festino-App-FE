@@ -7,6 +7,7 @@ import CompleteReserveModal from '@/components/tablings/modals/CompleteReserveMo
 import NoReserveModal from '@/components/tablings/modals/NoReserveModal.vue';
 import FailReservationModal from '@/components/tablings/modals/FailReservationModal.vue';
 import EnterBoothModal from '@/components/tablings/modals/EnterBoothModal.vue';
+import MessageFailModal from '@/components/tablings/modals/MessageFailModal.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { storeToRefs } from 'pinia';
 import { onMounted, watchEffect } from 'vue';
@@ -18,6 +19,7 @@ const {
   noReserveModalState,
   failReserveModalState,
   enterBoothModalState,
+  messageFailModalState,
 } = storeToRefs(useTablingModalStore());
 const { resetModalState } = useTablingModalStore();
 const handleStopScroll = () => {
@@ -51,6 +53,7 @@ onMounted(() => {
     <NoReserveModal v-if="noReserveModalState" />
     <FailReservationModal v-if="failReserveModalState" />
     <EnterBoothModal v-if="enterBoothModalState" />
+    <MessageFailModal v-if="messageFailModalState" />
   </div>
 </template>
 
