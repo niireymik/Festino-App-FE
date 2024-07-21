@@ -99,9 +99,9 @@ export default {
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
         'board-icon': "url('/icons/orders/board.svg')",
         'tino-cd': "url('/icons/tino-cd.svg')",
-        'play-icon': "url('/icons/play.svg')",
         'booth-default-image': "url('/images/booth/booth-default-image.png')",
-        'booth-map': "url('/images/booth/map.svg')"
+        'booth-map': "url('/images/booth/map.svg')",
+        'link-icon': "url('/icons/link.svg')"
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px

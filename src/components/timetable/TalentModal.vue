@@ -34,7 +34,7 @@ const getImage = () => {
             <div>{{ modalData.performer }} - {{ music.title }}</div>
           </div>
           <div class="pr-[12px]">
-            <div class="w-[11px] h-[13px] bg-play-icon bg-center bg-no-repeat bg-[length:11px_13px]"></div>
+            <div class="w-[12px] h-[12px] bg-link-icon bg-center bg-no-repeat bg-[length:11px_13px]"></div>
           </div>
         </div>
       </div>
