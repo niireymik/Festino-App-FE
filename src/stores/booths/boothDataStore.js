@@ -8,7 +8,7 @@ const HOST = import.meta.env.VITE_API_URL;
 export const useGetBoothDataStore = defineStore('boothData', () => {
   const router = useRouter();
 
-  const allBoothLsit = ref([]);
+  const allBoothList = ref([]);
   const dayBoothList = ref([]);
   const nightBoothList = ref([]);
   const foodBoothList = ref([]);
@@ -39,13 +39,13 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
         results.push(res);
       }
   
-      allBoothLsit.value = results[0].data.boothInfo;
+      allBoothList.value = results[0].data.boothList;
       nightBoothList.value = results[1].data.boothList;
       dayBoothList.value = results[2].data.boothList;
       foodBoothList.value = results[3].data.boothList;
   
       boothList.value = [];
-      boothList.value.push(allBoothLsit.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
+      boothList.value.push(allBoothList.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
   
       localStorage.setItem('boothList', JSON.stringify(boothList.value));
     } catch (error) {
@@ -168,7 +168,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   initializeStore();
 
   return {
-    allBoothLsit,
+    allBoothList,
     dayBoothList,
     nightBoothList,
     foodBoothList,
