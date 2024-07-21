@@ -13,11 +13,12 @@ const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');
-const personNum = ref('');
+const personNum = ref(null);
 const reserveModal = ref(null);
+const regex = /^010/;
 
 const handleClickReserveButton = () => {
-  if (name.value < 2 || phoneNum.value.length !== 11 || personNum == 0) return;
+  if (name.value < 2 || phoneNum.value.length !== 11 || personNum.value == 0 || !regex.test(phoneNum.value)) return;
   saveReservation({
     boothId: selectedNightBoothInfo.value.boothId,
     userName: name.value,

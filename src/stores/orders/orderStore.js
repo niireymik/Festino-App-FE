@@ -10,7 +10,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const router = useRouter();
 
   const orderList = ref([]);
-  const boothId = ref('4c0fdc4d-4a3d-4ba7-acc3-0d5d46d7f6f1');
+  const boothId = ref('bea7a89e-af60-416f-a43f-5f3ee2ba5f61');
   const menuList = ref([]);
   const totalPrice = ref(0);
   const userOrderList = ref([]);
@@ -25,6 +25,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const resetOrderInfo = () => {
     totalPrice.value = 0;
     userOrderList.value = [];
+    orderList.value = [];
   };
 
   const handleTotalPrice = () => {

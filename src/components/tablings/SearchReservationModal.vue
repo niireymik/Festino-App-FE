@@ -32,14 +32,14 @@ onMounted(() => {
       <div class="w-full h-[122px] flex flex-col gap-1 items-center justify-start leading-none mb-3">
         <div class="text-primary-900 font-bold relative h-[94px]">
           <div class="text-10xl relative">
-            {{ reservationInfo.reservationNum }}
+            {{ reservationInfo.totalTeamCount }}
             <span class="text-xl absolute bottom-2 w-[35px]">번째</span>
           </div>
         </div>
         <div class="text-secondary-500 font-bold">
-          <span>{{ userName }}님 앞에 </span>
-          <span class="text-secondary-700 text-xl">{{ reservationInfo.totalTeamCount }}</span>
-          <span>팀이 대기중입니다.</span>
+          <span>{{ userName }}님의 대기번호는 </span>
+          <span class="text-secondary-700 text-xl">{{ reservationInfo.reservationNum }}</span>
+          <span>번 입니다.</span>
         </div>
       </div>
       <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">

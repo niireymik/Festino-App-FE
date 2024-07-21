@@ -26,7 +26,6 @@ const handleClickMajorBox = (boothInfo) => {
   selectedBoothId.value = boothInfo.boothId;
   setSelectedNightBoothInfo({ ...boothInfo });
 };
-
 const handleClickReserveButton = () => {
   if (!selectedBoothId.value) return;
   openReserveModal();
@@ -43,7 +42,6 @@ const handleClickDetailButton = () => {
 const nightBoothInfoLength = ref(0);
 watch(nightBoothInfo, () => {
   nightBoothInfoLength.value = nightBoothInfo.value.filter((booth) => booth.isOpen).length;
-  console.log(selectedBoothId.value);
 });
 
 const getNightBoothImage = (nightBoothImage) => {
@@ -78,7 +76,10 @@ const getNightBoothImage = (nightBoothImage) => {
             @click="handleClickMajorBox(nightBooth)"
             class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative shrink-0"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
-            :class="{ hidden: !nightBooth.isOpen }"
+            :class="{
+              hidden: !nightBooth.isOpen,
+              'opacity-50': selectedBoothId && selectedBoothId !== nightBooth.boothId,
+            }"
           >
             <div
               class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40 dynamic-item"
