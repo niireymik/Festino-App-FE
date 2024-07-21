@@ -68,7 +68,7 @@ onMounted(async () => {
         </div>
       </div>
       <div v-if="timetableData.length == 0" class="gap-2 text-xs flex flex-col items-center">
-        <div class="bg-error-tino bg-cover bg-center w-[110px] h-[100px]"></div>
+        <div class="bg-tino-error bg-cover bg-center w-[110px] h-[100px]"></div>
         <div>공연정보가 없습니다</div>
       </div>
       <div class="flex h-full w-full justify-center">
