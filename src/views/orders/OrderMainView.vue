@@ -10,7 +10,7 @@ const orderStore = useOrderStore();
 const orderModalStore = useOrderModalStore();
 const { resetOrderInfo, setBoothInfo, isUUID } = orderStore;
 const { resetModalState } = orderModalStore;
-const { boothId, tableNum } = storeToRefs(orderStore);
+const { tableNum } = storeToRefs(orderStore);
 const route = useRoute();
 const router = useRouter();
 
@@ -19,16 +19,16 @@ const handleClickFestinoButton = () => {
 };
 
 const handleClickOrderSearchButton = () => {
-  router.push({ name: 'order-search', params: { boothId: boothId.value } });
+  router.push({ name: 'order-search', params: { boothId: route.params.boothId } });
 };
 
 const handleClickPayment = () => {
-  router.push({ name: 'order-payment', params: { boothId: boothId.value } });
+  router.push({ name: 'order-payment', params: { boothId: route.params.boothId } });
 };
 
 onMounted(() => {
   window.scrollTo(0, 0);
-  if (!isUUID(route.params.boothId)) {
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
     return router.push({ name: 'error', params: { page: 'order' } });
   }
   setBoothInfo(route.params.boothId, route.params.tableNum);

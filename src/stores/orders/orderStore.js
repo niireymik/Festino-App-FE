@@ -102,19 +102,20 @@ export const useOrderStore = defineStore('orderStore', () => {
     return uuidRegex.test(uuid);
   };
 
-  // Booth Guard
   router.beforeEach(async (to, from) => {
     if (to.name === 'order' || to.name === 'order-payment' || to.name === 'order-search') {
-      if (isUUID(to.params.boothId)) return true;
+      if (isUUID(to.params.boothId) && !isNaN(to.params.tableNum)) return true;
       else {
         return {
           name: 'error',
+          params: { page: 'order' },
         };
       }
     } else {
       return true;
     }
   });
+
   return {
     orderList,
     boothId,

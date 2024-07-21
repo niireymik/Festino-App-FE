@@ -69,8 +69,8 @@ const router = createRouter({
           name: 'order-payment',
           component: OrderPaymentView,
         },
-        { path: ':boothId/:tableNum', name: 'order', component: OrderMainView, props: true },
         { path: ':boothId/:tableNum/search', name: 'order-search', component: OrderSearch },
+        { path: ':boothId/:tableNum', name: 'order', component: OrderMainView, props: true },
       ],
     },
     {
