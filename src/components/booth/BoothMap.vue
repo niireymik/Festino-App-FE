@@ -27,7 +27,7 @@ const markers = ref([
 const selectedMarker = ref(null);
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.1, 1.5);
+  zoomLevel.value = Math.min(zoomLevel.value + 0.1, 1.3);
 };
 
 const zoomOut = () => {
@@ -93,8 +93,8 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
             :style="{
               left: `calc(${marker.left * zoomLevel}px)`,
               bottom: `calc(${marker.bottom * zoomLevel}px)`,
-              transform: `scale(${selectedMarker === index ? 1.2 : 1}) translateY(${selectedMarker === index ? -74 * zoomLevel : 0}px)`,
-              opacity: selectedMarker === index ? '1' : '0.6',
+              transform: `scale(${selectedMarker === index ? 1.2 : 1}) translateY(${selectedMarker === index ? -73 - zoomLevel : 0}px)`,
+              opacity: selectedMarker === index ? '1' : '0.75',
               width: `${selectedMarker === index ? 51 : 45 * zoomLevel}px`,
               height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`,
               zIndex: selectedMarker === index ? 2 : 1
