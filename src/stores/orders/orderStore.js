@@ -25,6 +25,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const resetOrderInfo = () => {
     totalPrice.value = 0;
     userOrderList.value = [];
+    orderList.value = [];
   };
 
   const handleTotalPrice = () => {
