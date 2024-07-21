@@ -23,6 +23,7 @@ const handleClickGoMainButton = () => {
     <button
       @click="handleClickGoMainButton()"
       class="h-12 text-xl text-white bg-primary-900 rounded-3xl font-semibold w-4/5"
+      v-if="pageName === 'main'"
     >
       메인으로 가기
     </button>

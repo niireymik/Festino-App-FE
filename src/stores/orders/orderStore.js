@@ -92,10 +92,30 @@ export const useOrderStore = defineStore('orderStore', () => {
       const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
       if (res.data.success) menuList.value = res.data.MenuInfo;
     } catch (error) {
+      router.push({ name: 'error', params: { page: 'order' } });
       console.error('Error get menu data :', error);
     }
   };
 
+  const isUUID = (uuid) => {
+    const uuidRegex = new RegExp('^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$');
+    return uuidRegex.test(uuid);
+  };
+
+  // Booth Guard
+  router.beforeEach(async (to, from) => {
+    if (to.name === 'order' || to.name === 'order-payment' || to.name === 'order-search') {
+      console.log(isUUID(to.params.boothId), to.params.boothId);
+      if (isUUID(to.params.boothId)) return true;
+      else {
+        return {
+          name: 'error',
+        };
+      }
+    } else {
+      return true;
+    }
+  });
   return {
     orderList,
     boothId,
@@ -116,5 +136,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     getMenuAll,
     resetOrderInfo,
     setBoothInfo,
+    isUUID,
   };
 });

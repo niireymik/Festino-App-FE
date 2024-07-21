@@ -1,34 +1,40 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
-import router from '@/router';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
-const { resetOrderInfo, setBoothInfo } = useOrderStore();
-const { resetModalState } = useOrderModalStore();
-const { tableNum } = storeToRefs(useOrderStore());
+const orderStore = useOrderStore();
+const orderModalStore = useOrderModalStore();
+const { resetOrderInfo, setBoothInfo, isUUID } = orderStore;
+const { resetModalState } = orderModalStore;
+const { boothId, tableNum } = storeToRefs(orderStore);
+const route = useRoute();
+const router = useRouter();
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
 };
+
 const handleClickOrderSearchButton = () => {
-  router.push({ name: 'order-search' });
+  console.log(boothId.value);
+  router.push({ name: 'order-search', params: { boothId: boothId.value } });
 };
 
 const handleClickPayment = () => {
-  router.push({ name: 'order-payment' });
+  router.push({ name: 'order-payment', params: { boothId: boothId.value } });
 };
-
-const route = useRoute();
 
 onMounted(() => {
   window.scrollTo(0, 0);
+  if (!isUUID(route.params.boothId)) {
+    return router.push({ name: 'error', params: { page: 'order' } });
+  }
+  setBoothInfo(route.params.boothId, route.params.tableNum);
   resetOrderInfo();
   resetModalState();
-  setBoothInfo(route.params.boothId, route.params.tableNum);
 });
 </script>
 <template>
