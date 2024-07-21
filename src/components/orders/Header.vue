@@ -1,15 +1,18 @@
 <script setup>
 import router from '@/router';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 
+const { boothId, tableNum } = storeToRefs(useOrderStore());
+const handleClickBackButton = () => {
+  router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
+};
 const props = defineProps({
   title: {
     type: String,
     default: '',
   },
 });
-const handleClickBackButton = () => {
-  router.push({ name: 'order' });
-};
 </script>
 <template>
   <div class="fixed top-0 max-w-[500px] w-full h-[60px] bg-white flex justify-between items-center px-6 shadow-xs">

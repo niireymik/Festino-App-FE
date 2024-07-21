@@ -1,12 +1,16 @@
 <script setup>
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 import { useRouter } from 'vue-router';
 
 const { closeOrderCompleteModal } = useOrderModalStore();
+const { boothId, tableNum } = storeToRefs(useOrderStore());
+
 const router = useRouter();
 const handleClickConfirmButton = () => {
   closeOrderCompleteModal();
-  router.push({ name: 'order' });
+  router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
 };
 </script>
 

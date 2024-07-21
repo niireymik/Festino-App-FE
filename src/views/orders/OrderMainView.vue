@@ -3,10 +3,13 @@ import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
 import router from '@/router';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
-const { resetOrderInfo } = useOrderStore();
+const { resetOrderInfo, setBoothInfo } = useOrderStore();
 const { resetModalState } = useOrderModalStore();
+const { tableNum } = storeToRefs(useOrderStore());
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
@@ -19,10 +22,13 @@ const handleClickPayment = () => {
   router.push({ name: 'order-payment' });
 };
 
+const route = useRoute();
+
 onMounted(() => {
   window.scrollTo(0, 0);
   resetOrderInfo();
   resetModalState();
+  setBoothInfo(route.params.boothId, route.params.tableNum);
 });
 </script>
 <template>
@@ -32,7 +38,7 @@ onMounted(() => {
       <div
         class="w-[138px] h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center"
       >
-        테이블 번호 12
+        테이블 번호 {{ tableNum }}
       </div>
       <div class="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
         <div class="flex flex-row justify-evenly gap-x-2">

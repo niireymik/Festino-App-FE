@@ -10,17 +10,21 @@ export const useOrderStore = defineStore('orderStore', () => {
   const router = useRouter();
 
   const orderList = ref([]);
-  const boothId = ref('bea7a89e-af60-416f-a43f-5f3ee2ba5f61');
+  const boothId = ref('');
   const menuList = ref([]);
   const totalPrice = ref(0);
   const userOrderList = ref([]);
   const userName = ref('');
   const phoneNum = ref('');
-  //TODO MODIFY
   const tableNum = ref(0);
   const isCoupon = ref(false);
   const accountNum = ref('0000-0000-0000-00');
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
+
+  const setBoothInfo = (id, num) => {
+    boothId.value = id;
+    tableNum.value = num;
+  };
 
   const resetOrderInfo = () => {
     totalPrice.value = 0;
@@ -111,5 +115,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     getOrder,
     getMenuAll,
     resetOrderInfo,
+    setBoothInfo,
   };
 });

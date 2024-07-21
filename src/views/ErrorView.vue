@@ -1,13 +1,18 @@
 <script setup>
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
 
 const router = useRouter();
 const route = useRoute();
 const pageName = route.params.page;
 
+const { boothId, tableNum } = storeToRefs(useOrderStore());
+
 const handleClickGoMainButton = () => {
   if (pageName === 'main') router.push({ name: 'main' });
-  if (pageName === 'order') router.push({ name: 'order' });
+  if (pageName === 'order')
+    router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
 };
 </script>
 
