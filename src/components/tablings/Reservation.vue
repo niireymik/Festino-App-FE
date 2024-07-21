@@ -26,7 +26,6 @@ const handleClickMajorBox = (boothInfo) => {
   selectedBoothId.value = boothInfo.boothId;
   setSelectedNightBoothInfo({ ...boothInfo });
 };
-
 const handleClickReserveButton = () => {
   if (!selectedBoothId.value) return;
   openReserveModal();
@@ -37,13 +36,12 @@ const route = useRoute();
 const handleClickDetailButton = () => {
   if (!selectedBoothId.value) return;
   getBoothData('야간부스', boothId);
-  router.push({ path: `/booth/detail/${selectedBoothId.value}`});
+  router.push({ path: `/booth/detail/${selectedBoothId.value}` });
 };
 
 const nightBoothInfoLength = ref(0);
 watch(nightBoothInfo, () => {
   nightBoothInfoLength.value = nightBoothInfo.value.filter((booth) => booth.isOpen).length;
-  console.log(selectedBoothId.value);
 });
 
 const getNightBoothImage = (nightBoothImage) => {
