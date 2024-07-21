@@ -65,12 +65,12 @@ const router = createRouter({
       component: OrderLayout,
       children: [
         {
-          path: ':boothId/payment',
+          path: ':boothId/:tableNum/payment',
           name: 'order-payment',
           component: OrderPaymentView,
         },
         { path: ':boothId/:tableNum', name: 'order', component: OrderMainView, props: true },
-        { path: ':boothId/search', name: 'order-search', component: OrderSearch },
+        { path: ':boothId/:tableNum/search', name: 'order-search', component: OrderSearch },
       ],
     },
     {

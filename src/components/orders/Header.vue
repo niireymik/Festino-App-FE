@@ -2,10 +2,11 @@
 import router from '@/router';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
+import { useRoute } from 'vue-router';
 
-const { boothId, tableNum } = storeToRefs(useOrderStore());
+const route = useRoute();
 const handleClickBackButton = () => {
-  router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
+  router.push({ name: 'order', params: { boothId: route.params.boothId, tableNum: route.params.tableNum } });
 };
 const props = defineProps({
   title: {
