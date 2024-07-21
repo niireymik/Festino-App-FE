@@ -4,6 +4,10 @@ import { storeToRefs } from 'pinia';
 
 const { modalData } = storeToRefs(useModalStore());
 const { handleCloseModal } = useModalStore();
+
+const getImage = () => {
+  return { backgroundImage: `url('${modalData.value.clubImage}')` }
+};
 </script>
 
 <template>
@@ -15,10 +19,10 @@ const { handleCloseModal } = useModalStore();
         <div class="w-[20px] h-[20px] bg-x-button bg-center bg-no-repeat bg-[length:20px_20px] cursor-pointer" @click="handleCloseModal()"></div>
       </div>
       <div class="pb-[12px] pt-[24px] flex justify-center">
-        <img :src="`${modalData.clubImage}`" class="w-[160px] h-[160px] rounded-full" />
+        <div :style="getImage()" class="border-2 border-primary bg-cover bg-center w-[160px] h-[160px] rounded-full"></div>
       </div>
       <div class="text-secondary-700 font-medium pb-[8px]">{{ modalData.performer }}</div>
-      <div class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight">
+      <div class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight whitespace-pre-wrap">
         <div>{{ modalData.clubDescription }}</div>
       </div>
       <div class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px] mb-[24px]">

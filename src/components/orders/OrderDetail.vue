@@ -24,7 +24,11 @@ const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replace
         <p>{{ createAt }}</p>
       </div>
     </div>
-    <div class="grid grid-cols-3 h-[17px] text-center" v-for="(menu, index) in orderInfo.menuInfo" :key="index">
+    <div
+      class="grid grid-cols-3 min-h-[17px] text-center break-keep"
+      v-for="(menu, index) in orderInfo.menuInfo"
+      :key="index"
+    >
       <p class="text-left">
         {{ menu.menuName }}
       </p>

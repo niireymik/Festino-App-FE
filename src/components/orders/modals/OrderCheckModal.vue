@@ -13,7 +13,9 @@ onMounted(() => {
 });
 
 const handleClickConfirmDepositButton = () => {
+  // TODO: CHANGE BOOTH ID
   saveOrder({
+    boothId: 'bcb6ddc2-1116-4729-a643-fa8f3bb5408f',
     tableNum: tableNum,
     userName: userName,
     phoneNum: phoneNum,

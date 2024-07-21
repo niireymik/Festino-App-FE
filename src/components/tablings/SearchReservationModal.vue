@@ -32,7 +32,7 @@ onMounted(() => {
       <div class="w-full h-[122px] flex flex-col gap-1 items-center justify-start leading-none mb-3">
         <div class="text-primary-900 font-bold relative h-[94px]">
           <div class="text-10xl relative">
-            {{ reservationInfo.totalTeamCount }}
+            {{ reservationInfo.reservationNum }}
             <span class="text-xl absolute bottom-2 w-[35px]">번째</span>
           </div>
         </div>
@@ -45,7 +45,7 @@ onMounted(() => {
       <div class="flex flex-col w-full h-[78px] bg-primary-900-light-6 rounded-lg-xl gap-3 p-4 text-sm justify-center">
         <div class="flex flex-row justify-between">
           <div>대기번호</div>
-          <div>103번</div>
+          <div>{{ reservationInfo.reservationNum }}번</div>
         </div>
         <div class="flex flex-row justify-between">
           <div>인원</div>
@@ -56,14 +56,12 @@ onMounted(() => {
         <span class="text-base">※ </span>
         대기팀이 1팀일 때 알림이 전송됩니다.
       </div>
-      <!-- <div class="w-full flex flex-row justify-between gap-[10px]"> -->
       <button
         class="w-full h-[43px] text-white font-bold rounded-10xl border-1 border-primary-900-light-68 shrink-0 bg-primary-900"
         @click="closeSearchReserveModal()"
       >
         확인
       </button>
-      <!-- </div> -->
     </div>
   </div>
 </template>
