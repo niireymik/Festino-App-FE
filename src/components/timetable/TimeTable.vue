@@ -60,8 +60,8 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full px-5 pt-5 pb-1.5 select-none">
-    <div class="flex flex-col items-center border-2 border-primary rounded-3xl py-5">
+  <div class="w-full select-none">
+    <div class="flex flex-col items-center border-1 border-primary rounded-3xl py-5 shadow-4xl">
       <div class="px-5 pb-5">
         <div class="w-[300px] xs:w-[350px] sm:w-[390px] py-2 text-white bg-primary-700 rounded-full flex justify-center">
           DAY {{ day }} 공연 타임테이블
