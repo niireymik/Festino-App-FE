@@ -6,7 +6,9 @@ import TimeTable from "./TimeTable.vue";
 
 <template>
   <DateButtons />
-  <TimeTable />
+  <div class="px-5 pt-5 pb-1.5 rounded-3xl">
+    <TimeTable />
+  </div>
   <div class="flex flex-col px-5 pt-4 gap-3 select-none">
     <div class="text-xl font-semibold">동아리 공연</div>
     <ShowPreview class="shadow-4xl" category="club" />

@@ -60,14 +60,17 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full px-5 pt-5 pb-1.5 select-none">
-    <div class="flex flex-col items-center border-2 border-primary rounded-3xl py-5">
+  <div class="w-full select-none">
+    <div class="flex flex-col items-center border-1 border-primary rounded-3xl py-5 shadow-4xl">
       <div class="px-5 pb-5">
         <div class="w-[300px] xs:w-[350px] sm:w-[390px] py-2 text-white bg-primary-700 rounded-full flex justify-center">
           DAY {{ day }} 공연 타임테이블
         </div>
       </div>
-      <div v-if="timetableData.length == 0" class="py-5">공연정보가 없습니다.</div>
+      <div v-if="timetableData.length == 0" class="gap-2 text-xs flex flex-col items-center">
+        <div class="bg-tino-error bg-cover bg-center w-[110px] h-[100px]"></div>
+        <div>공연정보가 없습니다</div>
+      </div>
       <div class="flex h-full w-full justify-center">
         <div class="flex flex-col items-center text-secondary-700 gap-[65px] pt-1">
           <div v-for="data in timetableData" :key="data" :class="isShowingTime(data.isShowing)">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
