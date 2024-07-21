@@ -19,7 +19,7 @@ const getBoothImageProps = (boothImage) => {
 </script>
 
 <template>
-  <div class="dynamic-booth-list-padding w-full h-auto">
+  <div v-if="boothList[selectBoothMenu] !== ''" class="dynamic-booth-list-padding w-full h-auto">
     <div @click="handleClickBoothIntroduction(booth.adminCategory, booth.boothId)" v-for="(booth, index) in boothList[selectBoothMenu]" :key="index" class="pb-2 cursor-pointer">
       <div
         class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-between items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3"
@@ -50,6 +50,11 @@ const getBoothImageProps = (boothImage) => {
             v-bind="getBoothImageProps(booth.boothImage)">
           </div>
         </div>
+      </div>
+    </div>
+    <div v-if="boothList[selectBoothMenu] === ''">
+      <div class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-center items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3">
+        부스 정보가 없습니다.
       </div>
     </div>
   </div>
