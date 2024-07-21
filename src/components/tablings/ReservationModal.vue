@@ -13,7 +13,7 @@ const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');
-const personNum = ref('');
+const personNum = ref(null);
 const reserveModal = ref(null);
 const regex = /^010/;
 

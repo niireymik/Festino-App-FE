@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 const props = defineProps({
   modelValue: {
-    type: String,
+    type: Number,
     default: '',
   },
 });
@@ -13,8 +13,8 @@ const emit = defineEmits(['update:modelValue']);
 
 const handlePersonNumInput = (event) => {
   const inputValue = event.target.value.replace(/\D/g, '');
-  event.target.value = inputValue;
-  emit('update:modelValue', inputValue);
+  event.target.value = Number(inputValue);
+  emit('update:modelValue', Number(inputValue));
 };
 </script>
 
