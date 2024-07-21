@@ -19,7 +19,6 @@ const handleClickFestinoButton = () => {
 };
 
 const handleClickOrderSearchButton = () => {
-  console.log(boothId.value);
   router.push({ name: 'order-search', params: { boothId: boothId.value } });
 };
 

@@ -105,7 +105,6 @@ export const useOrderStore = defineStore('orderStore', () => {
   // Booth Guard
   router.beforeEach(async (to, from) => {
     if (to.name === 'order' || to.name === 'order-payment' || to.name === 'order-search') {
-      console.log(isUUID(to.params.boothId), to.params.boothId);
       if (isUUID(to.params.boothId)) return true;
       else {
         return {
