@@ -53,7 +53,7 @@ onMounted(() => {
         </div>
         <div class="relative">
           <img src="/icons/orders/tino-order-shortcut.svg" class="w-full h-full" @click="handleClickFestinoButton()" />
-          <div class="absolute flex flex-col top-[28px] right-[25px] sm:right-[40px] items-end">
+          <div class="absolute flex flex-col top-[28px] right-[25px] sm:right-[40px] items-end pointer-events-none">
             <div class="text-white font-jalnan2 text-xs">Festino와 함께하는 2024 한국공학대학교 축제</div>
             <div
               class="bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text font-jalnan2 text-2xl"
