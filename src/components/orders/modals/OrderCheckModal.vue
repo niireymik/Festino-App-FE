@@ -13,7 +13,9 @@ onMounted(() => {
 });
 
 const handleClickConfirmDepositButton = () => {
+  // TODO: CHANGE BOOTH ID
   saveOrder({
+    boothId: 'bcb6ddc2-1116-4729-a643-fa8f3bb5408f',
     tableNum: tableNum,
     userName: userName,
     phoneNum: phoneNum,
@@ -46,12 +48,12 @@ const clipAccount = () => {
             </div>
             <div class="flex pb-[12px] justify-between text-secondary-500">
               <div class="text-sm">예금주</div>
-              <div class="text-sm">{{ userName }}</div>
+              <div class="text-sm">{{ userName }}님</div>
             </div>
             <div class="w-full border-secondary-300 border-1"></div>
             <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-500">
               <div>총 가격</div>
-              <div>{{ totalPrice }}</div>
+              <div>{{ totalPrice }}원</div>
             </div>
           </div>
         </div>

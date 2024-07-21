@@ -1,6 +1,7 @@
 <script setup>
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
 import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 
 const { convertBoothMenuTab } = useGetBoothDataStore();
 const { dayBoothList, nightBoothList, foodBoothList, selectBoothMenu } = storeToRefs(useGetBoothDataStore());
@@ -12,10 +13,14 @@ const MENU_ITEMS = [
   { name: "푸드트럭" },
   { name: "편의시설" },
 ];
+
+onMounted(() => {
+  selectBoothMenu.value = 0;
+});
 </script>
 
 <template>
-  <div class="overflow-x-auto flex dynamic-padding pb-6 booth-menu">
+  <div class="overflow-x-auto flex dynamic-booth-category-padding booth-menu">
     <div v-for="(item, index) in MENU_ITEMS" :key="index">
       <div
         @click="convertBoothMenuTab(index)"
@@ -32,8 +37,9 @@ const MENU_ITEMS = [
 </template>
 
 <style lang="css" scoped>
-.dynamic-padding {
+.dynamic-booth-category-padding {
   padding-left: calc(20 / 430 * 100%) !important;
+  padding-bottom: 1.5rem;
 }
 .booth-menu::-webkit-scrollbar {
   display: none;

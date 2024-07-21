@@ -19,6 +19,7 @@ const {
   failReserveModalState,
   enterBoothModalState,
 } = storeToRefs(useTablingModalStore());
+const { resetModalState } = useTablingModalStore();
 const handleStopScroll = () => {
   if (
     reserveModalState.value ||
@@ -37,6 +38,7 @@ watchEffect(() => {
 });
 onMounted(() => {
   window.scrollTo(0, 0);
+  resetModalState();
 });
 </script>
 <template>

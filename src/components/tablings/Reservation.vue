@@ -4,14 +4,16 @@ import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
+import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
 const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
+const { getBoothData } = useGetBoothDataStore();
 
 onMounted(() => {
   getAllNightBooth();
-  selectedBoothId.value = route.params.boothId;
+  selectedBoothId.value = route.params?.boothId ?? selectedNightBoothInfo.value?.boothId ?? '';
 });
 
 const selectedBoothId = ref('');
@@ -24,9 +26,8 @@ const handleClickMajorBox = (boothInfo) => {
   selectedBoothId.value = boothInfo.boothId;
   setSelectedNightBoothInfo({ ...boothInfo });
 };
-
 const handleClickReserveButton = () => {
-  if (!selectedBoothId.value ) return;
+  if (!selectedBoothId.value) return;
   openReserveModal();
 };
 
@@ -34,12 +35,13 @@ const router = useRouter();
 const route = useRoute();
 const handleClickDetailButton = () => {
   if (!selectedBoothId.value) return;
+  getBoothData('야간부스', selectedBoothId.value);
   router.push({ path: `/booth/detail/${selectedBoothId.value}`});
 };
 
 const nightBoothInfoLength = ref(0);
 watch(nightBoothInfo, () => {
-  nightBoothInfoLength.value = nightBoothInfo.value.length;
+  nightBoothInfoLength.value = nightBoothInfo.value.filter((booth) => booth.isOpen).length;
 });
 
 const getNightBoothImage = (nightBoothImage) => {
@@ -55,34 +57,43 @@ const getNightBoothImage = (nightBoothImage) => {
   <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-start">
       <div
-        class="pt-10 w-full"
+        :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
+        class="pt-10 w-full flex"
         @touchstart.stop=""
         id="reserve-container"
-        :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
       >
-        <div class="grid w-auto grid-rows-2 gap-2 grid-flow-col">
-          <div class="row-span-2 dynamic-width"></div>
+        <div class="dynamic-width"></div>
+        <div
+          class="gap-2"
+          :class="{
+            'flex justify-start': nightBoothInfoLength <= 2,
+            'grid place-content-start grid-rows-2 grid-flow-col': nightBoothInfoLength > 2,
+          }"
+        >
           <div
             v-for="nightBooth in nightBoothInfo"
             :key="nightBooth.boothId"
             @click="handleClickMajorBox(nightBooth)"
-            class="aspect-w-1 aspect-h-1 dynamic-item rounded-3xl bg-no-repeat bg-cover"
+            class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative shrink-0"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
+            :class="{
+              hidden: !nightBooth.isOpen,
+              'opacity-50': selectedBoothId && selectedBoothId !== nightBooth.boothId,
+            }"
           >
             <div
-              class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40"
+              class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40 dynamic-item"
             >
               <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
               <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>
             </div>
             <div
               v-if="selectedBoothId == nightBooth.boothId"
-              class="absolute rounded-3xl border-4 border-primary-900"
+              class="absolute rounded-3xl border-4 border-primary-900 top-0 left-0 dynamic-item"
             ></div>
           </div>
-
-          <div class="row-span-2 dynamic-width"></div>
         </div>
+        <div class="dynamic-width"></div>
       </div>
     </div>
     <div class="flex flex-row dynamic-padding justify-between gap-[10px] text-white font-bold mt-5 mb-20">
@@ -113,6 +124,9 @@ const getNightBoothImage = (nightBoothImage) => {
   width: calc(100vw * 190 / 430) !important;
   max-width: calc(500px * 190 / 430) !important;
   min-width: calc(375px * 190 / 430) !important;
+  height: calc(100vw * 190 / 430) !important;
+  max-height: calc(500px * 190 / 430) !important;
+  min-height: calc(375px * 190 / 430) !important;
 }
 
 .dynamic-padding {
@@ -121,8 +135,9 @@ const getNightBoothImage = (nightBoothImage) => {
 }
 
 .dynamic-width {
-  width: calc(100vw * 10 / 430) !important;
-  max-width: calc(500px * 10 / 430) !important;
+  width: calc(100vw * 20 / 430) !important;
+  max-width: calc(500px * 20 / 430) !important;
+  flex-shrink: 0;
 }
 
 #reserve-container::-webkit-scrollbar {

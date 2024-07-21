@@ -2,12 +2,14 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
 import { useTablingModalStore } from './tablingModal';
+import { useRouter } from 'vue-router';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
-  const reservationInfo = ref(null);
+  const router = useRouter();
 
+  const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
   const selectedNightBoothInfo = ref(null);
@@ -24,19 +26,24 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const setUserName = (name) => {
     userName.value = name;
   };
+
   const setSelectedNightBoothInfo = (boothInfo) => {
     selectedNightBoothInfo.value = { ...boothInfo };
   };
+
   const saveReservation = async (payload) => {
     try {
       const res = await axios.post(`${HOST}/main/reservation`, payload);
       closeReserveModal();
-      if (res.data.success) return openCompleteReserveModal();
-      if (!res.data.success) return openFailReserveModal();
+      if (res.data.success) openCompleteReserveModal();
+      if (!res.data.success) openFailReserveModal();
+      getAllNightBooth();
     } catch (error) {
+      router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
   };
+
   const getReservation = async (payload) => {
     try {
       const res = await axios.get(`${HOST}/main/reservation`, { params: payload });
@@ -50,6 +57,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       }
       if (!res.data.success) return openNoReserveModal();
     } catch (error) {
+      router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
   };
@@ -58,6 +66,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
     const res = await axios.get(`${HOST}/main/booth/night/all`);
     nightBoothInfo.value = res.data.boothInfo;
   };
+
   return {
     reservationInfo,
     userName,

@@ -14,34 +14,32 @@ const menuNum = ref(0);
 const menuUnitPrice = ref(props.menuInfo.menuPrice);
 const menuType = props.menuInfo.menuType === 0 ? '메인 메뉴' : '서브 메뉴';
 
-const handlemenuNumInput = (event) => {
-  const inputValue = event.target.value.replace(/[^0-9]/g, '');
-  event.target.value = Number(inputValue);
+const updateOrder = () => {
+  addOrderList({
+    menuId: props.menuInfo.menuId,
+    menuName: props.menuInfo.menuName,
+    menuCount: menuNum.value,
+    menuPrice: menuUnitPrice.value * menuNum.value,
+  });
+  handleTotalPrice();
 };
 
-const hanldeClickmenuNumButton = (type) => {
+const handleMenuNumInput = (event) => {
+  const inputValue = event.target.value.replace(/[^0-9]/g, '');
+  event.target.value = Number(inputValue);
+  menuNum.value = Number(inputValue);
+  updateOrder();
+};
+
+const handleClickMenuNumButton = (type) => {
   if (type === 'plus') {
     if (menuNum.value == 99) return;
     menuNum.value = Number(menuNum.value) + 1;
-    handleTotalPrice(type, menuUnitPrice.value);
-    addOrderList({
-      menuId: props.menuInfo.menuId,
-      menuName: props.menuInfo.menuName,
-      menuCount: menuNum.value,
-      menuPrice: menuUnitPrice.value,
-    });
-  }
-  if (type === 'minus') {
+  } else if (type === 'minus') {
     if (menuNum.value == 0) return;
     menuNum.value = Number(menuNum.value) - 1;
-    handleTotalPrice(type, menuUnitPrice.value);
-    addOrderList({
-      menuId: props.menuInfo.menuId,
-      menuName: props.menuInfo.menuName,
-      menuCount: menuNum.value,
-      menuPrice: menuUnitPrice.value,
-    });
   }
+  updateOrder();
 };
 
 const getMenuImage = (menuImage) => {
@@ -63,17 +61,17 @@ const getMenuImage = (menuImage) => {
       <div class="flex justify-between items-center">
         <div class="font-semibold text-secondary-700">{{ menuInfo.menuName }}</div>
         <div
-          class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex"
+          class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex flex-shrink-0"
         >
           {{ menuType }}
         </div>
       </div>
       <div class="font-light text-secondary-300 text-sm">{{ menuInfo.menuDescription }}</div>
-      <div class="font-light text-secondary-300 text-sm">가격: {{ menuUnitPrice * menuNum }}</div>
+      <div class="font-light text-secondary-300 text-sm">가격: {{ menuUnitPrice }}원</div>
       <div class="flex pt-[12px] justify-between items-center">
-        <div>{{ menuUnitPrice }}원</div>
+        <div :class="{ 'text-secondary-100': !menuNum }">{{ menuUnitPrice * menuNum }}원</div>
         <div class="w-[118px] flex flex-row gap-[10px]">
-          <img src="/icons/orders/minus.svg" class="cursor-pointer" @click="hanldeClickmenuNumButton('minus')" />
+          <img src="/icons/orders/minus.svg" class="cursor-pointer" @click="handleClickMenuNumButton('minus')" />
           <input
             class="w-[62px] h-7 rounded-3.5xl border-1 border-secondary-500 text-center focus:outline-none"
             v-model="menuNum"
@@ -82,9 +80,9 @@ const getMenuImage = (menuImage) => {
             max="99"
             maxlength="2"
             placeholder="0"
-            @input="handlemenuNumInput($event)"
+            @input="handleMenuNumInput($event)"
           />
-          <img src="/icons/orders/plus.svg" class="cursor-pointer" @click="hanldeClickmenuNumButton('plus')" />
+          <img src="/icons/orders/plus.svg" class="cursor-pointer" @click="handleClickMenuNumButton('plus')" />
         </div>
       </div>
     </div>

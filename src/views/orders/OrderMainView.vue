@@ -1,10 +1,12 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
 import router from '@/router';
+import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted } from 'vue';
 
 const { resetOrderInfo } = useOrderStore();
+const { resetModalState } = useOrderModalStore();
 
 const handleClickFestinoButton = () => {
   router.push({ name: 'main' });
@@ -20,6 +22,7 @@ const handleClickPayment = () => {
 onMounted(() => {
   window.scrollTo(0, 0);
   resetOrderInfo();
+  resetModalState();
 });
 </script>
 <template>
@@ -49,8 +52,12 @@ onMounted(() => {
           </div>
         </div>
         <div class="relative">
-          <img src="/icons/orders/tino-order-shortcut.svg" class="w-full h-full" @click="handleClickFestinoButton()" />
-          <div class="absolute flex flex-col top-[28px] right-[25px] sm:right-[40px] items-end">
+          <img
+            src="/icons/orders/tino-order-shortcut.svg"
+            class="w-full h-full cursor-pointer"
+            @click="handleClickFestinoButton()"
+          />
+          <div class="absolute flex flex-col top-[28px] right-[25px] sm:right-[40px] items-end pointer-events-none">
             <div class="text-white font-jalnan2 text-xs">Festino와 함께하는 2024 한국공학대학교 축제</div>
             <div
               class="bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text font-jalnan2 text-2xl"

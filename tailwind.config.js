@@ -28,8 +28,8 @@ export default {
             'light-6': 'rgba(0, 115, 240, 0.06)',
           },
           800: {
-            DEFAULT: "#F00E00",
-            light: "rgba(240, 14, 0, 0.12)",
+            DEFAULT: '#F00E00',
+            light: 'rgba(240, 14, 0, 0.12)',
           },
           700: {
             DEFAULT: '#3082F6',
@@ -60,7 +60,7 @@ export default {
       backgroundColor: (theme) => ({
         ...theme('textColor'),
         'primary-900-light-12': 'rgba(0, 115, 240, 0.12)',
-        'primary-900-light-16': 'rgba(0, 115, 240, 0.16)'
+        'primary-900-light-16': 'rgba(0, 115, 240, 0.16)',
       }),
       fontSize: {
         '3xs': '0.5rem', // 8px
@@ -102,7 +102,7 @@ export default {
         'booth-default-image': "url('/images/booth/booth-default-image.png')",
         'booth-map': "url('/images/booth/map.svg')",
         'link-icon': "url('/icons/link.svg')",
-        'error-tino': "url('/icons/tino-error.svg')",
+        'tino-error': "url('images/tinos/tino-error.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
@@ -117,6 +117,7 @@ export default {
         'primary-700': 'rgba(48, 130, 246, 0.6)',
         'primary-700-default': theme('textColor.primary.700'),
         'secondary-300': theme('textColor.secondary.300'),
+        'primary-900-light-40': 'rgba(0, 115, 240, 0.40)'
       }),
       borderWidth: {
         1: '0.5px',

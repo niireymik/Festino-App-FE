@@ -17,14 +17,19 @@ const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replace
     <div class="h-9 flex justify-between w-full border-b-1 border-secondary-300">
       <div class="flex gap-1 items-center">
         <img src="/icons/orders/map.svg" />
-        <p>컴퓨터공학부 No.{{ orderInfo.tableNum }}</p>
+        <p>{{ orderInfo.adminName }} No.{{ orderInfo.tableNum }}</p>
+        <!-- TODO: ADD ORDER STATUS -->
       </div>
       <div class="flex gap-1 items-center">
         <img src="/icons/orders/clock.svg" />
         <p>{{ createAt }}</p>
       </div>
     </div>
-    <div class="grid grid-cols-3 h-[17px] text-center" v-for="(menu, index) in orderInfo.menuInfo" :key="index">
+    <div
+      class="grid grid-cols-3 min-h-[17px] text-center break-keep"
+      v-for="(menu, index) in orderInfo.menuInfo"
+      :key="index"
+    >
       <p class="text-left">
         {{ menu.menuName }}
       </p>
