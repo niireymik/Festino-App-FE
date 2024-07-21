@@ -5,6 +5,10 @@ import { storeToRefs } from 'pinia';
 const { modalData } = storeToRefs(useModalStore());
 const { handleCloseModal } = useModalStore();
 
+const handleClickInstagram = () => {
+  window.open(`https://www.instagram.com/${modalData.value.instagram}/`, "_blank");
+};
+
 const getImage = () => {
   return { backgroundImage: `url('${modalData.value.clubImage}')` }
 };
@@ -25,9 +29,9 @@ const getImage = () => {
       <div class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight whitespace-pre-wrap">
         <div>{{ modalData.clubDescription }}</div>
       </div>
-      <div class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px] mb-[24px]">
+      <div @click="handleClickInstagram()" class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px] mb-[24px]">
         <div class="w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]"></div>
-        <div>{{ modalData.instagram }}</div>
+        <div>@{{ modalData.instagram }}</div>
       </div>
     </div>
   </div>
