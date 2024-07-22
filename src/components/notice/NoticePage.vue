@@ -51,7 +51,7 @@ onUnmounted(() => {
         {{ currentIndex + 1 }} / {{ noticeData.imageUrl.length }}
       </div>
       <div ref="containerRef" class="snap-mandatory snap-x overflow-x-auto flex rounded-3xl">
-        <div v-for="(image, index) in noticeData.imageUrl" :key="index" class="snap-center w-full flex-shrink-0">
+        <div v-for="(image, index) in noticeData.imageUrl" :key="index" class="snap-start w-full flex-shrink-0">
           <div 
             class="w-full aspect-w-1 aspect-h-1 bg-cover bg-center bg-no-repeat"
             :style="{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }" >
