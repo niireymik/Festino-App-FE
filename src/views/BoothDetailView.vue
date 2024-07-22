@@ -8,12 +8,24 @@ import BoothSelect from "@/components/booth/BoothSelect.vue";
 import MenuList from "@/components/booth/MenuList.vue";
 import { useGetBoothDataStore } from "@/stores/booths/boothDataStore";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
+import { useRoute } from "vue-router";
 
 const { getBoothData } = useGetBoothDataStore();
-const { menuList, booth, boothType } = storeToRefs(useGetBoothDataStore());
+const { menuList, booth } = storeToRefs(useGetBoothDataStore());
+
+const route = useRoute();
+const boothType = ref('');
 
 onMounted(() => {
+  if(route.params?.type === 'night') {
+    boothType.value = '야간부스';
+  } else if (route.params?.type === 'day') {
+    boothType.value = '주간부스';
+  } else if (route.params?.type === 'food') {
+    boothType.value = '푸드트럭';
+  }
+  getBoothData(boothType.value, route.params?.id);
   window.scrollTo(0, 0);
 });
 </script>
@@ -26,7 +38,7 @@ onMounted(() => {
     <DetailImportmation />
     <BoothInformation />
     <MenuList v-if="menuList != ''" />
-    <BoothReservation v-if="boothType === '운동장' && booth?.isReservation" />
+    <BoothReservation v-if="boothType === '야간부스' && booth?.isReservation" />
   </div>
 </template>
 

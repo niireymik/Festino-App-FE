@@ -46,8 +46,6 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   
       boothList.value = [];
       boothList.value.push(allBoothList.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
-  
-      localStorage.setItem('boothList', JSON.stringify(boothList.value));
     } catch (error) {
       console.error('Error getAllTypeBoothLsitData', error);
     }
@@ -61,7 +59,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const setBoothTypeUseUrl = (type) => {
     urlBoothType.value = type;
     localStorage.setItem('urlBoothType', type);
-  }
+  };
 
   const getBoothData = async (type, id) => {
     try {
@@ -86,11 +84,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
         setMenuType();
       }
 
-      localStorage.setItem('booth', JSON.stringify(booth.value));
-      localStorage.setItem('imageList', JSON.stringify(imageList.value));
-      localStorage.setItem('menuList', JSON.stringify(menuList.value));
-
-      router.push({ path: `/booth/detail/${id}` });
+      router.push({ path: `/booth/detail/${urlBoothType.value}/${id}` });
     } catch (error) {
       console.error(`Error fetching ${type} booth data:`, error);
     }
@@ -98,7 +92,6 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
 
   const setBoothType = (type) => {
     boothType.value = type;
-    localStorage.setItem('boothType', type);
   };
 
   const setMenuType = () => {
@@ -112,60 +105,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
         subMenu.value.push(menu.menuName);
       }
     });
-
-    localStorage.setItem('mainMenu', JSON.stringify(mainMenu.value));
-    localStorage.setItem('subMenu', JSON.stringify(subMenu.value));
   };
-
-  const initializeStore = () => {
-    const storedBoothList = localStorage.getItem('boothList');
-    const storedSelectBoothMenu = localStorage.getItem('selectBoothMenu');
-    const storedBooth = localStorage.getItem('booth');
-    const storedBoothType = localStorage.getItem('boothType');
-    const storedUrlBoothType = localStorage.getItem('urlBoothType');
-    const storedImageList = localStorage.getItem('imageList');
-    const storedMenuList = localStorage.getItem('menuList');
-    const storedMainMenu = localStorage.getItem('mainMenu');
-    const storedSubMenu = localStorage.getItem('subMenu');
-
-    if (storedBoothList) {
-      boothList.value = JSON.parse(storedBoothList);
-    }
-
-    if (storedSelectBoothMenu) {
-      selectBoothMenu.value = parseInt(storedSelectBoothMenu);
-    }
-
-    if (storedBooth) {
-      booth.value = JSON.parse(storedBooth);
-    }
-
-    if (storedBoothType) {
-      boothType.value = storedBoothType;
-    }
-
-    if (storedUrlBoothType) {
-      urlBoothType.value = storedUrlBoothType;
-    }
-
-    if (storedImageList) {
-      imageList.value = JSON.parse(storedImageList);
-    }
-
-    if (storedMenuList) {
-      menuList.value = JSON.parse(storedMenuList);
-    }
-
-    if (storedMainMenu) {
-      mainMenu.value = JSON.parse(storedMainMenu);
-    }
-
-    if (storedSubMenu) {
-      subMenu.value = JSON.parse(storedSubMenu);
-    }
-  };
-
-  initializeStore();
 
   return {
     allBoothList,
