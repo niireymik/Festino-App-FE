@@ -43,17 +43,22 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center select-none" v-bind="$attrs">
+  <div v-if="showData" class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center select-none" v-bind="$attrs">
     <div class="flex pt-[17px] w-full px-3 justify-evenly gap-1 overflow-x-auto reserve-container">
-      <div v-if="!showData" class="gap-2 text-xs pt-2 flex flex-col items-center">
-        <div class="bg-tino-error bg-cover bg-center w-[110px] h-[100px]"></div>
-        <div>공연정보가 없습니다</div>
-      </div>
       <div class="flex flex-col items-center cursor-pointer" v-for="show in showData" :key="show" @click="handleClickOpenModal(props.category, show)">
         <div :style="getImage(show)" class="border-2 border-primary bg-cover bg-center w-[100px] h-[100px] rounded-full"></div>
         <div class="text-xs font-normal pt-2">{{ show.showStartTime }}</div>
         <div class="text-primary-700 font-medium">{{ show.performer }}</div>
       </div>
+    </div>
+  </div>
+  <div v-else class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center select-none" v-bind="$attrs">
+    <div class="flex flex-col items-center pt-[18px] w-full px-3 gap-[17px] justify-evenly">
+      <div class="gap-1 flex flex-col items-center">
+        <div class="text-secondary-700 font-bold">현재 공연정보가 없습니다.</div>
+        <div class="text-secondary-500 text-xs">추후 업데이트 예정입니다.</div>
+      </div>
+      <div class="ml-6 bg-tino-error-half bg-cover bg-center w-[220px] h-[194px]"></div>
     </div>
   </div>
 </template>

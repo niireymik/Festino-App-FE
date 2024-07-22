@@ -69,9 +69,12 @@ onMounted(async () => {
           DAY {{ day }} 공연 타임테이블
         </div>
       </div>
-      <div v-if="!timetableData || timetableData.length == 0" class="gap-2 text-xs flex flex-col items-center">
-        <div class="bg-tino-error bg-cover bg-center w-[110px] h-[100px]"></div>
-        <div>공연정보가 없습니다</div>
+      <div v-if="!timetableData || timetableData.length == 0" class="w-full flex flex-col items-center pb-4">
+        <div class="pt-6 pb-[48px] gap-1 flex flex-col items-center">
+          <div class="text-secondary-700 font-bold">현재 공연정보가 없습니다.</div>
+          <div class="text-secondary-500 text-xs">추후 업데이트 예정입니다.</div>
+        </div>
+        <div class="bg-tino-error-timetable bg-cover bg-center w-full h-[255px] bg-[length:490px_255px]"></div>
       </div>
       <div class="flex h-full w-full justify-center">
         <div class="flex flex-col items-center text-secondary-700 gap-[65px] pt-1">

@@ -103,6 +103,8 @@ export default {
         'booth-map': "url('/images/booth/map.svg')",
         'link-icon': "url('/icons/link.svg')",
         'tino-error': "url('/icons/error-tino.svg')",
+        'tino-error-half': "url('/icons/error-tino-half.svg')",
+        'tino-error-timetable': "url('/icons/error-tino-timetable.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
