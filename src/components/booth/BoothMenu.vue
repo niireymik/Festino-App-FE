@@ -40,6 +40,7 @@ onMounted(() => {
 .dynamic-booth-category-padding {
   padding-left: calc(20 / 430 * 100%) !important;
   padding-bottom: 1.5rem;
+  flex-shrink: 0;
 }
 .booth-menu::-webkit-scrollbar {
   display: none;
