@@ -11,6 +11,26 @@ const props = defineProps({
   }
 });
 
+const onSnap = () => {
+  if (containerRef.value) {
+    const scrollLeft = containerRef.value.scrollLeft;
+    const containerWidth = containerRef.value.clientWidth;
+    const mod = scrollLeft % containerWidth;
+    
+    if (mod > containerWidth / 2) {
+      containerRef.value.scrollTo({
+        left: scrollLeft + (containerWidth - mod),
+        behavior: 'smooth'
+      });
+    } else {
+      containerRef.value.scrollTo({
+        left: scrollLeft - mod,
+        behavior: 'smooth'
+      });
+    }
+  }
+};
+
 const updateCurrentIndex = () => {
   if (containerRef.value) {
     const scrollLeft = containerRef.value.scrollLeft;
@@ -32,12 +52,14 @@ onMounted(async () => {
   window.scrollTo(0, 0);
   if (containerRef.value) {
     containerRef.value.addEventListener('scroll', onScroll);
+    containerRef.value.addEventListener('scrollend', onSnap);
   }
 });
 
 onUnmounted(() => {
   if (containerRef.value) {
     containerRef.value.removeEventListener('scroll', onScroll);
+    containerRef.value.removeEventListener('scrollend', onSnap);
   }
 });
 </script>
