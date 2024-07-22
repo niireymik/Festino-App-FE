@@ -2,7 +2,7 @@
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
-const { booth } = storeToRefs(useGetBoothDataStore());
+const { booth, boothType } = storeToRefs(useGetBoothDataStore());
 </script>
 
 <template>
@@ -10,7 +10,7 @@ const { booth } = storeToRefs(useGetBoothDataStore());
     <div class="w-full h-auto bg-primary-100 rounded-2xl">
       <div class="flex items-center px-4 pt-4 pb-1">
         <div class="w-fit h-fit px-4 py-1 rounded-full bg-secondary-50 text-secondary-500 font-pretendard font-semibold text-xs">위치</div>
-        <div class="pl-4 text-secondary-500 font-pretendard font-light text-xs">{{ booth.location }}</div>
+        <div class="pl-4 text-secondary-500 font-pretendard font-light text-xs">{{ booth.location ?? boothType }}</div>
       </div>
       <div class="flex items-center px-4 pb-4 pt-1">
         <div class="w-fit h-fit px-4 py-1 rounded-full bg-secondary-50 text-secondary-500 font-pretendard font-semibold text-xs">운영시간</div>
