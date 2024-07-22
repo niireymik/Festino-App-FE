@@ -36,11 +36,12 @@ export const useReservationStore = defineStore('reservationStore', () => {
     try {
       const res = await axios.post(`${HOST}/main/reservation`, payload);
       closeReserveModal();
-      if (res.data.success) openCompleteReserveModal();
+      if (res.data.success) {
+        if (res.data.reservationInfo.messageStatus === 'SEND_FAIL') openMessageFailModal();
+        if (res.data.reservationInfo.messageStatus === 'SEND_SUCCESS') openCompleteReserveModal();
+      }
       if (!res.data.success) openFailReserveModal();
       getAllNightBooth();
-      // TODO: 메시지 실패일 때 띄울 모달
-      // openMessageFailModal();
     } catch (error) {
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
@@ -64,8 +65,9 @@ export const useReservationStore = defineStore('reservationStore', () => {
       console.error(error);
     }
   };
+
   const getAllNightBooth = async () => {
-    const res = await axios.get(`${HOST}/main/booth/night/reservation/all`);
+    const res = await axios.get(`${HOST}/main/booth/night/all`);
     nightBoothInfo.value = res.data.boothList;
   };
 
