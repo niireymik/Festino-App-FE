@@ -84,7 +84,7 @@ const getNightBoothImage = (nightBoothImage) => {
             }"
           >
             <div class="flex flex-col justify-end text-white p-5 relative rounded-3xl dynamic-item">
-              <div class="absolute inset-0 bg-gradient-to-t from-black via-white to-white opacity-30 rounded-3xl"></div>
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-white to-white opacity-50 rounded-3xl"></div>
               <div class="relative z-10">
                 <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
                 <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>

@@ -16,16 +16,26 @@ const phoneNum = ref('');
 const personNum = ref(null);
 const reserveModal = ref(null);
 const regex = /^010/;
+const isSumbit = ref(false);
 
-const handleClickReserveButton = () => {
-  if (name.value < 2 || phoneNum.value.length !== 11 || personNum.value == 0 || !regex.test(phoneNum.value)) return;
-  saveReservation({
+const handleClickReserveButton = async () => {
+  if (
+    name.value < 2 ||
+    phoneNum.value.length !== 11 ||
+    personNum.value == 0 ||
+    !regex.test(phoneNum.value) ||
+    isSumbit.value
+  )
+    return;
+  isSumbit.value = true;
+  await saveReservation({
     boothId: selectedNightBoothInfo.value.boothId,
     userName: name.value,
     phoneNum: phoneNum.value,
     personCount: personNum.value,
   });
   setUserName(name.value);
+  isSumbit.value = false;
 };
 
 onMounted(() => {
