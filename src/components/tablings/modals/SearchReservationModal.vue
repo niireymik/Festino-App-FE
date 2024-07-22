@@ -11,7 +11,8 @@ const { reservationInfo, userName } = storeToRefs(useReservationStore());
 <template>
   <ModalBackground :closeModal="closeSearchReserveModal">
     <div
-      class="relative col-start-2 row-start-2 h-full w-full bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+      class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+      @click.stop=""
     >
       <div class="w-full h-[19px] text-secondary-700 font-semibold text-center">
         {{ reservationInfo.adminName }} 부스 예약
@@ -53,4 +54,8 @@ const { reservationInfo, userName } = storeToRefs(useReservationStore());
   </ModalBackground>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.dynamic-width {
+  width: calc(386 / 430 * 100%) !important;
+}
+</style>

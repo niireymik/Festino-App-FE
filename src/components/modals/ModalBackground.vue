@@ -9,7 +9,7 @@ const props = defineProps({
     @click="props.closeModal()"
   >
     <div
-      class="h-full w-full overflow-y-auto grid grid-cols-[10px_1fr_10px] grid-rows-[minmax(10px,_1fr)_auto_minmax(10px,_1fr)]"
+      class="h-full w-full overflow-y-auto grid grid-cols-[auto_1fr_auto] grid-rows-[minmax(10px,_1fr)_auto_minmax(10px,_1fr)] place-items-center"
     >
       <slot></slot>
     </div>

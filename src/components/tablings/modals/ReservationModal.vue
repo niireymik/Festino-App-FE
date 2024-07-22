@@ -42,7 +42,8 @@ const handleClickReserveButton = async () => {
 <template>
   <ModalBackground :closeModal="closeReserveModal">
     <div
-      class="relative col-start-2 row-start-2 h-full w-full bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+      class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+      @click.stop=""
     >
       <div class="text-secondary-700 text-xl font-semibold">{{ selectedNightBoothInfo.adminName }} 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
@@ -74,4 +75,8 @@ const handleClickReserveButton = async () => {
   </ModalBackground>
 </template>
 
-<style lang="css" scoped></style>
+<style lang="css" scoped>
+.dynamic-width {
+  width: calc(386 / 430 * 100%) !important;
+}
+</style>
