@@ -15,6 +15,7 @@ export const useTimetableStore = defineStore('timetableStore', () => {
       clubData.value = clubDataResponse.data;
     } catch (error) {
       console.error(error);
+      clubData.value = [];
     }
   };
 
@@ -24,6 +25,7 @@ export const useTimetableStore = defineStore('timetableStore', () => {
       talentData.value = talentDataResponse.data;
     } catch (error) {
       console.error(error);
+      talentData.value = [];
     }
   };
 

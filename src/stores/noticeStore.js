@@ -10,6 +10,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
   const noticeData = ref([]);
   const pinNotices = ref([]);
   const notices = ref([]);
+  const allNotices = ref([]);
 
   const getMainNotice = async () => {
     try {
@@ -17,6 +18,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
       mainNoticeData.value = noticeResponse.data.noticeInfo;
     } catch (error) {
       console.error(error);
+      mainNoticeData.value = [];
     }
   };
 
@@ -26,17 +28,21 @@ export const useNoticeStore = defineStore('noticeStore', () => {
       noticeData.value = noticeResponse.data.noticeInfo;
     } catch (error) {
       console.error(error);
+      noticeData.value = [];
     }
   };
 
   const getAllNotice = async () => {
     try {
       const noticeResponse = await axios.get(`${HOST}/main/notice/all`);
-      const allNotices = noticeResponse.data.noticesInfo;
-      pinNotices.value = allNotices.filter(notice => notice.isPin);
-      notices.value = allNotices.filter(notice => !notice.isPin);
+      allNotices.value = noticeResponse.data.noticesInfo;
+      if (allNotices.value) {
+        pinNotices.value = allNotices.value.filter(notice => notice.isPin);
+        notices.value = allNotices.value.filter(notice => !notice.isPin);
+      }
     } catch (error) {
       console.error(error);
+      allNotices.value = [];
     }
   };
 
@@ -58,5 +64,6 @@ export const useNoticeStore = defineStore('noticeStore', () => {
     noticeData,
     pinNotices,
     notices,
+    allNotices
   };
 });

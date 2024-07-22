@@ -7,7 +7,7 @@ import PinNotice from '@/components/notice/PinNotice.vue';
 import Notice from '@/components/notice/Notice.vue';
 import Header from '@/components/header/Header.vue';
 
-const { pinNotices, notices } = storeToRefs(useNoticeStore());
+const { pinNotices, notices, allNotices } = storeToRefs(useNoticeStore());
 const { getAllNotice } = useNoticeStore();
 
 const router = useRouter();
@@ -28,6 +28,10 @@ onMounted(() => {
     <div class="flex flex-row w-full h-[48px] text-secondary-700 bg-white justify-center items-center font-medium text-xl relative">
       <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px] cursor-pointer" @click="handleClickBackArrow()"></div>
       <div>공지사항</div>
+    </div>
+    <div v-if="!allNotices || allNotices.value == 0" class="flex flex-col items-center gap-4 pt-14">
+      <div class="bg-tino-error bg-cover bg-center w-[264px] h-[244px]"></div>
+      <div>공지사항을 불러오지 못했습니다</div>
     </div>
     <div v-for="notice in pinNotices" :key="notice" class="pt-5 px-4 flex justify-center w-full">
       <PinNotice class="shadow-4xl" :notice="notice" />
