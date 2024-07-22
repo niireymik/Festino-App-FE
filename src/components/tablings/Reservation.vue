@@ -83,12 +83,14 @@ const getNightBoothImage = (nightBoothImage) => {
               'opacity-50': selectedBoothId && selectedBoothId !== nightBooth.boothId,
             }"
           >
-            <div
-              class="flex flex-col justify-end text-white p-5 bg-gradient-to-t from-black to-white rounded-3xl opacity-40 dynamic-item"
-            >
-              <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
-              <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>
+            <div class="flex flex-col justify-end text-white p-5 relative rounded-3xl dynamic-item">
+              <div class="absolute inset-0 bg-gradient-to-t from-black via-white to-white opacity-50 rounded-3xl"></div>
+              <div class="relative z-10">
+                <h2 class="font-bold mb-0.5 break-keep">{{ nightBooth.adminName }}</h2>
+                <h2 class="text-2xs">대기중인 팀 : {{ nightBooth.totalReservationNum }}</h2>
+              </div>
             </div>
+
             <div
               v-if="selectedBoothId == nightBooth.boothId"
               class="absolute rounded-3xl border-4 border-primary-900 top-0 left-0 dynamic-item"

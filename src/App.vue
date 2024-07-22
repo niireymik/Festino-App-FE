@@ -6,11 +6,39 @@ import { useHead } from '@vueuse/head';
 import { useModalStore } from '@/stores/modalStore.js';
 import { storeToRefs } from 'pinia';
 import { onMounted, watchEffect } from 'vue';
+import EnterBoothModal from './components/tablings/modals/EnterBoothModal.vue';
+import { useTablingModalStore } from './stores/tablings/tablingModal';
+import ReservationModal from './components/tablings/ReservationModal.vue';
+import SearchReservationModal from './components/tablings/SearchReservationModal.vue';
+import CompleteReserveModal from './components/tablings/modals/CompleteReserveModal.vue';
+import NoReserveModal from './components/tablings/modals/NoReserveModal.vue';
+import FailReservationModal from './components/tablings/modals/FailReservationModal.vue';
+import MessageFailModal from './components/tablings/modals/MessageFailModal.vue';
 
 const { clubModalState, talentModalState } = storeToRefs(useModalStore());
-
+const {
+  reserveModalState,
+  searchReserveModalState,
+  completeReserveModalState,
+  noReserveModalState,
+  failReserveModalState,
+  enterBoothModalState,
+  messageFailModalState,
+} = storeToRefs(useTablingModalStore());
+const { resetModalState } = useTablingModalStore();
 const handleStopScroll = () => {
-  if (clubModalState.value || talentModalState.value) document.documentElement.style.overflow = 'hidden';
+  if (
+    clubModalState.value ||
+    talentModalState.value ||
+    reserveModalState.value ||
+    searchReserveModalState.value ||
+    completeReserveModalState.value ||
+    noReserveModalState.value ||
+    failReserveModalState.value ||
+    enterBoothModalState.value ||
+    messageFailModalState.value
+  )
+    document.documentElement.style.overflow = 'hidden';
   else document.documentElement.style.overflow = 'auto';
 };
 
@@ -20,6 +48,7 @@ watchEffect(() => {
 
 onMounted(() => {
   window.scrollTo(0, 0);
+  resetModalState();
 });
 
 useHead({
@@ -39,7 +68,14 @@ useHead({
 <template>
   <RouterView />
   <ClubModal v-if="clubModalState" />
-  <TalentModal  v-if="talentModalState"/>
+  <TalentModal v-if="talentModalState" />
+  <EnterBoothModal v-if="enterBoothModalState" />
+  <ReservationModal v-if="reserveModalState" />
+  <SearchReservationModal v-if="searchReserveModalState" />
+  <CompleteReserveModal v-if="completeReserveModalState" />
+  <NoReserveModal v-if="noReserveModalState" />
+  <FailReservationModal v-if="failReserveModalState" />
+  <MessageFailModal v-if="messageFailModalState" />
 </template>
 
 <style scoped></style>
