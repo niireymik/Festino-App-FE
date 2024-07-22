@@ -67,7 +67,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
   };
 
   const getAllNightBooth = async () => {
-    const res = await axios.get(`${HOST}/main/booth/night/all`);
+    const res = await axios.get(`${HOST}/main/booth/night/reservation/all`);
     nightBoothInfo.value = res.data.boothList;
   };
 
