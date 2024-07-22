@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 </script>
 
 <template>
-  <div class="h-lvh flex flex-col">
+  <div class="h-lvh">
     <RouterView />
     <Footer class="limit-width"></Footer>
   </div>

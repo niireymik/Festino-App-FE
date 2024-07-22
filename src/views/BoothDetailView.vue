@@ -19,7 +19,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="mb-20">
+  <div class="pb-20">
     <DetailBanner />
     <BoothSelect />
     <BoothMap />
