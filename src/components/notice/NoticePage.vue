@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const currentIndex = ref(0);
 const containerRef = ref(null);
@@ -30,6 +30,15 @@ const onScroll = () => {
 
 onMounted(() => {
   window.scrollTo(0, 0);
+  if (containerRef.value) {
+    containerRef.value.addEventListener('scroll', onScroll);
+  }
+});
+
+onUnmounted(() => {
+  if (containerRef.value) {
+    containerRef.value.removeEventListener('scroll', onScroll);
+  }
 });
 </script>
 
@@ -41,7 +50,7 @@ onMounted(() => {
       >
         {{ currentIndex + 1 }} / {{ noticeData.imageUrl.length }}
       </div>
-      <div class="snap-mandatory snap-x overflow-x-auto flex rounded-3xl">
+      <div ref="containerRef" class="snap-mandatory snap-x overflow-x-auto flex rounded-3xl">
         <div v-for="(image, index) in noticeData.imageUrl" :key="index" class="snap-center w-full flex-shrink-0">
           <div 
             class="w-full aspect-w-1 aspect-h-1 bg-cover bg-center bg-no-repeat"
