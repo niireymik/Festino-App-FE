@@ -12,18 +12,20 @@ const defaultOption = 0;
 <template>
   <div v-for="(menu, index) in booth.menuList" :key="index" class="dynamic-padding">
     <div class="w-full h-[120px] p-[13px] bg-white border border-primary-900-light rounded-3xl shadow-4xl flex mb-[10px]">
-      <img :src="`${menu.menuImage}`" class="min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-booth-default-image bg-cover" />
-      <div class="w-[359px] flex flex-col justify-center">
-        <div class="pl-[12px]">
-          <div class="pb-2 flex justify-between">
-            <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
-            <div class="flex">
-              <MenuOption class="mr-1">{{ menu.menuType === defaultOption ? '대표 메뉴' : '서브 메뉴' }}</MenuOption>
-              <MenuStatus :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
+      <img :src="`${menu.menuImage}`" draggable="false" class="min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-booth-default-image bg-cover" />
+      <div class="w-[359px] h-full py-1">
+        <div class="pl-[12px] h-full flex flex-col justify-between">
+          <div class="pb-2">
+            <div class="flex justify-between">
+              <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
+              <div class="flex">
+                <MenuOption class="mr-1">{{ menu.menuType === defaultOption ? '대표 메뉴' : '서브 메뉴' }}</MenuOption>
+                <MenuStatus :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
+              </div>
             </div>
-          </div>
-          <div class="w-fit pb-3 text-[8px] text-seconday-500">
-            {{ menu.menuDescription }}
+            <div class="w-full text-[10px] text-seconday-500">
+              {{ menu.menuDescription }}
+            </div>
           </div>
           <div class="flex justify-between">
             <div class="flex items-center">
