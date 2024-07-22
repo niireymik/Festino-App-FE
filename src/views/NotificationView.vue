@@ -29,7 +29,7 @@ onMounted(() => {
       <div class="w-[28px] h-[28px] bg-back-arrow bg-cover bg-no-repeat absolute left-[24px] cursor-pointer" @click="handleClickBackArrow()"></div>
       <div>공지사항</div>
     </div>
-    <div v-if="!allNotices.value || allNotices.value == 0" class="flex flex-col items-center gap-4 pt-14">
+    <div v-if="allNotices.value == 0" class="flex flex-col items-center gap-4 pt-14">
       <div class="bg-tino-error bg-cover bg-center w-[264px] h-[244px]"></div>
       <div>공지사항을 불러오지 못했습니다</div>
     </div>
