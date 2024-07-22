@@ -2,29 +2,17 @@
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeEnterBoothModal } = useTablingModalStore();
 
-onMounted(() => {
-  const height = enterBoothModal.value.offsetHeight;
-  const currentScroll = window.scrollY;
-
-  enterBoothModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
-});
-const enterBoothModal = ref(null);
 const { reservationInfo } = storeToRefs(useReservationStore());
 </script>
 
 <template>
-  <div
-    class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden"
-    @click="closeEnterBoothModal()"
-  >
+  <ModalBackground :closeModal="closeEnterBoothModal">
     <div
-      class="dynamic-modal-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 absolute left-1/2 transform -translate-x-1/2"
-      ref="enterBoothModal"
-      @click.stop=""
+      class="relative col-start-2 row-start-2 h-full w-full bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
     >
       <div class="w-12 h-12 bg-primary-900-light-16 rounded-full grid place-items-center">
         <img src="/icons/info.svg" />
@@ -33,7 +21,9 @@ const { reservationInfo } = storeToRefs(useReservationStore());
         <p class="text-secondary-700 text-xl font-bold">입장안내</p>
         <p class="text-secondary-500">
           앞에 대기 팀이 없어요!<br />
-          <span class="font-bold text-primary-900">{{ reservationInfo.adminName }}</span>
+          <span class="font-bold text-primary-900">
+            {{ reservationInfo.adminName }}
+          </span>
           부스로 입장해주세요.
         </p>
       </div>
@@ -44,11 +34,7 @@ const { reservationInfo } = storeToRefs(useReservationStore());
         확인
       </button>
     </div>
-  </div>
+  </ModalBackground>
 </template>
 
-<style lang="css" scoped>
-.dynamic-modal-width {
-  width: calc(390 / 430 * 100%) !important;
-}
-</style>
+<style lang="css" scoped></style>

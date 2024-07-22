@@ -1,27 +1,14 @@
 <script setup>
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
-import { onMounted, ref } from 'vue';
+import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeNoReserveModal } = useTablingModalStore();
-
-const noReserveModal = ref(null);
-onMounted(() => {
-  const height = noReserveModal.value.offsetHeight;
-  const currentScroll = window.scrollY;
-
-  noReserveModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
-});
 </script>
 
 <template>
-  <div
-    class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden"
-    @click="closeNoReserveModal()"
-  >
+  <ModalBackground :closeModal="closeNoReserveModal">
     <div
-      class="dynamic-modal-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 absolute left-1/2 transform -translate-x-1/2"
-      ref="noReserveModal"
-      @click.stop=""
+      class="relative col-start-2 row-start-2 h-full w-full bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
     >
       <div class="w-12 h-12 bg-error rounded-full grid place-items-center">
         <img src="/icons/orders/error.svg" />
@@ -39,11 +26,7 @@ onMounted(() => {
         확인
       </button>
     </div>
-  </div>
+  </ModalBackground>
 </template>
 
-<style lang="css" scoped>
-.dynamic-modal-width {
-  width: calc(390 / 430 * 100%) !important;
-}
-</style>
+<style lang="css" scoped></style>

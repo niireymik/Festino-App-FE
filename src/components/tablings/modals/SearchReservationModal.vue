@@ -2,29 +2,16 @@
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
+import ModalBackground from '@/components/modals/ModalBackground.vue';
 
-const serachReserveModal = ref(null);
 const { closeSearchReserveModal } = useTablingModalStore();
 const { reservationInfo, userName } = storeToRefs(useReservationStore());
-
-onMounted(() => {
-  const height = serachReserveModal.value.offsetHeight;
-  const currentScroll = window.scrollY;
-
-  serachReserveModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
-});
 </script>
 
 <template>
-  <div
-    class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 flex overflow-hidden"
-    @click="closeSearchReserveModal()"
-  >
+  <ModalBackground :closeModal="closeSearchReserveModal">
     <div
-      ref="serachReserveModal"
-      class="dynamic-modal-width h-[449px] bg-white rounded-3xl flex flex-col items-center justify-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
-      @click.stop=""
+      class="relative col-start-2 row-start-2 h-full w-full bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
     >
       <div class="w-full h-[19px] text-secondary-700 font-semibold text-center">
         {{ reservationInfo.adminName }} 부스 예약
@@ -63,11 +50,7 @@ onMounted(() => {
         확인
       </button>
     </div>
-  </div>
+  </ModalBackground>
 </template>
 
-<style lang="css" scoped>
-.dynamic-modal-width {
-  width: calc(386 / 430 * 100%) !important;
-}
-</style>
+<style lang="css" scoped></style>
