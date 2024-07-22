@@ -12,7 +12,7 @@ const defaultOption = 0;
 <template>
   <div v-for="(menu, index) in booth.menuList" :key="index" class="dynamic-padding">
     <div class="w-full h-[120px] p-[13px] bg-white border border-primary-900-light rounded-3xl shadow-4xl flex mb-[10px]">
-      <img :src="`${menu.menuImage}`" class="min-w-[94px] max-w-[94px] h-full rounded-3xl border" />
+      <img :src="`${menu.menuImage}`" class="min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-booth-default-image bg-cover" />
       <div class="w-[359px] flex flex-col justify-center">
         <div class="pl-[12px]">
           <div class="pb-2 flex justify-between">
