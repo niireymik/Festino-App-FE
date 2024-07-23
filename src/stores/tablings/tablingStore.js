@@ -12,7 +12,9 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
+  const openNightBoothInfo = ref(null);
   const selectedNightBoothInfo = ref(null);
+  const openNightBoothInfoLength = ref(null);
 
   const {
     openSearchReserveModal,
@@ -69,6 +71,9 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const getAllNightBooth = async () => {
     const res = await axios.get(`${HOST}/main/booth/night/reservation/all`);
     nightBoothInfo.value = res.data.boothList;
+    openNightBoothInfo.value = res.data.boothList.filter((booth) => booth.isOpen);
+    await nextTick();
+    openNightBoothInfoLength.value = openNightBoothInfo.value.length;
   };
 
   return {
@@ -76,6 +81,8 @@ export const useReservationStore = defineStore('reservationStore', () => {
     userName,
     nightBoothInfo,
     selectedNightBoothInfo,
+    openNightBoothInfo,
+    openNightBoothInfoLength,
     setUserName,
     saveReservation,
     getReservation,

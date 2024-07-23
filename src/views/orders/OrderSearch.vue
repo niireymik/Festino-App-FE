@@ -1,6 +1,4 @@
 <script setup>
-import InputName from '@/components/tablings/InputName.vue';
-import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import OrderDetail from '@/components/orders/OrderDetail.vue';
 import { onMounted, ref, watchEffect } from 'vue';
 import { useOrderStore } from '@/stores/orders/orderStore';
@@ -22,11 +20,50 @@ const name = ref('');
 const phoneNum = ref('');
 const isInputFill = ref(false);
 const regex = /^010/;
+const isInputPhoneNumFocused = ref(false);
+const isInputNameFocused = ref(false);
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
   getOrder({ userName: name.value, phoneNum: phoneNum.value });
 };
+
+const formattedPhoneNum = (event) => {
+  const inputValue = event.target.value.replace(/\D/g, '');
+  let formattedValue = '';
+
+  if (inputValue.length > 3 && inputValue.length < 8) {
+    formattedValue = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+  } else {
+    formattedValue = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+  }
+
+  event.target.value = formattedValue;
+  phoneNum.value = inputValue;
+};
+
+const limitInputLength = (event) => {
+  let filteredInput = event.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
+
+  if (filteredInput.length > 5) {
+    filteredInput = filteredInput.slice(0, 5);
+  }
+  event.target.value = filteredInput;
+  name.value = filteredInput;
+};
+
+const handleScrollToFocusInput = () => {
+  if (isInputNameFocused.value) {
+    document.getElementById('nameInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+  if (isInputPhoneNumFocused.value) {
+    document.getElementById('phoneNumInput').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+};
+
+watchEffect(() => {
+  handleScrollToFocusInput();
+});
 
 watchEffect(() => {
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11 && regex.test(phoneNum.value);
@@ -39,8 +76,48 @@ watchEffect(() => {
       <div class="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
       <div class="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">
         <div>
-          <InputName v-model="name" />
-          <InputPhoneNum v-model="phoneNum" />
+          <div class="text-xs">이름</div>
+          <div class="h-11 w-full flex flex-row items-center py-2.5 gap-2.5">
+            <img src="/icons/person.svg" class="w-6 h-6" />
+            <input
+              class="flex-1 focus:outline-none bg-inherit"
+              type="text"
+              @input="limitInputLength($event)"
+              placeholder="티노"
+              maxlength="5"
+              @focus="isInputNameFocused = true"
+              @blur="isInputNameFocused = false"
+              id="nameInput"
+            />
+          </div>
+          <hr
+            class="mb-[30px] border-0 h-[1px]"
+            :class="{
+              'bg-primary-900': isInputNameFocused,
+              'bg-secondary-500-light-20': !isInputNameFocused,
+            }"
+          />
+          <div class="text-xs">전화번호</div>
+          <div class="h-11 w-full flex flex-row items-center py-2.5 gap-2.5">
+            <img src="/icons/phone.svg" class="w-6 h-6" />
+            <input
+              class="flex-1 focus:outline-none bg-inherit"
+              type="tel"
+              placeholder="010-1234-5678"
+              @input="formattedPhoneNum($event)"
+              maxlength="13"
+              @focus="isInputPhoneNumFocused = true"
+              @blur="isInputPhoneNumFocused = false"
+              id="phoneNumInput"
+            />
+          </div>
+          <hr
+            class="border-0 h-[1px]"
+            :class="{
+              'bg-primary-900': isInputPhoneNumFocused,
+              'bg-secondary-500-light-20': !isInputPhoneNumFocused,
+            }"
+          />
         </div>
         <button
           class="h-[51px] w-full text-white font-bold rounded-10xl"

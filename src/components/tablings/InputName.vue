@@ -14,9 +14,8 @@ const emit = defineEmits(['update:modelValue']);
 const limitInputLength = (event) => {
   let filteredInput = event.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
 
-  // 10자 제한
-  if (filteredInput.length > 10) {
-    filteredInput = filteredInput.slice(0, 10);
+  if (filteredInput.length > 5) {
+    filteredInput = filteredInput.slice(0, 5);
   }
 
   event.target.value = filteredInput;
@@ -33,7 +32,7 @@ const limitInputLength = (event) => {
       type="text"
       @input="limitInputLength($event)"
       placeholder="티노"
-      maxlength="10"
+      maxlength="5"
       @focus="isFocused = true"
       @blur="isFocused = false"
     />

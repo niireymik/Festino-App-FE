@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { nextTick, onMounted, ref, watch } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
@@ -9,13 +9,8 @@ import NoBooth from '@/components/tablings/NoBooth.vue';
 
 const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
-const { nightBoothInfo, selectedNightBoothInfo } = storeToRefs(useReservationStore());
+const { openNightBoothInfo, selectedNightBoothInfo, openNightBoothInfoLength } = storeToRefs(useReservationStore());
 const { getBoothData } = useGetBoothDataStore();
-
-onMounted(() => {
-  getAllNightBooth();
-  selectedBoothId.value = route.params?.boothId ?? selectedNightBoothInfo.value?.boothId ?? '';
-});
 
 const selectedBoothId = ref('');
 const handleClickMajorBox = (boothInfo) => {
@@ -27,6 +22,7 @@ const handleClickMajorBox = (boothInfo) => {
   selectedBoothId.value = boothInfo.boothId;
   setSelectedNightBoothInfo({ ...boothInfo });
 };
+
 const handleClickReserveButton = () => {
   if (!selectedBoothId.value) return;
   openReserveModal();
@@ -40,10 +36,23 @@ const handleClickDetailButton = () => {
   router.push({ path: `/booth/detail/night/${selectedBoothId.value}` });
 };
 
-const nightBoothInfoLength = ref(0);
-watch(nightBoothInfo, () => {
-  nightBoothInfoLength.value = nightBoothInfo.value.filter((booth) => booth.isOpen).length;
-});
+const handleScrollToSelectedBooth = () => {
+  if (!selectedBoothId.value) return;
+
+  const container = document.getElementById('reserve-container');
+  const element = document.getElementById(selectedBoothId.value);
+
+  if (element && container) {
+    const containerWidth = container.offsetWidth;
+    const elementWidth = element.offsetWidth;
+    const elementLeft = element.offsetLeft;
+    const scrollLeft = elementLeft - containerWidth / 2 + elementWidth / 2;
+    container.scrollTo({
+      left: scrollLeft,
+      behavior: 'smooth',
+    });
+  }
+};
 
 const getNightBoothImage = (nightBoothImage) => {
   return {
@@ -52,36 +61,47 @@ const getNightBoothImage = (nightBoothImage) => {
       : 'background-image: url(/images/booth/booth-default-image.png)',
   };
 };
+
+watch(selectedBoothId, () => {
+  handleScrollToSelectedBooth();
+});
+
+onMounted(async () => {
+  await getAllNightBooth();
+  selectedBoothId.value = route.params?.boothId ?? selectedNightBoothInfo.value?.boothId ?? '';
+  await nextTick();
+  handleScrollToSelectedBooth();
+});
 </script>
 
 <template>
   <div class="w-screen max-w-[500px] min-w-[375px]">
     <div class="w-full flex justify-start">
       <div
-        :class="{ 'overflow-auto': nightBoothInfoLength > 4 }"
+        :class="{ 'overflow-x-scroll': openNightBoothInfoLength > 4 }"
         class="pt-10 w-full flex"
         @touchstart.stop=""
         id="reserve-container"
       >
         <div class="dynamic-width"></div>
-        <NoBooth v-if="nightBoothInfoLength === 0" />
+        <NoBooth v-if="!openNightBoothInfo || openNightBoothInfoLength === 0" />
         <div
           class="gap-2"
           :class="{
-            'flex justify-start': nightBoothInfoLength <= 2,
-            'grid place-content-start grid-rows-2 grid-flow-col': nightBoothInfoLength > 2,
+            'flex justify-start': openNightBoothInfoLength <= 2,
+            'grid place-content-start grid-rows-2 grid-flow-col': openNightBoothInfoLength > 2,
           }"
         >
           <div
-            v-for="nightBooth in nightBoothInfo"
+            v-for="nightBooth in openNightBoothInfo"
             :key="nightBooth.boothId"
             @click="handleClickMajorBox(nightBooth)"
             class="dynamic-item rounded-3xl bg-no-repeat bg-cover relative shrink-0"
             v-bind="getNightBoothImage(nightBooth.boothImage)"
             :class="{
-              hidden: !nightBooth.isOpen,
               'opacity-50': selectedBoothId && selectedBoothId !== nightBooth.boothId,
             }"
+            :id="nightBooth.boothId"
           >
             <div class="flex flex-col justify-end text-white p-5 relative rounded-3xl dynamic-item">
               <div class="absolute inset-0 bg-gradient-to-t from-slate-700 via-30% opacity-50 rounded-3xl"></div>
