@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <div class="speech-bubble">
+  <div class="speech-bubble shadow-5xl">
     <slot></slot>
   </div>
 </template>
@@ -19,14 +19,14 @@
 .speech-bubble::after {
 	content: '';
 	position: absolute;
-	bottom: 0;
-	left: 50%;
+	left: 0;
+	top: 50%;
 	width: 0;
 	height: 0;
-	border: 5px solid transparent;
-	border-top-color: #ffffff;
-	border-bottom: 0;
-	margin-left: -5px;
-	margin-bottom: -5px;
+	border: 11px solid transparent;
+	border-right-color: #ffffff;
+	border-left: 0;
+	margin-top: -10px;
+	margin-left: -10px;
 }
 </style>

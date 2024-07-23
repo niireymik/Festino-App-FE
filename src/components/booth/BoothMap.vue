@@ -10,34 +10,23 @@ const zoomLevel = ref(1);
 const containerRef = ref(null);
 const imageLoaded = ref(false);
 const markers = ref([
-  { left: 200, bottom: 210 },
-  { left: 250, bottom: 210 },
-  { left: 300, bottom: 210 },
-  { left: 350, bottom: 210 },
-  { left: 400, bottom: 210 },
-  { left: 150, bottom: 250 },
-  { left: 150, bottom: 330 },
-  { left: 150, bottom: 400 },
-  { left: 200, bottom: 450 },
-  { left: 250, bottom: 450 },
-  { left: 300, bottom: 450 },
-  { left: 350, bottom: 450 },
+  { left: 363, bottom: 250 },
 ]);
 
 const selectedMarker = ref(null);
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.1, 1.3);
+  zoomLevel.value = Math.min(zoomLevel.value + 0.5, 6);
 };
 
 const zoomOut = () => {
-  zoomLevel.value = Math.max(zoomLevel.value - 0.1, 1);
+  zoomLevel.value = Math.max(zoomLevel.value - 0.5, 1);
 };
 
 const scrollToBottomLeft = () => {
   const container = containerRef.value;
   if (container) {
-    container.scrollTop = (container.scrollHeight - container.clientHeight)- 170;
+    container.scrollTop = (container.scrollHeight - container.clientHeight) / 2;
     container.scrollLeft = 110;
   }
 };
@@ -45,8 +34,11 @@ const scrollToBottomLeft = () => {
 const moveScroll = () => {
   const container = containerRef.value;
   if (container) {
-    if (selectBoothMenu.value === 0 || selectBoothMenu.value === 1) {
+    if (selectBoothMenu.value === 0 || selectBoothMenu.value === 4) {
       scrollToBottomLeft();
+    } else if (selectBoothMenu.value === 1) {
+      zoomLevel.value = 4;
+      container.scrollTop = container.height + 1000;
     } else if (selectBoothMenu.value === 2 || selectBoothMenu.value === 3) {
       container.scrollTop = (container.scrollHeight - container.clientHeight) / 2;
       container.scrollLeft = container.scrollWidth - container.clientWidth;
@@ -75,15 +67,15 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
 <template>
   <div class="dynamic-booth-map-padding">
     <div class="relative">
-      <div ref="containerRef" class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
+      <div ref="containerRef" class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-manipulation">
         <div
           class="relative"
-          :style="{ width: `calc(${zoomLevel * 1538}px)`, height: `calc(${zoomLevel * 1353}px)` }"
+          :style="{ width: `calc(${zoomLevel * 458}px)`, height: `calc(${zoomLevel * 520}px)` }"
         >
           <img
             src="/images/booth/map.svg"
             alt="Booth Map"
-            class="w-full h-full min-w-[1538px] min-h-[1353px]"
+            class="h-full min-h-[520px]"
             @load="imageLoaded = true"
           />
           <div 
@@ -93,7 +85,6 @@ watch([zoomLevel, imageLoaded, selectBoothMenu], () => {
             :style="{
               left: `calc(${marker.left * zoomLevel}px)`,
               bottom: `calc(${marker.bottom * zoomLevel}px)`,
-              transform: `scale(${selectedMarker === index ? 1.2 : 1}) translateY(${selectedMarker === index ? -73 - zoomLevel : 0}px)`,
               opacity: selectedMarker === index ? '1' : '0.75',
               width: `${selectedMarker === index ? 51 : 45 * zoomLevel}px`,
               height: `${selectedMarker === index ? 50 : 44 * zoomLevel}px`,
