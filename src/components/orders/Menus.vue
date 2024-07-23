@@ -4,20 +4,20 @@ import { ref } from 'vue';
 const { handleTotalPrice, addOrderList } = useOrderStore();
 
 const props = defineProps({
-  menuInfo: {
+  menu: {
     type: Object,
     required: true,
   },
 });
 
 const menuNum = ref(0);
-const menuUnitPrice = ref(props.menuInfo.menuPrice);
-const menuType = props.menuInfo.menuType === 0 ? '메인 메뉴' : '서브 메뉴';
+const menuUnitPrice = ref(props.menu.menuPrice);
+const menuType = props.menu.menuType === 0 ? '메인 메뉴' : '서브 메뉴';
 
 const updateOrder = () => {
   addOrderList({
-    menuId: props.menuInfo.menuId,
-    menuName: props.menuInfo.menuName,
+    menuId: props.menu.menuId,
+    menuName: props.menu.menuName,
     menuCount: menuNum.value,
     menuPrice: menuUnitPrice.value * menuNum.value,
   });
@@ -55,18 +55,18 @@ const getMenuImage = (menuImage) => {
   <div class="flex gap-5 py-4 items-center w-full bottom-line">
     <div
       class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover"
-      v-bind="getMenuImage(menuInfo.menuImage)"
+      v-bind="getMenuImage(menu.menuImage)"
     ></div>
     <div class="flex flex-col w-full">
       <div class="flex justify-between items-center">
-        <div class="font-semibold text-secondary-700">{{ menuInfo.menuName }}</div>
+        <div class="font-semibold text-secondary-700">{{ menu.menuName }}</div>
         <div
           class="text-3xs text-secondary-500 bg-secondary-50 rounded-full w-[46px] h-[18px] items-center justify-center flex flex-shrink-0"
         >
           {{ menuType }}
         </div>
       </div>
-      <div class="font-light text-secondary-300 text-sm">{{ menuInfo.menuDescription }}</div>
+      <div class="font-light text-secondary-300 text-sm">{{ menu.menuDescription }}</div>
       <div class="font-light text-secondary-300 text-sm">가격: {{ menuUnitPrice }}원</div>
       <div class="flex pt-[12px] justify-between items-center">
         <div :class="{ 'text-secondary-100': !menuNum }">{{ menuUnitPrice * menuNum }}원</div>

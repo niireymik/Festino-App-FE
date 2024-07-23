@@ -8,8 +8,8 @@ import { storeToRefs } from 'pinia';
 import { onMounted, watchEffect } from 'vue';
 import EnterBoothModal from './components/tablings/modals/EnterBoothModal.vue';
 import { useTablingModalStore } from './stores/tablings/tablingModal';
-import ReservationModal from './components/tablings/ReservationModal.vue';
-import SearchReservationModal from './components/tablings/SearchReservationModal.vue';
+import ReservationModal from './components/tablings/modals/ReservationModal.vue';
+import SearchReservationModal from './components/tablings/modals/SearchReservationModal.vue';
 import CompleteReserveModal from './components/tablings/modals/CompleteReserveModal.vue';
 import NoReserveModal from './components/tablings/modals/NoReserveModal.vue';
 import FailReservationModal from './components/tablings/modals/FailReservationModal.vue';
@@ -33,7 +33,6 @@ const handleStopScroll = () => {
     reserveModalState.value ||
     searchReserveModalState.value ||
     completeReserveModalState.value ||
-    noReserveModalState.value ||
     failReserveModalState.value ||
     enterBoothModalState.value ||
     messageFailModalState.value
@@ -70,12 +69,12 @@ useHead({
   <ClubModal v-if="clubModalState" />
   <TalentModal v-if="talentModalState" />
   <EnterBoothModal v-if="enterBoothModalState" />
-  <ReservationModal v-if="reserveModalState" />
   <SearchReservationModal v-if="searchReserveModalState" />
   <CompleteReserveModal v-if="completeReserveModalState" />
-  <NoReserveModal v-if="noReserveModalState" />
   <FailReservationModal v-if="failReserveModalState" />
   <MessageFailModal v-if="messageFailModalState" />
+  <NoReserveModal v-if="noReserveModalState" />
+  <ReservationModal v-if="reserveModalState" />
 </template>
 
 <style scoped></style>

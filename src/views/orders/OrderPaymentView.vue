@@ -12,14 +12,13 @@ import { useRoute } from 'vue-router';
 
 const { getMenuAll } = useOrderStore();
 const { openOrderModal } = useOrderModalStore();
-const { menuList, totalPrice } = storeToRefs(useOrderStore());
+const { menuInfo, totalPrice } = storeToRefs(useOrderStore());
 const { orderModalState, orderCheckModalState, orderCompleteModalState } = storeToRefs(useOrderModalStore());
 const route = useRoute();
 onMounted(() => {
   window.scrollTo(0, 0);
   getMenuAll(route.params.boothId);
 });
-
 watchEffect(() => handleStopScroll([orderModalState.value, orderCheckModalState.value, orderCompleteModalState.value]));
 
 const handleClickReserveButton = () => {
@@ -31,8 +30,8 @@ const handleClickReserveButton = () => {
 <template>
   <div class="flex flex-col h-full pt-[60px]">
     <div class="p-5 mb-5">
-      <div v-for="(menuInfo, index) in menuList" :key="index">
-        <MenuVue :menuInfo="menuInfo" v-if="!menuInfo.isSoldOut" />
+      <div v-for="(info, index) in menuInfo" :key="index">
+        <MenuVue :menu="info" v-if="!info.isSoldOut" />
       </div>
     </div>
     <div class="flex justify-center px-[20px] py-[30px]">

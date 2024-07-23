@@ -4,6 +4,7 @@ import { onMounted, ref } from 'vue';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
@@ -28,15 +29,18 @@ const handleClickOrderButton = () => {
 </script>
 
 <template>
-  <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
-    <div class="dynamic-modal-width h-auto bg-white rounded-3xl px-7 py-[21px]">
-      <div class="flex flex-col gap-7">
+  <ModalBackground :closeModal="closeOrderModal">
+    <div
+      class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-7 py-[21px]"
+      @click.stop=""
+    >
+      <div class="flex flex-col gap-7 w-full">
         <div class="font-semibold text-xl text-secondary-700 text-center">주문하기</div>
         <div class="px-4 w-full">
           <InputName v-model="name" />
           <InputPhoneNum v-model="phoneNum" />
         </div>
-        <div class="w-full gap-1">
+        <div class="w-full gap-1 flex flex-col">
           <div class="font-semibold text-secondary-700">주문하기</div>
           <div class="w-full rounded-xl bg-primary-900-lightest p-4 max-h-[250px] overflow-auto">
             <div
@@ -71,11 +75,11 @@ const handleClickOrderButton = () => {
         </div>
       </div>
     </div>
-  </div>
+  </ModalBackground>
 </template>
 
 <style lang="css" scoped>
-.dynamic-modal-width {
-  width: calc(390 / 430 * 100%) !important;
+.dynamic-width {
+  width: calc(386 / 430 * 100%) !important;
 }
 </style>

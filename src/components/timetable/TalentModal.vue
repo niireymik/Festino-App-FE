@@ -15,7 +15,8 @@ const getImage = () => {
 </script>
 
 <template>
-  <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center p-5" @click="handleCloseModal()">
+  <div class="fixed top-0 max-w-[500px] w-full h-[5000px] z-50 bg-opacity-60 bg-black"></div>
+  <div class="max-w-[500px] w-full h-full fixed top-0 z-50 flex justify-center items-center p-5" @click="handleCloseModal()">
     <div class="w-[388px] min-w-[320px] h-auto bg-white rounded-2xl flex flex-col items-center select-none" @click.stop>
       <div class="w-full flex justify-between px-5 pt-5">
         <div class="w-[20px] h-[20px]"></div>

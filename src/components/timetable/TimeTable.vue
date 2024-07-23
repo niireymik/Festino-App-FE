@@ -37,14 +37,16 @@ const isShowingBgPin = (isShowing) => {
 
 const updateActiveTimetable = () => {
   activateTimetable.value = false;
-  timetableData.value.forEach((data) => {
-    if(data.isShowing) activateTimetable.value = true;
-    if(activateTimetable.value) data.isShowing = true;
-  });
-  if (!activateTimetable.value) {
+  if(timetableData.value) {
+    timetableData.value.forEach((data) => {
+      if(data.isShowing) activateTimetable.value = true;
+      if(activateTimetable.value) data.isShowing = true;
+    });
+    if (!activateTimetable.value) {
       timetableData.value.forEach((data) => {
       data.isShowing = true;
-    });
+      });
+    }
   }
 };
 
@@ -67,15 +69,18 @@ onMounted(async () => {
           DAY {{ day }} 공연 타임테이블
         </div>
       </div>
-      <div v-if="timetableData.length == 0" class="gap-2 text-xs flex flex-col items-center">
-        <div class="bg-tino-error bg-cover bg-center w-[110px] h-[100px]"></div>
-        <div>공연정보가 없습니다</div>
+      <div v-if="!timetableData || timetableData.length == 0" class="w-full flex flex-col items-center pb-4">
+        <div class="pt-6 pb-[48px] gap-1 flex flex-col items-center">
+          <div class="text-secondary-700 font-bold">현재 공연정보가 없습니다.</div>
+          <div class="text-secondary-500 text-xs">추후 업데이트 예정입니다.</div>
+        </div>
+        <div class="bg-tino-error-timetable bg-cover bg-center w-full h-[255px] bg-[length:390px_255px]"></div>
       </div>
       <div class="flex h-full w-full justify-center">
         <div class="flex flex-col items-center text-secondary-700 gap-[65px] pt-1">
           <div v-for="data in timetableData" :key="data" :class="isShowingTime(data.isShowing)">{{ data.showStartTime }} ~ {{ data.showEndTime }}</div>
         </div>
-        <div v-if="timetableData.length != 0" class="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
+        <div v-if="timetableData && timetableData.length != 0" class="pt-3 pl-4 sm:pl-7 pr-3 xs:pr-4 sm:pr-7">
           <div class="border-2 border-primary-700 h-[auto] w-0 border-dashed flex flex-col items-center gap-[82.7px]">
             <div class="w-[16px] h-[16px] mt-[-5px] mb-[-5px] rounded-full flex items-center justify-center" :class="isShowingBgPin(data.isShowing)" v-for="data in timetableData" :key="data">
               <div class="w-[8px] h-[8px] rounded-full" :class="isShowingPin(data.isShowing)"></div>

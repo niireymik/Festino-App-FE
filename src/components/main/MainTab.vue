@@ -32,7 +32,7 @@ onMounted(() => {
   </div>
   <MoreButton :componentName="notification" />
   <div class="px-5">
-    <div
+    <div v-if="mainNoticeData"
       class="py-3 select-none px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center cursor-pointer"
       @click="handleClickNotice(mainNoticeData.noticeId)"
     >
@@ -41,6 +41,9 @@ onMounted(() => {
         <div class="text-secondary-500 text-xs font-normal">{{ mainNoticeData.title }}</div>
       </div>
       <div class="text-secondary-700 text-2xs font-normal">{{ timeAgo(mainNoticeData.updateAt) }}</div>
+    </div>
+    <div v-else class="py-3 select-none px-4 rounded-2xl border-primary border-1 shadow-4xl flex justify-between items-center">
+      <div class="text-secondary-500 text-xs font-normal">공지사항을 불러오지 못했습니다</div>
     </div>
   </div>
   <div class="px-5 pt-5 pb-20">

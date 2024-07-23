@@ -48,7 +48,7 @@ const router = createRouter({
           component: BoothView,
         },
         {
-          path: 'booth/detail/:id',
+          path: 'booth/detail/:type/:id',
           name: 'booth-detail',
           component: BoothDetailView,
           props: true,
