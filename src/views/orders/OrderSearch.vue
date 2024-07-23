@@ -10,7 +10,8 @@ import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vu
 import { handleStopScroll } from '@/utils/handleScrollStop';
 
 onMounted(() => {
-  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 });
 
 const { getOrder } = useOrderStore();

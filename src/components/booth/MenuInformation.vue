@@ -16,11 +16,11 @@ const defaultOption = 0;
       <div class="w-[359px] h-full py-1">
         <div class="pl-[12px] h-full flex flex-col justify-between">
           <div class="pb-2">
-            <div class="flex justify-between">
+            <div class="flex justify-between pb-1">
               <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
               <div class="flex">
                 <MenuOption class="mr-1">{{ menu.menuType === defaultOption ? '대표 메뉴' : '서브 메뉴' }}</MenuOption>
-                <MenuStatus :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
+                <MenuStatus class="mr-0" :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
               </div>
             </div>
             <div class="w-full text-[10px] text-seconday-500">

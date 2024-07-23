@@ -77,6 +77,7 @@ export default {
         ...theme('textColor'),
         'primary-900-light-12': 'rgba(0, 115, 240, 0.12)',
         'primary-900-light-16': 'rgba(0, 115, 240, 0.16)',
+        'map-color': 'rgba(211, 211, 211, 0.1)'
       }),
       fontSize: {
         '3xs': '0.5rem', // 8px
@@ -147,6 +148,7 @@ export default {
         xs: '0 0 12px 0 rgba(0, 0, 0, 0.08)',
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
+        '5xl': '0 0 20px rgba(0, 0, 0, 0.16)'
       },
     },
     screens: {
