@@ -1,11 +1,12 @@
 <script setup>
-import { onMounted, ref } from 'vue';
-import InputName from './InputName.vue';
-import InputPhoneNum from './InputPhoneNum.vue';
-import InputPersonNum from './InputPersonNum.vue';
+import { ref } from 'vue';
+import InputName from '@/components/tablings/InputName.vue';
+import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
+import InputPersonNum from '@/components/tablings/InputPersonNum.vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
+import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeReserveModal } = useTablingModalStore();
 const { saveReservation, setUserName } = useReservationStore();
@@ -14,7 +15,6 @@ const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
 const name = ref('');
 const phoneNum = ref('');
 const personNum = ref(null);
-const reserveModal = ref(null);
 const regex = /^010/;
 const isSumbit = ref(false);
 
@@ -37,23 +37,12 @@ const handleClickReserveButton = async () => {
   setUserName(name.value);
   isSumbit.value = false;
 };
-
-onMounted(() => {
-  const height = reserveModal.value.offsetHeight;
-  const currentScroll = window.scrollY;
-
-  reserveModal.value.style.top = `${currentScroll + (window.innerHeight - height) / 2}px`;
-});
 </script>
 
 <template>
-  <div
-    class="w-full h-full absolute top-0 left-0 bg-opacity-60 bg-black z-50 overflow-hidden"
-    @click="closeReserveModal()"
-  >
+  <ModalBackground :closeModal="closeReserveModal">
     <div
-      class="dynamic-modal-width h-[537px] bg-white rounded-3xl flex flex-col items-center gap-7 py-7 px-[21px] absolute left-1/2 transform -translate-x-1/2"
-      ref="reserveModal"
+      class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
       @click.stop=""
     >
       <div class="text-secondary-700 text-xl font-semibold">{{ selectedNightBoothInfo.adminName }} 부스 예약</div>
@@ -83,11 +72,11 @@ onMounted(() => {
         </button>
       </div>
     </div>
-  </div>
+  </ModalBackground>
 </template>
 
 <style lang="css" scoped>
-.dynamic-modal-width {
+.dynamic-width {
   width: calc(386 / 430 * 100%) !important;
 }
 </style>

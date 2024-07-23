@@ -11,7 +11,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
   const orderList = ref([]);
   const boothId = ref('');
-  const menuList = ref([]);
+  const menuInfo = ref([]);
   const totalPrice = ref(0);
   const userOrderList = ref([]);
   const userName = ref('');
@@ -90,7 +90,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const getMenuAll = async (boothId) => {
     try {
       const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
-      if (res.data.success) menuList.value = res.data.MenuInfo;
+      if (res.data.success) menuInfo.value = res.data.menuList;
       if (!res.data.success) router.push({ name: 'error', params: { page: 'order' } });
     } catch (error) {
       router.push({ name: 'error', params: { page: 'order' } });
@@ -120,7 +120,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   return {
     orderList,
     boothId,
-    menuList,
+    menuInfo,
     totalPrice,
     userOrderList,
     userName,

@@ -1,4 +1,5 @@
 <script setup>
+import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
@@ -15,9 +16,9 @@ const handleClickConfirmButton = () => {
 </script>
 
 <template>
-  <div class="max-w-[500px] w-full h-full fixed top-0 bg-opacity-60 bg-black z-50 flex justify-center items-center">
+  <ModalBackground :closeModal="closeOrderCompleteModal">
     <div
-      class="dynamic-modal-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5 absolute transform left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"
+      class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
       @click.stop=""
     >
       <div class="w-12 h-12 rounded-full bg-primary-900-light-16 grid place-items-center">
@@ -34,11 +35,11 @@ const handleClickConfirmButton = () => {
         확인
       </button>
     </div>
-  </div>
+  </ModalBackground>
 </template>
 
 <style lang="css" scoped>
-.dynamic-modal-width {
-  width: calc(390 / 430 * 100%) !important;
+.dynamic-width {
+  width: calc(346 / 430 * 100%) !important;
 }
 </style>
