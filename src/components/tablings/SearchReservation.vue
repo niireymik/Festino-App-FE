@@ -36,8 +36,8 @@ const formattedPhoneNum = (event) => {
 const limitInputLength = (event) => {
   let filteredInput = event.target.value.replace(/[^a-zA-Z0-9ㄱ-ㅎ가-힣 ]/g, '');
 
-  if (filteredInput.length > 10) {
-    filteredInput = filteredInput.slice(0, 10);
+  if (filteredInput.length > 5) {
+    filteredInput = filteredInput.slice(0, 5);
   }
   event.target.value = filteredInput;
   name.value = filteredInput;
@@ -74,7 +74,7 @@ watchEffect(() => {
             type="text"
             @input="limitInputLength($event)"
             placeholder="티노"
-            maxlength="10"
+            maxlength="5"
             @focus="isInputNameFocused = true"
             @blur="isInputNameFocused = false"
             id="nameInput"
