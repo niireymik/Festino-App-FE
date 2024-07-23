@@ -20,7 +20,7 @@ const defaultOption = 0;
               <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
               <div class="flex">
                 <MenuOption class="mr-1">{{ menu.menuType === defaultOption ? '대표 메뉴' : '서브 메뉴' }}</MenuOption>
-                <MenuStatus :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
+                <MenuStatus class="mr-0" :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
               </div>
             </div>
             <div class="w-full text-[10px] text-seconday-500">
