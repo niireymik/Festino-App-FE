@@ -27,7 +27,8 @@ const handleClickPayment = () => {
 };
 
 onMounted(() => {
-  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
     return router.push({ name: 'error', params: { page: 'order' } });
   }

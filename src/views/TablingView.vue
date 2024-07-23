@@ -4,7 +4,8 @@ import TablingTabs from '@/components/tablings/TablingTabs.vue';
 import { onMounted } from 'vue';
 
 onMounted(() => {
-  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
 });
 </script>
 <template>

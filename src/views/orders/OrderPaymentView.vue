@@ -16,7 +16,8 @@ const { menuInfo, totalPrice } = storeToRefs(useOrderStore());
 const { orderModalState, orderCheckModalState, orderCompleteModalState } = storeToRefs(useOrderModalStore());
 const route = useRoute();
 onMounted(() => {
-  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
   getMenuAll(route.params.boothId);
 });
 watchEffect(() => handleStopScroll([orderModalState.value, orderCheckModalState.value, orderCompleteModalState.value]));
