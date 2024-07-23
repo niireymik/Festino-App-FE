@@ -21,11 +21,16 @@ const handleClickSearchButton = async () => {
 
 const formattedPhoneNum = (event) => {
   const inputValue = event.target.value.replace(/\D/g, '');
+  let formattedValue = '';
+
   if (inputValue.length > 3 && inputValue.length < 8) {
-    event.target.value = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+    formattedValue = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
   } else {
-    event.target.value = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+    formattedValue = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
   }
+
+  event.target.value = formattedValue;
+  phoneNum.value = inputValue;
 };
 
 const limitInputLength = (event) => {
@@ -35,6 +40,7 @@ const limitInputLength = (event) => {
     filteredInput = filteredInput.slice(0, 10);
   }
   event.target.value = filteredInput;
+  name.value = filteredInput;
 };
 
 const handleScrollToFocusInput = () => {
@@ -51,6 +57,7 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
+  console.log(name.value, phoneNum.value);
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11 && regex.test(phoneNum.value);
 });
 </script>
