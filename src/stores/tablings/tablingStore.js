@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
 import { useTablingModalStore } from './tablingModal';
 import { useRouter } from 'vue-router';
+const { resetModalState } = useTablingModalStore();
 
 const HOST = import.meta.env.VITE_API_URL;
 
@@ -45,6 +46,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       if (!res.data.success) openFailReserveModal();
       getAllNightBooth();
     } catch (error) {
+      resetModalState();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
@@ -63,6 +65,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       }
       if (!res.data.success) return openNoReserveModal();
     } catch (error) {
+      resetModalState();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
