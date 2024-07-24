@@ -2,6 +2,7 @@
 import { ref, onMounted, watchEffect, nextTick } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
+import MapSpeechBubble from './MapSpeechBubble.vue';
 
 const { selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
@@ -129,9 +130,9 @@ watchEffect(() => {
 <template>
   <div class="dynamic-booth-map-padding">
     <div class="relative">
-      <div ref="containerRef" class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pinch-zoom touch-auto">
+      <div ref="containerRef" class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-auto">
         <div 
-          class="relative map" 
+          class="relative" 
           :style="{ 
             width: `${587 * zoomLevel}px`, 
             height: `${518 * zoomLevel}px`,
@@ -171,15 +172,23 @@ watchEffect(() => {
                   bottom: `${marker.bottom * zoomLevel}px`,
                   transform: `scale(${selectedMarker === `${categoryName}-${index}`? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
-                  opacity: `${selectedMarker === `${categoryName}-${index}` ? '1' : '0.55' }`
+                  zIndex: `${selectedMarker === `${categoryName}-${index}` ? '1000' : '500'}`
                 }"
                 @click="handleMarkerClick(`${categoryName}-${index}`)"
               >
                 <div
                   v-if="zoomLevel > 1.4"
-                  class="w-[56px] h-[56px] bg-cover"
-                  :style="{ backgroundImage: `url('/icons/booth/${categoryName}.svg')`}"
-                ></div>
+                  class="relative w-[56px] h-[56px] bg-cover"
+                  :style="{
+                    backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
+                    opacity: `${selectedMarker === `${categoryName}-${index}` ? '1' : '0.55' }`
+                  }"
+                >
+                  <MapSpeechBubble 
+                    v-if="selectedMarker === `${categoryName}-${index}`"
+                    class="absolute bottom-[90px] right-2/3"
+                  ></MapSpeechBubble>
+                </div>
               </div>
             </div>
           </div>
@@ -203,7 +212,7 @@ watchEffect(() => {
   </div>
 </template>
 
-<style lang="css">
+<style>
 .dynamic-booth-map-padding {
   padding-top: calc(10 / 430 * 100%) !important;
   padding-left: calc(20 / 430 * 100%) !important;
@@ -215,12 +224,8 @@ button:active i {
   color: white;
 }
 
-.map {
-  transition: transform 0.6s ease;
-}
-
 .marker {
-  transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease, opacity 0.5s ease;
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
   transform-origin: center bottom;
 }
 </style>
