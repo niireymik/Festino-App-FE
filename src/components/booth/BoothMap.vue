@@ -220,7 +220,7 @@ button:active i {
 }
 
 .marker {
-  transition: transform 0.7s ease, width 0.7s ease, height 0.7s ease, opacity 0.3s ease;
+  transition: transform 0.4s ease, width 0.4s ease, height 0.4s ease, opacity 0.5s ease;
   transform-origin: center bottom;
 }
 </style>
