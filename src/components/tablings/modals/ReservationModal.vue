@@ -10,7 +10,7 @@ import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeReserveModal } = useTablingModalStore();
 const { saveReservation, setUserName } = useReservationStore();
-const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
+const { selectedNightBoothInfo, isLoading } = storeToRefs(useReservationStore());
 const { openNightBoothInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');
@@ -28,7 +28,9 @@ const handleClickReserveButton = async () => {
     isSumbit.value
   )
     return;
+  closeReserveModal();
   isSumbit.value = true;
+  isLoading.value = true;
   await saveReservation({
     boothId: selectedNightBoothInfo.value.boothId,
     userName: name.value,
