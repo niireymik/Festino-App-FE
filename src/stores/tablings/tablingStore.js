@@ -15,12 +15,12 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const openNightBoothInfo = ref(null);
   const selectedNightBoothInfo = ref(null);
   const openNightBoothInfoLength = ref(null);
+  const isLoading = ref(false);
 
   const {
     openSearchReserveModal,
     openNoReserveModal,
     openFailReserveModal,
-    closeReserveModal,
     openCompleteReserveModal,
     openEnterBoothModal,
     openMessageFailModal,
@@ -37,7 +37,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const saveReservation = async (payload) => {
     try {
       const res = await axios.post(`${HOST}/main/reservation`, payload);
-      closeReserveModal();
+      isLoading.value = false;
       if (res.data.success) {
         if (res.data.reservationInfo.messageStatus === 'SEND_FAIL') openMessageFailModal();
         if (res.data.reservationInfo.messageStatus === 'SEND_SUCCESS') openCompleteReserveModal();
@@ -85,6 +85,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
     selectedNightBoothInfo,
     openNightBoothInfo,
     openNightBoothInfoLength,
+    isLoading,
     setUserName,
     saveReservation,
     getReservation,

@@ -14,6 +14,8 @@ import CompleteReserveModal from './components/tablings/modals/CompleteReserveMo
 import NoReserveModal from './components/tablings/modals/NoReserveModal.vue';
 import FailReservationModal from './components/tablings/modals/FailReservationModal.vue';
 import MessageFailModal from './components/tablings/modals/MessageFailModal.vue';
+import LoadingModal from './components/tablings/modals/LoadingModal.vue';
+import { useReservationStore } from './stores/tablings/tablingStore';
 
 const { clubModalState, talentModalState } = storeToRefs(useModalStore());
 const {
@@ -26,6 +28,7 @@ const {
   messageFailModalState,
 } = storeToRefs(useTablingModalStore());
 const { resetModalState } = useTablingModalStore();
+const { isLoading } = storeToRefs(useReservationStore());
 const handleStopScroll = () => {
   if (
     clubModalState.value ||
@@ -76,6 +79,7 @@ useHead({
   <MessageFailModal v-if="messageFailModalState" />
   <NoReserveModal v-if="noReserveModalState" />
   <ReservationModal v-if="reserveModalState" />
+  <LoadingModal v-if="isLoading" />
 </template>
 
 <style scoped></style>
