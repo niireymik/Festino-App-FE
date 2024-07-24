@@ -12,7 +12,7 @@ const markers = ref({
   more: [
     { left: 120, bottom: 120, count: 12 },
     { left: 443, bottom: 240, count: 22 },
-    { left: 70, bottom: 300, count: 2 },
+    { left: 70, bottom: 300, count: 4 },
     { left: 260, bottom: 300, count: 1 },
   ],
   detail: {
@@ -150,7 +150,7 @@ watchEffect(() => {
                 transform: `scale(${1 / zoomLevel})`,
                 transformOrigin: 'center bottom'
               }"
-              @click="handleMarkerClick(index)"
+              @click="zoomIn"
             >
               <div
                 v-if="zoomLevel <= 1.4"
@@ -169,10 +169,11 @@ watchEffect(() => {
                 :style="{
                   left: `${marker.left * zoomLevel}px`,
                   bottom: `${marker.bottom * zoomLevel}px`,
-                  transform: `scale(${1 / zoomLevel})`,
-                  transformOrigin: 'center bottom'
+                  transform: `scale(${selectedMarker === `${categoryName}-${index}`? 1.4 / zoomLevel : 1 / zoomLevel})`,
+                  transformOrigin: 'center bottom',
+                  opacity: `${selectedMarker === `${categoryName}-${index}` ? '1' : '0.6' }`
                 }"
-                @click="handleMarkerClick(index)"
+                @click="handleMarkerClick(`${categoryName}-${index}`)"
               >
                 <div
                   v-if="zoomLevel > 1.4"
