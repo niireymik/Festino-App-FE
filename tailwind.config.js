@@ -122,6 +122,7 @@ export default {
         'tino-error': "url('/icons/error-tino.svg')",
         'tino-error-half': "url('/icons/error-tino-half.svg')",
         'tino-error-timetable': "url('/icons/error-tino-timetable.svg')",
+        'more-marker': "url('/icons/booth/more.svg')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
@@ -148,7 +149,8 @@ export default {
         xs: '0 0 12px 0 rgba(0, 0, 0, 0.08)',
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
-        '5xl': '0 0 20px rgba(0, 0, 0, 0.16)'
+        '5xl': '0 0 20px rgba(0, 0, 0, 0.16)',
+        '6xl': '0 0 12px rgba(0, 0, 0, 0.06)'
       },
     },
     screens: {
