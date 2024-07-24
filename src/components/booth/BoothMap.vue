@@ -27,17 +27,17 @@ const markers = ref({
       { left: 420, bottom: 340 },
       { left: 440, bottom: 340 },
       { left: 530, bottom: 230 },
-      { left: 130, bottom: 175 },
-      { left: 110, bottom: 175 },
-      { left: 90, bottom: 175 },
+      { left: 145, bottom: 175 },
+      { left: 120, bottom: 175 },
+      { left: 95, bottom: 175 },
       { left: 70, bottom: 175 },
       { left: 50, bottom: 155 },
       { left: 50, bottom: 130 },
       { left: 50, bottom: 105 },
-      { left: 150, bottom: 85 },
-      { left: 130, bottom: 85 },
-      { left: 110, bottom: 85 },
-      { left: 90, bottom: 85 },
+      { left: 170, bottom: 85 },
+      { left: 145, bottom: 85 },
+      { left: 120, bottom: 85 },
+      { left: 95, bottom: 85 },
       { left: 70, bottom: 85 },
     ],
     music: [
@@ -116,13 +116,55 @@ const handleMarkerClick = (index) => {
   selectedMarker.value = index;
 };
 
+const startDistance = ref(0);
+const startX = ref(0);
+const startY = ref(0);
+
+const handleTouchStart = (e) => {
+  if (e.touches.length === 2) {
+    startDistance.value = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    startX.value = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+    startY.value = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+  }
+};
+
+const handleTouchMove = (e) => {
+  if (e.touches.length === 2) {
+    const newDistance = Math.hypot(
+      e.touches[0].clientX - e.touches[1].clientX,
+      e.touches[0].clientY - e.touches[1].clientY
+    );
+    const delta = newDistance - startDistance.value;
+    const scaleChange = delta / 500; // 조정할 비율
+    zoomLevel.value = Math.min(Math.max(zoomLevel.value + scaleChange, 1), 2.6);
+
+    // 확대/축소 시 지도의 중심점을 조정
+    const container = containerRef.value;
+    if (container) {
+      const newX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+      const newY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+      container.scrollLeft += (startX.value - newX) * zoomLevel.value;
+      container.scrollTop += (startY.value - newY) * zoomLevel.value;
+      startDistance.value = newDistance;
+      startX.value = newX;
+      startY.value = newY;
+    }
+  }
+};
+
 onMounted(() => {
   imageLoaded.value = true;
+  containerRef.value.addEventListener('touchstart', handleTouchStart);
+  containerRef.value.addEventListener('touchmove', handleTouchMove);
 });
 
 watchEffect(() => {
   if (imageLoaded.value && containerRef.value) {
     moveScroll();
+    selectedMarker.value = '';
   }
 });
 </script>
@@ -130,9 +172,13 @@ watchEffect(() => {
 <template>
   <div class="dynamic-booth-map-padding">
     <div class="relative">
-      <div ref="containerRef" class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-auto">
+      <div 
+        ref="containerRef"
+        id="map-container"
+        class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pan-x touch-pan-y">
         <div 
-          class="relative" 
+          class="relative scroll-smooth"
+          id="map-area"
           :style="{ 
             width: `${587 * zoomLevel}px`, 
             height: `${518 * zoomLevel}px`,
@@ -143,6 +189,7 @@ watchEffect(() => {
           <div class="w-full h-full bg-booth-map bg-cover">
             <div
               v-for="(marker, index) in markers.more"
+              :id="marker.id"
               :key="`more-${index}`" 
               class="absolute marker"
               :style="{
@@ -151,12 +198,11 @@ watchEffect(() => {
                 transform: `scale(${1 / zoomLevel})`,
                 transformOrigin: 'center bottom'
               }"
-              @click="zoomIn"
             >
               <div
                 v-if="zoomLevel <= 1.4"
                 class="w-[105px] h-[106px] bg-more-marker flex justify-center">
-                <div class="absolute top-1/4 text-white font-extrabold text-[22px]">+{{ marker?.count }}</div>
+                <div class="absolute top-1/4 text-white font-extrabold text-[22px] select-none">+{{ marker?.count }}</div>
               </div>
             </div>
             <div
@@ -165,12 +211,13 @@ watchEffect(() => {
             >
               <div
                 v-for="(marker, index) in category"
+                :id="marker.id"
                 :key="`detail-${categoryName}-${index}`"
                 class="absolute marker"
                 :style="{
                   left: `${marker.left * zoomLevel}px`,
                   bottom: `${marker.bottom * zoomLevel}px`,
-                  transform: `scale(${selectedMarker === `${categoryName}-${index}`? 1.3 / zoomLevel : 1 / zoomLevel})`,
+                  transform: `scale(${selectedMarker === `${categoryName}-${index}` ? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
                   zIndex: `${selectedMarker === `${categoryName}-${index}` ? '1000' : '500'}`
                 }"
