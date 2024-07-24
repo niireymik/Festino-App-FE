@@ -157,8 +157,6 @@ const handleTouchMove = (e) => {
 
 onMounted(() => {
   imageLoaded.value = true;
-  containerRef.value.addEventListener('touchstart', handleTouchStart);
-  containerRef.value.addEventListener('touchmove', handleTouchMove);
 });
 
 watchEffect(() => {
