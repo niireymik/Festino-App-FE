@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
-import { useTablingModalStore } from './tablingModal';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useRouter } from 'vue-router';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
+  const { resetModalState } = useTablingModalStore();
   const router = useRouter();
-
   const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
@@ -45,6 +45,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       if (!res.data.success) openFailReserveModal();
       getAllNightBooth();
     } catch (error) {
+      resetModalState();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
@@ -63,6 +64,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       }
       if (!res.data.success) return openNoReserveModal();
     } catch (error) {
+      resetModalState();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }

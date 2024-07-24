@@ -57,7 +57,6 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  console.log(name.value, phoneNum.value);
   isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11 && regex.test(phoneNum.value);
 });
 </script>

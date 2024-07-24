@@ -109,7 +109,7 @@ export const useOrderStore = defineStore('orderStore', () => {
       else {
         return {
           name: 'error',
-          params: { page: 'order' },
+          params: { page: 'NotFound' },
         };
       }
     } else {
