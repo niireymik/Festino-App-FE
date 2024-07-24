@@ -53,8 +53,9 @@ const getBoothImageProps = (boothImage) => {
       </div>
     </div>
     <div v-if="!boothList[selectBoothMenu]">
-      <div class="w-full h-[160px] bg-white shadow-3xl flex flex-row justify-center items-center rounded-3.5xl border border-primary-900-light-16 px-4 py-3">
-        부스 정보가 없습니다.
+      <div class="w-full h-[160px] bg-white shadow-3xl flex flex-col justify-between items-center rounded-3.5xl border border-primary-900-light-16">
+        <div class="pt-5 font-semibold">부스 정보가 없습니다.</div>
+        <div class="w-[220px] h-[100px] bg-tino-error-half bg-cover"></div>
       </div>
     </div>
   </div>
