@@ -169,9 +169,9 @@ watchEffect(() => {
                 :style="{
                   left: `${marker.left * zoomLevel}px`,
                   bottom: `${marker.bottom * zoomLevel}px`,
-                  transform: `scale(${selectedMarker === `${categoryName}-${index}`? 1.4 / zoomLevel : 1 / zoomLevel})`,
+                  transform: `scale(${selectedMarker === `${categoryName}-${index}`? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
-                  opacity: `${selectedMarker === `${categoryName}-${index}` ? '1' : '0.6' }`
+                  opacity: `${selectedMarker === `${categoryName}-${index}` ? '1' : '0.55' }`
                 }"
                 @click="handleMarkerClick(`${categoryName}-${index}`)"
               >
