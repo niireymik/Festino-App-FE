@@ -53,12 +53,10 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
 
   const convertBoothMenuTab = (index) => {
     selectBoothMenu.value = index;
-    localStorage.setItem('selectBoothMenu', index);
   };
 
   const setBoothTypeUseUrl = (type) => {
     urlBoothType.value = type;
-    localStorage.setItem('urlBoothType', type);
   };
 
   const getBoothData = async (type, id) => {
