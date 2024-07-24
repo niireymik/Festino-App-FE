@@ -1,15 +1,14 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
-import { useTablingModalStore } from './tablingModal';
+import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useRouter } from 'vue-router';
-const { resetModalState } = useTablingModalStore();
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
+  const { resetModalState } = useTablingModalStore();
   const router = useRouter();
-
   const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
