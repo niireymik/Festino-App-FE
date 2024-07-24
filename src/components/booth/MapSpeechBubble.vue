@@ -31,7 +31,7 @@
 	left: 50%;
 	width: 0;
 	height: 0;
-	border: 15px solid transparent;
+	border: 18px solid transparent;
 	border-top-color: #ffffff;
 	border-bottom: 0;
 	margin-left: -15px;
