@@ -131,12 +131,12 @@ watchEffect(() => {
     <div class="relative">
       <div ref="containerRef" class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pinch-zoom touch-auto">
         <div 
-          class="relative" 
+          class="relative map" 
           :style="{ 
             width: `${587 * zoomLevel}px`, 
             height: `${518 * zoomLevel}px`,
             transform: `scale(${zoomLevel})`,
-            transformOrigin: 'center'
+            transformOrigin: 'top left'
           }"
         >
           <div class="w-full h-full bg-booth-map bg-cover">
@@ -215,8 +215,12 @@ button:active i {
   color: white;
 }
 
+.map {
+  transition: transform 0.6s ease;
+}
+
 .marker {
-  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
+  transition: transform 0.7s ease, width 0.7s ease, height 0.7s ease, opacity 0.3s ease;
   transform-origin: center bottom;
 }
 </style>
