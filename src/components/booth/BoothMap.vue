@@ -4,6 +4,7 @@ import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 import MapSpeechBubble from './MapSpeechBubble.vue';
 
+const { convertBoothMenuTab } = useGetBoothDataStore();
 const { selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const zoomLevel = ref(1);
@@ -11,10 +12,10 @@ const containerRef = ref(null);
 const imageLoaded = ref(false);
 const markers = ref({
   more: [
-    { left: 120, bottom: 120, count: 12 },
-    { left: 443, bottom: 240, count: 22 },
-    { left: 70, bottom: 300, count: 4 },
-    { left: 260, bottom: 300, count: 1 },
+    { left: 120, bottom: 120, count: 12, tab: 1 },
+    { left: 443, bottom: 240, count: 22, tab: 2 },
+    { left: 70, bottom: 300, count: 4, tab: 3 },
+    { left: 260, bottom: 300, count: 1, tab: 4 },
   ],
   detail: {
     wind: [
@@ -157,6 +158,8 @@ const handleTouchMove = (e) => {
 
 onMounted(() => {
   imageLoaded.value = true;
+  containerRef.value.addEventListener('touchstart', handleTouchStart);
+  containerRef.value.addEventListener('touchmove', handleTouchMove);
 });
 
 watchEffect(() => {
@@ -196,6 +199,7 @@ watchEffect(() => {
                 transform: `scale(${1 / zoomLevel})`,
                 transformOrigin: 'center bottom'
               }"
+              @click="convertBoothMenuTab(marker.tab)"
             >
               <div
                 v-if="zoomLevel <= 1.4"
