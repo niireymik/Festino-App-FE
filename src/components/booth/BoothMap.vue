@@ -136,7 +136,7 @@ watchEffect(() => {
             width: `${587 * zoomLevel}px`, 
             height: `${518 * zoomLevel}px`,
             transform: `scale(${zoomLevel})`,
-            transformOrigin: 'top left'
+            transformOrigin: 'center'
           }"
         >
           <div class="w-full h-full bg-booth-map bg-cover">
@@ -216,11 +216,7 @@ button:active i {
 }
 
 .marker {
-  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
-}
-
-.marker img {
-  transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.5s ease, width 0.5s ease, height 0.5s ease, opacity 0.5s ease;
   transform-origin: center bottom;
 }
 </style>
