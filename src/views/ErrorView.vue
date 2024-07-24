@@ -11,7 +11,6 @@ const pageName = route.params.page;
 const { boothId, tableNum } = storeToRefs(useOrderStore());
 
 const handleClickGoMainButton = () => {
-  console.log(pageName);
   if (pageName === 'main' || pageName === 'pathMismatch') router.push({ name: 'main' });
   if (pageName === 'order')
     router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
