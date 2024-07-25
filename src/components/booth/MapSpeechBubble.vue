@@ -34,7 +34,7 @@
 	border: 18px solid transparent;
 	border-top-color: #ffffff;
 	border-bottom: 0;
-	margin-left: -15px;
-	margin-bottom: -15px;
+	margin-left: -18px;
+	margin-bottom: -16px;
 }
 </style>
