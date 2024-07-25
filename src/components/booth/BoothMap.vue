@@ -158,8 +158,8 @@ const handleTouchMove = (e) => {
 
 onMounted(() => {
   imageLoaded.value = true;
-  containerRef.value.addEventListener('touchstart', handleTouchStart);
-  containerRef.value.addEventListener('touchmove', handleTouchMove);
+  // containerRef.value.addEventListener('touchstart', handleTouchStart);
+  // containerRef.value.addEventListener('touchmove', handleTouchMove);
 });
 
 watchEffect(() => {
@@ -175,6 +175,8 @@ watchEffect(() => {
     <div class="relative">
       <div 
         ref="containerRef"
+        @touchstart.passive="handleTouchStart($event)"
+        @touchmove.passive="handleTouchMove($event)"
         id="map-container"
         class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pan-x touch-pan-y">
         <div 
