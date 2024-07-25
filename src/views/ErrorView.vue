@@ -15,6 +15,12 @@ const handleClickGoMainButton = () => {
   if (pageName === 'order')
     router.push({ name: 'order', params: { boothId: boothId.value, tableNum: tableNum.value } });
 };
+watch(
+  () => route.params.page,
+  (newPage) => {
+    console.log(newPage);
+  },
+);
 </script>
 
 <template>

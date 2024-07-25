@@ -82,7 +82,7 @@ const router = createRouter({
     },
     {
       path: '/:pathMatch(.*)*',
-      name: 'error',
+      name: 'pathMismatch',
       params: { page: 'pathMismatch' },
       component: ErrorView,
     },

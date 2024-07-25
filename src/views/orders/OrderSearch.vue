@@ -6,10 +6,18 @@ import { storeToRefs } from 'pinia';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 import { handleStopScroll } from '@/utils/handleScrollStop';
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute();
+const router = useRouter();
+const { setBoothInfo, isUUID } = useOrderStore();
 onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
+    return router.push({ name: 'error', params: { page: 'order' } });
+  }
+  setBoothInfo(route.params.boothId, route.params.tableNum);
 });
 
 const { getOrder } = useOrderStore();
