@@ -12,7 +12,7 @@ import { onMounted, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 
 const { getBoothData } = useGetBoothDataStore();
-const { menuList, booth } = storeToRefs(useGetBoothDataStore());
+const { menuList, booth, imageList } = storeToRefs(useGetBoothDataStore());
 const route = useRoute();
 
 const boothType = ref('');
@@ -27,6 +27,8 @@ onMounted(() => {
     boothType.value = '주간부스';
   } else if (route.params?.type === 'food') {
     boothType.value = '푸드트럭';
+  } else if (route.params?.type === 'facility') {
+    boothType.value = '편의시설';
   }
   getBoothData(boothType.value, route.params?.id);
 });
@@ -38,7 +40,7 @@ onMounted(() => {
     <BoothSelect />
     <BoothMap />
     <DetailInformation />
-    <BoothInformation />
+    <BoothInformation v-if="imageList !== ''" />
     <MenuList v-if="menuList != ''" />
     <BoothReservation v-if="boothType === '야간부스' && booth?.isReservation" />
   </div>
