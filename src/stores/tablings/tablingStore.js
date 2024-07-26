@@ -16,6 +16,13 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const selectedNightBoothInfo = ref(null);
   const openNightBoothInfoLength = ref(null);
   const isLoading = ref(false);
+  const prevReserveBoothName = ref('');
+  const reserveInfo = ref({
+    userName: '',
+    phoneNum: '',
+    personCount: 0,
+    boothId: '',
+  });
 
   const {
     openSearchReserveModal,
@@ -24,6 +31,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
     openCompleteReserveModal,
     openEnterBoothModal,
     openMessageFailModal,
+    openDuplicateModal,
   } = useTablingModalStore();
 
   const setUserName = (name) => {
@@ -78,6 +86,24 @@ export const useReservationStore = defineStore('reservationStore', () => {
     openNightBoothInfoLength.value = openNightBoothInfo.value.length;
   };
 
+  const checkDuplicateReserve = async (phoneNum) => {
+    try {
+      const res = await axios.get(`${HOST}/main/reservation/duplication?phoneNum=${phoneNum}`);
+      if (res.data.success) {
+        prevReserveBoothName.value = res.data.adminName;
+        console.log(res.data);
+        return openDuplicateModal();
+      } else {
+        isLoading.value = true;
+        await saveReservation(reserveInfo);
+      }
+    } catch (error) {
+      resetModalState();
+      router.push({ name: 'error', params: { page: 'main' } });
+      console.error(error);
+    }
+  };
+
   return {
     reservationInfo,
     userName,
@@ -86,10 +112,13 @@ export const useReservationStore = defineStore('reservationStore', () => {
     openNightBoothInfo,
     openNightBoothInfoLength,
     isLoading,
+    prevReserveBoothName,
+    reserveInfo,
     setUserName,
     saveReservation,
     getReservation,
     getAllNightBooth,
     setSelectedNightBoothInfo,
+    checkDuplicateReserve,
   };
 });
