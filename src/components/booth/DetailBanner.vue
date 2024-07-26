@@ -21,6 +21,7 @@ const handleClickBoothDetailBackArrow = () => {
       ></div>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div
+          v-if="booth?.adminCategory"
           class="bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]"
         >
           먹거리가 가득한
@@ -28,7 +29,7 @@ const handleClickBoothDetailBackArrow = () => {
         <div
           class="font-jalnan2 text-3xl bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text"
         >
-          {{ booth.adminName }}
+          {{ booth?.adminName ? booth.adminName : booth.boothName }}
         </div>
       </div>
     </div>
