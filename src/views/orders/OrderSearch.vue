@@ -52,10 +52,6 @@ const handleClickSearchButton = async () => {
   cookingList.value = orderList?.value.filter((order) => order.orderType === 1);
   completeCookingList.value = orderList?.value.filter((order) => order.orderType === 2);
   handleSelectedTab(0);
-
-  console.log(waitingDepositList.value);
-  console.log(cookingList.value);
-  console.log(completeCookingList.value);
 };
 
 const formattedPhoneNum = (event) => {
@@ -181,7 +177,6 @@ watchEffect(() => {
         ></div>
       </div>
       <!-- order lists -->
-      <!-- 입금대기 -->
       <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
@@ -194,8 +189,6 @@ watchEffect(() => {
           </div>
         </div>
       </div>
-      <!-- 조리중 -->
-      <!-- 입금대기 -->
       <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
@@ -208,7 +201,6 @@ watchEffect(() => {
           </div>
         </div>
       </div>
-      <!-- 입금완료 -->
       <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
