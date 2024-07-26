@@ -54,6 +54,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       getAllNightBooth();
     } catch (error) {
       resetModalState();
+      isLoading.value = false;
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
@@ -95,7 +96,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
         return openDuplicateModal();
       } else {
         isLoading.value = true;
-        await saveReservation(reserveInfo);
+        await saveReservation(reserveInfo.value);
       }
     } catch (error) {
       resetModalState();
