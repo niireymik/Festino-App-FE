@@ -8,16 +8,22 @@ import OrderModal from '@/components/orders/modals/OrderModal.vue';
 import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
 import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
 import { handleStopScroll } from '@/utils/handleScrollStop';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
-const { getMenuAll } = useOrderStore();
+const { getMenuAll, setBoothInfo, isUUID } = useOrderStore();
 const { openOrderModal } = useOrderModalStore();
 const { menuInfo, totalPrice } = storeToRefs(useOrderStore());
 const { orderModalState, orderCheckModalState, orderCompleteModalState } = storeToRefs(useOrderModalStore());
+const router = useRouter();
 const route = useRoute();
+
 onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
+    return router.push({ name: 'error', params: { page: 'order' } });
+  }
+  setBoothInfo(route.params.boothId, route.params.tableNum);
   getMenuAll(route.params.boothId);
 });
 watchEffect(() => handleStopScroll([orderModalState.value, orderCheckModalState.value, orderCompleteModalState.value]));
