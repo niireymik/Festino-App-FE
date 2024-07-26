@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { all } from "axios";
 import { defineStore } from 'pinia';
 import { ref } from "vue";
 import { useRouter } from 'vue-router'; 
@@ -12,9 +12,13 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const dayBoothList = ref([]);
   const nightBoothList = ref([]);
   const foodBoothList = ref([]);
+  const facilityList = ref([]);
   const boothList = ref([]);
-
+  
   const selectBoothMenu = ref(0);
+  const selectedTickectBooth = ref(false);
+  const boothMarkerData = ref('');
+
   const booth = ref([]);
   const boothType = ref('');
   const urlBoothType = ref('');
@@ -23,6 +27,16 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const menuList = ref([]);
   const mainMenu = ref([]);
   const subMenu = ref([]);
+
+  const init = () => {
+    booth.value = '';
+    boothType.value = '';
+    urlBoothType.value = '';
+    imageList.value = '';
+    menuList.value = '';
+    mainMenu.value = '';
+    subMenu.value = '';
+  }
   
   const getAllTypeBoothLsitData = async () => {
     try {
@@ -30,7 +44,8 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
         `${HOST}/main/booth/all`,
         `${HOST}/main/booth/night/all`,
         `${HOST}/main/booth/day/all`,
-        `${HOST}/main/booth/food/all`
+        `${HOST}/main/booth/food/all`,
+        `${HOST}/main/facility/all`,
       ];
   
       const results = [];
@@ -43,16 +58,24 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       nightBoothList.value = results[1].data.boothList;
       dayBoothList.value = results[2].data.boothList;
       foodBoothList.value = results[3].data.boothList;
+      facilityList.value = results[4].data.facilityList;
   
       boothList.value = [];
-      boothList.value.push(allBoothList.value, nightBoothList.value, dayBoothList.value, foodBoothList.value);
+      boothList.value.push(allBoothList.value, nightBoothList.value, dayBoothList.value, foodBoothList.value, facilityList.value);
     } catch (error) {
       console.error('Error getAllTypeBoothLsitData', error);
     }
   };  
 
   const convertBoothMenuTab = (index) => {
-    selectBoothMenu.value = index;
+    selectedTickectBooth.value = false;
+
+    if(index === 5) {
+      selectBoothMenu.value = 4;
+      selectedTickectBooth.value = true;
+    } else {
+      selectBoothMenu.value = index;
+    }
   };
 
   const setBoothTypeUseUrl = (type) => {
@@ -60,6 +83,8 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   };
 
   const getBoothData = async (type, id) => {
+    init(); // 부스 데이터 초기화
+
     try {
       if (type === '야간부스') {
         setBoothType('운동장');
@@ -70,19 +95,33 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       } else if (type === '푸드트럭') {
         setBoothType('푸드트럭');
         setBoothTypeUseUrl('food');
+      } else if (type === '편의시설') {
+        setBoothType('편의시설');
+        setBoothTypeUseUrl('facility');
       }
-
-      const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
-      booth.value = res.data.boothInfo;
-      imageList.value = res.data.boothInfo.boothImage;
       
-      menuList.value = [];
-      if (urlBoothType.value === 'night') {
-        menuList.value = res.data.boothInfo.menuList;
-        setMenuType();
+      if(urlBoothType.value !== 'facility') {
+        const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
+        booth.value = res.data.boothInfo;
+        imageList.value = res.data.boothInfo.boothImage;
+        
+        menuList.value = [];
+        if (urlBoothType.value === 'night') {
+          menuList.value = res.data.boothInfo.menuList;
+          setMenuType();
+        }
+      } else {
+        const res = await axios.get(`${HOST}/main/${urlBoothType.value}/${id}`);
+        booth.value = res.data.facility;
+        // 이미지 여부에 따라 결정
+        // imageList.value = res.data.boothInfo.boothImage;
       }
 
-      router.push({ path: `/booth/detail/${urlBoothType.value}/${id}` });
+      if(urlBoothType.value != 'facility') {
+        router.push({ path: `/booth/detail/${urlBoothType.value}/${id}` });
+      } else {
+        router.push({ path: `/booth/detail/${urlBoothType.value}/${id}` });
+      }
     } catch (error) {
       console.error(`Error fetching ${type} booth data:`, error);
     }
@@ -112,6 +151,8 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     foodBoothList,
     boothList,
     selectBoothMenu,
+    selectedTickectBooth,
+    boothMarkerData,
     booth,
     boothType,
     urlBoothType,
@@ -119,6 +160,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     menuList,
     mainMenu,
     subMenu,
+    init,
     getAllTypeBoothLsitData,
     convertBoothMenuTab,
     getBoothData,
