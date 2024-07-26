@@ -42,7 +42,10 @@ export default {
           50: 'rgba(0, 0, 0, 0.03)',
         },
         secondary: {
-          700: '#222222',
+          700: {
+            DEFAULT: '#222222',
+            'light-50': 'rgba(34, 34, 34, 0.5)',
+          },
           500: {
             DEFAULT: '#444444',
             'light-20': 'rgba(68, 68, 68, 0.2)',
@@ -54,6 +57,9 @@ export default {
           50: '#EEEEEE',
         },
         third: {
+          700: '#E2F4E1',
+          600: '#DAE8FA',
+          500: '#FBE4E4',
           400: {
             DEFAULT: '#888888',
             lighter: 'rgba(136, 136, 136, 0.1)',
@@ -77,7 +83,7 @@ export default {
         ...theme('textColor'),
         'primary-900-light-12': 'rgba(0, 115, 240, 0.12)',
         'primary-900-light-16': 'rgba(0, 115, 240, 0.16)',
-        'map-color': 'rgba(211, 211, 211, 0.1)'
+        'map-color': 'rgba(211, 211, 211, 0.1)',
       }),
       fontSize: {
         '3xs': '0.5rem', // 8px
@@ -109,7 +115,7 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        'instagram': "url('/icons/instagram.png')",
+        instagram: "url('/icons/instagram.png')",
         'pin-icon': "url('/icons/pin.svg')",
         'tino-order-banner': "url('images/orders/tino-order-banner.png')",
         'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
@@ -150,7 +156,7 @@ export default {
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
         '5xl': '0 0 20px rgba(0, 0, 0, 0.16)',
-        '6xl': '0 0 12px rgba(0, 0, 0, 0.06)'
+        '6xl': '0 0 12px rgba(0, 0, 0, 0.06)',
       },
     },
     screens: {
