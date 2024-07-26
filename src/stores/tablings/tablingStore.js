@@ -57,7 +57,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
       reservationInfo.value = res.data.reservationInfo;
       await nextTick();
       if (res.data.success) {
-        if (reservationInfo.value.totalTeamCount === 0) {
+        if (reservationInfo.value.totalTeamCount === 1) {
           return openEnterBoothModal();
         }
         return openSearchReserveModal();
