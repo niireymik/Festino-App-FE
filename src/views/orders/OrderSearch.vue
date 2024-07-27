@@ -20,7 +20,7 @@ onMounted(() => {
   setBoothInfo(route.params.boothId, route.params.tableNum);
 });
 
-const TABS = ['전체', '입금 대기', '조리중', '조리완료'];
+const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
 
 const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
@@ -201,7 +201,7 @@ watchEffect(() => {
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-200 w-3 h-3 rounded-full"></div>
-            <div class="text-secondary-500">조리중</div>
+            <div class="text-secondary-500">조리 중</div>
             <div class="text-third-200">({{ cookingList.length }})</div>
           </div>
           <div v-for="(order, index) in cookingList" :key="index">
@@ -213,7 +213,7 @@ watchEffect(() => {
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-300 w-3 h-3 rounded-full"></div>
-            <div class="text-secondary-500">입금 완료</div>
+            <div class="text-secondary-500">조리 완료</div>
             <div class="text-third-300">({{ completeCookingList.length }})</div>
           </div>
           <div v-for="(order, index) in completeCookingList" :key="index">

@@ -9,9 +9,8 @@ import { storeToRefs } from 'pinia';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeReserveModal } = useTablingModalStore();
-const { saveReservation, setUserName } = useReservationStore();
-const { selectedNightBoothInfo, isLoading } = storeToRefs(useReservationStore());
-const { openNightBoothInfo } = storeToRefs(useReservationStore());
+const { saveReservation, setUserName, checkDuplicateReserve } = useReservationStore();
+const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');
@@ -20,6 +19,13 @@ const regex = /^010/;
 const isSumbit = ref(false);
 
 const handleClickReserveButton = async () => {
+  console.log(
+    'click reserve button',
+    name.value,
+    phoneNum.value,
+    personNum.value,
+    selectedNightBoothInfo.value.boothId,
+  );
   if (
     name.value < 2 ||
     phoneNum.value.length !== 11 ||
@@ -28,17 +34,18 @@ const handleClickReserveButton = async () => {
     isSumbit.value
   )
     return;
-  closeReserveModal();
-  isSumbit.value = true;
-  isLoading.value = true;
-  await saveReservation({
-    boothId: selectedNightBoothInfo.value.boothId,
+
+  reserveInfo.value = {
     userName: name.value,
     phoneNum: phoneNum.value,
     personCount: personNum.value,
-  });
+    boothId: selectedNightBoothInfo.value.boothId,
+  };
+  checkDuplicateReserve(phoneNum.value);
+  isSumbit.value = true;
   setUserName(name.value);
   isSumbit.value = false;
+  closeReserveModal();
 };
 
 const newNightBooth = ref({});

@@ -20,12 +20,13 @@ const { reservationInfo } = storeToRefs(useReservationStore());
       </div>
       <div class="w-full flex flex-col gap-3 items-center text-center">
         <p class="text-secondary-700 text-xl font-bold">입장안내</p>
-        <p class="text-secondary-500">
+        <p class="text-secondary-500 break-keep">
           앞에 대기 팀이 없어요!<br />
           <span class="font-bold text-primary-900">
             {{ reservationInfo.adminName }}
           </span>
-          부스로 입장해주세요.
+          부스 앞에서 대기해주세요.<br />
+          곧 입장 가능합니다.
         </p>
       </div>
       <button

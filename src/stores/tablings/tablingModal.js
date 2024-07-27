@@ -59,6 +59,14 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     messageFailModalState.value = false;
   };
 
+  const duplicateModalState = ref(false);
+  const openDuplicateModal = () => {
+    duplicateModalState.value = true;
+  };
+  const closeDuplicateModal = () => {
+    duplicateModalState.value = false;
+  };
+
   const resetModalState = () => {
     reserveModalState.value = false;
     searchReserveModalState.value = false;
@@ -91,5 +99,8 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     messageFailModalState,
     openMessageFailModal,
     closeMessageFailModal,
+    duplicateModalState,
+    openDuplicateModal,
+    closeDuplicateModal,
   };
 });
