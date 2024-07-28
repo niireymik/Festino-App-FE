@@ -1,29 +1,32 @@
 <script setup>
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 
-const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
+const { totalPrice, userOrderList, setUserName, setPhoneNum, saveRecentInfo } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
+const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
 const orderMenus = ref([]);
 onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
-const name = ref('');
-const phoneNum = ref('');
+const name = ref(recentName.value);
+const phoneNum = ref(recentPhoneNum.value);
 const regex = /^010/;
 
 const handleClickOrderButton = () => {
-  if (name.value.length < 2 || phoneNum.value.length !== 11 || !regex.test(phoneNum.value)) return;
+  if (name.value.length < 2 || phoneNum.value.length !== 13 || !regex.test(phoneNum.value)) return;
   setUserName(name.value);
-  setPhoneNum(phoneNum.value);
+  setPhoneNum(phoneNum.value.replace(/-/g, ''));
 
   closeOrderModal();
+  saveRecentInfo(phoneNum.value, name.value)
   openOrderCheckModal();
 };
 </script>

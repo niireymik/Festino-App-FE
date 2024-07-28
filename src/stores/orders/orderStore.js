@@ -9,6 +9,8 @@ const HOST = import.meta.env.VITE_API_URL;
 export const useOrderStore = defineStore('orderStore', () => {
   const router = useRouter();
 
+  const recentPhoneNum = ref("");
+  const recentName = ref("");
   const orderList = ref([]);
   const boothId = ref('');
   const menuInfo = ref([]);
@@ -20,6 +22,11 @@ export const useOrderStore = defineStore('orderStore', () => {
   const isCoupon = ref(false);
   const accountNum = ref('0000-0000-0000-00');
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
+
+  const saveRecentInfo = (phoneNum, name) => {
+    recentPhoneNum.value = phoneNum;
+    recentName.value = name;
+  };
 
   const setBoothInfo = (id, num) => {
     boothId.value = id;
@@ -129,6 +136,8 @@ export const useOrderStore = defineStore('orderStore', () => {
     tableNum,
     isCoupon,
     accountNum,
+    recentPhoneNum,
+    recentName,
     handleTotalPrice,
     addOrderList,
     setUserName,
@@ -139,5 +148,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     resetOrderInfo,
     setBoothInfo,
     isUUID,
+    saveRecentInfo,
   };
 });

@@ -8,6 +8,7 @@ const props = defineProps({
   },
 });
 
+const name = ref(props.modelValue);
 const isFocused = ref(false);
 const emit = defineEmits(['update:modelValue']);
 
@@ -29,6 +30,7 @@ const limitInputLength = (event) => {
     <img src="/icons/person.svg" class="w-6 h-6" />
     <input
       class="flex-1 focus:outline-none bg-inherit"
+      v-model=name
       type="text"
       @input="limitInputLength($event)"
       placeholder="티노"

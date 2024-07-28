@@ -9,6 +9,8 @@ const HOST = import.meta.env.VITE_API_URL;
 export const useReservationStore = defineStore('reservationStore', () => {
   const { resetModalState } = useTablingModalStore();
   const router = useRouter();
+  const recentName = ref("");
+  const recentPhoneNum = ref("");
   const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
@@ -105,7 +107,14 @@ export const useReservationStore = defineStore('reservationStore', () => {
     }
   };
 
+  const saveRecentInfo = (phoneNum, name) => {
+    recentPhoneNum.value = phoneNum;
+    recentName.value = name;
+  };
+
   return {
+    recentName,
+    recentPhoneNum,
     reservationInfo,
     userName,
     nightBoothInfo,
@@ -121,5 +130,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
     getAllNightBooth,
     setSelectedNightBoothInfo,
     checkDuplicateReserve,
+    saveRecentInfo,
   };
 });
