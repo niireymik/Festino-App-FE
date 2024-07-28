@@ -1,30 +1,37 @@
 <script setup>
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 
-const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
+const { totalPrice, userOrderList, setUserName, setPhoneNum, saveRecentInfo } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
+const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
 const orderMenus = ref([]);
 onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
-const name = ref('');
-const phoneNum = ref('');
+const name = ref(recentName.value);
+const phoneNum = ref(recentPhoneNum.value);
 const regex = /^010/;
 
 const handleClickOrderButton = () => {
-  if (name.value.length < 2 || phoneNum.value.length !== 11 || !regex.test(phoneNum.value)) return;
+  if (name.value.length < 2 || phoneNum.value.length !== 13 || !regex.test(phoneNum.value)) return;
   setUserName(name.value);
-  setPhoneNum(phoneNum.value);
+  setPhoneNum(phoneNum.value.replace(/-/g, ''));
 
   closeOrderModal();
+  saveRecentInfo(phoneNum.value, name.value)
   openOrderCheckModal();
+};
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('ko-KR').format(price);
 };
 </script>
 
@@ -50,12 +57,12 @@ const handleClickOrderButton = () => {
             >
               <div class="text-left">{{ orderMenu.menuName }}</div>
               <div class="text-center">{{ orderMenu.menuCount }}개</div>
-              <div class="text-right">{{ orderMenu.menuPrice }}원</div>
+              <div class="text-right">{{ formatPrice(orderMenu.menuPrice) }}원</div>
             </div>
             <div class="w-full border-secondary-300 border-1"></div>
             <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-700">
               <div>총 가격</div>
-              <div>{{ totalPrice }}원</div>
+              <div>{{ formatPrice(totalPrice) }}원</div>
             </div>
           </div>
         </div>

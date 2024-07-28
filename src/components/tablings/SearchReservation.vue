@@ -1,12 +1,14 @@
 <script setup>
-import { ref, watch, watchEffect } from 'vue';
+import { ref, watch, watchEffect, onMounted } from 'vue';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { is } from 'date-fns/locale';
+import { storeToRefs } from 'pinia';
 
-const { getReservation, setUserName } = useReservationStore();
+const { getReservation, setUserName, saveRecentInfo } = useReservationStore();
+const { recentName, recentPhoneNum } = storeToRefs(useReservationStore());
 
-const name = ref('');
-const phoneNum = ref('');
+const name = ref(recentName.value);
+const phoneNum = ref(recentPhoneNum.value);
 const isInputFill = ref(false);
 const regex = /^010/;
 const isInputPhoneNumFocused = ref(false);
@@ -14,9 +16,10 @@ const isInputNameFocused = ref(false);
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  const inputInfo = { userName: name.value, phoneNum: phoneNum.value };
+  const inputInfo = { userName: name.value, phoneNum: phoneNum.value.replace(/-/g, '') };
   await getReservation(inputInfo);
   setUserName(name.value);
+  saveRecentInfo(phoneNum.value, name.value);
 };
 
 const formattedPhoneNum = (event) => {
@@ -25,8 +28,10 @@ const formattedPhoneNum = (event) => {
 
   if (inputValue.length > 3 && inputValue.length < 8) {
     formattedValue = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
-  } else {
+  } else if (inputValue.length >= 8) {
     formattedValue = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+  } else {
+    formattedValue = inputValue;
   }
 
   event.target.value = formattedValue;
@@ -57,7 +62,7 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11 && regex.test(phoneNum.value);
+  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13 && regex.test(phoneNum.value);
 });
 </script>
 
@@ -71,6 +76,7 @@ watchEffect(() => {
           <input
             class="flex-1 focus:outline-none bg-inherit"
             type="text"
+            v-model=name
             @input="limitInputLength($event)"
             placeholder="티노"
             maxlength="5"
@@ -92,6 +98,7 @@ watchEffect(() => {
           <input
             class="flex-1 focus:outline-none bg-inherit"
             type="tel"
+            v-model=phoneNum
             placeholder="010-1234-5678"
             @input="formattedPhoneNum($event)"
             maxlength="13"

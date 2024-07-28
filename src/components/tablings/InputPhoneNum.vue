@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const props = defineProps({
   modelValue: {
@@ -8,18 +8,31 @@ const props = defineProps({
   },
 });
 
+const phoneNum = ref(props.modelValue);
 const isFocused = ref(false);
 const emit = defineEmits(['update:modelValue']);
 
-const formattedPhoneNum = (event) => {
-  const inputValue = event.target.value.replace(/\D/g, '');
+const formattedPhoneNum = (inputValue) => {
+  inputValue = inputValue.replace(/\D/g, '');
+  let formattedValue = '';
+
   if (inputValue.length > 3 && inputValue.length < 8) {
-    event.target.value = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+    formattedValue = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
+  } else if (inputValue.length >= 8) {
+    formattedValue = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
   } else {
-    event.target.value = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+    formattedValue = inputValue;
   }
-  emit('update:modelValue', inputValue);
+  return formattedValue;
 };
+
+watch(phoneNum, (newNum) => {
+  const formattedValue = formattedPhoneNum(newNum);
+  if (newNum !== formattedValue) {
+    phoneNum.value = formattedValue;
+  }
+  emit('update:modelValue', newNum);
+});
 </script>
 
 <template>
@@ -29,8 +42,8 @@ const formattedPhoneNum = (event) => {
     <input
       class="flex-1 focus:outline-none bg-inherit"
       type="tel"
+      v-model="phoneNum"
       placeholder="010-1234-5678"
-      @input="formattedPhoneNum($event)"
       maxlength="13"
       @focus="isFocused = true"
       @blur="isFocused = false"

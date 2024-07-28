@@ -49,12 +49,16 @@ const getMenuImage = (menuImage) => {
       : 'background-image: url(/images/booth/booth-default-image.png)',
   };
 };
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('ko-KR').format(price);
+};
 </script>
 
 <template>
   <div class="flex gap-5 py-4 items-center w-full bottom-line">
     <div
-      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover"
+      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover border-secondary-100 border-2 bg-white"
       v-bind="getMenuImage(menu.menuImage)"
     ></div>
     <div class="flex flex-col w-full">
@@ -67,9 +71,9 @@ const getMenuImage = (menuImage) => {
         </div>
       </div>
       <div class="font-light text-secondary-300 text-sm">{{ menu.menuDescription }}</div>
-      <div class="font-light text-secondary-300 text-sm">가격: {{ menuUnitPrice }}원</div>
+      <div class="font-light text-secondary-300 text-sm">가격: {{ formatPrice(menuUnitPrice) }}원</div>
       <div class="flex pt-[12px] justify-between items-center">
-        <div :class="{ 'text-secondary-100': !menuNum }">{{ menuUnitPrice * menuNum }}원</div>
+        <div :class="{ 'text-secondary-100': !menuNum }">{{ formatPrice(menuUnitPrice * menuNum) }}원</div>
         <div class="w-[118px] flex flex-row gap-[10px]">
           <img src="/icons/orders/minus.svg" class="cursor-pointer" @click="handleClickMenuNumButton('minus')" />
           <input

@@ -30,7 +30,12 @@ const orderStatus = [
     bgColor: 'bg-secondary-100',
   },
 ];
+
 const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('ko-KR').format(price);
+};
 </script>
 
 <template>
@@ -55,11 +60,11 @@ const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replace
           {{ menu.menuName }}
         </p>
         <p>{{ menu.menuCount }}개</p>
-        <p class="text-right">{{ menu.menuPrice }}원</p>
+        <p class="text-right">{{ formatPrice(menu.menuPrice) }}원</p>
       </div>
       <div class="flex justify-between h-[31px] items-center border-t-1 border-secondary-300">
         <p>총 가격</p>
-        <p class="font-bold">{{ orderInfo.totalPrice }}원</p>
+        <p class="font-bold">{{ formatPrice(orderInfo.totalPrice) }}원</p>
       </div>
     </div>
   </div>
