@@ -176,7 +176,7 @@ watchEffect(() => {
             {{ tab }}
             <div
               v-if="index === selectedTabNum"
-              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full z-50"
+              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full z-10"
             ></div>
           </div>
         </div>
