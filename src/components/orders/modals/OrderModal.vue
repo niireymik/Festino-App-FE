@@ -1,4 +1,5 @@
 <script setup>
+import { formatPrice } from '@/utils/formatPrice';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -28,10 +29,6 @@ const handleClickOrderButton = () => {
   closeOrderModal();
   saveRecentInfo(phoneNum.value, name.value)
   openOrderCheckModal();
-};
-
-const formatPrice = (price) => {
-  return new Intl.NumberFormat('ko-KR').format(price);
 };
 </script>
 
