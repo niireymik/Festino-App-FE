@@ -16,8 +16,8 @@ const priceToString = (price) => {
 <template>
   <div v-for="(menu, index) in booth.menuList" :key="index" class="dynamic-padding">
     <div 
-      class="w-full h-[120px] p-[13px] bg-white border border-primary-900-light rounded-3xl shadow-4xl flex mb-[10px]"
-      :class="menu.isSoldOut ? 'bg-gray-200 border-gray-300' : ''"
+      class="w-full h-[120px] p-[13px] rounded-3xl shadow-4xl flex mb-[10px]"
+      :class="menu.isSoldOut ? 'bg-[#E5E7EB] border border-gray-300' : 'bg-white border border-primary-900-light'"
     >
       <img 
         :src="`${menu.menuImage}`"
