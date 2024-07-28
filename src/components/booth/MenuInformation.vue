@@ -11,8 +11,16 @@ const defaultOption = 0;
 
 <template>
   <div v-for="(menu, index) in booth.menuList" :key="index" class="dynamic-padding">
-    <div class="w-full h-[120px] p-[13px] bg-white border border-primary-900-light rounded-3xl shadow-4xl flex mb-[10px]">
-      <img :src="`${menu.menuImage}`" draggable="false" class="min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-booth-default-image bg-cover" />
+    <div 
+      class="w-full h-[120px] p-[13px] bg-white border border-primary-900-light rounded-3xl shadow-4xl flex mb-[10px]"
+      :class="menu.isSoldOut ? 'bg-gray-200 border-gray-300' : ''"
+    >
+      <img 
+        :src="`${menu.menuImage}`"
+        draggable="false"
+        class="min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-booth-default-image bg-cover"
+        :class="menu.isSoldOut ? 'brightness-[0.95]' : ''"
+      />
       <div class="w-[359px] h-full py-1">
         <div class="pl-[12px] h-full flex flex-col justify-between">
           <div class="pb-2">
