@@ -55,7 +55,7 @@ const getMenuImage = (menuImage) => {
 <template>
   <div class="flex gap-5 py-4 items-center w-full bottom-line">
     <div
-      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover border-secondary-100 border-2 bg-white"
+      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-no-repeat border-secondary-100 border-2 bg-center bg-contain"
       v-bind="getMenuImage(menu.menuImage)"
     ></div>
     <div class="flex flex-col w-full">
@@ -81,6 +81,8 @@ const getMenuImage = (menuImage) => {
             max="99"
             maxlength="2"
             placeholder="0"
+            inputmode="numeric"
+            pattern="\d*"
             @input="handleMenuNumInput($event)"
           />
           <img src="/icons/orders/plus.svg" class="cursor-pointer" @click="handleClickMenuNumButton('plus')" />

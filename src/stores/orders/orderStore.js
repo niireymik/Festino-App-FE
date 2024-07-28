@@ -9,8 +9,8 @@ const HOST = import.meta.env.VITE_API_URL;
 export const useOrderStore = defineStore('orderStore', () => {
   const router = useRouter();
 
-  const recentPhoneNum = ref("");
-  const recentName = ref("");
+  const recentPhoneNum = ref('');
+  const recentName = ref('');
   const orderList = ref([]);
   const boothId = ref('');
   const menuInfo = ref([]);
@@ -20,8 +20,12 @@ export const useOrderStore = defineStore('orderStore', () => {
   const phoneNum = ref('');
   const tableNum = ref(0);
   const isCoupon = ref(false);
-  const accountNum = ref('0000-0000-0000-00');
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
+  const accountInfo = ref({
+    account: '',
+    accountHolder: '',
+    bankName: '',
+  });
 
   const setBoothInfo = (id, num) => {
     boothId.value = id;
@@ -120,6 +124,17 @@ export const useOrderStore = defineStore('orderStore', () => {
     }
   });
 
+  const getAccountInfo = async () => {
+    try {
+      const res = await axios.get(`${HOST}/main/booth/night/account`, { params: { boothId: boothId.value } });
+      if (res.data.success) accountInfo.value = res.data.accountInfo;
+      if (!res.data.success) router.push({ name: 'error', params: { page: 'order' } });
+    } catch (error) {
+      console.error('Error get account data :', error);
+      router.push({ name: 'error', params: { page: 'order' } });
+    }
+  };
+
   return {
     orderList,
     boothId,
@@ -130,7 +145,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     phoneNum,
     tableNum,
     isCoupon,
-    accountNum,
+    accountInfo,
     recentPhoneNum,
     recentName,
     handleTotalPrice,
@@ -143,5 +158,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     resetOrderInfo,
     setBoothInfo,
     isUUID,
+    getAccountInfo,
   };
 });
