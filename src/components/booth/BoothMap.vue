@@ -8,12 +8,17 @@ import { useRouter, useRoute } from 'vue-router';
 const { convertBoothMenuTab } = useGetBoothDataStore();
 const { selectBoothMenu, selectedTickectBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList, booth } = storeToRefs(useGetBoothDataStore());
 
+const router = useRouter();
 const route = useRoute();
 
 const zoomLevel = ref(1);
 const containerRef = ref(null);
 const imageLoaded = ref(false);
 const isBoothDetail = ref(false);
+
+const currentRoute = router.currentRoute.value;
+const currentRouteName = currentRoute.name;
+isBoothDetail.value = currentRouteName == 'booth-detail';
 
 const markers = ref({
   more: [
@@ -331,7 +336,7 @@ watchEffect(() => {
               @click="convertBoothMenuTab(marker.tab)"
             >
               <div
-                v-if="zoomLevel <= 1.4 && !route.params?.id"
+                v-if="zoomLevel <= 1.4 && !isBoothDetail"
                 class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center">
                 <div class="absolute top-1/4 text-white font-extrabold text-[15px] select-none">+{{ marker?.count }}</div>
               </div>
@@ -355,7 +360,7 @@ watchEffect(() => {
                 @click="handleMarkerClick(marker)"
               >
                 <div
-                  v-if="zoomLevel > 1.4 && !route.params?.id"
+                  v-if="zoomLevel > 1.4 && !isBoothDetail"
                   class="relative w-[56px] h-[56px] bg-cover flex justify-center"
                   :style="{
                     backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
@@ -383,7 +388,7 @@ watchEffect(() => {
                 }"
               >
                 <div
-                  v-if="route.params?.id && booth.markerNum === marker.markerNum"
+                  v-if="isBoothDetail && booth.markerNum === marker.markerNum"
                   class="relative w-[56px] h-[56px] bg-cover flex justify-center"
                   :style="{
                     backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
