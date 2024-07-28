@@ -23,11 +23,6 @@ export const useOrderStore = defineStore('orderStore', () => {
   const accountNum = ref('0000-0000-0000-00');
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
 
-  const saveRecentInfo = (phoneNum, name) => {
-    recentPhoneNum.value = phoneNum;
-    recentName.value = name;
-  };
-
   const setBoothInfo = (id, num) => {
     boothId.value = id;
     tableNum.value = num;
@@ -148,6 +143,5 @@ export const useOrderStore = defineStore('orderStore', () => {
     resetOrderInfo,
     setBoothInfo,
     isUUID,
-    saveRecentInfo,
   };
 });

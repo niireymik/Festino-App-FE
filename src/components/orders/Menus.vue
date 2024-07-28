@@ -1,6 +1,7 @@
 <script setup>
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { ref } from 'vue';
+import { formatPrice } from '@/utils/formatPrice';
 const { handleTotalPrice, addOrderList } = useOrderStore();
 
 const props = defineProps({
@@ -48,10 +49,6 @@ const getMenuImage = (menuImage) => {
       ? `background-image: url(${menuImage})`
       : 'background-image: url(/images/booth/booth-default-image.png)',
   };
-};
-
-const formatPrice = (price) => {
-  return new Intl.NumberFormat('ko-KR').format(price);
 };
 </script>
 

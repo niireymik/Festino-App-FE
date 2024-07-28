@@ -4,11 +4,9 @@ import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { is } from 'date-fns/locale';
 import { storeToRefs } from 'pinia';
 
-const { getReservation, setUserName, saveRecentInfo } = useReservationStore();
+const { getReservation, setUserName } = useReservationStore();
 const { recentName, recentPhoneNum } = storeToRefs(useReservationStore());
 
-const name = ref(recentName.value);
-const phoneNum = ref(recentPhoneNum.value);
 const isInputFill = ref(false);
 const regex = /^010/;
 const isInputPhoneNumFocused = ref(false);
@@ -16,10 +14,9 @@ const isInputNameFocused = ref(false);
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  const inputInfo = { userName: name.value, phoneNum: phoneNum.value.replace(/-/g, '') };
+  const inputInfo = { userName: recentName.value, phoneNum: recentPhoneNum.value.replace(/-/g, '') };
   await getReservation(inputInfo);
-  setUserName(name.value);
-  saveRecentInfo(phoneNum.value, name.value);
+  setUserName(recentName.value);
 };
 
 const formattedPhoneNum = (event) => {
@@ -35,7 +32,7 @@ const formattedPhoneNum = (event) => {
   }
 
   event.target.value = formattedValue;
-  phoneNum.value = inputValue;
+  recentPhoneNum.value = inputValue;
 };
 
 const limitInputLength = (event) => {
@@ -45,7 +42,7 @@ const limitInputLength = (event) => {
     filteredInput = filteredInput.slice(0, 5);
   }
   event.target.value = filteredInput;
-  name.value = filteredInput;
+  recentName.value = filteredInput;
 };
 
 const handleScrollToFocusInput = () => {
@@ -62,7 +59,7 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13 && regex.test(phoneNum.value);
+  isInputFill.value = recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
 });
 </script>
 
@@ -76,7 +73,7 @@ watchEffect(() => {
           <input
             class="flex-1 focus:outline-none bg-inherit"
             type="text"
-            v-model=name
+            v-model='recentName'
             @input="limitInputLength($event)"
             placeholder="티노"
             maxlength="5"
@@ -98,7 +95,7 @@ watchEffect(() => {
           <input
             class="flex-1 focus:outline-none bg-inherit"
             type="tel"
-            v-model=phoneNum
+            v-model="recentPhoneNum"
             placeholder="010-1234-5678"
             @input="formattedPhoneNum($event)"
             maxlength="13"

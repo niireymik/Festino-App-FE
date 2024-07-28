@@ -107,11 +107,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
     }
   };
 
-  const saveRecentInfo = (phoneNum, name) => {
-    recentPhoneNum.value = phoneNum;
-    recentName.value = name;
-  };
-
   return {
     recentName,
     recentPhoneNum,
@@ -130,6 +125,5 @@ export const useReservationStore = defineStore('reservationStore', () => {
     getAllNightBooth,
     setSelectedNightBoothInfo,
     checkDuplicateReserve,
-    saveRecentInfo,
   };
 });

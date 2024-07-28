@@ -1,4 +1,5 @@
 <script setup>
+import { formatPrice } from '@/utils/formatPrice';
 import { onMounted, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useOrderStore } from '@/stores/orders/orderStore';
@@ -31,10 +32,6 @@ watchEffect(() => handleStopScroll([orderModalState.value, orderCheckModalState.
 const handleClickReserveButton = () => {
   if (totalPrice.value === 0) return;
   openOrderModal();
-};
-
-const formatPrice = (price) => {
-  return new Intl.NumberFormat('ko-KR').format(price);
 };
 </script>
 
