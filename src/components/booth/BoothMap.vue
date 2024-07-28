@@ -96,11 +96,11 @@ const markers = ref({
 const selectedMarker = ref('');
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.2, 2.4);
+  zoomLevel.value = Math.min(zoomLevel.value + 0.3, 1.6);
 };
 
 const zoomOut = () => {
-  zoomLevel.value = Math.max(zoomLevel.value - 0.2, 1);
+  zoomLevel.value = Math.max(zoomLevel.value - 0.3, 1);
 };
 
 const moveScroll = () => {
@@ -133,7 +133,7 @@ const moveScroll = () => {
         container.scrollLeft = 130;
         container.scrollTop = 150;
       })
-    } else { // +1인 대왕 마커 눌렀을 때
+    } else { // 티켓 부스 쪽 대왕 마커 눌렀을 때
       nextTick(() => {
         handleMarkerClick(markers.value.detail.ticket[0]);
         focusMarker();
@@ -171,7 +171,7 @@ const handleTouchMove = (e) => {
     );
     const delta = newDistance - startDistance.value;
     const scaleChange = delta / 500; // 조정할 비율
-    zoomLevel.value = Math.min(Math.max(zoomLevel.value + scaleChange, 1), 2.6);
+    zoomLevel.value = Math.min(Math.max(zoomLevel.value + scaleChange, 1), 2.4);
 
     // 확대/축소 시 지도의 중심점을 조정
     const container = containerRef.value;
@@ -202,8 +202,10 @@ const getBoothData = (marker) => {
 const focusMarker = () => {
   const container = containerRef.value;
   if (container && selectedMarker.value) {
-    container.scrollLeft = selectedMarker.value.scrollLeft;
-    container.scrollTop = selectedMarker.value.scrollTop;
+    nextTick(() => {
+      container.scrollLeft = (selectedMarker.value.scrollLeft / 1.6) * zoomLevel.value;
+      container.scrollTop = (selectedMarker.value.scrollTop / 1.6) * zoomLevel.value;
+    })
   }
 };
 
