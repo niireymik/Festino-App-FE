@@ -13,10 +13,10 @@ const imageLoaded = ref(false);
 
 const markers = ref({
   more: [
-    { left: 120, bottom: 120, count: 12, tab: 1 },
-    { left: 443, bottom: 240, count: 22, tab: 2 },
-    { left: 70, bottom: 300, count: 4, tab: 4 },
-    { left: 260, bottom: 300, count: 1, tab: 5 },
+    { left: 160, bottom: 120, count: 12, tab: 1 },
+    { left: 425, bottom: 240, count: 22, tab: 2 },
+    { left: 100, bottom: 300, count: 4, tab: 4 },
+    { left: 290, bottom: 320, count: 1, tab: 5 },
   ],
   detail: {
     wind: [
@@ -27,6 +27,9 @@ const markers = ref({
     ticket: [
       //총학 티켓
       { num: 91, left: 302, bottom: 325 }
+    ],
+    alcohol: [
+      { num: 92, left: 50, bottom: 85 }
     ],
     food: [
       // 야간부스
@@ -61,15 +64,14 @@ const markers = ref({
       { num: 23, left: 385, bottom: 310 },
       { num: 24, left: 405, bottom: 310 },
       { num: 25, left: 448, bottom: 300 },
-      // 주간 부스 추가되면 활성화
-      // { num: 26, left: 420, bottom: 285 },
-      // { num: 27, left: 448, bottom: 270 },
-      // { num: 28, left: 420, bottom: 255 },
-      // { num: 29, left: 448, bottom: 240 },
-      // { num: 30, left: 513, bottom: 300 },
-      // { num: 31, left: 532, bottom: 285 },
-      // { num: 32, left: 513, bottom: 270 },
-      // { num: 33, left: 532, bottom: 255 },
+      { num: 26, left: 420, bottom: 285 },
+      { num: 27, left: 448, bottom: 270 },
+      { num: 28, left: 420, bottom: 255 },
+      { num: 29, left: 448, bottom: 240 },
+      { num: 30, left: 513, bottom: 300 },
+      { num: 31, left: 532, bottom: 285 },
+      { num: 32, left: 513, bottom: 270 },
+      { num: 33, left: 532, bottom: 255 },
     ],
     smoke: [
       { num: 76, left: 150, bottom: 430 }, // 팁 뒤
@@ -283,8 +285,8 @@ watchEffect(() => {
             >
               <div
                 v-if="zoomLevel <= 1.4"
-                class="w-[105px] h-[106px] bg-more-marker flex justify-center">
-                <div class="absolute top-1/4 text-white font-extrabold text-[22px] select-none">+{{ marker?.count }}</div>
+                class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center">
+                <div class="absolute top-1/4 text-white font-extrabold text-[15px] select-none">+{{ marker?.count }}</div>
               </div>
             </div>
             <div
