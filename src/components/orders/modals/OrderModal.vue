@@ -8,7 +8,7 @@ import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 
-const { totalPrice, userOrderList, setUserName, setPhoneNum, saveRecentInfo } = useOrderStore();
+const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
 const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
@@ -17,17 +17,14 @@ onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
-const name = ref(recentName.value);
-const phoneNum = ref(recentPhoneNum.value);
 const regex = /^010/;
 
 const handleClickOrderButton = () => {
-  if (name.value.length < 2 || phoneNum.value.length !== 13 || !regex.test(phoneNum.value)) return;
-  setUserName(name.value);
-  setPhoneNum(phoneNum.value.replace(/-/g, ''));
+  if (recentName.value.length < 2 || recentPhoneNum.value.length !== 13 || !regex.test(recentPhoneNum.value)) return;
+  setUserName(recentName.value);
+  setPhoneNum(recentPhoneNum.value.replace(/-/g, ''));
 
   closeOrderModal();
-  saveRecentInfo(phoneNum.value, name.value)
   openOrderCheckModal();
 };
 </script>
@@ -41,8 +38,8 @@ const handleClickOrderButton = () => {
       <div class="flex flex-col gap-7 w-full">
         <div class="font-semibold text-xl text-secondary-700 text-center">주문하기</div>
         <div class="px-4 w-full">
-          <InputName v-model="name" />
-          <InputPhoneNum v-model="phoneNum" />
+          <InputName v-model="recentName" />
+          <InputPhoneNum v-model="recentPhoneNum" />
         </div>
         <div class="w-full gap-1 flex flex-col">
           <div class="font-semibold text-secondary-700">주문하기</div>

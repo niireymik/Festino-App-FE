@@ -28,8 +28,6 @@ const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
 const { notExistOrderModalState } = storeToRefs(useOrderModalStore());
 
-const name = ref(recentName.value);
-const phoneNum = ref(recentPhoneNum.value);
 const isInputFill = ref(false);
 const regex = /^010/;
 const isInputPhoneNumFocused = ref(false);
@@ -55,14 +53,13 @@ const handleOrderList = (type) => {
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  await getOrder({ userName: name.value, phoneNum: phoneNum.value.replace(/-/g, '') });
+  await getOrder({ userName: recentName.value, phoneNum: recentPhoneNum.value.replace(/-/g, '') });
   isSumbit.value = true;
 
   waitingDepositList.value = orderList?.value.filter((order) => order.orderType === 0);
   cookingList.value = orderList?.value.filter((order) => order.orderType === 1);
   completeCookingList.value = orderList?.value.filter((order) => order.orderType === 2);
   handleSelectedTab(0);
-  saveRecentInfo(phoneNum.value, name.value);
 };
 
 const formattedPhoneNum = (event) => {
@@ -76,7 +73,7 @@ const formattedPhoneNum = (event) => {
   } else {
     formattedValue = inputValue;
   }
-  phoneNum.value = formattedValue;
+  recentPhoneNum.value = formattedValue;
 };
 
 const limitInputLength = (event) => {
@@ -86,7 +83,7 @@ const limitInputLength = (event) => {
     filteredInput = filteredInput.slice(0, 5);
   }
   event.target.value = filteredInput;
-  name.value = filteredInput;
+  recentName.value = filteredInput;
 };
 
 const handleScrollToFocusInput = () => {
@@ -103,7 +100,7 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 13 && regex.test(phoneNum.value);
+  isInputFill.value = recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
   handleStopScroll([notExistOrderModalState.value]);
 });
 </script>
@@ -119,7 +116,7 @@ watchEffect(() => {
             <input
               class="flex-1 focus:outline-none bg-inherit"
               type="text"
-              v-model = name
+              v-model = "recentName"
               @input="limitInputLength($event)"
               placeholder="티노"
               maxlength="5"
@@ -141,7 +138,7 @@ watchEffect(() => {
             <input
               class="flex-1 focus:outline-none bg-inherit"
               type="tel"
-              v-model = phoneNum
+              v-model = "recentPhoneNum"
               placeholder="010-1234-5678"
               @input="formattedPhoneNum($event)"
               maxlength="13"
