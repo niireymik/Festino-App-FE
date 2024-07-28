@@ -227,7 +227,6 @@ const findMarker = (boothList) => {
 };
 
 const findMarkerByBoothId = (booth) => {
-  console.log(booth)
   for (const category in markers.value.detail) {
     const foundMarker = markers.value.detail[category].find(marker => marker.markerNum === booth.value.markerNum);
     if (foundMarker) {
@@ -248,7 +247,6 @@ const loadDetailMap = () => {
       focusMarker();
     })
   }
-  console.log('hey')
 }
 
 const initializeMap = () => {
