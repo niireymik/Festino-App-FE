@@ -32,6 +32,10 @@ const handleClickReserveButton = () => {
   if (totalPrice.value === 0) return;
   openOrderModal();
 };
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('ko-KR').format(price);
+};
 </script>
 
 <template>
@@ -46,7 +50,7 @@ const handleClickReserveButton = () => {
         class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold"
         @click="handleClickReserveButton()"
       >
-        {{ totalPrice }}원 • 주문하기
+        {{ formatPrice(totalPrice) }}원 • 주문하기
       </div>
     </div>
   </div>
