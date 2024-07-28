@@ -9,6 +9,8 @@ const HOST = import.meta.env.VITE_API_URL;
 export const useReservationStore = defineStore('reservationStore', () => {
   const { resetModalState } = useTablingModalStore();
   const router = useRouter();
+  const recentName = ref("");
+  const recentPhoneNum = ref("");
   const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
@@ -106,6 +108,8 @@ export const useReservationStore = defineStore('reservationStore', () => {
   };
 
   return {
+    recentName,
+    recentPhoneNum,
     reservationInfo,
     userName,
     nightBoothInfo,

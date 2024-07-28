@@ -9,11 +9,9 @@ import { storeToRefs } from 'pinia';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeReserveModal } = useTablingModalStore();
-const { saveReservation, setUserName, checkDuplicateReserve } = useReservationStore();
-const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo } = storeToRefs(useReservationStore());
+const { setUserName, checkDuplicateReserve, saveRecentInfo } = useReservationStore();
+const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo, recentName, recentPhoneNum } = storeToRefs(useReservationStore());
 
-const name = ref('');
-const phoneNum = ref('');
 const personNum = ref(null);
 const regex = /^010/;
 const isSumbit = ref(false);
@@ -21,29 +19,29 @@ const isSumbit = ref(false);
 const handleClickReserveButton = async () => {
   console.log(
     'click reserve button',
-    name.value,
-    phoneNum.value,
+    recentName.value,
+    recentPhoneNum.value.replace(/-/g, ''),
     personNum.value,
     selectedNightBoothInfo.value.boothId,
   );
   if (
-    name.value < 2 ||
-    phoneNum.value.length !== 11 ||
+    recentName.value < 2 ||
+    recentPhoneNum.value.length !== 13 ||
     personNum.value == 0 ||
-    !regex.test(phoneNum.value) ||
+    !regex.test(recentPhoneNum.value) ||
     isSumbit.value
   )
     return;
 
   reserveInfo.value = {
-    userName: name.value,
-    phoneNum: phoneNum.value,
+    userName: recentName.value,
+    phoneNum: recentPhoneNum.value.replace(/-/g, ''),
     personCount: personNum.value,
     boothId: selectedNightBoothInfo.value.boothId,
   };
-  checkDuplicateReserve(phoneNum.value);
+  checkDuplicateReserve(recentPhoneNum.value);
   isSumbit.value = true;
-  setUserName(name.value);
+  setUserName(recentName.value);
   isSumbit.value = false;
   closeReserveModal();
 };
@@ -62,9 +60,9 @@ onMounted(() => {
     >
       <div class="text-secondary-700 text-xl font-semibold">{{ newNightBooth.adminName }} 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
-        <InputName v-model="name" />
+        <InputName v-model="recentName" />
         <div class="mb-[30px]">
-          <InputPhoneNum v-model="phoneNum" />
+          <InputPhoneNum v-model="recentPhoneNum" />
         </div>
         <InputPersonNum v-model="personNum" />
       </div>

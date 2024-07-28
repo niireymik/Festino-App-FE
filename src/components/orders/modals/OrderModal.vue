@@ -1,6 +1,8 @@
 <script setup>
+import { formatPrice } from '@/utils/formatPrice';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
@@ -8,20 +10,19 @@ import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
+const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
 const orderMenus = ref([]);
 onMounted(() => {
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
-const name = ref('');
-const phoneNum = ref('');
 const regex = /^010/;
 
 const handleClickOrderButton = () => {
-  if (name.value.length < 2 || phoneNum.value.length !== 11 || !regex.test(phoneNum.value)) return;
-  setUserName(name.value);
-  setPhoneNum(phoneNum.value);
+  if (recentName.value.length < 2 || recentPhoneNum.value.length !== 13 || !regex.test(recentPhoneNum.value)) return;
+  setUserName(recentName.value);
+  setPhoneNum(recentPhoneNum.value.replace(/-/g, ''));
 
   closeOrderModal();
   openOrderCheckModal();
@@ -37,8 +38,8 @@ const handleClickOrderButton = () => {
       <div class="flex flex-col gap-7 w-full">
         <div class="font-semibold text-xl text-secondary-700 text-center">주문하기</div>
         <div class="px-4 w-full">
-          <InputName v-model="name" />
-          <InputPhoneNum v-model="phoneNum" />
+          <InputName v-model="recentName" />
+          <InputPhoneNum v-model="recentPhoneNum" />
         </div>
         <div class="w-full gap-1 flex flex-col">
           <div class="font-semibold text-secondary-700">주문하기</div>
@@ -50,12 +51,12 @@ const handleClickOrderButton = () => {
             >
               <div class="text-left">{{ orderMenu.menuName }}</div>
               <div class="text-center">{{ orderMenu.menuCount }}개</div>
-              <div class="text-right">{{ orderMenu.menuPrice }}원</div>
+              <div class="text-right">{{ formatPrice(orderMenu.menuPrice) }}원</div>
             </div>
             <div class="w-full border-secondary-300 border-1"></div>
             <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-700">
               <div>총 가격</div>
-              <div>{{ totalPrice }}원</div>
+              <div>{{ formatPrice(totalPrice) }}원</div>
             </div>
           </div>
         </div>

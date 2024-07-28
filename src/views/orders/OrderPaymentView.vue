@@ -1,4 +1,5 @@
 <script setup>
+import { formatPrice } from '@/utils/formatPrice';
 import { onMounted, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useOrderStore } from '@/stores/orders/orderStore';
@@ -46,7 +47,7 @@ const handleClickReserveButton = () => {
         class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold"
         @click="handleClickReserveButton()"
       >
-        {{ totalPrice }}원 • 주문하기
+        {{ formatPrice(totalPrice) }}원 • 주문하기
       </div>
     </div>
   </div>

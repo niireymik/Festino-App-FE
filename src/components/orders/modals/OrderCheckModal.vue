@@ -2,33 +2,40 @@
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
+import { formatPrice } from '@/utils/formatPrice';
 
-const { tableNum, totalPrice, userName, phoneNum, saveOrder, userOrderList, isCoupon, accountNum } = useOrderStore();
-
+const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo } = storeToRefs(
+  useOrderStore(),
+);
+const { saveOrder, getAccountInfo } = useOrderStore();
 const { closeOrderCheckModal } = useOrderModalStore();
 
 const orderMenus = ref([]);
 onMounted(() => {
-  orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
+  orderMenus.value = userOrderList.value.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
 const handleClickConfirmDepositButton = () => {
-  // TODO: CHANGE BOOTH ID
   saveOrder({
-    boothId: 'bcb6ddc2-1116-4729-a643-fa8f3bb5408f',
-    tableNum: tableNum,
-    userName: userName,
-    phoneNum: phoneNum,
+    boothId: boothId.value,
+    tableNum: tableNum.value,
+    userName: userName.value,
+    phoneNum: phoneNum.value,
     menuInfo: orderMenus.value.map(({ menuId, ...rest }) => rest),
-    totalPrice: totalPrice,
-    isCoupon: isCoupon,
+    totalPrice: totalPrice.value,
+    isCoupon: isCoupon.value,
   });
 };
 
 const clipAccount = () => {
   window.navigator.clipboard.writeText(accountNum);
 };
+
+onMounted(() => {
+  getAccountInfo();
+});
 </script>
 
 <template>
@@ -42,20 +49,20 @@ const clipAccount = () => {
         <div class="font-semibold text-secondary-700 mb-1">결제정보 확인</div>
         <div class="w-full rounded-xl bg-primary-900-lightest p-4">
           <div class="font-bold flex pb-[12px] justify-between text-secondary-500">
-            <div class="text-sm">신한은행</div>
+            <div class="text-sm">{{ accountInfo.bankName }}</div>
             <div class="flex gap-[8px] items-center cursor-pointer" @click="clipAccount()">
-              <div class="text-sm">{{ accountNum }}</div>
+              <div class="text-sm">{{ accountInfo.account }}</div>
               <div class="w-[16px] h-[16px] bg-center bg-board-icon bg-no-repeat bg-[length:16px_16px]"></div>
             </div>
           </div>
           <div class="flex pb-[12px] justify-between text-secondary-500">
             <div class="text-sm">예금주</div>
-            <div class="text-sm">{{ userName }}님</div>
+            <div class="text-sm">{{ accountInfo.accountHolder }}님</div>
           </div>
           <div class="w-full border-secondary-300 border-1"></div>
           <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-500">
             <div>총 가격</div>
-            <div>{{ totalPrice }}원</div>
+            <div>{{ formatPrice(totalPrice) }}원</div>
           </div>
         </div>
       </div>

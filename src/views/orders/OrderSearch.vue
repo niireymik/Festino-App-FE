@@ -1,6 +1,6 @@
 <script setup>
 import OrderDetail from '@/components/orders/OrderDetail.vue';
-import { onMounted, ref, watch, watchEffect } from 'vue';
+import { onMounted, ref, watchEffect } from 'vue';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
@@ -10,7 +10,9 @@ import { useRoute, useRouter } from 'vue-router';
 
 const route = useRoute();
 const router = useRouter();
-const { setBoothInfo, isUUID } = useOrderStore();
+const { setBoothInfo, isUUID, saveRecentInfo } = useOrderStore();
+const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
+
 onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
@@ -26,8 +28,6 @@ const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
 const { notExistOrderModalState } = storeToRefs(useOrderModalStore());
 
-const name = ref('');
-const phoneNum = ref('');
 const isInputFill = ref(false);
 const regex = /^010/;
 const isInputPhoneNumFocused = ref(false);
@@ -53,7 +53,7 @@ const handleOrderList = (type) => {
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  await getOrder({ userName: name.value, phoneNum: phoneNum.value });
+  await getOrder({ userName: recentName.value, phoneNum: recentPhoneNum.value.replace(/-/g, '') });
   isSumbit.value = true;
 
   waitingDepositList.value = orderList?.value.filter((order) => order.orderType === 0);
@@ -63,17 +63,17 @@ const handleClickSearchButton = async () => {
 };
 
 const formattedPhoneNum = (event) => {
-  const inputValue = event.target.value.replace(/\D/g, '');
+  const inputValue = event.target.value.replace(/\D/g, '').slice(0, 11);
   let formattedValue = '';
 
   if (inputValue.length > 3 && inputValue.length < 8) {
     formattedValue = inputValue.replace(/(\d{3})(\d{1,4})/, '$1-$2');
-  } else {
+  } else if (inputValue.length >= 8) {
     formattedValue = inputValue.replace(/(\d{3})(\d{4})(\d{1,4})/, '$1-$2-$3');
+  } else {
+    formattedValue = inputValue;
   }
-
-  event.target.value = formattedValue;
-  phoneNum.value = inputValue;
+  recentPhoneNum.value = formattedValue;
 };
 
 const limitInputLength = (event) => {
@@ -83,7 +83,7 @@ const limitInputLength = (event) => {
     filteredInput = filteredInput.slice(0, 5);
   }
   event.target.value = filteredInput;
-  name.value = filteredInput;
+  recentName.value = filteredInput;
 };
 
 const handleScrollToFocusInput = () => {
@@ -100,7 +100,7 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  isInputFill.value = name.value.length >= 2 && phoneNum.value.length == 11 && regex.test(phoneNum.value);
+  isInputFill.value = recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
   handleStopScroll([notExistOrderModalState.value]);
 });
 </script>
@@ -116,6 +116,7 @@ watchEffect(() => {
             <input
               class="flex-1 focus:outline-none bg-inherit"
               type="text"
+              v-model = "recentName"
               @input="limitInputLength($event)"
               placeholder="티노"
               maxlength="5"
@@ -137,6 +138,7 @@ watchEffect(() => {
             <input
               class="flex-1 focus:outline-none bg-inherit"
               type="tel"
+              v-model = "recentPhoneNum"
               placeholder="010-1234-5678"
               @input="formattedPhoneNum($event)"
               maxlength="13"
@@ -176,12 +178,12 @@ watchEffect(() => {
             {{ tab }}
             <div
               v-if="index === selectedTabNum"
-              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full"
+              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full z-10"
             ></div>
           </div>
         </div>
         <div
-          class="w-screen max-w-[500px] min-w-[375px] bg-secondary-300 h-[0.3px] absolute bottom-0 -translate-x-10"
+          class="w-screen max-w-[500px] bg-secondary-300 h-[0.3px] ml-[-32px] absolute bottom-0"
         ></div>
       </div>
       <!-- order lists -->

@@ -16,7 +16,7 @@ const props = defineProps({
 });
 </script>
 <template>
-  <div class="fixed top-0 max-w-[500px] w-full h-[60px] bg-white flex justify-between items-center px-6 shadow-xs">
+  <div class="fixed top-0 max-w-[500px] w-full h-[60px] bg-white flex justify-between items-center px-6 shadow-xs z-50">
     <img src="/icons/header-arrow-back.svg" class="w-7" @click="handleClickBackButton()" />
     <p class="font-medium text-xl">{{ title }}</p>
     <div class="w-7"></div>
