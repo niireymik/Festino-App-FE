@@ -94,7 +94,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
       const res = await axios.get(`${HOST}/main/reservation/duplication?phoneNum=${phoneNum}`);
       if (res.data.success) {
         prevReserveBoothName.value = res.data.adminName;
-        console.log(res.data);
         return openDuplicateModal();
       } else {
         isLoading.value = true;
