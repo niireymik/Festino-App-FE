@@ -54,7 +54,7 @@ const getMenuImage = (menuImage) => {
 <template>
   <div class="flex gap-5 py-4 items-center w-full bottom-line">
     <div
-      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover"
+      class="min-w-[120px] w-[120px] h-[120px] rounded-3xl bg-primary-700 bg-no-repeat bg-cover border-secondary-100 border-2 bg-white"
       v-bind="getMenuImage(menu.menuImage)"
     ></div>
     <div class="flex flex-col w-full">
