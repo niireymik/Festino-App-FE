@@ -34,7 +34,7 @@ const clipAccount = () => {
 <template>
   <ModalBackground :closeModal="closeOrderCheckModal">
     <div
-      class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+      class="relative col-start-2 row-start-2 h-full min-w-[346px] dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
       @click.stop=""
     >
       <div class="font-semibold text-xl text-secondary-700">주문 확인</div>

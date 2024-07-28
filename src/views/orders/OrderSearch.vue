@@ -1,16 +1,26 @@
 <script setup>
 import OrderDetail from '@/components/orders/OrderDetail.vue';
-import { onMounted, ref, watchEffect } from 'vue';
+import { onMounted, ref, watch, watchEffect } from 'vue';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 import { handleStopScroll } from '@/utils/handleScrollStop';
+import { useRoute, useRouter } from 'vue-router';
 
+const route = useRoute();
+const router = useRouter();
+const { setBoothInfo, isUUID } = useOrderStore();
 onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
+    return router.push({ name: 'error', params: { page: 'order' } });
+  }
+  setBoothInfo(route.params.boothId, route.params.tableNum);
 });
+
+const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
 
 const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
@@ -22,10 +32,34 @@ const isInputFill = ref(false);
 const regex = /^010/;
 const isInputPhoneNumFocused = ref(false);
 const isInputNameFocused = ref(false);
+const selectedTabNum = ref(0);
+
+const waitingDepositList = ref([]);
+const cookingList = ref([]);
+const completeCookingList = ref([]);
+
+const isSumbit = ref(false);
+
+const handleSelectedTab = (index) => {
+  selectedTabNum.value = index;
+  handleOrderList(index);
+};
+
+const handleOrderList = (type) => {
+  if (type === 1) return (waitingDepositList.value = orderList.value.filter((order) => order.orderType === 0));
+  if (type === 2) return (cookingList.value = orderList.value.filter((order) => order.orderType === 1));
+  if (type === 3) return (completeCookingList.value = orderList.value.filter((order) => order.orderType === 2));
+};
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  getOrder({ userName: name.value, phoneNum: phoneNum.value });
+  await getOrder({ userName: name.value, phoneNum: phoneNum.value });
+  isSumbit.value = true;
+
+  waitingDepositList.value = orderList?.value.filter((order) => order.orderType === 0);
+  cookingList.value = orderList?.value.filter((order) => order.orderType === 1);
+  completeCookingList.value = orderList?.value.filter((order) => order.orderType === 2);
+  handleSelectedTab(0);
 };
 
 const formattedPhoneNum = (event) => {
@@ -71,7 +105,7 @@ watchEffect(() => {
 });
 </script>
 <template>
-  <div class="w-full flex flex-col justify-center items-center gap-7 px-5 pb-5 pt-[74px]">
+  <div class="w-full h-full flex flex-col justify-center items-center gap-7 px-5 pb-5 pt-[74px]">
     <div class="flex flex-col w-full justify-start items-center gap-4">
       <div class="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
       <div class="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">
@@ -128,8 +162,65 @@ watchEffect(() => {
         </button>
       </div>
     </div>
-    <div v-for="order in orderList" class="w-full">
-      <OrderDetail :key="order.id" :orderInfo="order" />
+
+    <div class="flex flex-col w-full">
+      <!-- tabs -->
+      <div v-if="isSumbit" class="w-full flex justify-between place-items-center h-[52px] relative px-3">
+        <div
+          v-for="(tab, index) in TABS"
+          :key="index"
+          @click="handleSelectedTab(index)"
+          class="text-secondary-700-light-50 font-semibold text-xl cursor-pointer"
+        >
+          <div :class="{ 'text-secondary-700': index === selectedTabNum }" class="relative px-2">
+            {{ tab }}
+            <div
+              v-if="index === selectedTabNum"
+              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full"
+            ></div>
+          </div>
+        </div>
+        <div
+          class="w-screen max-w-[500px] min-w-[375px] bg-secondary-300 h-[0.3px] absolute bottom-0 -translate-x-10"
+        ></div>
+      </div>
+      <!-- order lists -->
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5">
+        <div class="flex flex-col gap-3 w-full">
+          <div class="flex gap-2 items-center text-xs font-semibold">
+            <div class="bg-third-100 w-3 h-3 rounded-full"></div>
+            <div class="text-secondary-500">입금 대기</div>
+            <div class="text-third-100">({{ waitingDepositList.length }})</div>
+          </div>
+          <div v-for="(order, index) in waitingDepositList" :key="index">
+            <OrderDetail :key="index" :orderInfo="order" />
+          </div>
+        </div>
+      </div>
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5">
+        <div class="flex flex-col gap-3 w-full">
+          <div class="flex gap-2 items-center text-xs font-semibold">
+            <div class="bg-third-200 w-3 h-3 rounded-full"></div>
+            <div class="text-secondary-500">조리 중</div>
+            <div class="text-third-200">({{ cookingList.length }})</div>
+          </div>
+          <div v-for="(order, index) in cookingList" :key="index">
+            <OrderDetail :key="index" :orderInfo="order" />
+          </div>
+        </div>
+      </div>
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5">
+        <div class="flex flex-col gap-3 w-full">
+          <div class="flex gap-2 items-center text-xs font-semibold">
+            <div class="bg-third-300 w-3 h-3 rounded-full"></div>
+            <div class="text-secondary-500">조리 완료</div>
+            <div class="text-third-300">({{ completeCookingList.length }})</div>
+          </div>
+          <div v-for="(order, index) in completeCookingList" :key="index">
+            <OrderDetail :key="index" :orderInfo="order" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <NotExistOrderModal v-if="notExistOrderModalState" />

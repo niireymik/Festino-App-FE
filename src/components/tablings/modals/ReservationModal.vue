@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import InputPersonNum from '@/components/tablings/InputPersonNum.vue';
@@ -9,8 +9,8 @@ import { storeToRefs } from 'pinia';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 
 const { closeReserveModal } = useTablingModalStore();
-const { saveReservation, setUserName } = useReservationStore();
-const { selectedNightBoothInfo } = storeToRefs(useReservationStore());
+const { saveReservation, setUserName, checkDuplicateReserve } = useReservationStore();
+const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo } = storeToRefs(useReservationStore());
 
 const name = ref('');
 const phoneNum = ref('');
@@ -19,6 +19,13 @@ const regex = /^010/;
 const isSumbit = ref(false);
 
 const handleClickReserveButton = async () => {
+  console.log(
+    'click reserve button',
+    name.value,
+    phoneNum.value,
+    personNum.value,
+    selectedNightBoothInfo.value.boothId,
+  );
   if (
     name.value < 2 ||
     phoneNum.value.length !== 11 ||
@@ -27,16 +34,24 @@ const handleClickReserveButton = async () => {
     isSumbit.value
   )
     return;
-  isSumbit.value = true;
-  await saveReservation({
-    boothId: selectedNightBoothInfo.value.boothId,
+
+  reserveInfo.value = {
     userName: name.value,
     phoneNum: phoneNum.value,
     personCount: personNum.value,
-  });
+    boothId: selectedNightBoothInfo.value.boothId,
+  };
+  checkDuplicateReserve(phoneNum.value);
+  isSumbit.value = true;
   setUserName(name.value);
   isSumbit.value = false;
+  closeReserveModal();
 };
+
+const newNightBooth = ref({});
+onMounted(() => {
+  newNightBooth.value = openNightBoothInfo.value.find((info) => info.boothId === selectedNightBoothInfo.value.boothId);
+});
 </script>
 
 <template>
@@ -45,7 +60,7 @@ const handleClickReserveButton = async () => {
       class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
       @click.stop=""
     >
-      <div class="text-secondary-700 text-xl font-semibold">{{ selectedNightBoothInfo.adminName }} 부스 예약</div>
+      <div class="text-secondary-700 text-xl font-semibold">{{ newNightBooth.adminName }} 부스 예약</div>
       <div class="w-full flex flex-col justify-start px-4">
         <InputName v-model="name" />
         <div class="mb-[30px]">
@@ -55,7 +70,7 @@ const handleClickReserveButton = async () => {
       </div>
       <div class="flex flex-row justify-between p-4 bg-primary-900-light-6 rounded-lg-xl w-full">
         <div>현재 대기 팀</div>
-        <div>{{ selectedNightBoothInfo.totalReservationNum }} 팀</div>
+        <div>{{ newNightBooth.totalReservationNum }} 팀</div>
       </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button

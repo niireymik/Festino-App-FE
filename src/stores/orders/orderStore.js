@@ -77,6 +77,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   };
 
   const getOrder = async (payload) => {
+    orderList.value = [];
     try {
       const res = await axios.get(`${HOST}/main/order`, { params: payload });
       if (res.data.success) orderList.value = res.data.bills;
@@ -109,7 +110,7 @@ export const useOrderStore = defineStore('orderStore', () => {
       else {
         return {
           name: 'error',
-          params: { page: 'order' },
+          params: { page: 'NotFound' },
         };
       }
     } else {

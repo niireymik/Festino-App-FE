@@ -12,29 +12,29 @@ const orderStatus = [
   {
     text: '입금대기',
     color: 'bg-third-100',
+    bgColor: 'bg-third-500',
   },
   {
     text: '조리중',
     color: 'bg-third-200',
+    bgColor: 'bg-third-600',
   },
   {
     text: '조리완료',
     color: 'bg-third-300',
+    bgColor: 'bg-third-700',
   },
   {
     text: '주문취소',
     color: 'bg-third-400',
+    bgColor: 'bg-secondary-100',
   },
 ];
 const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
 </script>
 
 <template>
-  <div class="w-full bg-primary-900-light-6 border-2 border-primary-900-light-16 flex flex-col p-4 rounded-3xl text-sm">
-    <div class="flex items-center gap-1 justify-end">
-      <div class="w-2 h-2 rounded-full" :class="orderStatus[orderInfo.orderType].color"></div>
-      <p class="text-2xs">{{ orderStatus[orderInfo.orderType].text }}</p>
-    </div>
+  <div class="w-full flex flex-col p-4 rounded-3xl text-sm" :class="`${orderStatus[orderInfo.orderType].bgColor}`">
     <div class="flex flex-col w-full gap-3">
       <div class="h-9 flex justify-between w-full border-b-1 border-secondary-300">
         <div class="flex gap-1 items-center">
