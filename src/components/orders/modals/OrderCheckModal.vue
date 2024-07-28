@@ -4,6 +4,7 @@ import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
+import { formatPrice } from '@/utils/formatPrice';
 
 const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo } = storeToRefs(
   useOrderStore(),
@@ -61,7 +62,7 @@ onMounted(() => {
           <div class="w-full border-secondary-300 border-1"></div>
           <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-500">
             <div>총 가격</div>
-            <div>{{ totalPrice }}원</div>
+            <div>{{ formatPrice(totalPrice) }}원</div>
           </div>
         </div>
       </div>
