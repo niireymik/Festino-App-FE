@@ -7,6 +7,10 @@ import { storeToRefs } from 'pinia';
 
 const { booth } = storeToRefs(useGetBoothDataStore());
 const defaultOption = 0;
+
+const priceToString = (price) => {
+  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
 </script>
 
 <template>
@@ -37,7 +41,7 @@ const defaultOption = 0;
           </div>
           <div class="flex justify-between">
             <div class="flex items-center">
-              <div class="text-secondary-700 text-[14px] font-semibold">{{ menu.menuPrice }}</div>
+              <div class="text-secondary-700 text-[14px] font-semibold">{{ priceToString(menu.menuPrice) }}</div>
               <div class="text-secondary-500 text-[14px]">원</div>
             </div>
           </div>
