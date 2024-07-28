@@ -176,12 +176,12 @@ watchEffect(() => {
             {{ tab }}
             <div
               v-if="index === selectedTabNum"
-              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full"
+              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full z-50"
             ></div>
           </div>
         </div>
         <div
-          class="w-screen max-w-[500px] min-w-[375px] bg-secondary-300 h-[0.3px] absolute bottom-0 -translate-x-10"
+          class="w-screen max-w-[500px] bg-secondary-300 h-[0.3px] ml-[-32px] absolute bottom-0"
         ></div>
       </div>
       <!-- order lists -->
