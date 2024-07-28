@@ -3,13 +3,17 @@ import { ref, onMounted, watch, watchEffect, nextTick, computed } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 import MapSpeechBubble from './MapSpeechBubble.vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const { convertBoothMenuTab } = useGetBoothDataStore();
-const { selectBoothMenu, selectedTickectBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList } = storeToRefs(useGetBoothDataStore());
+const { selectBoothMenu, selectedTickectBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList, booth } = storeToRefs(useGetBoothDataStore());
+
+const route = useRoute();
 
 const zoomLevel = ref(1);
 const containerRef = ref(null);
 const imageLoaded = ref(false);
+const isBoothDetail = ref(false);
 
 const markers = ref({
   more: [
@@ -222,8 +226,44 @@ const findMarker = (boothList) => {
   return false;
 };
 
+const findMarkerByBoothId = (booth) => {
+  console.log(booth)
+  for (const category in markers.value.detail) {
+    const foundMarker = markers.value.detail[category].find(marker => marker.markerNum === booth.value.markerNum);
+    if (foundMarker) {
+      return foundMarker;
+    }
+  }
+};
+
+const loadDetailMap = () => {
+  zoomLevel.value = 1.6;
+
+  const foundMarker = findMarkerByBoothId(booth);
+
+  if (foundMarker) {
+    nextTick(() => {
+      selectedMarker.value = foundMarker;
+      boothMarkerData.value = booth.value;
+      focusMarker();
+    })
+  }
+  console.log('hey')
+}
+
+const initializeMap = () => {
+  loadDetailMap();
+}
+
 onMounted(() => {
   imageLoaded.value = true;
+  initializeMap(); // 페이지 로드 시 호출
+});
+
+watch(() => route.params.id, () => {
+  if (imageLoaded.value) {
+    initializeMap(); // `route.params.id` 변경 시 호출
+  }
 });
 
 watchEffect(() => {
@@ -250,6 +290,9 @@ watchEffect(() => {
         getBoothData(foundMarker);
       }
     }
+    if(route.params?.id) {
+      loadDetailMap(); // `route.params.id` 존재 시 호출
+    }
   }
 });
 </script>
@@ -274,6 +317,7 @@ watchEffect(() => {
             transformOrigin: 'top left'
           }"
         >
+        <!-- 부스 페이지 -->
           <div class="w-full h-full bg-booth-map bg-cover">
             <div
               v-for="(marker, index) in markers.more"
@@ -289,7 +333,7 @@ watchEffect(() => {
               @click="convertBoothMenuTab(marker.tab)"
             >
               <div
-                v-if="zoomLevel <= 1.4"
+                v-if="zoomLevel <= 1.4 && !route.params?.id"
                 class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center">
                 <div class="absolute top-1/4 text-white font-extrabold text-[15px] select-none">+{{ marker?.count }}</div>
               </div>
@@ -313,7 +357,7 @@ watchEffect(() => {
                 @click="handleMarkerClick(marker)"
               >
                 <div
-                  v-if="zoomLevel > 1.4"
+                  v-if="zoomLevel > 1.4 && !route.params?.id"
                   class="relative w-[56px] h-[56px] bg-cover flex justify-center"
                   :style="{
                     backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
@@ -322,6 +366,33 @@ watchEffect(() => {
                 >
                   <MapSpeechBubble 
                     v-if="selectedMarker.markerNum === marker.markerNum"
+                    class="absolute bottom-[90px]"
+                  ></MapSpeechBubble>
+                </div>
+              </div>
+              <!-- 부스 디테일 페이지 -->
+              <div
+                v-for="(marker, index) in category"
+                :id="marker.id"
+                :key="`detail-${categoryName}-${index}`"
+                class="absolute marker"
+                :style="{
+                  left: `${marker.left * zoomLevel}px`,
+                  bottom: `${marker.bottom * zoomLevel}px`,
+                  transform: `scale(${booth.markerNum === marker.markerNum ? 1.3 / zoomLevel : 1 / zoomLevel})`,
+                  transformOrigin: 'center bottom',
+                  zIndex: `${booth.markerNum === marker.markerNum ? '1000' : '500'}`
+                }"
+              >
+                <div
+                  v-if="route.params?.id && booth.markerNum === marker.markerNum"
+                  class="relative w-[56px] h-[56px] bg-cover flex justify-center"
+                  :style="{
+                    backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
+                  }"
+                >
+                  <MapSpeechBubble 
+                    v-if="booth.markerNum === marker.markerNum"
                     class="absolute bottom-[90px]"
                   ></MapSpeechBubble>
                 </div>
