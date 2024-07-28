@@ -1,87 +1,100 @@
 <script setup>
-import { ref, onMounted, watchEffect, nextTick } from 'vue';
+import { ref, onMounted, watchEffect, nextTick, computed } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 import MapSpeechBubble from './MapSpeechBubble.vue';
 
 const { convertBoothMenuTab } = useGetBoothDataStore();
-const { selectBoothMenu } = storeToRefs(useGetBoothDataStore());
+const { selectBoothMenu, selectedTickectBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList } = storeToRefs(useGetBoothDataStore());
 
 const zoomLevel = ref(1);
 const containerRef = ref(null);
 const imageLoaded = ref(false);
+
 const markers = ref({
   more: [
     { left: 120, bottom: 120, count: 12, tab: 1 },
     { left: 443, bottom: 240, count: 22, tab: 2 },
-    { left: 70, bottom: 300, count: 4, tab: 3 },
-    { left: 260, bottom: 300, count: 1, tab: 4 },
+    { left: 70, bottom: 300, count: 4, tab: 4 },
+    { left: 260, bottom: 300, count: 1, tab: 5 },
   ],
   detail: {
     wind: [
-      { left: 476, bottom: 310 }
+      // 총학 이벤트 추가되면 활성화
+      // { num: 90, left: 476, bottom: 310 }
     ],
+    // 총학 술 판매 추가
     ticket: [
-      { left: 302, bottom: 325 }
+      //총학 티켓
+      { num: 91, left: 302, bottom: 325 }
     ],
     food: [
-      { left: 420, bottom: 340 },
-      { left: 440, bottom: 340 },
-      { left: 530, bottom: 230 },
-      { left: 145, bottom: 175 },
-      { left: 120, bottom: 175 },
-      { left: 95, bottom: 175 },
-      { left: 70, bottom: 175 },
-      { left: 50, bottom: 155 },
-      { left: 50, bottom: 130 },
-      { left: 50, bottom: 105 },
-      { left: 170, bottom: 85 },
-      { left: 145, bottom: 85 },
-      { left: 120, bottom: 85 },
-      { left: 95, bottom: 85 },
-      { left: 70, bottom: 85 },
+      // 야간부스
+      { num: 1, left: 145, bottom: 175 },
+      { num: 2, left: 120, bottom: 175 },
+      { num: 3, left: 95, bottom: 175 },
+      { num: 4, left: 70, bottom: 175 },
+      { num: 5, left: 50, bottom: 155 },
+      { num: 6, left: 50, bottom: 130 },
+      { num: 7, left: 50, bottom: 105 },
+      { num: 8, left: 170, bottom: 85 },
+      { num: 9, left: 145, bottom: 85 },
+      { num: 10, left: 120, bottom: 85 },
+      { num: 11, left: 95, bottom: 85 },
+      { num: 12, left: 70, bottom: 85 },
+      // 주간부스
+      // { num: 34, left: 420, bottom: 340 },
+      // { num: 35, left: 440, bottom: 340 },
+      // { num: 36, left: 532, bottom: 230 },
+      // 푸드트럭
+      { num: 51, left: 420, bottom: 180 },
+      { num: 52, left: 420, bottom: 155 },
+      { num: 53, left: 420, bottom: 130 },
+      { num: 54, left: 450, bottom: 130 },
+      { num: 55, left: 450, bottom: 155 },
     ],
     music: [
-      { left: 420, bottom: 220 },
-      { left: 530, bottom: 205 },
+      { num: 21, left: 420, bottom: 220 },
+      { num: 22, left: 532, bottom: 205 },
     ],
     join: [
-      { left: 385, bottom: 310 },
-      { left: 405, bottom: 310 },
-      { left: 445, bottom: 300 },
-      { left: 420, bottom: 285 },
-      { left: 445, bottom: 270 },
-      { left: 420, bottom: 255 },
-      { left: 445, bottom: 240 },
-      { left: 510, bottom: 300 },
-      { left: 530, bottom: 285 },
-      { left: 510, bottom: 270 },
-      { left: 530, bottom: 255 },
+      { num: 23, left: 385, bottom: 310 },
+      { num: 24, left: 405, bottom: 310 },
+      { num: 25, left: 448, bottom: 300 },
+      // 주간 부스 추가되면 활성화
+      // { num: 26, left: 420, bottom: 285 },
+      // { num: 27, left: 448, bottom: 270 },
+      // { num: 28, left: 420, bottom: 255 },
+      // { num: 29, left: 448, bottom: 240 },
+      // { num: 30, left: 513, bottom: 300 },
+      // { num: 31, left: 532, bottom: 285 },
+      // { num: 32, left: 513, bottom: 270 },
+      // { num: 33, left: 532, bottom: 255 },
     ],
     smoke: [
-      { left: 150, bottom: 430 },
-      { left: 250, bottom: 40 }
+      { num: 76, left: 150, bottom: 430 }, // 팁 뒤
+      { num: 77, left: 50, bottom: 175 } // 운동장 구석
     ],
     store: [
-      { left: 150, bottom: 370 },
-      { left: 500, bottom: 367 }
+      { num: 74, left: 150, bottom: 370 },
+      { num: 75, left: 500, bottom: 367 }
     ],
     toilet: [
-      { left: 70, bottom: 350 },
-      { left: 140, bottom: 350 },
-      { left: 440, bottom: 367 },
-      { left: 520, bottom: 367 },
-      { left: 350, bottom: 230 },
-      { left: 395, bottom: 260 },
-      { left: 548, bottom: 265 },
+      { num: 71, left: 70, bottom: 350 },
+      { num: 72, left: 440, bottom: 367 },
+      { num: 73, left: 520, bottom: 367 },
+      // { num: 74, left: 350, bottom: 230 },
+      // { num: 75, left: 395, bottom: 260 },
+      // { num: 76, left: 548, bottom: 265 },
+      // 마커 정보 추가 후 수정
     ]
   }
 });
 
-const selectedMarker = ref(null);
+const selectedMarker = ref('');
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.2, 2.6);
+  zoomLevel.value = Math.min(zoomLevel.value + 0.2, 2.4);
 };
 
 const zoomOut = () => {
@@ -91,7 +104,7 @@ const zoomOut = () => {
 const moveScroll = () => {
   const container = containerRef.value;
   if (container) {
-    if (selectBoothMenu.value === 0 || selectBoothMenu.value === 4) {
+    if (selectBoothMenu.value === 0) {
       zoomLevel.value = 1;
       nextTick(() => {
         container.scrollLeft = 99.5;
@@ -103,18 +116,39 @@ const moveScroll = () => {
         container.scrollLeft = 130;
         container.scrollTop = 800;
       });
-    } else if (selectBoothMenu.value === 2 || selectBoothMenu.value === 3) {
+    } else if (selectBoothMenu.value === 2) {
       zoomLevel.value = 1.6;
       nextTick(() => {
-        container.scrollTop = 390;
         container.scrollLeft = 1060;
+        container.scrollTop = 390;
       });
+    } else if (selectBoothMenu.value === 3) {
+      zoomLevel.value = 1.6;
+      nextTick(() => {
+        container.scrollLeft = 1000;
+        container.scrollTop = 600;
+      })
+    } else if (selectBoothMenu.value === 4) {
+      zoomLevel.value = 1.6;
+      if(selectedTickectBooth.value === false) {
+        nextTick(() => {
+          container.scrollLeft = 130;
+          container.scrollTop = 150;
+        })
+      } else { // +1인 대왕 마커 눌렀을 때
+        nextTick(() => {
+          handleMarkerClick(markers.value.detail.ticket[0]);
+          container.scrollLeft = 620;
+          container.scrollTop = 200;
+      })
+      }
     }
   }
 };
 
 const handleMarkerClick = (index) => {
   selectedMarker.value = index;
+  getBoothData(index);
 };
 
 const startDistance = ref(0);
@@ -156,16 +190,59 @@ const handleTouchMove = (e) => {
   }
 };
 
+const boothDataMap = computed(() => {
+  const map = {};
+  allBoothList.value.forEach(booth => {
+    map[booth.markerNum] = booth;
+  })
+  return map;
+});
+
+const getBoothData = (marker) => {
+  boothMarkerData.value = boothDataMap.value[marker.num];
+}
+
 onMounted(() => {
   imageLoaded.value = true;
-  containerRef.value.addEventListener('touchstart', handleTouchStart);
-  containerRef.value.addEventListener('touchmove', handleTouchMove);
 });
 
 watchEffect(() => {
   if (imageLoaded.value && containerRef.value) {
     moveScroll();
     selectedMarker.value = '';
+
+    const findMarker = (boothList) => {
+      if (boothList.length > 0) {
+        const firstBooth = boothList[0];
+        for (const category in markers.value.detail) {
+          const foundMarker = markers.value.detail[category].find(marker => marker.num === firstBooth.markerNum);
+          if (foundMarker) {
+            return foundMarker;
+          }
+        }
+      }
+      return null;
+    };
+
+    if (selectBoothMenu.value === 1) {
+      const foundMarker = findMarker(nightBoothList.value);
+      if (foundMarker) {
+        selectedMarker.value = foundMarker;
+        getBoothData(foundMarker);
+      }
+    } else if (selectBoothMenu.value === 2) {
+      const foundMarker = findMarker(dayBoothList.value);
+      if (foundMarker) {
+        selectedMarker.value = foundMarker;
+        getBoothData(foundMarker);
+      }
+    } else if (selectBoothMenu.value === 3) {
+      const foundMarker = findMarker(foodBoothList.value);
+      if(foundMarker) {
+        selectedMarker.value = foundMarker;
+        getBoothData(foundMarker);
+      }
+    }
   }
 });
 </script>
@@ -175,8 +252,11 @@ watchEffect(() => {
     <div class="relative">
       <div 
         ref="containerRef"
+        @touchstart.passive="handleTouchStart($event)"
+        @touchmove.passive="handleTouchMove($event)"
         id="map-container"
-        class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pan-x touch-pan-y">
+        class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pan-x touch-pan-y"
+      >
         <div 
           class="relative scroll-smooth"
           id="map-area"
@@ -219,23 +299,23 @@ watchEffect(() => {
                 :style="{
                   left: `${marker.left * zoomLevel}px`,
                   bottom: `${marker.bottom * zoomLevel}px`,
-                  transform: `scale(${selectedMarker === `${categoryName}-${index}` ? 1.3 / zoomLevel : 1 / zoomLevel})`,
+                  transform: `scale(${selectedMarker === marker ? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
-                  zIndex: `${selectedMarker === `${categoryName}-${index}` ? '1000' : '500'}`
+                  zIndex: `${selectedMarker === marker ? '1000' : '500'}`
                 }"
-                @click="handleMarkerClick(`${categoryName}-${index}`)"
+                @click="handleMarkerClick(marker)"
               >
                 <div
                   v-if="zoomLevel > 1.4"
-                  class="relative w-[56px] h-[56px] bg-cover"
+                  class="relative w-[56px] h-[56px] bg-cover flex justify-center"
                   :style="{
                     backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
-                    opacity: `${selectedMarker === `${categoryName}-${index}` ? '1' : '0.55' }`
+                    opacity: `${selectedMarker === marker ? '1' : '0.55' }`
                   }"
                 >
                   <MapSpeechBubble 
-                    v-if="selectedMarker === `${categoryName}-${index}`"
-                    class="absolute bottom-[90px] right-2/3"
+                    v-if="selectedMarker === marker"
+                    class="absolute bottom-[90px]"
                   ></MapSpeechBubble>
                 </div>
               </div>

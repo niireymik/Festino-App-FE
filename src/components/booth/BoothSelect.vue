@@ -9,7 +9,7 @@ const { booth, boothType } = storeToRefs(useGetBoothDataStore());
   <div class="flex items-center dynamic-booth-tab-padding">
     <div class="text-secondary-300 text-sm font-light">{{ boothType }}</div>
     <i class="pi pi-chevron-right text-secondary-300 text-2xs px-2"></i>
-    <div class="text-secondary-300 text-sm font-light">{{ booth.adminName }} 부스</div>
+    <div class="text-secondary-300 text-sm font-light">{{ booth?.adminName ? `${booth.adminName} 부스` : booth.boothName }}</div>
   </div>
 </template>
 

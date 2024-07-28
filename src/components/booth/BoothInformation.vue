@@ -15,31 +15,71 @@ const updateCurrentIndex = () => {
   }
 };
 
-let rafId;
+// 부스 이미지 스크롤
+const isScrolling = ref(false);
+let scrollTimeout;
 
 const onScroll = () => {
-  if (rafId) {
-    cancelAnimationFrame(rafId);
+  if (isScrolling) return;
+
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    updateCurrentIndex();
+    snapToCurrent();
+  }, 100);
+};
+
+const snapToCurrent = () => {
+  if (containerRef.value) {
+    const containerWidth = containerRef.value.clientWidth;
+    const newIndex = Math.round(containerRef.value.scrollLeft / containerWidth);
+    console.log(containerWidth, newIndex)
+    containerRef.value.scrollBy({
+      left: currentIndex.value * containerWidth,
+    });
   }
-  rafId = requestAnimationFrame(updateCurrentIndex);
+  isScrolling = false;
+};
+
+const onWheel = (event) => {
+  event.preventDefault();
+  if (isScrolling) return;
+
+  isScrolling = true;
+  if (containerRef.value) {
+    const containerWidth = containerRef.value.clientWidth;
+    const scrollDirection = event.deltaX > 0 ? 1 : -1;
+    const newIndex = Math.max(0, Math.min(imageList.value.length - 1, currentIndex.value + scrollDirection));
+    console.log(containerWidth, scrollDirection, newIndex)
+    containerRef.value.scrollTo({
+      left: currentIndex.value * containerWidth,
+    });
+    currentIndex.value = newIndex;
+  }
+  setTimeout(() => {
+    isScrolling = false;
+  }, 500);
 };
 
 onMounted(() => {
   if (containerRef.value) {
-    containerRef.value.addEventListener('scroll', onScroll);
+    containerRef.value.addEventListener('scroll', onScroll, { passive: true });
+    containerRef.value.addEventListener('wheel', onWheel, { passive: false });
   }
 });
 
 onUnmounted(() => {
   if (containerRef.value) {
     containerRef.value.removeEventListener('scroll', onScroll);
+    containerRef.value.removeEventListener('wheel', onWheel);
   }
 });
 
 const getBoothIntroduceImageProps = (boothImage) => {
   return {
-    class: {'bg-booth-default-image': !boothImage},
-    style: boothImage ? `background-image: url(${ boothImage })` : ''
+    class: { 'bg-booth-default-image': !boothImage },
+    style: boothImage ? `background-image: url(${boothImage})` : '',
   };
 };
 </script>
@@ -48,16 +88,21 @@ const getBoothIntroduceImageProps = (boothImage) => {
   <div class="w-full h-3 bg-secondary-200"></div>
   <div class="relative pt-[2.33%] pl-[4.65%] pr-[4.65%] pb-9">
     <div class="mt-4">
-      <div 
+      <div
         class="absolute right-10 top-11 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500 select-none"
       >
         {{ currentIndex + 1 }} / {{ imageList.length }}
       </div>
-      <div ref="containerRef" class="snap-x snap-mandatory overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4 border">
-        <div v-for="(image, index) in imageList" :key="index" class="sanp-always snap-start min-w-full">
-          <div 
+      <div
+        id="wrapper"
+        ref="containerRef"
+        class="snap-x snap-mandatory overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4 border"
+      >
+        <div id="content" v-for="(image, index) in imageList" :key="index" class="snap-start min-w-full">
+          <div
             class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
-            v-bind="getBoothIntroduceImageProps(image)" >
+            v-bind="getBoothIntroduceImageProps(image)"
+          >
           </div>
         </div>
       </div>
