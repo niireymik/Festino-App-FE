@@ -27,7 +27,7 @@ const handleClickReserveButton = () => {
         <p class="text-secondary-700 text-xl font-bold">예약 안내</p>
         <p class="text-secondary-500 break-keep">
           <span class="font-bold text-primary-900"> {{ prevReserveBoothName }} </span>에 이미 예약이 존재합니다.<br />
-          지금 예약하면 이전 예약이 취소됩니다 . <br />예약하시겠습니까?
+          지금 예약하면 이전 예약이 취소됩니다.<br />예약하시겠습니까?
         </p>
       </div>
       <div class="flex w-full gap-[10px] font-bold">
