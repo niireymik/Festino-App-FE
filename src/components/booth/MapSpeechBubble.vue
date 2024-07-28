@@ -8,7 +8,7 @@ const { boothMarkerData } = storeToRefs(useGetBoothDataStore());
 <template>
   <div class="px-[18px] py-[11px] speech-bubble shadow-5xl flex flex-col justify-center">
 		<div v-if="boothMarkerData?.boothId">
-			<div class="text-primary-900 font-semibold text-[11px] pb-1">{{ boothMarkerData?.adminCategory !== '편의시설' ? `${boothMarkerData.adminName} 부스` : boothMarkerData.boothName }}</div>
+			<div class="text-primary-900 font-semibold text-[11px] pb-1">{{ boothMarkerData?.adminCategory ? `${boothMarkerData.adminName} 부스` : boothMarkerData.boothName }}</div>
 			<div class="flex items-center">
 				<div class="w-[10px] h-[10px] bg-[url('/icons/booth/location_on.svg')]"></div>
 				<div class="text-[8px] pl-[2px] text-secondary-500">{{ boothMarkerData.location }}</div>
