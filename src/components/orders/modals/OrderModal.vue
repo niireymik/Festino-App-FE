@@ -29,6 +29,10 @@ const handleClickOrderButton = () => {
   saveRecentInfo(phoneNum.value, name.value)
   openOrderCheckModal();
 };
+
+const formatPrice = (price) => {
+  return new Intl.NumberFormat('ko-KR').format(price);
+};
 </script>
 
 <template>
@@ -53,12 +57,12 @@ const handleClickOrderButton = () => {
             >
               <div class="text-left">{{ orderMenu.menuName }}</div>
               <div class="text-center">{{ orderMenu.menuCount }}개</div>
-              <div class="text-right">{{ orderMenu.menuPrice }}원</div>
+              <div class="text-right">{{ formatPrice(orderMenu.menuPrice) }}원</div>
             </div>
             <div class="w-full border-secondary-300 border-1"></div>
             <div class="pt-[10px] pb-[4px] flex justify-between text-sm text-secondary-700">
               <div>총 가격</div>
-              <div>{{ totalPrice }}원</div>
+              <div>{{ formatPrice(totalPrice) }}원</div>
             </div>
           </div>
         </div>
