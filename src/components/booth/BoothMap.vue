@@ -26,7 +26,7 @@ const markers = ref({
     // 총학 술 판매 추가
     ticket: [
       //총학 티켓
-      { num: 91, left: 302, bottom: 325 }
+      { num: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 }
     ],
     alcohol: [
       { num: 92, left: 50, bottom: 85 }
@@ -142,7 +142,7 @@ const moveScroll = () => {
           handleMarkerClick(markers.value.detail.ticket[0]);
           container.scrollLeft = 620;
           container.scrollTop = 200;
-      })
+        })
       }
     }
   }
