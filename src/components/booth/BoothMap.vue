@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watchEffect, nextTick, computed } from 'vue';
+import { ref, onMounted, watch, watchEffect, nextTick, computed } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 import MapSpeechBubble from './MapSpeechBubble.vue';
@@ -21,73 +21,73 @@ const markers = ref({
   detail: {
     wind: [
       // 총학 이벤트 추가되면 활성화
-      // { num: 90, left: 476, bottom: 310 }
+      { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 }
     ],
     // 총학 술 판매 추가
     ticket: [
       //총학 티켓
-      { num: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 }
+      { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 }
     ],
     alcohol: [
-      { num: 92, left: 50, bottom: 85 }
+      { markerNum: 92, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }
     ],
     food: [
       // 야간부스
-      { num: 1, left: 145, bottom: 175 },
-      { num: 2, left: 120, bottom: 175 },
-      { num: 3, left: 95, bottom: 175 },
-      { num: 4, left: 70, bottom: 175 },
-      { num: 5, left: 50, bottom: 155 },
-      { num: 6, left: 50, bottom: 130 },
-      { num: 7, left: 50, bottom: 105 },
-      { num: 8, left: 170, bottom: 85 },
-      { num: 9, left: 145, bottom: 85 },
-      { num: 10, left: 120, bottom: 85 },
-      { num: 11, left: 95, bottom: 85 },
-      { num: 12, left: 70, bottom: 85 },
+      { markerNum: 1, left: 145, bottom: 175, scrollLeft: 220, scrollTop: 580 },
+      { markerNum: 2, left: 120, bottom: 175, scrollLeft: 160, scrollTop: 580 },
+      { markerNum: 3, left: 95, bottom: 175, scrollLeft: 90, scrollTop: 580 },
+      { markerNum: 4, left: 70, bottom: 175, scrollLeft: 20, scrollTop: 580 },
+      { markerNum: 5, left: 50, bottom: 155, scrollLeft: 0, scrollTop: 620 },
+      { markerNum: 6, left: 50, bottom: 130, scrollLeft: 0, scrollTop: 690 },
+      { markerNum: 7, left: 50, bottom: 105, scrollLeft: 0, scrollTop: 760 },
+      { markerNum: 8, left: 170, bottom: 85, scrollLeft: 290, scrollTop: 820 },
+      { markerNum: 9, left: 145, bottom: 85, scrollLeft: 220, scrollTop: 820 },
+      { markerNum: 10, left: 120, bottom: 85, scrollLeft: 160, scrollTop: 820 },
+      { markerNum: 11, left: 95, bottom: 85, scrollLeft: 90, scrollTop: 820 },
+      { markerNum: 12, left: 70, bottom: 85, scrollLeft: 20, scrollTop: 820 },
       // 주간부스
-      // { num: 34, left: 420, bottom: 340 },
-      // { num: 35, left: 440, bottom: 340 },
-      // { num: 36, left: 532, bottom: 230 },
+      { markerNum: 34, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
+      { markerNum: 35, left: 440, bottom: 340, scrollLeft: 970, scrollTop: 170 },
+      { markerNum: 36, left: 532, bottom: 230, scrollLeft: 1200, scrollTop: 460 },
       // 푸드트럭
-      { num: 51, left: 420, bottom: 180 },
-      { num: 52, left: 420, bottom: 155 },
-      { num: 53, left: 420, bottom: 130 },
-      { num: 54, left: 450, bottom: 130 },
-      { num: 55, left: 450, bottom: 155 },
+      { markerNum: 51, left: 420, bottom: 180, scrollLeft: 925, scrollTop: 570 },
+      { markerNum: 52, left: 420, bottom: 155, scrollLeft: 925, scrollTop: 630 },
+      { markerNum: 53, left: 420, bottom: 130, scrollLeft: 925, scrollTop: 700 },
+      { markerNum: 54, left: 450, bottom: 130, scrollLeft: 1000, scrollTop: 700 },
+      { markerNum: 55, left: 450, bottom: 155, scrollLeft: 1000, scrollTop: 630 },
     ],
     music: [
-      { num: 21, left: 420, bottom: 220 },
-      { num: 22, left: 532, bottom: 205 },
+      { markerNum: 21, left: 420, bottom: 220, scrollLeft: 925, scrollTop: 480 },
+      { markerNum: 22, left: 532, bottom: 205, scrollLeft: 1200, scrollTop: 510 },
     ],
     join: [
-      { num: 23, left: 385, bottom: 310 },
-      { num: 24, left: 405, bottom: 310 },
-      { num: 25, left: 448, bottom: 300 },
-      { num: 26, left: 420, bottom: 285 },
-      { num: 27, left: 448, bottom: 270 },
-      { num: 28, left: 420, bottom: 255 },
-      { num: 29, left: 448, bottom: 240 },
-      { num: 30, left: 513, bottom: 300 },
-      { num: 31, left: 532, bottom: 285 },
-      { num: 32, left: 513, bottom: 270 },
-      { num: 33, left: 532, bottom: 255 },
+      { markerNum: 23, left: 385, bottom: 310, scrollLeft: 835, scrollTop: 240 },
+      { markerNum: 24, left: 405, bottom: 310, scrollLeft: 890, scrollTop: 240 },
+      { markerNum: 25, left: 420, bottom: 285, scrollLeft: 925, scrollTop: 300 },
+      { markerNum: 26, left: 420, bottom: 255, scrollLeft: 925, scrollTop: 370 },
+      { markerNum: 27, left: 448, bottom: 300, scrollLeft: 1000, scrollTop: 270 },
+      { markerNum: 28, left: 448, bottom: 270, scrollLeft: 1000, scrollTop: 340 },
+      { markerNum: 29, left: 448, bottom: 240, scrollLeft: 1000, scrollTop: 410 },
+      { markerNum: 30, left: 513, bottom: 300, scrollLeft: 1200, scrollTop: 270 },
+      { markerNum: 31, left: 513, bottom: 270, scrollLeft: 1200, scrollTop: 340 },
+      { markerNum: 32, left: 532, bottom: 285, scrollLeft: 1200, scrollTop: 310 },
+      { markerNum: 33, left: 532, bottom: 255, scrollLeft: 1200, scrollTop: 370 },
     ],
     smoke: [
-      { num: 76, left: 150, bottom: 430 }, // 팁 뒤
-      { num: 77, left: 50, bottom: 175 } // 운동장 구석
+      { markerNum: 76, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
+      { markerNum: 77, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 } // 운동장 구석
     ],
     store: [
-      { num: 74, left: 150, bottom: 370 },
-      { num: 75, left: 500, bottom: 367 }
+      { markerNum: 74, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 },
+      { markerNum: 75, left: 500, bottom: 367, scrollLeft: 1200, scrollTop: 110 }
     ],
     toilet: [
-      { num: 71, left: 70, bottom: 350 },
-      { num: 72, left: 440, bottom: 367 },
-      { num: 73, left: 520, bottom: 367 },
-      // { num: 74, left: 350, bottom: 230 },
-      // { num: 75, left: 395, bottom: 260 },
-      // { num: 76, left: 548, bottom: 265 },
+      { markerNum: 71, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
+      { markerNum: 72, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
+      { markerNum: 73, left: 520, bottom: 367, scrollLeft: 1200, scrollTop: 110 },
+      { markerNum: 78, left: 350, bottom: 230, scrollLeft: 735, scrollTop: 450 }, // A동
+      { markerNum: 79, left: 395, bottom: 260, scrollLeft: 850, scrollTop: 380 }, // B동
+      { markerNum: 80, left: 548, bottom: 265, scrollLeft: 1500, scrollTop: 370 }, // C동
       // 마커 정보 추가 후 수정
     ]
   }
@@ -105,45 +105,39 @@ const zoomOut = () => {
 
 const moveScroll = () => {
   const container = containerRef.value;
-  if (container) {
-    if (selectBoothMenu.value === 0) {
-      zoomLevel.value = 1;
-      nextTick(() => {
-        container.scrollLeft = 99.5;
-        container.scrollTop = 65;
-      });
-    } else if (selectBoothMenu.value === 1) {
-      zoomLevel.value = 1.6;
+  if (selectBoothMenu.value === 0) {
+    zoomLevel.value = 1;
+    nextTick(() => {
+      container.scrollLeft = 99.5;
+      container.scrollTop = 65;
+    });
+  } else if (selectBoothMenu.value === 1) {
+    zoomLevel.value = 1.6;
+    nextTick(() => {
+      focusMarker();
+    });
+  } else if (selectBoothMenu.value === 2) {
+    zoomLevel.value = 1.6;
+    nextTick(() => {
+      focusMarker();
+    });
+  } else if (selectBoothMenu.value === 3) {
+    zoomLevel.value = 1.6;
+    nextTick(() => {
+      focusMarker();
+    })
+  } else if (selectBoothMenu.value === 4) {
+    zoomLevel.value = 1.6;
+    if(selectedTickectBooth.value === false) {
       nextTick(() => {
         container.scrollLeft = 130;
-        container.scrollTop = 800;
-      });
-    } else if (selectBoothMenu.value === 2) {
-      zoomLevel.value = 1.6;
-      nextTick(() => {
-        container.scrollLeft = 1060;
-        container.scrollTop = 390;
-      });
-    } else if (selectBoothMenu.value === 3) {
-      zoomLevel.value = 1.6;
-      nextTick(() => {
-        container.scrollLeft = 1000;
-        container.scrollTop = 600;
+        container.scrollTop = 150;
       })
-    } else if (selectBoothMenu.value === 4) {
-      zoomLevel.value = 1.6;
-      if(selectedTickectBooth.value === false) {
-        nextTick(() => {
-          container.scrollLeft = 130;
-          container.scrollTop = 150;
-        })
-      } else { // +1인 대왕 마커 눌렀을 때
-        nextTick(() => {
-          handleMarkerClick(markers.value.detail.ticket[0]);
-          container.scrollLeft = 620;
-          container.scrollTop = 200;
-        })
-      }
+    } else { // +1인 대왕 마커 눌렀을 때
+      nextTick(() => {
+        handleMarkerClick(markers.value.detail.ticket[0]);
+        focusMarker();
+      })
     }
   }
 };
@@ -151,6 +145,7 @@ const moveScroll = () => {
 const handleMarkerClick = (index) => {
   selectedMarker.value = index;
   getBoothData(index);
+  focusMarker();
 };
 
 const startDistance = ref(0);
@@ -201,8 +196,29 @@ const boothDataMap = computed(() => {
 });
 
 const getBoothData = (marker) => {
-  boothMarkerData.value = boothDataMap.value[marker.num];
+  boothMarkerData.value = boothDataMap.value[marker.markerNum];
 }
+
+const focusMarker = () => {
+  const container = containerRef.value;
+  if (container && selectedMarker.value) {
+    container.scrollLeft = selectedMarker.value.scrollLeft;
+    container.scrollTop = selectedMarker.value.scrollTop;
+  }
+};
+
+const findMarker = (boothList) => {
+  if (boothList.length > 0) {
+    const firstBooth = boothList[0];
+    for (const category in markers.value.detail) {
+      const foundMarker = markers.value.detail[category].find(marker => marker.markerNum === firstBooth.markerNum);
+      if (foundMarker) {
+        return foundMarker;
+      }
+    }
+  }
+  return false;
+};
 
 onMounted(() => {
   imageLoaded.value = true;
@@ -212,19 +228,6 @@ watchEffect(() => {
   if (imageLoaded.value && containerRef.value) {
     moveScroll();
     selectedMarker.value = '';
-
-    const findMarker = (boothList) => {
-      if (boothList.length > 0) {
-        const firstBooth = boothList[0];
-        for (const category in markers.value.detail) {
-          const foundMarker = markers.value.detail[category].find(marker => marker.num === firstBooth.markerNum);
-          if (foundMarker) {
-            return foundMarker;
-          }
-        }
-      }
-      return null;
-    };
 
     if (selectBoothMenu.value === 1) {
       const foundMarker = findMarker(nightBoothList.value);
@@ -316,7 +319,7 @@ watchEffect(() => {
                   }"
                 >
                   <MapSpeechBubble 
-                    v-if="selectedMarker === marker"
+                    v-if="selectedMarker.markerNum === marker.markerNum"
                     class="absolute bottom-[90px]"
                   ></MapSpeechBubble>
                 </div>
