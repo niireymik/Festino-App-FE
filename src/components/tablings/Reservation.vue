@@ -69,6 +69,14 @@ watch(selectedBoothId, () => {
 onMounted(async () => {
   await getAllNightBooth();
   selectedBoothId.value = route.params?.boothId ?? selectedNightBoothInfo.value?.boothId ?? '';
+  if (selectedBoothId.value) {
+    openNightBoothInfo.value.forEach(info => {
+      if(info.boothId === selectedBoothId.value) {
+        selectedBoothId.value = '';
+        handleClickMajorBox(info);
+      };
+    });
+  };
   await nextTick();
   handleScrollToSelectedBooth();
 });
