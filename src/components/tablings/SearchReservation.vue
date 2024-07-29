@@ -1,8 +1,8 @@
 <script setup>
 import { ref, watch, watchEffect, onMounted } from 'vue';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
-import { is } from 'date-fns/locale';
 import { storeToRefs } from 'pinia';
+import { formatPhoneNum } from '@/utils/utils';
 
 const { getReservation, setUserName } = useReservationStore();
 const { recentName, recentPhoneNum } = storeToRefs(useReservationStore());
@@ -14,7 +14,7 @@ const isInputNameFocused = ref(false);
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  const inputInfo = { userName: recentName.value, phoneNum: recentPhoneNum.value.replace(/-/g, '') };
+  const inputInfo = { userName: recentName.value, phoneNum: formatPhoneNum(recentPhoneNum.value) };
   await getReservation(inputInfo);
   setUserName(recentName.value);
 };
@@ -59,7 +59,8 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  isInputFill.value = recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
+  isInputFill.value =
+    recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
 });
 </script>
 
@@ -73,7 +74,7 @@ watchEffect(() => {
           <input
             class="flex-1 focus:outline-none bg-inherit"
             type="text"
-            v-model='recentName'
+            v-model="recentName"
             @input="limitInputLength($event)"
             placeholder="티노"
             maxlength="5"

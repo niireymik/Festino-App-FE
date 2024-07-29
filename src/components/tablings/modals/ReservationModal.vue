@@ -7,10 +7,13 @@ import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
+import { formatPhoneNum } from '@/utils/utils';
 
 const { closeReserveModal } = useTablingModalStore();
 const { setUserName, checkDuplicateReserve, saveRecentInfo } = useReservationStore();
-const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo, recentName, recentPhoneNum } = storeToRefs(useReservationStore());
+const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo, recentName, recentPhoneNum } = storeToRefs(
+  useReservationStore(),
+);
 
 const personNum = ref(null);
 const regex = /^010/;
@@ -20,7 +23,7 @@ const handleClickReserveButton = async () => {
   console.log(
     'click reserve button',
     recentName.value,
-    recentPhoneNum.value.replace(/-/g, ''),
+    formatPhoneNum(recentPhoneNum.value),
     personNum.value,
     selectedNightBoothInfo.value.boothId,
   );
@@ -28,18 +31,19 @@ const handleClickReserveButton = async () => {
     recentName.value < 2 ||
     recentPhoneNum.value.length !== 13 ||
     personNum.value == 0 ||
-    !regex.test(recentPhoneNum.value) ||
+    !regex.test(formatPhoneNum(recentPhoneNum.value)) ||
     isSumbit.value
   )
     return;
 
   reserveInfo.value = {
     userName: recentName.value,
-    phoneNum: recentPhoneNum.value.replace(/-/g, ''),
+    phoneNum: formatPhoneNum(recentPhoneNum.value),
     personCount: personNum.value,
     boothId: selectedNightBoothInfo.value.boothId,
   };
-  checkDuplicateReserve(recentPhoneNum.value);
+  console.log(recentPhoneNum.value);
+  checkDuplicateReserve(formatPhoneNum(recentPhoneNum.value));
   isSumbit.value = true;
   setUserName(recentName.value);
   isSumbit.value = false;

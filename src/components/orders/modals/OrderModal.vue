@@ -1,5 +1,5 @@
 <script setup>
-import { formatPrice } from '@/utils/formatPrice';
+import { formatPrice } from '@/utils/utils';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { onMounted, ref } from 'vue';
 import { storeToRefs } from 'pinia';
@@ -7,6 +7,7 @@ import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
+import { formatPhoneNum } from '@/utils/utils';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
@@ -22,7 +23,7 @@ const regex = /^010/;
 const handleClickOrderButton = () => {
   if (recentName.value.length < 2 || recentPhoneNum.value.length !== 13 || !regex.test(recentPhoneNum.value)) return;
   setUserName(recentName.value);
-  setPhoneNum(recentPhoneNum.value.replace(/-/g, ''));
+  setPhoneNum(formatPhoneNum(recentPhoneNum.value));
 
   closeOrderModal();
   openOrderCheckModal();

@@ -7,6 +7,7 @@ import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 import { handleStopScroll } from '@/utils/handleScrollStop';
 import { useRoute, useRouter } from 'vue-router';
+import { formatPhoneNum } from '@/utils/utils';
 
 const route = useRoute();
 const router = useRouter();
@@ -53,7 +54,7 @@ const handleOrderList = (type) => {
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value) return;
-  await getOrder({ userName: recentName.value, phoneNum: recentPhoneNum.value.replace(/-/g, '') });
+  await getOrder({ userName: recentName.value, phoneNum: formatPhoneNum(recentPhoneNum.value) });
   isSumbit.value = true;
 
   waitingDepositList.value = orderList?.value.filter((order) => order.orderType === 0);
@@ -100,7 +101,8 @@ watchEffect(() => {
 });
 
 watchEffect(() => {
-  isInputFill.value = recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
+  isInputFill.value =
+    recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
   handleStopScroll([notExistOrderModalState.value]);
 });
 </script>
@@ -116,7 +118,7 @@ watchEffect(() => {
             <input
               class="flex-1 focus:outline-none bg-inherit"
               type="text"
-              v-model = "recentName"
+              v-model="recentName"
               @input="limitInputLength($event)"
               placeholder="티노"
               maxlength="5"
@@ -138,7 +140,7 @@ watchEffect(() => {
             <input
               class="flex-1 focus:outline-none bg-inherit"
               type="tel"
-              v-model = "recentPhoneNum"
+              v-model="recentPhoneNum"
               placeholder="010-1234-5678"
               @input="formattedPhoneNum($event)"
               maxlength="13"
@@ -182,9 +184,7 @@ watchEffect(() => {
             ></div>
           </div>
         </div>
-        <div
-          class="w-screen max-w-[500px] bg-secondary-300 h-[0.3px] ml-[-32px] absolute bottom-0"
-        ></div>
+        <div class="w-screen max-w-[500px] bg-secondary-300 h-[0.3px] ml-[-32px] absolute bottom-0"></div>
       </div>
       <!-- order lists -->
       <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5">

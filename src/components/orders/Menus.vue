@@ -1,7 +1,7 @@
 <script setup>
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { ref } from 'vue';
-import { formatPrice } from '@/utils/formatPrice';
+import { formatPrice } from '@/utils/utils';
 const { handleTotalPrice, addOrderList } = useOrderStore();
 
 const props = defineProps({
