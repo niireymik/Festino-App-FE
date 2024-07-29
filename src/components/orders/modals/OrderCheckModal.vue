@@ -4,7 +4,7 @@ import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
-import { formatPrice } from '@/utils/formatPrice';
+import { formatPrice } from '@/utils/utils';
 
 const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo } = storeToRefs(
   useOrderStore(),

@@ -1,5 +1,5 @@
 <script setup>
-import { formatPrice } from '@/utils/formatPrice';
+import { formatPrice } from '@/utils/utils';
 import { onMounted, watchEffect } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useOrderStore } from '@/stores/orders/orderStore';
