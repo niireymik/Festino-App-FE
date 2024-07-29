@@ -1,4 +1,4 @@
-import axios, { all } from "axios";
+import axios from "axios";
 import { defineStore } from 'pinia';
 import { ref } from "vue";
 import { useRouter } from 'vue-router'; 

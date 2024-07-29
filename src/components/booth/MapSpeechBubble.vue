@@ -7,14 +7,20 @@ const { boothMarkerData } = storeToRefs(useGetBoothDataStore());
 
 <template>
   <div class="px-[18px] py-[11px] speech-bubble shadow-5xl flex flex-col justify-center">
-    <div class="text-primary-900 font-semibold text-[11px] pb-1">{{ boothMarkerData?.adminCategory !== '편의시설' ? `${boothMarkerData.adminName} 부스` : boothMarkerData.boothName }}</div>
-		<div class="flex items-center">
-			<div class="w-[10px] h-[10px] bg-[url('/icons/booth/location_on.svg')]"></div>
-			<div class="text-[8px] pl-[2px] text-secondary-500">{{ boothMarkerData.location }}</div>
+		<div v-if="boothMarkerData?.boothId">
+			<div class="text-primary-900 font-semibold text-[11px] pb-1">{{ boothMarkerData?.adminCategory ? `${boothMarkerData.adminName} 부스` : boothMarkerData.boothName }}</div>
+			<div class="flex items-center">
+				<div class="w-[10px] h-[10px] bg-[url('/icons/booth/location_on.svg')]"></div>
+				<div class="text-[8px] pl-[2px] text-secondary-500">{{ boothMarkerData.location }}</div>
+			</div>
+			<div class="flex items-center">
+				<div class="w-[10px] h-[10px] bg-[url('/icons/booth/alarm.svg')]"></div>
+				<div class="text-[8px] pl-[2px] text-secondary-500">{{ boothMarkerData.openTime }} ~ {{ boothMarkerData.closeTime }}</div>
+			</div>
 		</div>
-		<div class="flex items-center">
-			<div class="w-[10px] h-[10px] bg-[url('/icons/booth/alarm.svg')]"></div>
-			<div class="text-[8px] pl-[2px] text-secondary-500">{{ boothMarkerData.openTime }} ~ {{ boothMarkerData.closeTime }}</div>
+		<div v-if="!boothMarkerData?.boothId" class="flex flex-col justify-center items-center">
+			<div class="text-primary-900 font-semibold text-[11px]">부스 정보 미등록</div>
+			<div class="bg-tino-error-half bg-cover w-[75px] h-[40px]"></div>
 		</div>
   </div>
 </template>
