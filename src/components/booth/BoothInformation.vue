@@ -34,7 +34,6 @@ const snapToCurrent = () => {
   if (containerRef.value) {
     const containerWidth = containerRef.value.clientWidth;
     const newIndex = Math.round(containerRef.value.scrollLeft / containerWidth);
-    console.log(containerWidth, newIndex)
     containerRef.value.scrollBy({
       left: currentIndex.value * containerWidth,
     });
@@ -51,7 +50,6 @@ const onWheel = (event) => {
     const containerWidth = containerRef.value.clientWidth;
     const scrollDirection = event.deltaX > 0 ? 1 : -1;
     const newIndex = Math.max(0, Math.min(imageList.value.length - 1, currentIndex.value + scrollDirection));
-    console.log(containerWidth, scrollDirection, newIndex)
     containerRef.value.scrollTo({
       left: currentIndex.value * containerWidth,
     });
