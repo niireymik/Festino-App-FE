@@ -258,6 +258,10 @@ const initializeMap = () => {
   loadDetailMap();
 }
 
+const initSelectedMarker = () => {
+  selectedMarker.value = '';
+}
+
 onMounted(() => {
   imageLoaded.value = true;
   initializeMap(); // 페이지 로드 시 호출
@@ -310,7 +314,8 @@ watchEffect(() => {
         id="map-container"
         class="relative aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-map-color border border-primary-900-light rounded-3xl overflow-auto touch-pan-x touch-pan-y"
       >
-        <div 
+        <div
+          @click="initSelectedMarker()"
           class="relative scroll-smooth"
           id="map-area"
           :style="{ 
@@ -357,7 +362,7 @@ watchEffect(() => {
                   transformOrigin: 'center bottom',
                   zIndex: `${selectedMarker === marker ? '1000' : '500'}`
                 }"
-                @click="handleMarkerClick(marker)"
+                @click.stop="handleMarkerClick(marker)"
               >
                 <div
                   v-if="zoomLevel > 1.4 && !isBoothDetail"
