@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import MapSpeechBubble from './MapSpeechBubble.vue';
 import { useRouter, useRoute } from 'vue-router';
 
-const { convertBoothMenuTab } = useGetBoothDataStore();
+const { convertBoothMenuTab, getBoothData } = useGetBoothDataStore();
 const { selectBoothMenu, selectedTickectBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList, booth } = storeToRefs(useGetBoothDataStore());
 
 const router = useRouter();
@@ -153,7 +153,7 @@ const moveScroll = () => {
 
 const handleMarkerClick = (index) => {
   selectedMarker.value = index;
-  getBoothData(index);
+  getBoothDetailData(index);
   focusMarker();
 };
 
@@ -204,7 +204,7 @@ const boothDataMap = computed(() => {
   return map;
 });
 
-const getBoothData = (marker) => {
+const getBoothDetailData = (marker) => {
   boothMarkerData.value = boothDataMap.value[marker.markerNum];
 }
 
@@ -262,6 +262,10 @@ const initSelectedMarker = () => {
   selectedMarker.value = '';
 }
 
+const clickMarkerSpeechBubble = (type, id) => {
+  getBoothData(type, id);
+}
+
 onMounted(() => {
   imageLoaded.value = true;
   initializeMap(); // 페이지 로드 시 호출
@@ -282,19 +286,19 @@ watchEffect(() => {
       const foundMarker = findMarker(nightBoothList.value);
       if (foundMarker) {
         selectedMarker.value = foundMarker;
-        getBoothData(foundMarker);
+        getBoothDetailData(foundMarker);
       }
     } else if (selectBoothMenu.value === 2) {
       const foundMarker = findMarker(dayBoothList.value);
       if (foundMarker) {
         selectedMarker.value = foundMarker;
-        getBoothData(foundMarker);
+        getBoothDetailData(foundMarker);
       }
     } else if (selectBoothMenu.value === 3) {
       const foundMarker = findMarker(foodBoothList.value);
       if(foundMarker) {
         selectedMarker.value = foundMarker;
-        getBoothData(foundMarker);
+        getBoothDetailData(foundMarker);
       }
     }
     if(route.params?.id) {
@@ -306,7 +310,7 @@ watchEffect(() => {
 
 <template>
   <div class="dynamic-booth-map-padding">
-    <div class="relative">
+    <div class="relative cursor-pointer">
       <div 
         ref="containerRef"
         @touchstart.passive="handleTouchStart($event)"
@@ -375,6 +379,7 @@ watchEffect(() => {
                   <MapSpeechBubble 
                     v-if="selectedMarker.markerNum === marker.markerNum"
                     class="absolute bottom-[90px]"
+                    @click.stop="clickMarkerSpeechBubble(boothMarkerData.adminCategory, boothMarkerData.boothId)"
                   ></MapSpeechBubble>
                 </div>
               </div>
