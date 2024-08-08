@@ -18,6 +18,7 @@ const { selectedNightBoothInfo, openNightBoothInfo, reserveInfo, recentName, rec
 const personNum = ref(null);
 const regex = /^010/;
 const isSumbit = ref(false);
+const dataError = ref(false);
 
 const handleClickReserveButton = async () => {
   console.log(
@@ -33,8 +34,10 @@ const handleClickReserveButton = async () => {
     personNum.value == 0 || !personNum.value ||
     !regex.test(formatPhoneNum(recentPhoneNum.value)) ||
     isSumbit.value
-  )
+  ) {
+    dataError.value = true;
     return;
+  };
 
   reserveInfo.value = {
     userName: recentName.value,
@@ -42,7 +45,6 @@ const handleClickReserveButton = async () => {
     personCount: personNum.value,
     boothId: selectedNightBoothInfo.value.boothId,
   };
-  console.log(recentPhoneNum.value);
   checkDuplicateReserve(formatPhoneNum(recentPhoneNum.value));
   isSumbit.value = true;
   setUserName(recentName.value);
@@ -63,12 +65,13 @@ onMounted(() => {
       @click.stop=""
     >
       <div class="text-secondary-700 text-xl font-semibold">{{ newNightBooth.adminName }} 부스 예약</div>
-      <div class="w-full flex flex-col justify-start px-4">
+      <div class="w-full flex flex-col justify-start px-4" @click="dataError = false">
         <InputName v-model="recentName" />
         <div class="mb-[30px]">
           <InputPhoneNum v-model="recentPhoneNum" />
         </div>
         <InputPersonNum v-model="personNum" />
+        <div v-if="dataError" class="text-sm text-warning absolute bottom-40">*정확한 값을 입력해 주세요.</div>
       </div>
       <div class="flex flex-row justify-between p-4 bg-primary-900-light-6 rounded-lg-xl w-full">
         <div>현재 대기 팀</div>
@@ -82,7 +85,7 @@ onMounted(() => {
           닫기
         </button>
         <button
-          class="w-full h-[43px] bg-primary-900 text-white font-bold rounded-10xl"
+          class="w-full h-[43px] font-bold rounded-10xl bg-primary-900 text-white"
           @click="handleClickReserveButton()"
         >
           예약하기
