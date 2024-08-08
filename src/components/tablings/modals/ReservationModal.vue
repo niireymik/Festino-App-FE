@@ -30,7 +30,7 @@ const handleClickReserveButton = async () => {
   if (
     recentName.value.length < 2 ||
     recentPhoneNum.value.length !== 13 ||
-    personNum.value == 0 ||
+    personNum.value == 0 || !personNum.value ||
     !regex.test(formatPhoneNum(recentPhoneNum.value)) ||
     isSumbit.value
   )
