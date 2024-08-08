@@ -42,7 +42,7 @@ onMounted(() => {
     <DetailInformation />
     <BoothInformation v-if="imageList !== ''" />
     <MenuList v-if="menuList != ''" />
-    <BoothReservation v-if="boothType === '야간부스' && booth?.isReservation" />
+    <BoothReservation v-if="boothType === '야간부스' && booth?.isReservation && booth?.isOpen" />
   </div>
 </template>
 
