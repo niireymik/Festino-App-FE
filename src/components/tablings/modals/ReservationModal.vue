@@ -28,7 +28,7 @@ const handleClickReserveButton = async () => {
     selectedNightBoothInfo.value.boothId,
   );
   if (
-    recentName.value < 2 ||
+    recentName.value.length < 2 ||
     recentPhoneNum.value.length !== 13 ||
     personNum.value == 0 ||
     !regex.test(formatPhoneNum(recentPhoneNum.value)) ||
