@@ -3,8 +3,8 @@ import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
-import { onMounted, ref } from 'vue';
-import { formatPrice } from '@/utils/formatPrice';
+import { onMounted, ref, watchEffect } from 'vue';
+import { formatPrice } from '@/utils/utils';
 
 const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo } = storeToRefs(
   useOrderStore(),
@@ -13,9 +13,6 @@ const { saveOrder, getAccountInfo } = useOrderStore();
 const { closeOrderCheckModal } = useOrderModalStore();
 
 const orderMenus = ref([]);
-onMounted(() => {
-  orderMenus.value = userOrderList.value.filter((orderInfo) => orderInfo.menuCount > 0);
-});
 
 const handleClickConfirmDepositButton = () => {
   saveOrder({
@@ -30,8 +27,15 @@ const handleClickConfirmDepositButton = () => {
 };
 
 const clipAccount = () => {
-  window.navigator.clipboard.writeText(accountNum);
+  window.navigator.clipboard.writeText(accountInfo.value?.account);
+  alert('계좌번호가 복사되었습니다.');
 };
+
+watchEffect(() => {
+  if (userOrderList.value) {
+    orderMenus.value = userOrderList.value.filter((orderInfo) => orderInfo.menuCount > 0);
+  }
+});
 
 onMounted(() => {
   getAccountInfo();
