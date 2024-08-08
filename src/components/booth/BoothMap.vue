@@ -306,7 +306,7 @@ watchEffect(() => {
 
 <template>
   <div class="dynamic-booth-map-padding">
-    <div class="relative">
+    <div class="relative cursor-pointer">
       <div 
         ref="containerRef"
         @touchstart.passive="handleTouchStart($event)"
