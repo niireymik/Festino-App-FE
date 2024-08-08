@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, watchEffect, onMounted } from 'vue';
+import { ref, watch, watchEffect } from 'vue';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import { formatPhoneNum } from '@/utils/utils';
@@ -19,8 +19,8 @@ const handleClickSearchButton = async () => {
   setUserName(recentName.value);
 };
 
-const formattedPhoneNum = (event) => {
-  const inputValue = event.target.value.replace(/\D/g, '');
+const formattedPhoneNum = (phone) => {
+  const inputValue = phone.replace(/\D/g, '');
   let formattedValue = '';
 
   if (inputValue.length > 3 && inputValue.length < 8) {
@@ -30,9 +30,7 @@ const formattedPhoneNum = (event) => {
   } else {
     formattedValue = inputValue;
   }
-
-  event.target.value = formattedValue;
-  recentPhoneNum.value = inputValue;
+  return formattedValue;
 };
 
 const limitInputLength = (event) => {
@@ -61,6 +59,13 @@ watchEffect(() => {
 watchEffect(() => {
   isInputFill.value =
     recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
+});
+
+watch(recentPhoneNum, (newNum) => {
+  const formattedValue = formattedPhoneNum(newNum);
+  if (newNum !== formattedValue) {
+    recentPhoneNum.value = formattedValue;
+  }
 });
 </script>
 
@@ -98,7 +103,6 @@ watchEffect(() => {
             type="tel"
             v-model="recentPhoneNum"
             placeholder="010-1234-5678"
-            @input="formattedPhoneNum($event)"
             maxlength="13"
             @focus="isInputPhoneNumFocused = true"
             @blur="isInputPhoneNumFocused = false"
