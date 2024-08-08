@@ -10,8 +10,8 @@ import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { formatPhoneNum } from '@/utils/utils';
 
 const { closeReserveModal } = useTablingModalStore();
-const { setUserName, checkDuplicateReserve, saveRecentInfo } = useReservationStore();
-const { selectedNightBoothInfo, isLoading, openNightBoothInfo, reserveInfo, recentName, recentPhoneNum } = storeToRefs(
+const { setUserName, checkDuplicateReserve } = useReservationStore();
+const { selectedNightBoothInfo, openNightBoothInfo, reserveInfo, recentName, recentPhoneNum } = storeToRefs(
   useReservationStore(),
 );
 
