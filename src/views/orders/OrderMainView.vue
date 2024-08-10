@@ -42,7 +42,7 @@ onMounted(() => {
     <OrderMainBanner />
     <div class="w-full rounded-t-3xl bg-white pt-[25px] flex flex-col items-center -translate-y-12">
       <div
-        class="w-[138px] h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center"
+        class="h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center px-6"
       >
         테이블 번호 {{ customTableNum }}
       </div>
