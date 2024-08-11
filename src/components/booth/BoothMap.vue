@@ -121,16 +121,19 @@ const moveScroll = () => {
       container.scrollTop = 65;
     });
   } else if (selectBoothMenu.value === 1) {
+    // 운동장 눌렀을 때
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
     });
   } else if (selectBoothMenu.value === 2) {
+    // 벙커 눌렀을 때
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
     });
   } else if (selectBoothMenu.value === 3) {
+    // 푸드트럭 눌렀을 때
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
@@ -138,6 +141,7 @@ const moveScroll = () => {
   } else if (selectBoothMenu.value === 4) {
     zoomLevel.value = 1.6;
     if(selectedTickectBooth.value === false) {
+      // 편의시설 눌렀을 때
       nextTick(() => {
         container.scrollLeft = 130;
         container.scrollTop = 150;
@@ -342,8 +346,9 @@ watchEffect(() => {
                 transform: `scale(${1 / zoomLevel})`,
                 transformOrigin: 'center bottom'
               }"
-              @click="convertBoothMenuTab(marker.tab)"
+              @click.stop="convertBoothMenuTab(marker.tab)"
             >
+            <!-- 대왕 마커 -->
               <div
                 v-if="zoomLevel <= 1.4 && !isBoothDetail"
                 class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center">
@@ -354,6 +359,7 @@ watchEffect(() => {
               v-for="(category, categoryName) in markers.detail"
               :key="categoryName"
             >
+            <!-- 부스 마커 -->
               <div
                 v-for="(marker, index) in category"
                 :id="marker.id"
