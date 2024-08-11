@@ -21,7 +21,7 @@ const handleClickBoothDetailBackArrow = () => {
       ></div>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div
-          v-if="booth?.adminCategory"
+          v-if="booth.adminCategory != '편의시설'"
           class="bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]"
         >
           먹거리가 가득한
