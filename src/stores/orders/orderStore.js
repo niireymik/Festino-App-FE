@@ -19,6 +19,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const userName = ref('');
   const phoneNum = ref('');
   const tableNum = ref(0);
+  const customTableNum = ref('');
   const isCoupon = ref(false);
   const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
   const accountInfo = ref({
@@ -27,9 +28,26 @@ export const useOrderStore = defineStore('orderStore', () => {
     bankName: '',
   });
 
-  const setBoothInfo = (id, num) => {
+  const getCustomTableNum = async (tableNum, boothId) => {
+    try {
+      const res = await axios.get(`${HOST}/main/order/table`, {
+        params: { tableNumIndex: tableNum, boothId },
+      });
+      if (res.data.success) return res.data;
+      else {
+        router.push({ name: 'error', params: { page: 'NotFound' } });
+      }
+    } catch (error) {
+      console.error(error);
+      router.push({ name: 'error', params: { page: 'NotFound' } });
+    }
+  };
+
+  const setBoothInfo = async (id, num) => {
+    const tableInfo = await getCustomTableNum(num, id);
     boothId.value = id;
     tableNum.value = num;
+    customTableNum.value = tableInfo.tableNum;
   };
 
   const resetOrderInfo = () => {
@@ -148,6 +166,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     accountInfo,
     recentPhoneNum,
     recentName,
+    customTableNum,
     handleTotalPrice,
     addOrderList,
     setUserName,

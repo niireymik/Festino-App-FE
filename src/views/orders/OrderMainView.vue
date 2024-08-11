@@ -10,7 +10,7 @@ const orderStore = useOrderStore();
 const orderModalStore = useOrderModalStore();
 const { resetOrderInfo, setBoothInfo, isUUID } = orderStore;
 const { resetModalState } = orderModalStore;
-const { tableNum } = storeToRefs(orderStore);
+const { customTableNum } = storeToRefs(orderStore);
 const route = useRoute();
 const router = useRouter();
 
@@ -30,7 +30,7 @@ onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
   if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
-    return router.push({ name: 'error', params: { page: 'order' } });
+    return router.push({ name: 'error', params: { page: 'NotFound' } });
   }
   setBoothInfo(route.params.boothId, route.params.tableNum);
   resetOrderInfo();
@@ -42,9 +42,9 @@ onMounted(() => {
     <OrderMainBanner />
     <div class="w-full rounded-t-3xl bg-white pt-[25px] flex flex-col items-center -translate-y-12">
       <div
-        class="w-[138px] h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center"
+        class="h-11 rounded-10xl bg-primary-900-lighter font-semibold text-primary-900 shrink-0 grid place-items-center px-6"
       >
-        테이블 번호 {{ tableNum }}
+        테이블 번호 {{ customTableNum }}
       </div>
       <div class="py-11 flex flex-col w-full px-2 gap-y-11 h-full">
         <div class="flex flex-row justify-evenly gap-x-2">

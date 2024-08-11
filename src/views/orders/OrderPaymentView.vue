@@ -22,7 +22,7 @@ onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
   if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
-    return router.push({ name: 'error', params: { page: 'order' } });
+    return router.push({ name: 'error', params: { page: 'NotFound' } });
   }
   setBoothInfo(route.params.boothId, route.params.tableNum);
   getMenuAll(route.params.boothId);
