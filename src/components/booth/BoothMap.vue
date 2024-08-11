@@ -105,11 +105,45 @@ const markers = ref({
 const selectedMarker = ref('');
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.3, 1.6);
+  const container = containerRef.value;
+  
+  const currentScrollLeft = container.scrollLeft;
+  const currentScrollTop = container.scrollTop;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+  
+  const centerX = currentScrollLeft + containerWidth / 2;
+  const centerY = currentScrollTop + containerHeight / 2;
+  
+  const newZoomLevel = Math.min(zoomLevel.value + 0.3, 1.6);
+  const zoomFactor = newZoomLevel / zoomLevel.value;
+  zoomLevel.value = newZoomLevel;
+  
+  nextTick(() => {
+    container.scrollLeft = centerX * zoomFactor - containerWidth / 2;
+    container.scrollTop = centerY * zoomFactor - containerHeight / 2;
+  });
 };
 
 const zoomOut = () => {
-  zoomLevel.value = Math.max(zoomLevel.value - 0.3, 1);
+  const container = containerRef.value;
+  
+  const currentScrollLeft = container.scrollLeft;
+  const currentScrollTop = container.scrollTop;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+
+  const centerX = currentScrollLeft + containerWidth / 2;
+  const centerY = currentScrollTop + containerHeight / 2;
+  
+  const newZoomLevel = Math.max(zoomLevel.value - 0.3, 1);
+  const zoomFactor = newZoomLevel / zoomLevel.value;
+  zoomLevel.value = newZoomLevel;
+  
+  nextTick(() => {
+    container.scrollLeft = centerX * zoomFactor - containerWidth / 2;
+    container.scrollTop = centerY * zoomFactor - containerHeight / 2;
+  });
 };
 
 const moveScroll = () => {
