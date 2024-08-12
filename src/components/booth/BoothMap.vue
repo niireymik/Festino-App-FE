@@ -105,11 +105,45 @@ const markers = ref({
 const selectedMarker = ref('');
 
 const zoomIn = () => {
-  zoomLevel.value = Math.min(zoomLevel.value + 0.3, 1.6);
+  const container = containerRef.value;
+  
+  const currentScrollLeft = container.scrollLeft;
+  const currentScrollTop = container.scrollTop;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+  
+  const centerX = currentScrollLeft + containerWidth / 2;
+  const centerY = currentScrollTop + containerHeight / 2;
+  
+  const newZoomLevel = Math.min(zoomLevel.value + 0.3, 1.6);
+  const zoomFactor = newZoomLevel / zoomLevel.value;
+  zoomLevel.value = newZoomLevel;
+  
+  nextTick(() => {
+    container.scrollLeft = centerX * zoomFactor - containerWidth / 2;
+    container.scrollTop = centerY * zoomFactor - containerHeight / 2;
+  });
 };
 
 const zoomOut = () => {
-  zoomLevel.value = Math.max(zoomLevel.value - 0.3, 1);
+  const container = containerRef.value;
+  
+  const currentScrollLeft = container.scrollLeft;
+  const currentScrollTop = container.scrollTop;
+  const containerWidth = container.clientWidth;
+  const containerHeight = container.clientHeight;
+
+  const centerX = currentScrollLeft + containerWidth / 2;
+  const centerY = currentScrollTop + containerHeight / 2;
+  
+  const newZoomLevel = Math.max(zoomLevel.value - 0.3, 1);
+  const zoomFactor = newZoomLevel / zoomLevel.value;
+  zoomLevel.value = newZoomLevel;
+  
+  nextTick(() => {
+    container.scrollLeft = centerX * zoomFactor - containerWidth / 2;
+    container.scrollTop = centerY * zoomFactor - containerHeight / 2;
+  });
 };
 
 const moveScroll = () => {
@@ -121,16 +155,19 @@ const moveScroll = () => {
       container.scrollTop = 65;
     });
   } else if (selectBoothMenu.value === 1) {
+    // 운동장 눌렀을 때
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
     });
   } else if (selectBoothMenu.value === 2) {
+    // 벙커 눌렀을 때
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
     });
   } else if (selectBoothMenu.value === 3) {
+    // 푸드트럭 눌렀을 때
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
@@ -138,6 +175,7 @@ const moveScroll = () => {
   } else if (selectBoothMenu.value === 4) {
     zoomLevel.value = 1.6;
     if(selectedTickectBooth.value === false) {
+      // 편의시설 눌렀을 때
       nextTick(() => {
         container.scrollLeft = 130;
         container.scrollTop = 150;
@@ -342,8 +380,9 @@ watchEffect(() => {
                 transform: `scale(${1 / zoomLevel})`,
                 transformOrigin: 'center bottom'
               }"
-              @click="convertBoothMenuTab(marker.tab)"
+              @click.stop="convertBoothMenuTab(marker.tab)"
             >
+            <!-- 대왕 마커 -->
               <div
                 v-if="zoomLevel <= 1.4 && !isBoothDetail"
                 class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center">
@@ -354,6 +393,7 @@ watchEffect(() => {
               v-for="(category, categoryName) in markers.detail"
               :key="categoryName"
             >
+            <!-- 부스 마커 -->
               <div
                 v-for="(marker, index) in category"
                 :id="marker.id"
