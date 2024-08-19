@@ -49,6 +49,7 @@ const getBoothIntroduceImageProps = (boothImage) => {
   <div class="relative pt-[2.33%] pl-[4.65%] pr-[4.65%] pb-9">
     <div class="mt-4">
       <div
+        v-if="imageList.length > 1"
         class="absolute right-10 top-11 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500"
       >
         {{ currentIndex + 1 }} / {{ imageList.length }}
