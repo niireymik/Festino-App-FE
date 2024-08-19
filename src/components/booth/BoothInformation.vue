@@ -7,32 +7,44 @@ const { booth, imageList } = storeToRefs(useGetBoothDataStore());
 const currentIndex = ref(0);
 const containerRef = ref(null);
 
-let startX = 0;
-let isDragging = false;
+const startX = ref(0);
+const isDragging = ref(false);
+const isWheeling = ref(false);
 
 const handleTouchStart = (event) => {
-  startX = event.touches[0].clientX;
-  isDragging = true;
+  startX.value = event.touches[0].clientX;
+  isDragging.value = true;
 };
 
 const handleTouchMove = (event) => {
-  if (!isDragging) return;
+  if (!isDragging.value) return;
   const touchX = event.touches[0].clientX;
-  const moveX = startX - touchX;
+  const moveX = startX.value - touchX;
 
   if (moveX > 50) {
     nextSlide();
-    isDragging = false;
+    isDragging.value = false;
   } else if (moveX < -50) {
     prevSlide();
-    isDragging = false;
+    isDragging.value = false;
   }
 };
 
 const handleTouchEnd = () => {
-  isDragging = false;
+  isDragging.value = false;
 
   scrollToSlide(currentIndex.value);
+};
+
+const handleWheel = (event) => {
+  startX.value = event.clientX;
+  isWheeling.value = true;
+
+  if (event.deltaX > 0) {
+    nextSlide();
+  } else if (event.deltaX < 0) {
+    prevSlide();
+  }
 };
 
 const nextSlide = () => {
@@ -68,6 +80,7 @@ onMounted(() => {
     container.addEventListener('touchstart', handleTouchStart, { passive: true });
     container.addEventListener('touchmove', handleTouchMove, { passive: true });
     container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('wheel', handleWheel, { passive: true });
   }
 });
 
@@ -77,6 +90,7 @@ onUnmounted(() => {
     container.removeEventListener('touchstart', handleTouchStart);
     container.removeEventListener('touchmove', handleTouchMove);
     container.removeEventListener('touchend', handleTouchEnd);
+    container.removeEventListener('wheel', handleWheel);
   }
 });
 
@@ -105,7 +119,7 @@ const getBoothIntroduceImageProps = (boothImage) => {
         <div
           v-for="(image, index) in imageList"
           :key="index"
-          class="snap-center snap-always min-w-full flex-shrink-0"
+          class="snap-start snap-always min-w-full flex-shrink-0"
         >
           <div
             class="aspect-square scroll-smooth w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
