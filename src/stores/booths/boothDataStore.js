@@ -16,7 +16,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const boothList = ref([]);
   
   const selectBoothMenu = ref(0);
-  const selectedTickectBooth = ref(false);
+  const selectedTicketBooth = ref(false);
   const boothMarkerData = ref('');
 
   const booth = ref([]);
@@ -38,7 +38,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     subMenu.value = '';
   }
   
-  const getAllTypeBoothLsitData = async () => {
+  const getAllTypeBoothListData = async () => {
     try {
       const urls = [
         `${HOST}/main/booth/all`,
@@ -63,16 +63,16 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
       boothList.value = [];
       boothList.value.push(allBoothList.value, nightBoothList.value, dayBoothList.value, foodBoothList.value, facilityList.value);
     } catch (error) {
-      console.error('Error getAllTypeBoothLsitData', error);
+      console.error('Error getAllTypeBoothListData', error);
     }
   };  
 
   const convertBoothMenuTab = (index) => {
-    selectedTickectBooth.value = false;
+    selectedTicketBooth.value = false;
 
     if(index === 5) {
       selectBoothMenu.value = 4;
-      selectedTickectBooth.value = true;
+      selectedTicketBooth.value = true;
     } else {
       selectBoothMenu.value = index;
     }
@@ -151,7 +151,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     foodBoothList,
     boothList,
     selectBoothMenu,
-    selectedTickectBooth,
+    selectedTicketBooth,
     boothMarkerData,
     booth,
     boothType,
@@ -161,7 +161,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     mainMenu,
     subMenu,
     init,
-    getAllTypeBoothLsitData,
+    getAllTypeBoothListData,
     convertBoothMenuTab,
     getBoothData,
     setBoothType,

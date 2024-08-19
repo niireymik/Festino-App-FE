@@ -6,7 +6,7 @@ import MapSpeechBubble from './MapSpeechBubble.vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const { convertBoothMenuTab, getBoothData } = useGetBoothDataStore();
-const { selectBoothMenu, selectedTickectBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList, booth } = storeToRefs(useGetBoothDataStore());
+const { selectBoothMenu, selectedTicketBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList, booth } = storeToRefs(useGetBoothDataStore());
 
 const router = useRouter();
 const route = useRoute();
@@ -174,7 +174,7 @@ const moveScroll = () => {
     })
   } else if (selectBoothMenu.value === 4) {
     zoomLevel.value = 1.6;
-    if(selectedTickectBooth.value === false) {
+    if(selectedTicketBooth.value === false) {
       // 편의시설 눌렀을 때
       nextTick(() => {
         container.scrollLeft = 130;
