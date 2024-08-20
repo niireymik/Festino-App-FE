@@ -8,10 +8,10 @@ import { onMounted } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 
 const store = useGetBoothDataStore();
-const { getAllTypeBoothLsitData } = store;
+const { getAllTypeBoothListData } = store;
 
 onMounted(() => {
-  getAllTypeBoothLsitData();
+  getAllTypeBoothListData();
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
 });

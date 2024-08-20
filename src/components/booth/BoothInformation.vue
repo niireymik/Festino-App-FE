@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
@@ -7,70 +7,90 @@ const { booth, imageList } = storeToRefs(useGetBoothDataStore());
 const currentIndex = ref(0);
 const containerRef = ref(null);
 
-const updateCurrentIndex = () => {
-  if (containerRef.value) {
-    const scrollLeft = containerRef.value.scrollLeft;
-    const containerWidth = containerRef.value.clientWidth;
-    currentIndex.value = Math.round(scrollLeft / containerWidth);
+const startX = ref(0);
+const isDragging = ref(false);
+const isWheeling = ref(false);
+
+const handleTouchStart = (event) => {
+  startX.value = event.touches[0].clientX;
+  isDragging.value = true;
+};
+
+const handleTouchMove = (event) => {
+  if (!isDragging.value) return;
+  const touchX = event.touches[0].clientX;
+  const moveX = startX.value - touchX;
+
+  if (moveX > 50) {
+    nextSlide();
+    isDragging.value = false;
+  } else if (moveX < -50) {
+    prevSlide();
+    isDragging.value = false;
   }
 };
 
-// 부스 이미지 스크롤
-const isScrolling = ref(false);
-let scrollTimeout;
+const handleTouchEnd = () => {
+  isDragging.value = false;
 
-const onScroll = () => {
-  if (isScrolling) return;
-
-  if (scrollTimeout) clearTimeout(scrollTimeout);
-
-  scrollTimeout = setTimeout(() => {
-    updateCurrentIndex();
-    snapToCurrent();
-  }, 100);
+  scrollToSlide(currentIndex.value);
 };
 
-const snapToCurrent = () => {
-  if (containerRef.value) {
-    const containerWidth = containerRef.value.clientWidth;
-    const newIndex = Math.round(containerRef.value.scrollLeft / containerWidth);
-    containerRef.value.scrollBy({
-      left: currentIndex.value * containerWidth,
-    });
+const handleWheel = (event) => {
+  startX.value = event.clientX;
+  isWheeling.value = true;
+
+  if (event.deltaX > 0) {
+    nextSlide();
+  } else if (event.deltaX < 0) {
+    prevSlide();
   }
-  isScrolling = false;
 };
 
-const onWheel = (event) => {
-  event.preventDefault();
-  if (isScrolling) return;
-
-  isScrolling = true;
-  if (containerRef.value) {
-    const containerWidth = containerRef.value.clientWidth;
-    const scrollDirection = event.deltaX > 0 ? 1 : -1;
-    const newIndex = Math.max(0, Math.min(imageList.value.length - 1, currentIndex.value + scrollDirection));
-    containerRef.value.scrollTo({
-      left: currentIndex.value * containerWidth,
-    });
-    currentIndex.value = newIndex;
+const nextSlide = () => {
+  if (currentIndex.value < imageList.value.length - 1) {
+    currentIndex.value++;
   }
-  setTimeout(() => {
-    isScrolling = false;
-  }, 500);
+  scrollToSlide(currentIndex.value);
 };
+
+const prevSlide = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  }
+  scrollToSlide(currentIndex.value);
+};
+
+const scrollToSlide = (index) => {
+  const container = containerRef.value;
+  const slideWidth = container.clientWidth;
+  container.scrollTo({
+    left: index * slideWidth,
+    behavior: 'smooth',
+  });
+};
+
+watch(currentIndex, (newIndex) => {
+  scrollToSlide(newIndex);
+});
 
 onMounted(() => {
-  if (containerRef.value) {
-    containerRef.value.addEventListener('scroll', onScroll, { passive: true });
-    containerRef.value.addEventListener('wheel', onWheel, { passive: false });
+  const container = containerRef.value;
+  if (container) {
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('wheel', handleWheel, { passive: true });
   }
 });
 
 onUnmounted(() => {
-  if (containerRef.value) {
-    containerRef.value.removeEventListener('scroll', onScroll);
-    containerRef.value.removeEventListener('wheel', onWheel);
+  const container = containerRef.value;
+  if (container) {
+    container.removeEventListener('touchstart', handleTouchStart);
+    container.removeEventListener('touchmove', handleTouchMove);
+    container.removeEventListener('touchend', handleTouchEnd);
+    container.removeEventListener('wheel', handleWheel);
   }
 });
 
@@ -87,25 +107,30 @@ const getBoothIntroduceImageProps = (boothImage) => {
   <div class="relative pt-[2.33%] pl-[4.65%] pr-[4.65%] pb-9">
     <div class="mt-4">
       <div
-        class="absolute right-10 top-11 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500 select-none"
+        v-if="imageList.length > 1"
+        class="absolute right-10 top-11 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500"
       >
         {{ currentIndex + 1 }} / {{ imageList.length }}
       </div>
       <div
-        id="wrapper"
         ref="containerRef"
-        class="snap-x snap-mandatory overflow-x-auto w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl gap-4 border"
+        class="snap-x snap-mandatory overflow-x-hidden w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl border"
       >
-        <div id="content" v-for="(image, index) in imageList" :key="index" class="snap-start min-w-full">
+        <div
+          v-for="(image, index) in imageList"
+          :key="index"
+          class="snap-start snap-always min-w-full flex-shrink-0"
+        >
           <div
-            class="aspect-square w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
+            class="aspect-square scroll-smooth w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
             v-bind="getBoothIntroduceImageProps(image)"
-          >
-          </div>
+          ></div>
         </div>
       </div>
     </div>
-    <div class="pt-5 text-secondary-500 font-light leading-7 font-pretendard">{{ booth.boothIntro }}</div>
+    <div class="pt-5 text-secondary-500 font-light leading-7">
+      {{ booth.boothIntro }}
+    </div>
   </div>
 </template>
 
