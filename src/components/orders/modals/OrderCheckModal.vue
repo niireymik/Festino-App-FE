@@ -20,7 +20,7 @@ const handleClickConfirmDepositButton = () => {
     tableNum: tableNum.value,
     userName: userName.value,
     phoneNum: phoneNum.value,
-    menuInfo: orderMenus.value.map(({ menuId, ...rest }) => rest),
+    menuInfo: orderMenus.value,
     totalPrice: totalPrice.value,
     isCoupon: isCoupon.value,
   });
