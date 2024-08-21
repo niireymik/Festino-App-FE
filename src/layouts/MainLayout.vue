@@ -5,10 +5,8 @@ import { onMounted, ref } from 'vue';
 </script>
 
 <template>
-  <div class="h-lvh">
-    <RouterView />
-    <Footer class="limit-width"></Footer>
-  </div>
+  <RouterView />
+  <Footer class="limit-width"></Footer>
 </template>
 
 <style lang="css" scoped>
