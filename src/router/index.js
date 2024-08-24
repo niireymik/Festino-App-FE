@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router';
+import { trackRouter } from 'vue-gtag-next';
 
 import MainView from '../views/MainView.vue';
 import TimeTableView from '@/views/TimeTableView.vue';
@@ -88,5 +89,7 @@ const router = createRouter({
     },
   ],
 });
+
+trackRouter(router);
 
 export default router;
