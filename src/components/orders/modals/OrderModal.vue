@@ -8,26 +8,38 @@ import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { formatPhoneNum } from '@/utils/utils';
+import PersonalInformation from '@/components/personalInfo.vue';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
 const { closeOrderModal, openOrderCheckModal } = useOrderModalStore();
 const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
+const { isAgreed } = storeToRefs(usePersonalInfoStore());
+
 const orderMenus = ref([]);
+const isSame = ref(false);
+
 onMounted(() => {
+  isSame.value = false;
+  isAgreed.value = false;
   orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
 });
 
 const regex = /^010/;
 
 const handleClickOrderButton = () => {
-  if (recentName.value.length < 2 || recentPhoneNum.value.length !== 13 || !regex.test(recentPhoneNum.value)) return;
+  if (recentName.value.length < 2 || recentPhoneNum.value.length !== 13 || !isSame.value || !isAgreed.value || !regex.test(recentPhoneNum.value)) return;
   setUserName(recentName.value);
   setPhoneNum(formatPhoneNum(recentPhoneNum.value));
 
   closeOrderModal();
   openOrderCheckModal();
 };
+
+const handleClickSameCheckBox = () => {
+  isSame.value = !isSame.value;
+}
 </script>
 
 <template>
@@ -61,6 +73,13 @@ const handleClickOrderButton = () => {
             </div>
           </div>
         </div>
+        <div class="flex flex-col">
+          <label for="same-checkbox" class="flex items-center text-sm font-medium text-secondary-700 underline">
+            <input @click.stop="handleClickSameCheckBox()" id="same-checkbox" type="checkbox" value="" class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl">
+            입금자명과 주문자명이 동일합니까? (필수)
+          </label>
+          <PersonalInformation />
+        </div>
         <div class="gap-5 flex w-full font-bold">
           <button
             class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
@@ -69,7 +88,8 @@ const handleClickOrderButton = () => {
             취소
           </button>
           <button
-            class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
+            class="w-full h-[42px] flex justify-center items-center text-white rounded-3xl"
+            :class="recentName.length > 2 && recentPhoneNum.length === 13 && isSame && isAgreed ? 'bg-primary-700 border-2 border-primary-700': 'bg-secondary-100'"
             @click="handleClickOrderButton()"
           >
             확인
