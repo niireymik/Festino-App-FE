@@ -16,7 +16,7 @@ const isInputPhoneNumFocused = ref(false);
 const isInputNameFocused = ref(false);
 
 const handleClickSearchButton = async () => {
-  if (!isInputFill.value) return;
+  if (!isInputFill.value || !isAgreed.value) return;
   const inputInfo = { userName: recentName.value, phoneNum: formatPhoneNum(recentPhoneNum.value) };
   await getReservation(inputInfo);
   setUserName(recentName.value);
