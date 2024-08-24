@@ -7,7 +7,7 @@ const { handleClickAgreeCheckBox } = usePersonalInfoStore();
 <template>
   <label for="agree-checkbox" class="flex items-center text-sm font-medium text-secondary-700">
     <input @click.stop="handleClickAgreeCheckBox()" id="agree-checkbox" type="checkbox" value="" class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl">
-    <a href="#" class="text-blue-600 dark:text-blue-500 underline">개인정보 수집• 이용</a> 동의 (필수)
+    개인정보 수집• 이용 동의 (필수)
   </label>
 </template>
 

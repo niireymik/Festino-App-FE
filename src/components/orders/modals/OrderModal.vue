@@ -8,7 +8,7 @@ import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { formatPhoneNum } from '@/utils/utils';
-import PersonalInformation from '@/components/personalInfo.vue';
+import PersonalInfo from '@/components/PersonalInfo.vue';
 import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
@@ -74,11 +74,11 @@ const handleClickSameCheckBox = () => {
           </div>
         </div>
         <div class="flex flex-col">
-          <label for="same-checkbox" class="flex items-center text-sm font-medium text-secondary-700 underline">
+          <label for="same-checkbox" class="flex items-center text-sm font-medium text-secondary-700 mb-3">
             <input @click.stop="handleClickSameCheckBox()" id="same-checkbox" type="checkbox" value="" class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl">
             입금자명과 주문자명이 동일합니까? (필수)
           </label>
-          <PersonalInformation />
+          <PersonalInfo />
         </div>
         <div class="gap-5 flex w-full font-bold">
           <button
