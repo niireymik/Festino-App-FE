@@ -8,13 +8,18 @@ import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vu
 import { handleStopScroll } from '@/utils/handleScrollStop';
 import { useRoute, useRouter } from 'vue-router';
 import { formatPhoneNum } from '@/utils/utils';
+import PersonalInfo from '@/components/PersonalInfo.vue';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const route = useRoute();
 const router = useRouter();
 const { setBoothInfo, isUUID, saveRecentInfo } = useOrderStore();
 const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
+const { isAgreed } = storeToRefs(usePersonalInfoStore());
+
 onMounted(() => {
+  isAgreed.value = false;
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
   if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
@@ -53,7 +58,7 @@ const handleOrderList = (type) => {
 };
 
 const handleClickSearchButton = async () => {
-  if (!isInputFill.value) return;
+  if (!isInputFill.value || !isAgreed.value) return;
   await getOrder({ userName: recentName.value, phoneNum: formatPhoneNum(recentPhoneNum.value) });
   isSumbit.value = true;
 
@@ -157,9 +162,10 @@ watchEffect(() => {
             }"
           />
         </div>
+        <PersonalInfo />
         <button
           class="h-[51px] w-full text-white font-bold rounded-10xl"
-          :class="{ 'bg-primary-900': isInputFill, 'bg-secondary-100': !isInputFill }"
+          :class="isInputFill && isAgreed ? 'bg-primary-900' : 'bg-secondary-100'"
           @click="handleClickSearchButton()"
         >
           조회하기

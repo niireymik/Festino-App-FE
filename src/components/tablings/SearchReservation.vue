@@ -3,9 +3,12 @@ import { ref, watch, watchEffect } from 'vue';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import { formatPhoneNum } from '@/utils/utils';
+import PersonalInfo from '@/components/PersonalInfo.vue';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const { getReservation, setUserName } = useReservationStore();
 const { recentName, recentPhoneNum } = storeToRefs(useReservationStore());
+const { isAgreed } = storeToRefs(usePersonalInfoStore());
 
 const isInputFill = ref(false);
 const regex = /^010/;
@@ -110,17 +113,18 @@ watch(recentPhoneNum, (newNum) => {
           />
         </div>
         <hr
-          class="border-0 h-[1px]"
+          class="border-0 h-[1px] mb-5"
           :class="{
             'bg-primary-900': isInputPhoneNumFocused,
             'bg-secondary-500-light-20': !isInputPhoneNumFocused,
           }"
         />
+        <PersonalInfo />
       </div>
       <div class="px-5">
         <button
           class="w-full h-[60px] text-white font-bold rounded-10xl mb-20 mt-5"
-          :class="isInputFill ? 'bg-primary-900' : 'bg-secondary-100'"
+          :class="isInputFill && isAgreed ? 'bg-primary-900' : 'bg-secondary-100'"
           @click="handleClickSearchButton"
         >
           조회하기

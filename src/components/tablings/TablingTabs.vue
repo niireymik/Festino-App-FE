@@ -1,7 +1,11 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import Reservation from './Reservation.vue';
 import SearchReservation from './SearchReservation.vue';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
+import { storeToRefs } from 'pinia';
+
+const { isAgreed } = storeToRefs(usePersonalInfoStore());
 
 const SLIDE_LIMIT = 100;
 
@@ -29,6 +33,12 @@ const moveSlider = (percentage) => {
   currentPosition.value = percentage;
   sliderContainer.value.style.transform = `translateX(${currentPosition}%)`;
 };
+
+watchEffect(() => {
+  if (isActive.value.예약하기 || isActive.value.예약조회) {
+    isAgreed.value = false;
+  }
+});
 </script>
 
 <template>
