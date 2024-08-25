@@ -8,12 +8,15 @@ import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import ModalBackground from '@/components/modals/ModalBackground.vue';
 import { formatPhoneNum } from '@/utils/utils';
+import PersonalInfo from '@/components/PersonalInfo.vue';
+import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const { closeReserveModal } = useTablingModalStore();
 const { setUserName, checkDuplicateReserve } = useReservationStore();
 const { selectedNightBoothInfo, openNightBoothInfo, reserveInfo, recentName, recentPhoneNum } = storeToRefs(
   useReservationStore(),
 );
+const { isAgreed } = storeToRefs(usePersonalInfoStore());
 
 const personNum = ref(null);
 const regex = /^010/;
@@ -21,17 +24,11 @@ const isSumbit = ref(false);
 const dataError = ref(false);
 
 const handleClickReserveButton = async () => {
-  console.log(
-    'click reserve button',
-    recentName.value,
-    formatPhoneNum(recentPhoneNum.value),
-    personNum.value,
-    selectedNightBoothInfo.value.boothId,
-  );
   if (
     recentName.value.length < 2 ||
     recentPhoneNum.value.length !== 13 ||
     personNum.value == 0 || !personNum.value ||
+    !isAgreed.value ||
     !regex.test(formatPhoneNum(recentPhoneNum.value)) ||
     isSumbit.value
   ) {
@@ -54,6 +51,7 @@ const handleClickReserveButton = async () => {
 
 const newNightBooth = ref({});
 onMounted(() => {
+  isAgreed.value = false;
   newNightBooth.value = openNightBoothInfo.value.find((info) => info.boothId === selectedNightBoothInfo.value.boothId);
 });
 </script>
@@ -71,12 +69,12 @@ onMounted(() => {
           <InputPhoneNum v-model="recentPhoneNum" />
         </div>
         <InputPersonNum v-model="personNum" />
-        <div v-if="dataError" class="text-sm text-warning absolute bottom-40">*정확한 값을 입력해 주세요.</div>
       </div>
       <div class="flex flex-row justify-between p-4 bg-primary-900-light-6 rounded-lg-xl w-full">
         <div>현재 대기 팀</div>
         <div>{{ newNightBooth.totalReservationNum }} 팀</div>
       </div>
+      <PersonalInfo />
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button
           class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
@@ -86,6 +84,7 @@ onMounted(() => {
         </button>
         <button
           class="w-full h-[43px] font-bold rounded-10xl bg-primary-900 text-white"
+          :class="recentName.length >= 2 && recentPhoneNum.length === 13 && personNum && isAgreed ? 'bg-primary-900' : 'bg-gray-300'"
           @click="handleClickReserveButton()"
         >
           예약하기
