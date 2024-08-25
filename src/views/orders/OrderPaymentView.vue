@@ -37,12 +37,12 @@ const handleClickReserveButton = () => {
 
 <template>
   <div class="flex flex-col h-full pt-[60px]">
-    <div class="p-5 mb-5">
+    <div class="p-5 mb-5 overflow-scroll pb-[120px]">
       <div v-for="(info, index) in menuInfo" :key="index">
         <MenuVue :menu="info" v-if="!info.isSoldOut" />
       </div>
     </div>
-    <div class="flex justify-center px-[20px] py-[30px]">
+    <div class="w-full shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[30px]">
       <div
         class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold"
         @click="handleClickReserveButton()"
