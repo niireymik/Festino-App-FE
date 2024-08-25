@@ -74,7 +74,9 @@ onMounted(() => {
         <div>현재 대기 팀</div>
         <div>{{ newNightBooth.totalReservationNum }} 팀</div>
       </div>
-      <PersonalInfo />
+      <div class="ml-2 w-full flex justify-start">
+        <PersonalInfo />
+      </div>
       <div class="w-full flex flex-row justify-between gap-[10px]">
         <button
           class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
