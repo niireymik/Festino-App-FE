@@ -8,8 +8,8 @@ const { selectBoothMenu } = storeToRefs(useGetBoothDataStore());
 
 const MENU_ITEMS = [
   { id: 0, name: "전체" },
-  { id: 1, name: "운동장" },
-  { id: 2, name: "벙커" },
+  { id: 1, name: "야간부스" },
+  { id: 2, name: "주간부스" },
   { id: 3, name: "푸드트럭" },
   { id: 4, name: "편의시설" },
 ];
