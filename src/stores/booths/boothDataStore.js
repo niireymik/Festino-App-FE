@@ -106,7 +106,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
         imageList.value = res.data.boothInfo.boothImage;
         
         menuList.value = [];
-        if (urlBoothType.value === 'night') {
+        if (urlBoothType.value !== 'food') {
           menuList.value = res.data.boothInfo.menuList;
           setMenuType();
         }
