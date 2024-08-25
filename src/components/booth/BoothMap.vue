@@ -28,7 +28,7 @@ const markers = ref({
     { left: 290, bottom: 320, count: 1, tab: 5 },
   ],
   detail: {
-    wind: [
+    general: [
       // 총학 이벤트 추가되면 활성화
       { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 }
     ],
@@ -412,8 +412,7 @@ watchEffect(() => {
                   v-if="zoomLevel > 1.4 && !isBoothDetail"
                   class="relative w-[56px] h-[56px] bg-cover flex justify-center"
                   :style="{
-                    backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
-                    opacity: `${selectedMarker === marker ? '1' : '0.55' }`
+                    backgroundImage: `${selectedMarker === marker ? `url(/icons/booth/${categoryName}.svg)` : `url(/icons/booth/before/${categoryName}.svg)`}`
                   }"
                 >
                   <MapSpeechBubble 
