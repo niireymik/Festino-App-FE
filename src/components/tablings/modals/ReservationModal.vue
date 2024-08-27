@@ -27,14 +27,15 @@ const handleClickReserveButton = async () => {
   if (
     recentName.value.length < 2 ||
     recentPhoneNum.value.length !== 13 ||
-    personNum.value == 0 || !personNum.value ||
+    personNum.value == 0 ||
+    !personNum.value ||
     !isAgreed.value ||
     !regex.test(formatPhoneNum(recentPhoneNum.value)) ||
     isSumbit.value
   ) {
     dataError.value = true;
     return;
-  };
+  }
 
   reserveInfo.value = {
     userName: recentName.value,
@@ -86,7 +87,10 @@ onMounted(() => {
         </button>
         <button
           class="w-full h-[43px] font-bold rounded-10xl text-white"
-          :class="recentName.length >= 2 && recentPhoneNum.length === 13 && (personNum > 0) && isAgreed ? 'bg-primary-900' : 'bg-gray-300'"
+          :class="
+            recentName.length >= 2 && recentPhoneNum.length === 13 && (personNum > 0) && isAgreed
+            ? 'bg-primary-900' 
+            : 'bg-gray-300'"
           @click="handleClickReserveButton()"
         >
           예약하기
