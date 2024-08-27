@@ -85,8 +85,8 @@ onMounted(() => {
           닫기
         </button>
         <button
-          class="w-full h-[43px] font-bold rounded-10xl bg-primary-900 text-white"
-          :class="recentName.length >= 2 && recentPhoneNum.length === 13 && personNum && isAgreed ? 'bg-primary-900' : 'bg-gray-300'"
+          class="w-full h-[43px] font-bold rounded-10xl text-white"
+          :class="recentName.length >= 2 && recentPhoneNum.length === 13 && (personNum > 0) && isAgreed ? 'bg-primary-900' : 'bg-gray-300'"
           @click="handleClickReserveButton()"
         >
           예약하기
