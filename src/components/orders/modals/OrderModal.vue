@@ -103,10 +103,9 @@ const handleClickSameCheckBox = () => {
           <button
             class="w-full h-[42px] flex justify-center items-center text-white rounded-3xl"
             :class="
-              recentName.length > 2 && recentPhoneNum.length === 13 && isSame && isAgreed
+              recentName.length >= 2 && recentPhoneNum.length === 13 && isSame && isAgreed
                 ? 'bg-primary-700 border-2 border-primary-700'
-                : 'bg-secondary-100'
-            "
+                : 'bg-secondary-100'"
             @click="handleClickOrderButton()"
           >
             확인
