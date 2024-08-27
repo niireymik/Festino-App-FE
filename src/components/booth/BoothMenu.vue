@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, watch } from 'vue';
+import { watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore.js';
 import { storeToRefs } from 'pinia';
 
@@ -13,10 +13,6 @@ const MENU_ITEMS = [
   { id: 3, name: "푸드트럭" },
   { id: 4, name: "편의시설" },
 ];
-
-onMounted(() => {
-  selectBoothMenu.value = 0;
-});
 
 watch(selectBoothMenu, () => {
   handleScrollToSelectedCategory();
