@@ -48,7 +48,7 @@ onMounted(() => {
       class="relative col-start-2 row-start-2 h-full min-w-[346px] dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
       @click.stop=""
     >
-      <div class="font-semibold text-xl text-secondary-700">주문 확인</div>
+      <div class="font-semibold text-xl text-secondary-700">주문확인</div>
       <div class="w-full gap-1">
         <div class="font-semibold text-secondary-700 mb-1">결제정보 확인</div>
         <div class="w-full rounded-xl bg-primary-900-lightest p-4">
