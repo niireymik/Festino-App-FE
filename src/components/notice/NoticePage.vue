@@ -1,8 +1,11 @@
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref, watch } from 'vue';
 
 const currentIndex = ref(0);
 const containerRef = ref(null);
+const startX = ref(0);
+const isDragging = ref(false);
+const isWheeling = ref(false);
 
 const props = defineProps({
   noticeData: {
@@ -11,34 +14,93 @@ const props = defineProps({
   }
 });
 
-const updateCurrentIndex = () => {
-  if (containerRef.value) {
-    const scrollLeft = containerRef.value.scrollLeft;
-    const containerWidth = containerRef.value.clientWidth;
-    currentIndex.value = Math.round(scrollLeft / containerWidth);
+const handleTouchStart = (event) => {
+  startX.value = event.touches[0].clientX;
+  isDragging.value = true;
+};
+
+const handleTouchMove = (event) => {
+  if (!isDragging.value) return;
+  const touchX = event.touches[0].clientX;
+  const moveX = startX.value - touchX;
+
+  if (moveX > 50) {
+    nextSlide();
+    isDragging.value = false;
+  } else if (moveX < -50) {
+    prevSlide();
+    isDragging.value = false;
   }
 };
 
-let rafId;
+const handleTouchEnd = () => {
+  isDragging.value = false;
 
-const onScroll = () => {
-  if (rafId) {
-    cancelAnimationFrame(rafId);
+  scrollToSlide(currentIndex.value);
+};
+
+const handleWheel = (event) => {
+  startX.value = event.clientX;
+  isWheeling.value = true;
+
+  if (event.deltaX > 0) {
+    nextSlide();
+  } else if (event.deltaX < 0) {
+    prevSlide();
   }
-  rafId = requestAnimationFrame(updateCurrentIndex);
+};
+
+const nextSlide = () => {
+  if (currentIndex.value < props.noticeData.imageUrl.length - 1) {
+    currentIndex.value++;
+  }
+  scrollToSlide(currentIndex.value);
+};
+
+const prevSlide = () => {
+  if (currentIndex.value > 0) {
+    currentIndex.value--;
+  }
+  scrollToSlide(currentIndex.value);
+};
+
+const scrollToSlide = (index) => {
+  const container = containerRef.value;
+  const slideWidth = container.clientWidth;
+  container.scrollTo({
+    left: index * slideWidth,
+    behavior: 'smooth',
+  });
+};
+
+watch(currentIndex, (newIndex) => {
+  scrollToSlide(newIndex);
+});
+
+const getBoothIntroduceImageProps = (boothImage) => {
+  return {
+    class: { 'bg-booth-default-image': !boothImage },
+    style: boothImage ? `background-image: url(${boothImage})` : '',
+  };
 };
 
 onMounted(() => {
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-  if (containerRef.value) {
-    containerRef.value.addEventListener('scroll', onScroll);
+  const container = containerRef.value;
+  if (container) {
+    container.addEventListener('touchstart', handleTouchStart, { passive: true });
+    container.addEventListener('touchmove', handleTouchMove, { passive: true });
+    container.addEventListener('touchend', handleTouchEnd, { passive: true });
+    container.addEventListener('wheel', handleWheel, { passive: true });
   }
 });
 
 onUnmounted(() => {
-  if (containerRef.value) {
-    containerRef.value.removeEventListener('scroll', onScroll);
+  const container = containerRef.value;
+  if (container) {
+    container.removeEventListener('touchstart', handleTouchStart);
+    container.removeEventListener('touchmove', handleTouchMove);
+    container.removeEventListener('touchend', handleTouchEnd);
+    container.removeEventListener('wheel', handleWheel);
   }
 });
 </script>
@@ -51,12 +113,9 @@ onUnmounted(() => {
       >
         {{ currentIndex + 1 }} / {{ noticeData.imageUrl.length }}
       </div>
-      <div ref="containerRef" class="snap-mandatory snap-x overflow-x-auto flex rounded-3xl">
-        <div v-for="(image, index) in noticeData.imageUrl" :key="index" class="snap-start w-full flex-shrink-0">
-          <div 
-            class="w-full aspect-w-1 aspect-h-1 bg-cover bg-center bg-no-repeat"
-            :style="{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }" >
-          </div>
+      <div ref="containerRef" class="snap-x snap-mandatory overflow-x-hidden w-full flex rounded-3xl border border-primary">
+        <div v-for="(image, index) in noticeData.imageUrl" :key="index" class="snap-start snap-always w-full flex-shrink-0">
+          <div class="aspect-w-1 aspect-h-1 scroll-smooth w-full bg-cover bg-no-repeat bg-center" v-bind="getBoothIntroduceImageProps(image)"></div>
         </div>
       </div>
     </div>
