@@ -9,8 +9,9 @@ export const useBaseModal = defineStore('baseModal', () => {
     modalType.value = type;
   };
 
-  const openModal = () => {
+  const openModal = (type) => {
     isModalOpen.value = true;
+    setModalType(type);
   };
 
   const closeModal = () => {
