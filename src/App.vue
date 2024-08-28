@@ -5,10 +5,9 @@ import { RouterView } from 'vue-router';
 import { useHead } from '@vueuse/head';
 import { useModalStore } from '@/stores/modalStore.js';
 import { storeToRefs } from 'pinia';
-import { onMounted, watch, watchEffect } from 'vue';
+import { onMounted, watchEffect } from 'vue';
 import EnterBoothModal from './components/tablings/modals/EnterBoothModal.vue';
 import { useTablingModalStore } from './stores/tablings/tablingModal';
-import ReservationModal from './components/tablings/modals/ReservationModal.vue';
 import SearchReservationModal from './components/tablings/modals/SearchReservationModal.vue';
 import CompleteReserveModal from './components/tablings/modals/CompleteReserveModal.vue';
 import NoReserveModal from './components/tablings/modals/NoReserveModal.vue';
@@ -17,6 +16,7 @@ import MessageFailModal from './components/tablings/modals/MessageFailModal.vue'
 import LoadingModal from './components/tablings/modals/LoadingModal.vue';
 import { useReservationStore } from './stores/tablings/tablingStore';
 import DuplicateModal from './components/tablings/modals/DuplicateModal.vue';
+import ModalView from './views/ModalView.vue';
 
 const { clubModalState, talentModalState } = storeToRefs(useModalStore());
 const {
@@ -73,6 +73,7 @@ onMounted(() => {
 
 <template>
   <RouterView />
+  <ModalView />
   <ClubModal v-if="clubModalState" />
   <TalentModal v-if="talentModalState" />
   <EnterBoothModal v-if="enterBoothModalState" />
@@ -81,7 +82,7 @@ onMounted(() => {
   <FailReservationModal v-if="failReserveModalState" />
   <MessageFailModal v-if="messageFailModalState" />
   <NoReserveModal v-if="noReserveModalState" />
-  <ReservationModal v-if="reserveModalState" />
+  <!-- <ReservationModal v-if="reserveModalState" /> -->
   <LoadingModal v-if="isLoading" />
   <DuplicateModal v-if="duplicateModalState" />
 </template>

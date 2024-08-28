@@ -1,11 +1,15 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { useBaseModal } from '../baseModal';
 
 export const useTablingModalStore = defineStore('tablingModal', () => {
+  const baseModalStore = useBaseModal();
+
   const reserveModalState = ref(false);
 
   const openReserveModal = () => {
-    reserveModalState.value = true;
+    baseModalStore.openModal();
+    baseModalStore.setModalType('reserveModal');
   };
   const closeReserveModal = () => {
     reserveModalState.value = false;
