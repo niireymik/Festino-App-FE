@@ -138,7 +138,7 @@ export default {
       },
       borderColor: (theme) => ({
         ...theme('textColor'),
-        primary: 'rgba(0, 115, 240, 0.16)',
+        primary: '#D6E9FD',
         'primary-900': theme('textColor.primary.900'),
         'primary-700': 'rgba(48, 130, 246, 0.6)',
         'primary-700-default': theme('textColor.primary.700'),

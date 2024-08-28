@@ -47,7 +47,7 @@ onMounted(() => {
     </div>
   </div>
   <div class="px-5 pt-5 pb-20">
-    <SlideBanner />
+    <SlideBanner class="border-primary border"/>
   </div>
 </template>
 
