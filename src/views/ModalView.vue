@@ -12,7 +12,6 @@ import SearchReservationModal from '@/components/tablings/modals/SearchReservati
 import TalentModal from '@/components/timetable/TalentModal.vue';
 import ClubModal from '@/components/timetable/ClubModal.vue';
 import { useBaseModal } from '@/stores/baseModal';
-import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 import OrderModal from '@/components/orders/modals/OrderModal.vue';
 import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
@@ -21,7 +20,6 @@ import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vu
 
 const baseModalStore = useBaseModal();
 const { isModalOpen, modalType } = storeToRefs(baseModalStore);
-const { isLoading } = storeToRefs(useReservationStore());
 </script>
 <template>
   <ModalBackground v-if="isModalOpen">
