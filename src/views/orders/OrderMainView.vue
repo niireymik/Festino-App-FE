@@ -1,15 +1,12 @@
 <script setup>
 import OrderMainBanner from '@/components/orders/OrderMainBanner.vue';
-import { useOrderModalStore } from '@/stores/orders/orderModalState';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const orderStore = useOrderStore();
-const orderModalStore = useOrderModalStore();
 const { resetOrderInfo, setBoothInfo, isUUID } = orderStore;
-const { resetModalState } = orderModalStore;
 const { customTableNum } = storeToRefs(orderStore);
 const route = useRoute();
 const router = useRouter();
@@ -34,7 +31,6 @@ onMounted(() => {
   }
   setBoothInfo(route.params.boothId, route.params.tableNum);
   resetOrderInfo();
-  resetModalState();
 });
 </script>
 <template>

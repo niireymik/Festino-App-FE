@@ -1,20 +1,17 @@
 <script setup>
 import { formatPrice } from '@/utils/utils';
-import { onMounted, watchEffect } from 'vue';
+import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useOrderStore } from '@/stores/orders/orderStore';
-import { useOrderModalStore } from '@/stores/orders/orderModalState';
+import { useBaseModal } from '@/stores/baseModal';
 import MenuVue from '@/components/orders/Menus.vue';
-import OrderModal from '@/components/orders/modals/OrderModal.vue';
-import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
-import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
-import { handleStopScroll } from '@/utils/handleScrollStop';
+
 import { useRoute, useRouter } from 'vue-router';
 
 const { getMenuAll, setBoothInfo, isUUID } = useOrderStore();
-const { openOrderModal } = useOrderModalStore();
 const { menuInfo, totalPrice } = storeToRefs(useOrderStore());
-const { orderModalState, orderCheckModalState, orderCompleteModalState } = storeToRefs(useOrderModalStore());
+const { openModal } = useBaseModal();
+
 const router = useRouter();
 const route = useRoute();
 
@@ -27,11 +24,10 @@ onMounted(() => {
   setBoothInfo(route.params.boothId, route.params.tableNum);
   getMenuAll(route.params.boothId);
 });
-watchEffect(() => handleStopScroll([orderModalState.value, orderCheckModalState.value, orderCompleteModalState.value]));
 
 const handleClickReserveButton = () => {
   if (totalPrice.value === 0) return;
-  openOrderModal();
+  openModal('orderModal');
 };
 </script>
 
@@ -42,18 +38,17 @@ const handleClickReserveButton = () => {
         <MenuVue :menu="info" v-if="!info.isSoldOut" />
       </div>
     </div>
-    <div class="w-full max-w-[500px] shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[30px]">
+    <div
+      class="w-full max-w-[500px] shadow-xs rounded-t-3xl fixed bottom-0 bg-white flex justify-center px-[20px] py-[30px]"
+    >
       <div
-        class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold"
+        class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold cursor-pointer"
         @click="handleClickReserveButton()"
       >
         {{ formatPrice(totalPrice) }}원 • 주문하기
       </div>
     </div>
   </div>
-  <OrderModal v-if="orderModalState" />
-  <OrderCheckModal v-if="orderCheckModalState" />
-  <OrderCompleteModal v-if="orderCompleteModalState" />
 </template>
 
 <style></style>

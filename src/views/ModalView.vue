@@ -14,6 +14,10 @@ import ClubModal from '@/components/timetable/ClubModal.vue';
 import { useBaseModal } from '@/stores/baseModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
+import OrderModal from '@/components/orders/modals/OrderModal.vue';
+import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
+import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
+import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
 
 const baseModalStore = useBaseModal();
 const { isModalOpen, modalType } = storeToRefs(baseModalStore);
@@ -35,6 +39,11 @@ const { isLoading } = storeToRefs(useReservationStore());
     <!--Timetable -->
     <TalentModal v-if="modalType === 'talentModal'" />
     <ClubModal v-if="modalType === 'clubModal'" />
+    <!-- Order -->
+    <OrderModal v-if="modalType === 'orderModal'" />
+    <OrderCheckModal v-if="modalType === 'orderCheckModal'" />
+    <OrderCompleteModal v-if="modalType === 'orderCompleteModal'" />
+    <NotExistOrderModal v-if="modalType === 'notExistOrderModal'" />
   </ModalBackground>
 </template>
 
