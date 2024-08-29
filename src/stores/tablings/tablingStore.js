@@ -1,15 +1,13 @@
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
-import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useRouter } from 'vue-router';
 import { useBaseModal } from '../baseModal';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
-  const { resetModalState } = useTablingModalStore();
-  const { openModal } = useBaseModal();
+  const { openModal, closeModal } = useBaseModal();
   const router = useRouter();
   const recentName = ref('');
   const recentPhoneNum = ref('');
@@ -19,7 +17,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const openNightBoothInfo = ref(null);
   const selectedNightBoothInfo = ref(null);
   const openNightBoothInfoLength = ref(null);
-  const isLoading = ref(false);
   const prevReserveBoothName = ref('');
   const reserveInfo = ref({
     userName: '',
@@ -27,15 +24,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
     personCount: 0,
     boothId: '',
   });
-
-  const {
-    openNoReserveModal,
-    openFailReserveModal,
-    openCompleteReserveModal,
-    openEnterBoothModal,
-    openMessageFailModal,
-    openDuplicateModal,
-  } = useTablingModalStore();
 
   const setUserName = (name) => {
     userName.value = name;
@@ -46,18 +34,18 @@ export const useReservationStore = defineStore('reservationStore', () => {
   };
 
   const saveReservation = async (payload) => {
+    openModal('loadingModal');
     try {
       const res = await axios.post(`${HOST}/main/reservation`, payload);
-      isLoading.value = false;
+      closeModal();
       if (res.data.success) {
-        if (res.data.reservationInfo.messageStatus === 'SEND_FAIL') openMessageFailModal();
-        if (res.data.reservationInfo.messageStatus === 'SEND_SUCCESS') openCompleteReserveModal();
+        if (res.data.reservationInfo.messageStatus === 'SEND_FAIL') openModal('messageFailModal');
+        if (res.data.reservationInfo.messageStatus === 'SEND_SUCCESS') openModal('completeReserveModal');
       }
-      if (!res.data.success) openFailReserveModal();
+      if (!res.data.success) openModal('failReservationModal');
       getAllNightBooth();
     } catch (error) {
-      resetModalState();
-      isLoading.value = false;
+      closeModal();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
@@ -70,13 +58,13 @@ export const useReservationStore = defineStore('reservationStore', () => {
       await nextTick();
       if (res.data.success) {
         if (reservationInfo.value.totalTeamCount === 1) {
-          return openEnterBoothModal();
+          return openModal('enterBoothModal');
         }
         return openModal('searchReserveModal');
       }
-      if (!res.data.success) return openNoReserveModal();
+      if (!res.data.success) return openModal('noReserveModal');
     } catch (error) {
-      resetModalState();
+      closeModal();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
@@ -93,15 +81,16 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const checkDuplicateReserve = async (phoneNum) => {
     try {
       const res = await axios.get(`${HOST}/main/reservation/duplication?phoneNum=${phoneNum}`);
+      closeModal();
       if (res.data.success) {
         prevReserveBoothName.value = res.data.adminName;
-        return openDuplicateModal();
+        return openModal('duplicateModal');
       } else {
-        isLoading.value = true;
+        openModal('loadingModal');
         await saveReservation(reserveInfo.value);
       }
     } catch (error) {
-      resetModalState();
+      closeModal();
       router.push({ name: 'error', params: { page: 'main' } });
       console.error(error);
     }
@@ -116,7 +105,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
     selectedNightBoothInfo,
     openNightBoothInfo,
     openNightBoothInfoLength,
-    isLoading,
     prevReserveBoothName,
     reserveInfo,
     setUserName,

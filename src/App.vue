@@ -5,52 +5,15 @@ import { RouterView } from 'vue-router';
 import { useHead } from '@vueuse/head';
 import { useModalStore } from '@/stores/modalStore.js';
 import { storeToRefs } from 'pinia';
-import { onMounted, watchEffect } from 'vue';
-import EnterBoothModal from './components/tablings/modals/EnterBoothModal.vue';
-import { useTablingModalStore } from './stores/tablings/tablingModal';
-import SearchReservationModal from './components/tablings/modals/SearchReservationModal.vue';
-import CompleteReserveModal from './components/tablings/modals/CompleteReserveModal.vue';
-import NoReserveModal from './components/tablings/modals/NoReserveModal.vue';
-import FailReservationModal from './components/tablings/modals/FailReservationModal.vue';
-import MessageFailModal from './components/tablings/modals/MessageFailModal.vue';
-import LoadingModal from './components/tablings/modals/LoadingModal.vue';
-import { useReservationStore } from './stores/tablings/tablingStore';
-import DuplicateModal from './components/tablings/modals/DuplicateModal.vue';
+import { onMounted } from 'vue';
+
 import ModalView from './views/ModalView.vue';
 
 const { clubModalState, talentModalState } = storeToRefs(useModalStore());
-const {
-  completeReserveModalState,
-  noReserveModalState,
-  failReserveModalState,
-  enterBoothModalState,
-  messageFailModalState,
-  duplicateModalState,
-} = storeToRefs(useTablingModalStore());
-const { resetModalState } = useTablingModalStore();
-const { isLoading } = storeToRefs(useReservationStore());
-
-// const handleStopScroll = () => {
-//   if (
-//     clubModalState.value ||
-//     talentModalState.value ||
-//     completeReserveModalState.value ||
-//     failReserveModalState.value ||
-//     enterBoothModalState.value ||
-//     messageFailModalState.value
-//   )
-//     document.documentElement.style.overflow = 'hidden';
-//   else document.documentElement.style.overflow = 'auto';
-// };
-
-// watchEffect(() => {
-//   handleStopScroll();
-// });
 
 onMounted(() => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-  resetModalState();
 });
 
 // useHead({
@@ -72,13 +35,6 @@ onMounted(() => {
   <ModalView />
   <ClubModal v-if="clubModalState" />
   <TalentModal v-if="talentModalState" />
-  <EnterBoothModal v-if="enterBoothModalState" />
-  <CompleteReserveModal v-if="completeReserveModalState" />
-  <FailReservationModal v-if="failReserveModalState" />
-  <MessageFailModal v-if="messageFailModalState" />
-  <NoReserveModal v-if="noReserveModalState" />
-  <LoadingModal v-if="isLoading" />
-  <DuplicateModal v-if="duplicateModalState" />
 </template>
 
 <style scoped></style>

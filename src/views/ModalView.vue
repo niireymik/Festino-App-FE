@@ -1,17 +1,35 @@
 <script setup>
 import ModalBackground from '@/components/modals/ModalBackground.vue';
+import CompleteReserveModal from '@/components/tablings/modals/CompleteReserveModal.vue';
+import DuplicateModal from '@/components/tablings/modals/DuplicateModal.vue';
+import EnterBoothModal from '@/components/tablings/modals/EnterBoothModal.vue';
+import FailReservationModal from '@/components/tablings/modals/FailReservationModal.vue';
+import LoadingModal from '@/components/tablings/modals/LoadingModal.vue';
+import MessageFailModal from '@/components/tablings/modals/MessageFailModal.vue';
+import NoReserveModal from '@/components/tablings/modals/NoReserveModal.vue';
 import ReservationModal from '@/components/tablings/modals/ReservationModal.vue';
 import SearchReservationModal from '@/components/tablings/modals/SearchReservationModal.vue';
 import { useBaseModal } from '@/stores/baseModal';
+import { useReservationStore } from '@/stores/tablings/tablingStore';
 import { storeToRefs } from 'pinia';
 
 const baseModalStore = useBaseModal();
 const { isModalOpen, modalType } = storeToRefs(baseModalStore);
+const { isLoading } = storeToRefs(useReservationStore());
 </script>
 <template>
   <ModalBackground v-if="isModalOpen">
+    <!-- Reservation -->
     <ReservationModal v-if="modalType === 'reserveModal'" />
     <SearchReservationModal v-if="modalType === 'searchReserveModal'" />
+    <EnterBoothModal v-if="modalType === 'enterBoothModal'" />
+    <NoReserveModal v-if="modalType === 'noReserveModal'" />
+    <DuplicateModal v-if="modalType === 'duplicateModal'" />
+    <MessageFailModal v-if="modalType === 'messageFailModal'" />
+    <CompleteReserveModal v-if="modalType === 'completeReserveModal'" />
+    <FailReservationModal v-if="modalType === 'failReservationModal'" />
+    <!-- Loading -->
+    <LoadingModal v-if="modalType === 'loadingModal'" />
   </ModalBackground>
 </template>
 
