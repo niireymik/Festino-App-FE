@@ -1,15 +1,18 @@
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
+import { useBaseModal } from './baseModal';
 
 export const useModalStore = defineStore('modalStore', () => {
+  const { openModal } = useBaseModal();
+
   const clubModalState = ref(false);
   const talentModalState = ref(false);
   const modalData = ref([]);
 
   const handleClickOpenModal = (category, show) => {
     modalData.value = show;
-    if (category == "talent") talentModalState.value = true;
-    else clubModalState.value = true;
+    if (category == 'talent') openModal('talentModal');
+    else openModal('clubModal');
   };
 
   const handleCloseModal = () => {

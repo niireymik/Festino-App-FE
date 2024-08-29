@@ -1,6 +1,4 @@
 <script setup>
-import ClubModal from '@/components/timetable/ClubModal.vue';
-import TalentModal from '@/components/timetable/TalentModal.vue';
 import { RouterView } from 'vue-router';
 import { useHead } from '@vueuse/head';
 import { useModalStore } from '@/stores/modalStore.js';
@@ -33,8 +31,6 @@ onMounted(() => {
 <template>
   <RouterView />
   <ModalView />
-  <ClubModal v-if="clubModalState" />
-  <TalentModal v-if="talentModalState" />
 </template>
 
 <style scoped></style>
