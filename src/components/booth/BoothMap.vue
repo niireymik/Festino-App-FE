@@ -83,20 +83,18 @@ const markers = ref({
       { markerNum: 33, left: 532, bottom: 255, scrollLeft: 1200, scrollTop: 370 },
     ],
     smoke: [
-      { markerNum: 76, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
-      { markerNum: 77, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 } // 운동장 구석
+      { markerNum: 77, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
+      { markerNum: 78, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 } // 운동장 구석
     ],
     store: [
-      { markerNum: 74, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 },
-      { markerNum: 75, left: 500, bottom: 367, scrollLeft: 1200, scrollTop: 110 }
+      { markerNum: 75, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 }, // 종관
+      { markerNum: 76, left: 500, bottom: 367, scrollLeft: 1200, scrollTop: 110 }, // GS
     ],
     toilet: [
-      { markerNum: 71, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
-      { markerNum: 72, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
+      { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 90  },
+      { markerNum: 72, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
       { markerNum: 73, left: 520, bottom: 367, scrollLeft: 1200, scrollTop: 110 },
-      { markerNum: 78, left: 350, bottom: 230, scrollLeft: 735, scrollTop: 450 }, // A동
-      { markerNum: 79, left: 395, bottom: 260, scrollLeft: 850, scrollTop: 380 }, // B동
-      { markerNum: 80, left: 548, bottom: 265, scrollLeft: 1500, scrollTop: 370 }, // C동
+      { markerNum: 74, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
       // 마커 정보 추가 후 수정
     ]
   }
