@@ -65,7 +65,7 @@ onMounted(() => {
             class="w-full h-full cursor-pointer"
             @click="handleClickFestinoButton()"
           />
-          <div class="absolute flex flex-col top-[8px] right-[40px] items-end pointer-events-none">
+          <div class="absolute flex flex-col top-[8px] items-end pointer-events-none xs:right-[40px] right-[20px]">
             <div class="absolute right-[117px] text-white">. . . .</div>
             <div class="text-white font-jalnan2 text-xs pt-[20px]">Festino와 함께하는 2024 한국공학대학교 축제</div>
             <div
