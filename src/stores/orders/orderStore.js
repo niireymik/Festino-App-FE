@@ -1,12 +1,13 @@
-import axios from 'axios';
-import { defineStore } from 'pinia';
 import { ref } from 'vue';
-import { useOrderModalStore } from './orderModalState';
+import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
+import axios from 'axios';
+import { useBaseModal } from '../baseModal';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useOrderStore = defineStore('orderStore', () => {
+  const { openModal, closeModal } = useBaseModal();
   const router = useRouter();
 
   const recentPhoneNum = ref('');
@@ -21,7 +22,6 @@ export const useOrderStore = defineStore('orderStore', () => {
   const tableNum = ref(0);
   const customTableNum = ref('');
   const isCoupon = ref(false);
-  const { openNotExistOrderModal, closeOrderCheckModal, openOrderCompleteModal } = useOrderModalStore();
   const accountInfo = ref({
     account: '',
     accountHolder: '',
@@ -89,10 +89,10 @@ export const useOrderStore = defineStore('orderStore', () => {
   const saveOrder = async (payload) => {
     try {
       const res = await axios.post(`${HOST}/main/order`, payload);
-      closeOrderCheckModal();
+      closeModal();
 
       if (res.data.success) {
-        openOrderCompleteModal();
+        openModal('orderCompleteModal');
       }
     } catch (error) {
       router.push({ name: 'error', params: { page: 'order' } });
@@ -105,7 +105,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     try {
       const res = await axios.get(`${HOST}/main/order`, { params: payload });
       if (res.data.success) orderList.value = res.data.bills;
-      if (!res.data.success) openNotExistOrderModal();
+      if (!res.data.success) openModal('notExistOrderModal');
     } catch (error) {
       router.push({ name: 'error', params: { page: 'order' } });
       console.error('Error get order data :', error);

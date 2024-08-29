@@ -3,9 +3,6 @@ import OrderDetail from '@/components/orders/OrderDetail.vue';
 import { onMounted, ref, watchEffect } from 'vue';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
-import { useOrderModalStore } from '@/stores/orders/orderModalState';
-import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
-import { handleStopScroll } from '@/utils/handleScrollStop';
 import { useRoute, useRouter } from 'vue-router';
 import { formatPhoneNum } from '@/utils/utils';
 import PersonalInfo from '@/components/PersonalInfo.vue';
@@ -32,7 +29,6 @@ const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
 
 const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
-const { notExistOrderModalState } = storeToRefs(useOrderModalStore());
 
 const isInputFill = ref(false);
 const regex = /^010/;
@@ -108,7 +104,6 @@ watchEffect(() => {
 watchEffect(() => {
   isInputFill.value =
     recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
-  handleStopScroll([notExistOrderModalState.value]);
 });
 </script>
 <template>
@@ -231,7 +226,6 @@ watchEffect(() => {
       </div>
     </div>
   </div>
-  <NotExistOrderModal v-if="notExistOrderModalState" />
 </template>
 
 <style lang="scss" scoped></style>

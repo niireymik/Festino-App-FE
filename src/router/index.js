@@ -14,6 +14,7 @@ import OrderLayout from '@/layouts/OrderLayout.vue';
 import OrderPaymentView from '@/views/orders/OrderPaymentView.vue';
 import OrderSearch from '@/views/orders/OrderSearch.vue';
 import ErrorView from '@/views/ErrorView.vue';
+import { useBaseModal } from '@/stores/baseModal';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -88,6 +89,12 @@ const router = createRouter({
       component: ErrorView,
     },
   ],
+});
+
+router.beforeEach((to, from, next) => {
+  const baseModalStore = useBaseModal();
+  baseModalStore.closeModal();
+  next();
 });
 
 trackRouter(router);

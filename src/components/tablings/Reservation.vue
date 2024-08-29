@@ -1,16 +1,16 @@
 <script setup>
 import { nextTick, onMounted, ref, watch } from 'vue';
-import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useReservationStore } from '@/stores/tablings/tablingStore';
+import { useBaseModal } from '@/stores/baseModal';
 import { storeToRefs } from 'pinia';
 import { useRouter, useRoute } from 'vue-router';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import NoBooth from '@/components/tablings/NoBooth.vue';
 
-const { openReserveModal } = useTablingModalStore();
 const { getAllNightBooth, setSelectedNightBoothInfo } = useReservationStore();
 const { openNightBoothInfo, selectedNightBoothInfo, openNightBoothInfoLength } = storeToRefs(useReservationStore());
 const { getBoothData } = useGetBoothDataStore();
+const { openModal } = useBaseModal();
 
 const selectedBoothId = ref('');
 const handleClickMajorBox = (boothInfo) => {
@@ -25,7 +25,7 @@ const handleClickMajorBox = (boothInfo) => {
 
 const handleClickReserveButton = () => {
   if (!selectedBoothId.value) return;
-  openReserveModal();
+  openModal('reserveModal');
 };
 
 const router = useRouter();
@@ -70,13 +70,13 @@ onMounted(async () => {
   await getAllNightBooth();
   selectedBoothId.value = route.params?.boothId ?? selectedNightBoothInfo.value?.boothId ?? '';
   if (selectedBoothId.value) {
-    openNightBoothInfo.value.forEach(info => {
-      if(info.boothId === selectedBoothId.value) {
+    openNightBoothInfo.value.forEach((info) => {
+      if (info.boothId === selectedBoothId.value) {
         selectedBoothId.value = '';
         handleClickMajorBox(info);
-      };
+      }
     });
-  };
+  }
   await nextTick();
   handleScrollToSelectedBooth();
 });
