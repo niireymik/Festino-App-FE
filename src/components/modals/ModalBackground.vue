@@ -7,7 +7,7 @@ const { closeModal } = baseModalStore;
 </script>
 <template>
   <div
-    class="max-w-[500px] min-w-[375px] w-full fixed inset-0 mx-auto bg-opacity-60 bg-black z-50 overflow-hidden"
+    class="max-w-[500px] min-w-[375px] w-full fixed inset-0 mx-auto bg-black/60 z-50 overflow-hidden"
     @click="closeModal()"
   >
     <div

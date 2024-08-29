@@ -3,14 +3,16 @@ import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
 import { useTablingModalStore } from '@/stores/tablings/tablingModal';
 import { useRouter } from 'vue-router';
+import { useBaseModal } from '../baseModal';
 
 const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
   const { resetModalState } = useTablingModalStore();
+  const { openModal } = useBaseModal();
   const router = useRouter();
-  const recentName = ref("");
-  const recentPhoneNum = ref("");
+  const recentName = ref('');
+  const recentPhoneNum = ref('');
   const reservationInfo = ref(null);
   const userName = ref('');
   const nightBoothInfo = ref(null);
@@ -27,7 +29,6 @@ export const useReservationStore = defineStore('reservationStore', () => {
   });
 
   const {
-    openSearchReserveModal,
     openNoReserveModal,
     openFailReserveModal,
     openCompleteReserveModal,
@@ -71,7 +72,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
         if (reservationInfo.value.totalTeamCount === 1) {
           return openEnterBoothModal();
         }
-        return openSearchReserveModal();
+        return openModal('searchReserveModal');
       }
       if (!res.data.success) return openNoReserveModal();
     } catch (error) {

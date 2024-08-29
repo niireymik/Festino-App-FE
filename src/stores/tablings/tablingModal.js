@@ -2,14 +2,6 @@ import { ref } from 'vue';
 import { defineStore } from 'pinia';
 
 export const useTablingModalStore = defineStore('tablingModal', () => {
-  const searchReserveModalState = ref(false);
-  const openSearchReserveModal = () => {
-    searchReserveModalState.value = true;
-  };
-  const closeSearchReserveModal = () => {
-    searchReserveModalState.value = false;
-  };
-
   const completeReserveModalState = ref(false);
   const openCompleteReserveModal = () => {
     completeReserveModalState.value = true;
@@ -59,8 +51,6 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
   };
 
   const resetModalState = () => {
-    reserveModalState.value = false;
-    searchReserveModalState.value = false;
     completeReserveModalState.value = false;
     noReserveModalState.value = false;
     failReserveModalState.value = false;
@@ -68,13 +58,6 @@ export const useTablingModalStore = defineStore('tablingModal', () => {
     messageFailModalState.value = false;
   };
   return {
-    reserveModalState,
-    // openReserveModal,
-    // closeReserveModal,
-    searchReserveModalState,
-    openSearchReserveModal,
-    closeSearchReserveModal,
-    completeReserveModalState,
     openCompleteReserveModal,
     closeCompleteReserveModal,
     noReserveModalState,

@@ -20,8 +20,6 @@ import ModalView from './views/ModalView.vue';
 
 const { clubModalState, talentModalState } = storeToRefs(useModalStore());
 const {
-  reserveModalState,
-  searchReserveModalState,
   completeReserveModalState,
   noReserveModalState,
   failReserveModalState,
@@ -32,24 +30,22 @@ const {
 const { resetModalState } = useTablingModalStore();
 const { isLoading } = storeToRefs(useReservationStore());
 
-const handleStopScroll = () => {
-  if (
-    clubModalState.value ||
-    talentModalState.value ||
-    reserveModalState.value ||
-    searchReserveModalState.value ||
-    completeReserveModalState.value ||
-    failReserveModalState.value ||
-    enterBoothModalState.value ||
-    messageFailModalState.value
-  )
-    document.documentElement.style.overflow = 'hidden';
-  else document.documentElement.style.overflow = 'auto';
-};
+// const handleStopScroll = () => {
+//   if (
+//     clubModalState.value ||
+//     talentModalState.value ||
+//     completeReserveModalState.value ||
+//     failReserveModalState.value ||
+//     enterBoothModalState.value ||
+//     messageFailModalState.value
+//   )
+//     document.documentElement.style.overflow = 'hidden';
+//   else document.documentElement.style.overflow = 'auto';
+// };
 
-watchEffect(() => {
-  handleStopScroll();
-});
+// watchEffect(() => {
+//   handleStopScroll();
+// });
 
 onMounted(() => {
   document.documentElement.scrollTop = 0;
@@ -77,12 +73,10 @@ onMounted(() => {
   <ClubModal v-if="clubModalState" />
   <TalentModal v-if="talentModalState" />
   <EnterBoothModal v-if="enterBoothModalState" />
-  <SearchReservationModal v-if="searchReserveModalState" />
   <CompleteReserveModal v-if="completeReserveModalState" />
   <FailReservationModal v-if="failReserveModalState" />
   <MessageFailModal v-if="messageFailModalState" />
   <NoReserveModal v-if="noReserveModalState" />
-  <!-- <ReservationModal v-if="reserveModalState" /> -->
   <LoadingModal v-if="isLoading" />
   <DuplicateModal v-if="duplicateModalState" />
 </template>
