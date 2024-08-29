@@ -93,8 +93,6 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const baseModalStore = useBaseModal();
-
-  console.log('이동함');
   baseModalStore.closeModal();
   next();
 });
