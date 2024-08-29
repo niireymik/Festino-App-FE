@@ -1,9 +1,26 @@
 <script setup>
 import { useBaseModal } from '@/stores/baseModal';
+import { onMounted, onUnmounted } from 'vue';
 
 const baseModalStore = useBaseModal();
 
 const { closeModal } = baseModalStore;
+
+const preventScroll = () => {
+  document.getElementsByTagName('html')[0].style.overflow = 'hidden';
+};
+
+const allowScroll = () => {
+  document.getElementsByTagName('html')[0].style.overflow = 'auto';
+};
+
+onMounted(() => {
+  preventScroll();
+});
+
+onUnmounted(() => {
+  allowScroll();
+});
 </script>
 <template>
   <div
