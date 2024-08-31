@@ -61,7 +61,7 @@ onMounted(() => {
         </div>
         <div class="relative">
           <img
-            src="/icons/orders/tino-order-shortcut.svg"
+            src="/images/orders/tino-order-main.png"
             class="w-full h-full cursor-pointer"
             @click="handleClickFestinoButton()"
           />
