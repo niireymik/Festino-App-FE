@@ -117,8 +117,6 @@ export default {
         'x-button': "url('/icons/x.png')",
         instagram: "url('/icons/instagram.png')",
         'pin-icon': "url('/icons/pin.svg')",
-        'tino-order-banner': "url('images/orders/tino-order-banner.png')",
-        'tino-order-shortcut': "url('images/orders/tino-order-shortcut.png')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
         'board-icon': "url('/icons/orders/board.svg')",
         'tino-cd': "url('/icons/tino-cd.svg')",
