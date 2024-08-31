@@ -2,10 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .dynamic-padding {
+    padding-left: calc(20 / 430 * 100%) !important;
+    padding-right: calc(20 / 430 * 100%) !important;
+  }
+}
+
 .is-state-show-true {
-  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-primary-900 bg-primary-900-light-12 rounded-full
+  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs text-primary-900 bg-primary-900-light-12 rounded-full;
 }
 
 .is-state-show-false {
-  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs bg-primary-800-light text-primary-800 rounded-full
+  @apply px-2 py-1 w-fit h-fit flex justify-center text-center text-3xs bg-primary-800-light text-primary-800 rounded-full;
 }

@@ -162,5 +162,17 @@ export default {
       sm: '470px',
     },
   },
-  plugins: [require('@tailwindcss/aspect-ratio')],
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        '.dynamic-padding': {
+          paddingLeft: 'calc(20 / 430 * 100%)',
+          paddingRight: 'calc(20 / 430 * 100%)',
+        },
+      };
+
+      addUtilities(newUtilities);
+    },
+  ],
 };

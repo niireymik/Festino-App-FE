@@ -10,16 +10,16 @@ const defaultOption = 0;
 
 const priceToString = (price) => {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
+};
 </script>
 
 <template>
   <div v-for="(menu, index) in booth.menuList" :key="index" class="dynamic-padding">
-    <div 
+    <div
       class="w-full h-[120px] p-[13px] rounded-3xl shadow-4xl flex mb-[10px]"
       :class="menu.isSoldOut ? 'bg-[#E5E7EB] border border-gray-300' : 'bg-white border border-primary-900-light'"
     >
-      <img 
+      <img
         :src="`${menu.menuImage}`"
         draggable="false"
         class="min-w-[94px] max-w-[94px] h-full rounded-3xl border bg-booth-default-image bg-cover"
@@ -31,8 +31,12 @@ const priceToString = (price) => {
             <div class="flex justify-between pb-1">
               <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
               <div class="flex">
-                <MenuOption v-if="booth.adminCategory === 'night'" class="mr-1">{{ menu.menuType === defaultOption ? '메인 메뉴' : '서브 메뉴' }}</MenuOption>
-                <MenuStatus class="mr-0" :isState="!menu.isSoldOut">{{ !menu.isSoldOut ? '판매중' : '준비중' }}</MenuStatus>
+                <MenuOption v-if="booth.adminCategory === 'night'" class="mr-1">{{
+                  menu.menuType === defaultOption ? '메인 메뉴' : '서브 메뉴'
+                }}</MenuOption>
+                <MenuStatus class="mr-0" :isState="!menu.isSoldOut">{{
+                  !menu.isSoldOut ? '판매중' : '준비중'
+                }}</MenuStatus>
               </div>
             </div>
             <div class="w-full text-[10px] text-seconday-500">
@@ -51,9 +55,4 @@ const priceToString = (price) => {
   </div>
 </template>
 
-<style lang="css" scoped>
-.dynamic-padding {
-  padding-left: calc(20 / 430 * 100%) !important;
-  padding-right: calc(20 / 430 * 100%) !important;
-}
-</style>
+<style lang="css" scoped></style>

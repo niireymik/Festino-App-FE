@@ -33,8 +33,4 @@ const router = useRouter();
 .dynamic-tino-arm-height {
   @apply rounded-tl-3xl border-primary bg-white h-[40px];
 }
-.dynamic-padding {
-  padding-left: calc(20 / 430 * 100%) !important;
-  padding-right: calc(20 / 430 * 100%) !important;
-}
 </style>
