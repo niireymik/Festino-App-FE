@@ -1,10 +1,9 @@
 import axios from 'axios';
+import { api } from '@/utils/api';
 import { defineStore } from 'pinia';
 import { nextTick, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useBaseModal } from '../baseModal';
-
-const HOST = import.meta.env.VITE_API_URL;
 
 export const useReservationStore = defineStore('reservationStore', () => {
   const { openModal, closeModal } = useBaseModal();
@@ -36,7 +35,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
   const saveReservation = async (payload) => {
     openModal('loadingModal');
     try {
-      const res = await axios.post(`${HOST}/main/reservation`, payload);
+      const res = await api.post('/main/reservation', payload);
       closeModal();
       if (res.data.success) {
         if (res.data.reservationInfo.messageStatus === 'SEND_FAIL') openModal('messageFailModal');
@@ -53,7 +52,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
 
   const getReservation = async (payload) => {
     try {
-      const res = await axios.get(`${HOST}/main/reservation`, { params: payload });
+      const res = await api.get('/main/reservation', { params: payload });
       reservationInfo.value = res.data.reservationInfo;
       await nextTick();
       if (res.data.success) {
@@ -71,7 +70,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
   };
 
   const getAllNightBooth = async () => {
-    const res = await axios.get(`${HOST}/main/booth/night/reservation/all`);
+    const res = await api.get('/main/booth/night/reservation/all');
     nightBoothInfo.value = res.data.boothList;
     openNightBoothInfo.value = res.data.boothList.filter((booth) => booth.isOpen);
     await nextTick();
@@ -80,7 +79,7 @@ export const useReservationStore = defineStore('reservationStore', () => {
 
   const checkDuplicateReserve = async (phoneNum) => {
     try {
-      const res = await axios.get(`${HOST}/main/reservation/duplication?phoneNum=${phoneNum}`);
+      const res = await api.get(`/main/reservation/duplication?phoneNum=${phoneNum}`);
       closeModal();
       if (res.data.success) {
         prevReserveBoothName.value = res.data.adminName;

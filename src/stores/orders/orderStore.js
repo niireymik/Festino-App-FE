@@ -1,10 +1,8 @@
+import { api } from '@/utils/api';
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
 import { useBaseModal } from '../baseModal';
-
-const HOST = import.meta.env.VITE_API_URL;
 
 export const useOrderStore = defineStore('orderStore', () => {
   const { openModal, closeModal } = useBaseModal();
@@ -30,7 +28,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
   const getCustomTableNum = async (tableNum, boothId) => {
     try {
-      const res = await axios.get(`${HOST}/main/order/table`, {
+      const res = await api.get('/main/order/table', {
         params: { tableNumIndex: tableNum, boothId },
       });
       if (res.data.success) return res.data;
@@ -88,7 +86,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
   const saveOrder = async (payload) => {
     try {
-      const res = await axios.post(`${HOST}/main/order`, payload);
+      const res = await api.post('/main/order', payload);
       closeModal();
 
       if (res.data.success) {
@@ -103,7 +101,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const getOrder = async (payload) => {
     orderList.value = [];
     try {
-      const res = await axios.get(`${HOST}/main/order`, { params: payload });
+      const res = await api.get('/main/order', { params: payload });
       if (res.data.success) orderList.value = res.data.bills;
       if (!res.data.success) openModal('notExistOrderModal');
     } catch (error) {
@@ -114,7 +112,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
   const getMenuAll = async (boothId) => {
     try {
-      const res = await axios.get(`${HOST}/main/menu/all/booth/${boothId}`);
+      const res = await api.get(`/main/menu/all/booth/${boothId}`);
       if (res.data.success) menuInfo.value = res.data.menuList;
       if (!res.data.success) router.push({ name: 'error', params: { page: 'order' } });
     } catch (error) {
@@ -144,7 +142,7 @@ export const useOrderStore = defineStore('orderStore', () => {
 
   const getAccountInfo = async () => {
     try {
-      const res = await axios.get(`${HOST}/main/booth/night/account`, { params: { boothId: boothId.value } });
+      const res = await api.get('/main/booth/night/account', { params: { boothId: boothId.value } });
       if (res.data.success) accountInfo.value = res.data.accountInfo;
       if (!res.data.success) router.push({ name: 'error', params: { page: 'order' } });
     } catch (error) {

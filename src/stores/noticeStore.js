@@ -1,11 +1,11 @@
 import axios from 'axios';
+import { api } from '@/utils/api';
 import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import { formatDistanceToNow } from 'date-fns';
 import { ko } from 'date-fns/locale';
 
 export const useNoticeStore = defineStore('noticeStore', () => {
-  const HOST = import.meta.env.VITE_API_URL;
   const mainNoticeData = ref([]);
   const noticeData = ref([]);
   const pinNotices = ref([]);
@@ -14,7 +14,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
 
   const getMainNotice = async () => {
     try {
-      const noticeResponse = await axios.get(`${HOST}/main/notice`);
+      const noticeResponse = await api.get('/main/notice');
       mainNoticeData.value = noticeResponse.data.noticeInfo;
     } catch (error) {
       console.error(error);
@@ -24,7 +24,7 @@ export const useNoticeStore = defineStore('noticeStore', () => {
 
   const getNotice = async (noticeId) => {
     try {
-      const noticeResponse = await axios.get(`${HOST}/main/notice/${noticeId}`);
+      const noticeResponse = await api.get(`/main/notice/${noticeId}`);
       noticeData.value = noticeResponse.data.noticeInfo;
     } catch (error) {
       console.error(error);
@@ -34,11 +34,11 @@ export const useNoticeStore = defineStore('noticeStore', () => {
 
   const getAllNotice = async () => {
     try {
-      const noticeResponse = await axios.get(`${HOST}/main/notice/all`);
+      const noticeResponse = await api.get('/main/notice/all');
       allNotices.value = noticeResponse.data.noticesInfo;
       if (allNotices.value) {
-        pinNotices.value = allNotices.value.filter(notice => notice.isPin);
-        notices.value = allNotices.value.filter(notice => !notice.isPin);
+        pinNotices.value = allNotices.value.filter((notice) => notice.isPin);
+        notices.value = allNotices.value.filter((notice) => !notice.isPin);
       }
     } catch (error) {
       console.error(error);
@@ -64,6 +64,6 @@ export const useNoticeStore = defineStore('noticeStore', () => {
     noticeData,
     pinNotices,
     notices,
-    allNotices
+    allNotices,
   };
 });

@@ -1,9 +1,7 @@
-import axios from "axios";
+import { api } from '@/utils/api';
 import { defineStore } from 'pinia';
-import { ref } from "vue";
-import { useRouter } from 'vue-router'; 
-
-const HOST = import.meta.env.VITE_API_URL;
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 export const useGetBoothDataStore = defineStore('boothData', () => {
   const router = useRouter();
@@ -14,7 +12,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
   const foodBoothList = ref([]);
   const facilityList = ref([]);
   const boothList = ref([]);
-  
+
   const selectBoothMenu = ref(0);
   const selectedTicketBooth = ref(false);
   const boothMarkerData = ref('');
@@ -36,41 +34,47 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     menuList.value = '';
     mainMenu.value = '';
     subMenu.value = '';
-  }
-  
+  };
+
   const getAllTypeBoothListData = async () => {
     try {
       const urls = [
-        `${HOST}/main/booth/all`,
-        `${HOST}/main/booth/night/all`,
-        `${HOST}/main/booth/day/all`,
-        `${HOST}/main/booth/food/all`,
-        `${HOST}/main/facility/all`,
+        '/main/booth/all',
+        '/main/booth/night/all',
+        '/main/booth/day/all',
+        '/main/booth/food/all',
+        '/main/facility/all',
       ];
-  
+
       const results = [];
       for (const url of urls) {
-        const res = await axios.get(url);
+        const res = await api.get(url);
         results.push(res);
       }
-  
+
       allBoothList.value = results[0].data.boothList;
       nightBoothList.value = results[1].data.boothList;
       dayBoothList.value = results[2].data.boothList;
       foodBoothList.value = results[3].data.boothList;
       facilityList.value = results[4].data.facilityList;
-  
+
       boothList.value = [];
-      boothList.value.push(allBoothList.value, nightBoothList.value, dayBoothList.value, foodBoothList.value, facilityList.value);
+      boothList.value.push(
+        allBoothList.value,
+        nightBoothList.value,
+        dayBoothList.value,
+        foodBoothList.value,
+        facilityList.value,
+      );
     } catch (error) {
       console.error('Error getAllTypeBoothListData', error);
     }
-  };  
+  };
 
   const convertBoothMenuTab = (index) => {
     selectedTicketBooth.value = false;
 
-    if(index === 5) {
+    if (index === 5) {
       selectBoothMenu.value = 4;
       selectedTicketBooth.value = true;
     } else {
@@ -99,25 +103,25 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
         setBoothType('편의시설');
         setBoothTypeUseUrl('facility');
       }
-      
-      if(urlBoothType.value !== 'facility') {
-        const res = await axios.get(`${HOST}/main/booth/${urlBoothType.value}/${id}`);
+
+      if (urlBoothType.value !== 'facility') {
+        const res = await api.get(`/main/booth/${urlBoothType.value}/${id}`);
         booth.value = res.data.boothInfo;
         imageList.value = res.data.boothInfo.boothImage;
-        
+
         menuList.value = [];
         if (urlBoothType.value !== 'food') {
           menuList.value = res.data.boothInfo.menuList;
           setMenuType();
         }
       } else {
-        const res = await axios.get(`${HOST}/main/${urlBoothType.value}/${id}`);
+        const res = await api.get(`/main/${urlBoothType.value}/${id}`);
         booth.value = res.data.facility;
         // 이미지 여부에 따라 결정
         // imageList.value = res.data.boothInfo.boothImage;
       }
 
-      if(urlBoothType.value != 'facility') {
+      if (urlBoothType.value != 'facility') {
         router.push({ path: `/booth/detail/${urlBoothType.value}/${id}` });
       } else {
         router.push({ path: `/booth/detail/${urlBoothType.value}/${id}` });
@@ -135,7 +139,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     mainMenu.value = [];
     subMenu.value = [];
 
-    menuList.value.forEach(menu => {
+    menuList.value.forEach((menu) => {
       if (menu.menuType === 0) {
         mainMenu.value.push(menu.menuName);
       } else {
@@ -165,6 +169,6 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     convertBoothMenuTab,
     getBoothData,
     setBoothType,
-    setMenuType
+    setMenuType,
   };
 });
