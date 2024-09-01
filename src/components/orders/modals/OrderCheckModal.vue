@@ -5,7 +5,7 @@ import { storeToRefs } from 'pinia';
 import { onMounted, ref, watchEffect } from 'vue';
 import { formatPrice } from '@/utils/utils';
 
-const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo } = storeToRefs(
+const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo, note } = storeToRefs(
   useOrderStore(),
 );
 const { saveOrder, getAccountInfo } = useOrderStore();
@@ -22,6 +22,7 @@ const handleClickConfirmDepositButton = () => {
     menuInfo: orderMenus.value,
     totalPrice: totalPrice.value,
     isCoupon: isCoupon.value,
+    note: note.value,
   });
 };
 

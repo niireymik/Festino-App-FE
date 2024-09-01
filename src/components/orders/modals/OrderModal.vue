@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { formatPrice } from '@/utils/utils';
 import { useOrderStore } from '@/stores/orders/orderStore';
@@ -11,21 +11,25 @@ import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
 import PersonalInfo from '@/components/PersonalInfo.vue';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
-const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
+const { recentName, recentPhoneNum, note } = storeToRefs(useOrderStore());
 const { openModal, closeModal } = useBaseModal();
 
 const { isAgreed } = storeToRefs(usePersonalInfoStore());
 
+const MAX_MESSAGE_LENGTH = 50;
 const orderMenus = ref([]);
 const isSame = ref(false);
-
-onMounted(() => {
-  isSame.value = false;
-  isAgreed.value = false;
-  orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
-});
-
 const regex = /^010/;
+const currentNote = ref("");
+
+const noteLength = computed(() => currentNote.value?.length ?? 0);
+
+const handleInputNote = (event) => {
+  if (event.target.value.length > MAX_MESSAGE_LENGTH) {
+    event.target.value = event.target.value.slice(0, MAX_MESSAGE_LENGTH);
+  }
+  currentNote.value = event.target.value;
+};
 
 const handleClickOrderButton = () => {
   if (
@@ -38,7 +42,7 @@ const handleClickOrderButton = () => {
     return;
   setUserName(recentName.value);
   setPhoneNum(formatPhoneNum(recentPhoneNum.value));
-
+  note.value = currentNote.value;
   closeModal();
   openModal('orderCheckModal');
 };
@@ -46,6 +50,12 @@ const handleClickOrderButton = () => {
 const handleClickSameCheckBox = () => {
   isSame.value = !isSame.value;
 };
+
+onMounted(() => {
+  isSame.value = false;
+  isAgreed.value = false;
+  orderMenus.value = userOrderList.filter((orderInfo) => orderInfo.menuCount > 0);
+});
 </script>
 
 <template>
@@ -77,6 +87,15 @@ const handleClickSameCheckBox = () => {
             <div>{{ formatPrice(totalPrice) }}원</div>
           </div>
         </div>
+      </div>
+      <div class="relative w-full">
+        <div class="font-semibold text-secondary-700">메모</div>
+        <textarea class="text-sm w-full resize-none border border-primary p-4 h-24 rounded-2xl focus:outline-none focus:border-primary-700" 
+          placeholder="사용할 쿠폰이 존재 할 경우 입력해주세요"
+          @input="handleInputNote($event)"
+          :value="currentNote"
+          maxlength="MAX_MESSAGE_LENGTH"></textarea>
+        <div class="absolute bottom-4 right-5 text-sm text-secondary-100">{{ noteLength }}/{{ MAX_MESSAGE_LENGTH }}</div>
       </div>
       <div class="flex flex-col">
         <label for="same-checkbox" class="flex items-center text-sm font-medium text-secondary-700 mb-3">
