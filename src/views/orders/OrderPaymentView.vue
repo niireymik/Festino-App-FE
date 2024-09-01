@@ -29,6 +29,11 @@ const handleClickReserveButton = () => {
   if (totalPrice.value === 0) return;
   openModal('orderModal');
 };
+
+const getReserveButtomColor = () => {
+  if (totalPrice.value === 0) return "bg-secondary-100"
+  else return "bg-primary-700"
+};
 </script>
 
 <template>
@@ -43,6 +48,7 @@ const handleClickReserveButton = () => {
     >
       <div
         class="flex items-center justify-center w-full h-[60px] rounded-full bg-primary-700 text-white font-extrabold cursor-pointer"
+        :class="getReserveButtomColor()"
         @click="handleClickReserveButton()"
       >
         {{ formatPrice(totalPrice) }}원 • 주문하기
