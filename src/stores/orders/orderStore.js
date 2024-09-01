@@ -20,6 +20,7 @@ export const useOrderStore = defineStore('orderStore', () => {
   const tableNum = ref(0);
   const customTableNum = ref('');
   const isCoupon = ref(false);
+  const note = ref("");
   const accountInfo = ref({
     account: '',
     accountHolder: '',
@@ -165,6 +166,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     recentPhoneNum,
     recentName,
     customTableNum,
+    note,
     handleTotalPrice,
     addOrderList,
     setUserName,
