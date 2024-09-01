@@ -1,5 +1,4 @@
-<script setup>
-</script>
+<script setup></script>
 
 <template>
   <div class="relative">
@@ -24,9 +23,5 @@
 <style lang="css" scoped>
 .dynamic-top {
   top: calc(52 / 230 * 100%) !important;
-}
-.dynamic-padding {
-  padding-left: calc(20 / 430 * 100%) !important;
-  padding-right: calc(20 / 430 * 100%) !important;
 }
 </style>

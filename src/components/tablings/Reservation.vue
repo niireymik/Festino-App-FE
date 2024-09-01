@@ -161,11 +161,6 @@ onMounted(async () => {
   min-height: calc(375px * 190 / 430) !important;
 }
 
-.dynamic-padding {
-  padding-left: calc(20 / 430 * 100%) !important;
-  padding-right: calc(20 / 430 * 100%) !important;
-}
-
 .dynamic-width {
   width: calc(100vw * 20 / 430) !important;
   max-width: calc(500px * 20 / 430) !important;

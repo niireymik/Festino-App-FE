@@ -21,9 +21,4 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang="css" scoped>
-.dynamic-padding {
-  padding-left: calc(20 / 430 * 100%) !important;
-  padding-right: calc(20 / 430 * 100%) !important;
-}
-</style>
+<style lang="css" scoped></style>
