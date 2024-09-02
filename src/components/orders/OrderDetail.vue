@@ -31,7 +31,7 @@ const orderStatus = [
   },
 ];
 
-const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
+const createAt = props.orderInfo.createAt.slice(5, 16).replace('T', ' ').replaceAll('-', '/');
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('ko-KR').format(price);
@@ -41,7 +41,7 @@ const formatPrice = (price) => {
 <template>
   <div class="w-full flex flex-col p-4 rounded-3xl text-sm" :class="`${orderStatus[orderInfo.orderType].bgColor}`">
     <div class="flex flex-col w-full gap-3">
-      <div class="h-9 flex justify-between w-full border-b-1 border-secondary-300">
+      <div class="h-9 flex justify-between w-full border-b-1 border-secondary-300 flex-wrap">
         <div class="flex gap-1 items-center">
           <img src="/icons/orders/map.svg" />
           <p>{{ orderInfo.adminName }} - {{ orderInfo.tableNum }}번 테이블</p>
