@@ -76,7 +76,7 @@ onMounted(() => {
     <div class="ml-2 w-full flex justify-start">
       <PersonalInfo />
     </div>
-    <div class="w-full flex flex-row justify-between gap-[10px]">
+    <div class="w-full flex flex-row justify-between gap-[10px] pt-[1px]">
       <button
         class="w-full h-[43px] bg-white text-primary-900 font-bold rounded-10xl border-1 border-primary-900-light-68"
         @click="closeModal()"
