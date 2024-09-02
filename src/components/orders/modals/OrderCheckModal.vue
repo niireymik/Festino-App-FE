@@ -16,7 +16,7 @@ const orderMenus = ref([]);
 const handleClickConfirmDepositButton = () => {
   saveOrder({
     boothId: boothId.value,
-    tableNum: tableNum.value,
+    tableNum: Number(tableNum.value),
     userName: userName.value,
     phoneNum: phoneNum.value,
     menuInfo: orderMenus.value,
