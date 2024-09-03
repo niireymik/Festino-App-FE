@@ -14,6 +14,7 @@ import OrderLayout from '@/layouts/OrderLayout.vue';
 import OrderPaymentView from '@/views/orders/OrderPaymentView.vue';
 import OrderSearch from '@/views/orders/OrderSearch.vue';
 import ErrorView from '@/views/ErrorView.vue';
+import TeamView from '@/views/TeamView.vue';
 import { useBaseModal } from '@/stores/baseModal';
 
 const router = createRouter({
@@ -59,6 +60,11 @@ const router = createRouter({
           path: '/notice',
           name: 'notice',
           component: NoticeView,
+        },
+        {
+          path: '/teams',
+          name: 'teams',
+          component: TeamView,
         },
       ],
     },
