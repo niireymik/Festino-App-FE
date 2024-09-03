@@ -15,7 +15,7 @@ const handleClickMainSymbol = () => {
 };
 
 const moveToDeveloperPage = () => {
-  window.open(`https://github.com/DEV-TINO`, "_blank");
+  router.push({ name: "teams"});
 };
 </script>
 
