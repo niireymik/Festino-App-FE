@@ -13,7 +13,7 @@ const props = defineProps({
 });
 
 const handleClickNotice = async (noticeId) => {
-  router.push({ name: 'notice', state: { noticeId } });
+  router.push({ path: `/notice/${noticeId}`, state: { noticeId } });
 };
 </script>
 
