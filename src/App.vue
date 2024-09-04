@@ -8,15 +8,15 @@ import { baseApi } from './utils/api';
 onMounted(async () => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
-  try {
-    const response = await baseApi.post('/main/auth/init');
-    if (!response.data.success) alert('Check your network connection');
-  } catch (error) {
-    console.error(error);
-    alert('Check your network connection or try again later');
-  }
 });
 
+try {
+  const response = await baseApi.post('/main/auth/init');
+  if (!response.data.success) alert('Check your network connection');
+} catch (error) {
+  console.error(error);
+  alert('Check your network connection or try again later');
+}
 // useHead({
 //   title: 'Festino!',
 //   meta: [
