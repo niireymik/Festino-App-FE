@@ -5,9 +5,20 @@ export const baseApi = axios.create({
   withCredentials: true,
 });
 
+const initAuth = async () => {
+  try {
+    const response = await baseApi.post('/main/auth/init');
+    if (!response.data.success) alert('Check your network connection');
+  } catch (error) {
+    console.error(error);
+    alert('Check your network connection or try again later');
+  }
+};
+
 export const api = {
   get: async (url, config) => {
     try {
+      await initAuth();
       const response = await baseApi.post('/main/auth/token');
       if (!response.data.success) {
         alert('Check your network status');
@@ -21,6 +32,7 @@ export const api = {
   },
   post: async (url, data, config) => {
     try {
+      await initAuth();
       const response = await baseApi.post('/main/auth/token');
       if (!response.data.success) {
         alert('Check your network status');
@@ -34,6 +46,7 @@ export const api = {
   },
   put: async (url, data, config) => {
     try {
+      await initAuth();
       const response = await baseApi.post('/main/auth/token');
       if (!response.data.success) {
         alert('Check your network status');
@@ -47,6 +60,7 @@ export const api = {
   },
   delete: async (url, config) => {
     try {
+      await initAuth();
       const response = await baseApi.post('/main/auth/token');
       if (!response.data.success) {
         alert('Check your network status');
