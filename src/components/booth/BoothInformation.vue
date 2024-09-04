@@ -125,11 +125,8 @@ const getBoothIntroduceImageProps = (boothImage) => {
         </div>
       </div>
     </div>
-    <div class="pt-5 text-secondary-500 font-light leading-7">
-      <span v-for="(line, lineIndex) in formatText(booth?.boothIntro ?? '')" :key="lineIndex">
-        {{ line }}
-        <br v-if="lineIndex !== formatText(booth?.boothIntro ?? '') - 1" />
-      </span>
+    <div class="pt-5 text-secondary-500 font-light break-words px-1 whitespace-pre-wrap">
+      {{ booth?.boothIntro }}
     </div>
   </div>
 </template>
