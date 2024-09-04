@@ -11,7 +11,10 @@ const handleClickMusic = (index) => {
 };
 
 const getImage = () => {
-  return { backgroundImage: `url('${modalData.value.talentImage}')` };
+  if (modalData.value?.clubImage === null || modalData.value?.clubImage === undefined || !modalData.value?.clubImage) {
+    return { backgroundImage: 'url("/images/booth/booth-default-image.png")' };
+  }
+  return { backgroundImage: `url('${modalData.value.clubImage}')` };
 };
 </script>
 

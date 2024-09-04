@@ -1,17 +1,20 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import { useHead } from '@vueuse/head';
-import { useModalStore } from '@/stores/modalStore.js';
-import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
 import ModalView from './views/ModalView.vue';
+import { api } from './utils/api';
 
-const { clubModalState, talentModalState } = storeToRefs(useModalStore());
-
-onMounted(() => {
+onMounted(async () => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
+  try {
+    const response = await api.post('/main/auth/init');
+    if (!response.data.success) alert('Check your network connection');
+  } catch (error) {
+    console.error(error);
+    alert('Check your network connection or try again later');
+  }
 });
 
 // useHead({

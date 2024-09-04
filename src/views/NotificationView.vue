@@ -24,7 +24,6 @@ const convertNotice = (notices) => {
   return [
     ...notices
       .map((notice) => {
-        console.log(notice);
         if (notice.content.includes('총학생회')) {
           if (saveNotice === null) {
             saveNotice = { ...notice, title: '총학생회 정보' };
