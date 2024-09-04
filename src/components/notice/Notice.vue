@@ -8,8 +8,8 @@ const router = useRouter();
 const props = defineProps({
   notice: {
     type: Object,
-    required: true
-  }
+    required: true,
+  },
 });
 
 const handleClickNotice = async (noticeId) => {
@@ -18,13 +18,17 @@ const handleClickNotice = async (noticeId) => {
 </script>
 
 <template>
-  <div class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center cursor-pointer select-none" @click="handleClickNotice(notice.noticeId)">
+  <div
+    class="w-full h-auto flex flex-row bg-white rounded-3xl border-primary border-1 justify-between items-center cursor-pointer select-none"
+    @click="handleClickNotice(notice.noticeId)"
+  >
     <div class="flex flex-col pl-4 items-start py-3">
       <div class="py-1 text-base font-normal text-secondary-500 leading-tight">{{ notice.title }}</div>
     </div>
-    <div class="flex justify-end pr-4 text-xs font-normal text-secondary-500 w-[140px]">{{ timeAgo(notice.updateAt) }}</div>
+    <div class="flex justify-end pr-4 text-xs font-normal text-secondary-500 w-[140px]">
+      {{ timeAgo(notice.updateAt) }}
+    </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -129,15 +129,13 @@ onUnmounted(() => {
     </div>
     <div class="w-full text-xs break-words px-1 whitespace-pre-wrap">{{ noticeData.content }}</div>
   </div>
-  <div
-    v-if="noticeData.content.includes('총학생회')"
-    class="w-full h-auto flex flex-col bg-white rounded-3xl border-primary border-1 justify-center items-center p-5 gap-[20px] select-none relative"
-  >
+
+  <div class="w-full">
     <div
+      v-if="noticeData.content.includes('총학생회')"
       class="elfsight-app-2d5ef3bb-4da1-4fa5-b040-c46cef50c10c overflow-auto relative w-full"
       data-elfsight-app-lazy
     ></div>
-    <div class="w-full text-xs break-words px-1 whitespace-pre-wrap">{{ noticeData.content }}</div>
   </div>
 </template>
 
