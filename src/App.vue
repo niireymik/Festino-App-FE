@@ -15,7 +15,9 @@ const initAuth = async () => {
   }
 };
 
-await initAuth();
+onBeforeMount(async () => {
+  await initAuth();
+});
 
 onMounted(() => {
   document.documentElement.scrollTop = 0;
