@@ -1,7 +1,7 @@
 <script setup>
 import ShowState from '@/components/booth/ShowState.vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
-import { formatText, truncateText } from '@/utils/utils';
+import { truncateText } from '@/utils/utils';
 import { storeToRefs } from 'pinia';
 
 const { getBoothData, setBoothType } = useGetBoothDataStore();
@@ -39,7 +39,7 @@ const getBoothImageProps = (boothImage) => {
             </div>
             <div>
               <div class="py-1.5 text-base font-pretendard font-semibold">{{ booth.boothName }}</div>
-              <div class="pb-2 text-2xs text-secondary-500">{{ truncateText(booth.boothIntro, 80) }}</div>
+              <div class="pb-2 text-2xs text-secondary-500">{{ truncateText(booth.boothIntro, 50) }}</div>
             </div>
           </div>
           <div class="flex flex-row">
