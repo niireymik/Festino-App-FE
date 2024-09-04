@@ -6,16 +6,27 @@ import { createHead } from '@vueuse/head';
 import App from './App.vue';
 import router from './router';
 import VueGtag from 'vue-gtag-next';
+import { baseApi } from './utils/api';
 
-const app = createApp(App);
+const excute = async () => {
+  try {
+    const response = await baseApi.post('/main/auth/init');
+  } catch (error) {
+    alert(error.message);
+  }
 
-app.use(createPinia());
-app.use(router);
-app.use(createHead());
-app.use(VueGtag, {
-  property: {
-    id: 'G-KZHM2SH2NL',
-  },
-});
+  const app = createApp(App);
 
-app.mount('#app');
+  app.use(createPinia());
+  app.use(router);
+  app.use(createHead());
+  app.use(VueGtag, {
+    property: {
+      id: 'G-KZHM2SH2NL',
+    },
+  });
+
+  app.mount('#app');
+};
+
+excute();
