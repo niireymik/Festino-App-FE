@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
+import { formatText } from '@/utils/utils';
 
 const { booth, imageList } = storeToRefs(useGetBoothDataStore());
 const currentIndex = ref(0);
@@ -116,11 +117,7 @@ const getBoothIntroduceImageProps = (boothImage) => {
         ref="containerRef"
         class="snap-x snap-mandatory overflow-x-hidden w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl border"
       >
-        <div
-          v-for="(image, index) in imageList"
-          :key="index"
-          class="snap-start snap-always min-w-full flex-shrink-0"
-        >
+        <div v-for="(image, index) in imageList" :key="index" class="snap-start snap-always min-w-full flex-shrink-0">
           <div
             class="aspect-square scroll-smooth w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
             v-bind="getBoothIntroduceImageProps(image)"
@@ -129,10 +126,12 @@ const getBoothIntroduceImageProps = (boothImage) => {
       </div>
     </div>
     <div class="pt-5 text-secondary-500 font-light leading-7">
-      {{ booth.boothIntro }}
+      <span v-for="(line, lineIndex) in formatText(booth?.boothIntro ?? '')" :key="lineIndex">
+        {{ line }}
+        <br v-if="lineIndex !== formatText(booth?.boothIntro ?? '') - 1" />
+      </span>
     </div>
   </div>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
