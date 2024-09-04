@@ -3,13 +3,13 @@ import { RouterView } from 'vue-router';
 import { onMounted } from 'vue';
 
 import ModalView from './views/ModalView.vue';
-import { api } from './utils/api';
+import { baseApi } from './utils/api';
 
 onMounted(async () => {
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
   try {
-    const response = await api.post('/main/auth/init');
+    const response = await baseApi.post('/main/auth/init');
     if (!response.data.success) alert('Check your network connection');
   } catch (error) {
     console.error(error);
