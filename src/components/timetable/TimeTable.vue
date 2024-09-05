@@ -67,7 +67,7 @@ onMounted(async () => {
 <template>
   <div class="w-full select-none">
     <div class="flex flex-col items-center border-1 border-primary rounded-3xl py-5 shadow-4xl">
-      <div class="text-gray-400 text-2xs pb-2">* 주체측의 사정에 따라 일정이 달라질 수 있습니다.</div>
+      <div class="text-gray-400 text-2xs pb-2">* 주최측의 사정에 따라 일정이 달라질 수 있습니다.</div>
       <div class="px-5 pb-5">
         <div
           class="w-[300px] xs:w-[350px] sm:w-[390px] py-2 text-white bg-primary-700 rounded-full flex justify-center"
