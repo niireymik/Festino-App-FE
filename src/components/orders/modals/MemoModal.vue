@@ -18,10 +18,10 @@ const { selectedOrder } = storeToRefs(useOrderStore());
       <div class="flex flex-col gap-1">
         <div class="flex gap-2">
           <img src="/icons/orders/clock.svg" class="w-5" />
-          <div>{{ prettyDate(selectedOrder.createAt) }}</div>
+          <div class="text-secondary-700">{{ prettyDate(selectedOrder.createAt) }}</div>
         </div>
 
-        <div class="text-sm text-secondary-700 w-full border p-4 min-h-24 rounded-2xl border-primary-900 h-fit">
+        <div class="text-sm text-secondary-700 w-full border p-4 min-h-24 rounded-2xl border-primary-900-light h-fit">
           {{ selectedOrder.note }}
         </div>
       </div>

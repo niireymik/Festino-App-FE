@@ -76,7 +76,9 @@ const handleClickMemo = () => {
         <p>총 가격</p>
         <p class="font-bold">{{ formatPrice(orderInfo.totalPrice) }}원</p>
       </div>
-      <div v-if="orderInfo.note" class="w-full text-right" @click="handleClickMemo()">> 메모</div>
+      <div v-if="orderInfo.note" class="w-full text-right text-secondary-500 font-semibold" @click="handleClickMemo()">
+        > 메모
+      </div>
     </div>
   </div>
 </template>
