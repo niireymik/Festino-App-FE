@@ -11,7 +11,6 @@ onMounted(() => {
   document.body.scrollTop = 0;
 
   Swal.fire({
-    width: '100%',
     icon: 'warning',
     title: '주의사항',
     html: `
