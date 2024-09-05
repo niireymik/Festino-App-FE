@@ -15,16 +15,6 @@ const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
 const { isAgreed } = storeToRefs(usePersonalInfoStore());
 
-onMounted(() => {
-  isAgreed.value = false;
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
-    return router.push({ name: 'error', params: { page: 'NotFound' } });
-  }
-  setBoothInfo(route.params.boothId, route.params.tableNum);
-});
-
 const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
 
 const { getOrder } = useOrderStore();
@@ -44,23 +34,18 @@ const isSumbit = ref(false);
 
 const handleSelectedTab = (index) => {
   selectedTabNum.value = index;
-  handleOrderList(index);
 };
 
-const handleOrderList = (type) => {
-  if (type === 1) return (waitingDepositList.value = orderList.value.filter((order) => order.orderType === 0));
-  if (type === 2) return (cookingList.value = orderList.value.filter((order) => order.orderType === 1));
-  if (type === 3) return (completeCookingList.value = orderList.value.filter((order) => order.orderType === 2));
-};
+const sortedList = (list) => list.sort((a, b) => b.createAt.localeCompare(a.createAt));
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value || !isAgreed.value) return;
   await getOrder({ userName: recentName.value, phoneNum: formatPhoneNum(recentPhoneNum.value) });
   isSumbit.value = true;
 
-  waitingDepositList.value = orderList?.value.filter((order) => order.orderType === 0);
-  cookingList.value = orderList?.value.filter((order) => order.orderType === 1);
-  completeCookingList.value = orderList?.value.filter((order) => order.orderType === 2);
+  waitingDepositList.value = sortedList(orderList?.value.filter((order) => order.orderType === 0));
+  cookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 1));
+  completeCookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 2));
   handleSelectedTab(0);
 };
 
@@ -104,6 +89,16 @@ watchEffect(() => {
 watchEffect(() => {
   isInputFill.value =
     recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
+});
+
+onMounted(() => {
+  isAgreed.value = false;
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
+    return router.push({ name: 'error', params: { page: 'NotFound' } });
+  }
+  setBoothInfo(route.params.boothId, route.params.tableNum);
 });
 </script>
 <template>
