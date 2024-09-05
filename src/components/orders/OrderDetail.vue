@@ -1,4 +1,11 @@
 <script setup>
+import { useBaseModal } from '@/stores/baseModal';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
+
+const { openModal } = useBaseModal();
+
+const { selectedOrder } = storeToRefs(useOrderStore());
 const props = defineProps({
   orderInfo: {
     type: Object,
@@ -34,6 +41,11 @@ const createAt = props.orderInfo.createAt.slice(5, 16).replace('T', ' ').replace
 const formatPrice = (price) => {
   return new Intl.NumberFormat('ko-KR').format(price);
 };
+
+const handleClickMemo = () => {
+  selectedOrder.value = props.orderInfo;
+  openModal('memoModal');
+};
 </script>
 
 <template>
@@ -64,6 +76,7 @@ const formatPrice = (price) => {
         <p>총 가격</p>
         <p class="font-bold">{{ formatPrice(orderInfo.totalPrice) }}원</p>
       </div>
+      <div v-if="orderInfo.note" class="w-full text-right" @click="handleClickMemo()">> 메모</div>
     </div>
   </div>
 </template>
