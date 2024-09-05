@@ -3,14 +3,9 @@ import { useBaseModal } from '@/stores/baseModal';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { prettyDate } from '@/utils/utils';
 import { storeToRefs } from 'pinia';
-import { onMounted } from 'vue';
 
 const { closeModal } = useBaseModal();
 const { selectedOrder } = storeToRefs(useOrderStore());
-
-onMounted(() => {
-  console.log(selectedOrder.value);
-});
 </script>
 <template>
   <div
