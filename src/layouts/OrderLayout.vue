@@ -12,10 +12,10 @@ watchEffect(() => {
   const currentRouteName = currentRoute.name;
   isMain.value = currentRouteName === 'order';
   if (currentRouteName === 'order-search') {
-    title.value = '주문조회';
+    title.value = '주문 조회';
   }
   if (currentRouteName === 'order-payment') {
-    title.value = '주문하기';
+    title.value = '주문 하기';
   }
 });
 </script>

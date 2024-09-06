@@ -5,15 +5,11 @@ import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { formatPhoneNum } from '@/utils/utils';
-import PersonalInfo from '@/components/PersonalInfo.vue';
-import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const route = useRoute();
 const router = useRouter();
-const { setBoothInfo, isUUID, saveRecentInfo } = useOrderStore();
+const { setBoothInfo, isUUID } = useOrderStore();
 const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
-
-const { isAgreed } = storeToRefs(usePersonalInfoStore());
 
 const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
 
@@ -31,12 +27,17 @@ const cookingList = ref([]);
 const completeCookingList = ref([]);
 
 const isSumbit = ref(false);
+const isAgreed = ref(false);
 
 const handleSelectedTab = (index) => {
   selectedTabNum.value = index;
 };
 
 const sortedList = (list) => list.sort((a, b) => b.createAt.localeCompare(a.createAt));
+
+const handleClickAgreeCheckBox = () => {
+  isAgreed.value = !isAgreed.value;
+};
 
 const handleClickSearchButton = async () => {
   if (!isInputFill.value || !isAgreed.value) return;
@@ -152,7 +153,19 @@ onMounted(() => {
             }"
           />
         </div>
-        <PersonalInfo />
+        <div class="text-xs text-secondary-500 flex flex-col items-start w-full">
+          <label for="agree-checkbox" class="flex">
+            <input
+              @click.agree="handleClickAgreeCheckBox()"
+              id="agree-checkbox"
+              type="checkbox"
+              value=""
+              class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
+            />
+            개인정보 수집 이용 동의 <span class="text-danger"> &nbsp; (필수)</span>
+          </label>
+        </div>
+
         <button
           class="h-[51px] w-full text-white font-bold rounded-10xl"
           :class="isInputFill && isAgreed ? 'bg-primary-900' : 'bg-secondary-100'"
