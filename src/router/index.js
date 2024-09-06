@@ -57,7 +57,7 @@ const router = createRouter({
           props: true,
         },
         {
-          path: '/notice',
+          path: '/notice/:id',
           name: 'notice',
           component: NoticeView,
         },
