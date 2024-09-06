@@ -101,7 +101,7 @@ onMounted(async () => {
   if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
     return router.push({ name: 'error', params: { page: 'NotFound' } });
   }
-  setBoothInfo(route.params.boothId, route.params.tableNum);
+  await setBoothInfo(route.params.boothId, route.params.tableNum);
   await getAccountInfo();
 });
 </script>
@@ -244,7 +244,7 @@ onMounted(async () => {
       <div v-if="(selectedTabNum === 0 || selectedTabNum === 4) && cancelCookingList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
-            <div class="bg-secondary-50 w-3 h-3 rounded-full"></div>
+            <div class="bg-secondary-300 w-3 h-3 rounded-full"></div>
             <div class="text-secondary-500">주문 취소</div>
             <div class="text-secondary-300">({{ cancelCookingList.length }})</div>
           </div>

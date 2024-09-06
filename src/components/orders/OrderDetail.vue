@@ -32,7 +32,7 @@ const orderStatus = [
   {
     text: '주문취소',
     color: 'bg-third-400',
-    bgColor: 'bg-secondary-100',
+    bgColor: 'bg-secondary-50',
   },
 ];
 
@@ -51,7 +51,7 @@ const handleClickRecipe = () => {
 <template>
   <div class="w-full flex flex-col p-4 rounded-3xl text-sm" :class="`${orderStatus[orderInfo.orderType].bgColor}`">
     <div class="flex flex-col w-full gap-3">
-      <div class="min-h-9 h-fit flex justify-between w-full border-b-1 border-secondary-300 flex-wrap">
+      <div class="min-h-9 h-fit flex justify-between w-full border-b-1 border-secondary-300 flex-wrap p-1 gap-x-[10px]">
         <div class="flex gap-1 items-center">
           <img src="/icons/orders/map.svg" />
           <p>{{ orderInfo.adminName }} - {{ orderInfo.tableNum }}번 테이블</p>
