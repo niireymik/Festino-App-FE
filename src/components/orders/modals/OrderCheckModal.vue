@@ -3,7 +3,7 @@ import { useBaseModal } from '@/stores/baseModal';
 import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref, watchEffect } from 'vue';
-import { formatPrice } from '@/utils/utils';
+import { formatPrice, prettyPhoneNum } from '@/utils/utils';
 
 const { boothId, tableNum, totalPrice, userName, phoneNum, userOrderList, isCoupon, accountInfo, note } = storeToRefs(
   useOrderStore(),
@@ -12,8 +12,11 @@ const { saveOrder, getAccountInfo } = useOrderStore();
 const { closeModal } = useBaseModal();
 
 const orderMenus = ref([]);
+const isSame = ref(false);
+const isDone = ref(false);
 
 const handleClickConfirmDepositButton = () => {
+  if (!isSame.value || !isDone.value) return;
   saveOrder({
     boothId: boothId.value,
     tableNum: Number(tableNum.value),
@@ -31,6 +34,13 @@ const clipAccount = () => {
   alert('계좌번호가 복사되었습니다.');
 };
 
+const handleClickSameCheckBox = () => {
+  isSame.value = !isSame.value;
+};
+const handleClickDoneCheckBox = () => {
+  isDone.value = !isDone.value;
+};
+
 watchEffect(() => {
   if (userOrderList.value) {
     orderMenus.value = userOrderList.value.filter((orderInfo) => orderInfo.menuCount > 0);
@@ -44,12 +54,25 @@ onMounted(() => {
 
 <template>
   <div
-    class="relative col-start-2 row-start-2 h-full min-w-[346px] dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-7"
+    class="relative col-start-2 row-start-2 h-full min-w-[346px] dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 gap-5"
     @click.stop=""
   >
-    <div class="font-semibold text-xl text-secondary-700">주문확인</div>
+    <div class="font-semibold text-xl text-secondary-700">주문 확인서</div>
     <div class="w-full gap-1">
-      <div class="font-semibold text-secondary-700 mb-1">결제정보 확인</div>
+      <div class="font-semibold text-secondary-700 mb-1">주문자 정보</div>
+      <div class="w-full rounded-xl bg-primary-900-lightest p-4 flex flex-col gap-3 text-secondary-500 text-sm">
+        <div class="flex justify-between">
+          <div>입금자명</div>
+          <div>{{ userName }}</div>
+        </div>
+        <div class="flex justify-between">
+          <div>전화번호</div>
+          <div>{{ prettyPhoneNum(phoneNum) }}</div>
+        </div>
+      </div>
+    </div>
+    <div class="w-full gap-1">
+      <div class="font-semibold text-secondary-700 mb-1">결제 정보 확인</div>
       <div class="w-full rounded-xl bg-primary-900-lightest p-4">
         <div class="font-bold flex pb-[12px] justify-between text-secondary-500">
           <div class="text-sm">{{ accountInfo.bankName }}</div>
@@ -69,13 +92,31 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="flex flex-col gap-[4px] items-center">
-      <div class="font-bold text-warning">주의사항</div>
-      <div class="flex items-center flex-col text-secondary-500 text-xs">
-        <div>입금 후 입금 완료 버튼을 눌러주세요.</div>
-        <div>입금 완료 버튼을 눌러야 주문이 완료됩니다.</div>
-      </div>
+
+    <div class="text-xs text-secondary-500 flex flex-col items-start w-full">
+      <label for="same-checkbox" class="flex mb-2">
+        <input
+          @click.stop="handleClickSameCheckBox()"
+          id="same-checkbox"
+          type="checkbox"
+          value=""
+          class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
+        />
+        입금자명과 주문자명을 확인해주세요. <span class="text-danger">&nbsp; (필수)</span>
+      </label>
+      <label for="done-checkbox" class="flex mb-4">
+        <input
+          @click.stop="handleClickDoneCheckBox()"
+          id="done-checkbox"
+          type="checkbox"
+          value=""
+          class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
+        />
+        입금 후 입금 완료 버튼을 눌러주세요. <span class="text-danger">&nbsp; (필수)</span>
+      </label>
+      <div class="text-danger text-center w-full">입금 미확인 시 주문이 취소될 수 있습니다.</div>
     </div>
+
     <div class="gap-5 w-full flex font-bold">
       <button
         class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
@@ -84,7 +125,12 @@ onMounted(() => {
         취소
       </button>
       <button
-        class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 bg-primary-700 text-white rounded-3xl"
+        :disabled="!isSame || !isDone"
+        :class="{
+          'bg-primary-700 border-2 border-primary-700': isSame && isDone,
+          'bg-secondary-100': !isSame || !isDone,
+        }"
+        class="w-full h-[42px] flex justify-center items-center text-white rounded-3xl"
         @click="handleClickConfirmDepositButton()"
       >
         입금 완료

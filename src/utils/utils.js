@@ -38,3 +38,8 @@ export const prettyDate = (date) => {
 
   return formattedTime;
 };
+
+export const prettyPhoneNum = (phoneNum) => {
+  if (phoneNum === '') return;
+  return phoneNum.replace(/(\d{3})(\d{3,4})(\d{4})/, '$1-$2-$3');
+};

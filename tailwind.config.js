@@ -77,6 +77,7 @@ export default {
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
+        danger: '#FF3F3F',
         warning: '#FF5252',
         error: 'rgba(255, 109, 109, 0.16)',
       },

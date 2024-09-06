@@ -3,23 +3,20 @@ import { onMounted, ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { formatPrice } from '@/utils/utils';
 import { useOrderStore } from '@/stores/orders/orderStore';
-import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 import { useBaseModal } from '@/stores/baseModal';
 import { formatPhoneNum } from '@/utils/utils';
 import InputName from '@/components/tablings/InputName.vue';
 import InputPhoneNum from '@/components/tablings/InputPhoneNum.vue';
-import PersonalInfo from '@/components/PersonalInfo.vue';
 
 const { totalPrice, userOrderList, setUserName, setPhoneNum } = useOrderStore();
 const { recentName, recentPhoneNum, note } = storeToRefs(useOrderStore());
 const { openModal, closeModal } = useBaseModal();
 
-const { isAgreed } = storeToRefs(usePersonalInfoStore());
-
 const MAX_MESSAGE_LENGTH = 50;
 const orderMenus = ref([]);
 const regex = /^010/;
 const currentNote = ref('');
+const isAgreed = ref(false);
 
 const noteLength = computed(() => currentNote.value?.length ?? 0);
 
@@ -43,6 +40,10 @@ const handleClickOrderButton = () => {
   note.value = currentNote.value;
   closeModal();
   openModal('orderCheckModal');
+};
+
+const handleClickAgreeCheckBox = () => {
+  isAgreed.value = !isAgreed.value;
 };
 
 onMounted(() => {
@@ -94,9 +95,19 @@ onMounted(() => {
           {{ noteLength }}/{{ MAX_MESSAGE_LENGTH }}
         </div>
       </div>
-      <div class="px-1">
-        <PersonalInfo />
+      <div class="text-xs text-secondary-500 flex flex-col items-start w-full">
+        <label for="agree-checkbox" class="flex mb-4">
+          <input
+            @click.agree="handleClickAgreeCheckBox()"
+            id="agree-checkbox"
+            type="checkbox"
+            value=""
+            class="w-4 h-4 mr-2 ml-1 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
+          />
+          개인정보 수집 이용 동의 <span class="text-danger"> &nbsp; (필수)</span>
+        </label>
       </div>
+
       <div class="gap-5 flex w-full font-bold">
         <button
           class="w-full h-[42px] flex justify-center items-center border-2 border-primary-700 rounded-3xl text-primary-700"
