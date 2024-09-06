@@ -53,7 +53,7 @@ const markers = ref({
       // 총학 이벤트 추가되면 활성화
       { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
       { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
-      { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 360 }
+      { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 }
     ],
     music: [
       { markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 },
@@ -64,12 +64,12 @@ const markers = ref({
       { markerNum: 22, left: 405, bottom: 310, scrollLeft: 890, scrollTop: 240 },
       // B동이랑 벙커 사이 통로
       { markerNum: 23, left: 420, bottom: 300, scrollLeft: 925, scrollTop: 270 },
-      { markerNum: 24, left: 440, bottom: 285, scrollLeft: 925, scrollTop: 300 },
+      { markerNum: 24, left: 440, bottom: 285, scrollLeft: 970, scrollTop: 310 },
       { markerNum: 25, left: 420, bottom: 270, scrollLeft: 925, scrollTop: 340 },
-      { markerNum: 26, left: 440, bottom: 255, scrollLeft: 925, scrollTop: 370 },
-      { markerNum: 28, left: 440, bottom: 220, scrollLeft: 925, scrollTop: 480 },
+      { markerNum: 26, left: 440, bottom: 255, scrollLeft: 970, scrollTop: 370 },
+      { markerNum: 28, left: 440, bottom: 220, scrollLeft: 970, scrollTop: 480 },
       { markerNum: 29, left: 420, bottom: 205, scrollLeft: 925, scrollTop: 490 },
-      { markerNum: 30, left: 440, bottom: 190, scrollLeft: 925, scrollTop: 510 },
+      { markerNum: 30, left: 440, bottom: 190, scrollLeft: 970, scrollTop: 540 },
       { markerNum: 36, left: 528, bottom: 300, scrollLeft: 1200, scrollTop: 270 },
       { markerNum: 35, left: 510, bottom: 280, scrollLeft: 1200, scrollTop: 310 },
       { markerNum: 34, left: 528, bottom: 235, scrollLeft: 1200, scrollTop: 450 },
