@@ -31,7 +31,8 @@ const markers = ref({
     // 총학 술 판매 추가
     ticket: [
       //총학 티켓
-      { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 }
+      { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
+      { markerNum: 94, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
     ],
     smoke: [
       { markerNum: 77, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
