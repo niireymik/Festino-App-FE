@@ -31,7 +31,7 @@ const priceToString = (price) => {
             <div class="flex justify-between pb-1">
               <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
               <div class="flex">
-                <MenuOption v-if="booth.adminCategory === 'night'" class="mr-1">{{
+                <MenuOption v-if="booth.adminCategory == '야간부스'" class="mr-1">{{
                   menu.menuType === defaultOption ? '메인 메뉴' : '서브 메뉴'
                 }}</MenuOption>
                 <MenuStatus class="mr-0" :isState="!menu.isSoldOut">{{
@@ -39,7 +39,7 @@ const priceToString = (price) => {
                 }}</MenuStatus>
               </div>
             </div>
-            <div class="w-full text-[10px] text-seconday-500">
+            <div class="w-full text-[10px] text-secondary-500">
               {{ menu.menuDescription }}
             </div>
           </div>
