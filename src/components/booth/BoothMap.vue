@@ -33,12 +33,9 @@ const markers = ref({
       //총학 티켓
       { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 }
     ],
-    alcohol: [
-      { markerNum: 92, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 }
-    ],
     smoke: [
       { markerNum: 77, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
-      { markerNum: 78, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 } // 운동장 구석
+      { markerNum: 78, left: 30, bottom: 175, scrollLeft: 0, scrollTop: 580 } // 운동장 구석
     ],
     store: [
       { markerNum: 75, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 }, // 종관
@@ -53,8 +50,9 @@ const markers = ref({
     ],
     general: [
       // 총학 이벤트 추가되면 활성화
-      // { markerNum: 34, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
-      { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 }
+      { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
+      { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
+      { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 360 }
     ],
     music: [
       { markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 },
@@ -99,6 +97,10 @@ const markers = ref({
       { markerNum: 53, left: 420, bottom: 130, scrollLeft: 925, scrollTop: 700 },
       { markerNum: 54, left: 450, bottom: 130, scrollLeft: 1000, scrollTop: 700 },
       { markerNum: 55, left: 450, bottom: 155, scrollLeft: 1000, scrollTop: 630 },
+    ],
+    alcohol: [
+      { markerNum: 79, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
+      { markerNum: 80, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 }
     ],
   }
 });
@@ -405,6 +407,7 @@ watchEffect(() => {
                   bottom: `${marker.bottom * zoomLevel}px`,
                   transform: `scale(${selectedMarker === marker ? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
+                  zIndex: `${marker.markerNum === selectedMarker.markerNum ? '1000' : '500'}`
                 }"
                 @click.stop="handleMarkerClick(marker)"
               >
@@ -417,7 +420,7 @@ watchEffect(() => {
                 >
                   <MapSpeechBubble 
                     v-if="selectedMarker.markerNum === marker.markerNum"
-                    class="absolute bottom-[65px] z-50"
+                    class="absolute bottom-[65px]"
                     @click.stop="clickMarkerSpeechBubble(boothMarkerData.adminCategory, boothMarkerData.boothId)"
                   ></MapSpeechBubble>
                 </div>
