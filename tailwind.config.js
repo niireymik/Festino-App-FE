@@ -55,7 +55,10 @@ export default {
           300: '#999999',
           200: '#F2F4F6',
           100: '#CCCCCC',
-          50: '#EEEEEE',
+          50: {
+            DEFAULT: '#EEEEEE',
+            light: '#E1E1E1',
+          },
         },
         third: {
           700: '#E2F4E1',

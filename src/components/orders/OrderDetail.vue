@@ -42,16 +42,16 @@ const formatPrice = (price) => {
   return new Intl.NumberFormat('ko-KR').format(price);
 };
 
-const handleClickMemo = () => {
+const handleClickRecipe = () => {
   selectedOrder.value = props.orderInfo;
-  openModal('memoModal');
+  openModal('orderDetailModal');
 };
 </script>
 
 <template>
   <div class="w-full flex flex-col p-4 rounded-3xl text-sm" :class="`${orderStatus[orderInfo.orderType].bgColor}`">
     <div class="flex flex-col w-full gap-3">
-      <div class="h-9 flex justify-between w-full border-b-1 border-secondary-300 flex-wrap">
+      <div class="min-h-9 h-fit flex justify-between w-full border-b-1 border-secondary-300 flex-wrap">
         <div class="flex gap-1 items-center">
           <img src="/icons/orders/map.svg" />
           <p>{{ orderInfo.adminName }} - {{ orderInfo.tableNum }}번 테이블</p>
@@ -59,6 +59,7 @@ const handleClickMemo = () => {
         <div class="flex gap-1 items-center">
           <img src="/icons/orders/clock.svg" />
           <p>{{ createAt }}</p>
+          <img src="/icons/orders/recipe.svg" @click="handleClickRecipe()" />
         </div>
       </div>
       <div
@@ -75,9 +76,6 @@ const handleClickMemo = () => {
       <div class="flex justify-between h-[31px] items-center border-t-1 border-secondary-300">
         <p>총 가격</p>
         <p class="font-bold">{{ formatPrice(orderInfo.totalPrice) }}원</p>
-      </div>
-      <div v-if="orderInfo.note" class="w-full text-right text-secondary-500 font-semibold" @click="handleClickMemo()">
-        > 메모
       </div>
     </div>
   </div>

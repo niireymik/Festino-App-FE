@@ -8,10 +8,10 @@ import { formatPhoneNum } from '@/utils/utils';
 
 const route = useRoute();
 const router = useRouter();
-const { setBoothInfo, isUUID } = useOrderStore();
+const { setBoothInfo, isUUID, getAccountInfo } = useOrderStore();
 const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
-const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
+const TABS = ['전체', '입금 대기', '조리 중', '조리 완료', '주문 취소'];
 
 const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
@@ -25,6 +25,7 @@ const selectedTabNum = ref(0);
 const waitingDepositList = ref([]);
 const cookingList = ref([]);
 const completeCookingList = ref([]);
+const cancelCookingList = ref([]);
 
 const isSumbit = ref(false);
 const isAgreed = ref(false);
@@ -47,6 +48,7 @@ const handleClickSearchButton = async () => {
   waitingDepositList.value = sortedList(orderList?.value.filter((order) => order.orderType === 0));
   cookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 1));
   completeCookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 2));
+  cancelCookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 3));
   handleSelectedTab(0);
 };
 
@@ -92,7 +94,7 @@ watchEffect(() => {
     recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
 });
 
-onMounted(() => {
+onMounted(async () => {
   isAgreed.value = false;
   document.documentElement.scrollTop = 0;
   document.body.scrollTop = 0;
@@ -100,11 +102,12 @@ onMounted(() => {
     return router.push({ name: 'error', params: { page: 'NotFound' } });
   }
   setBoothInfo(route.params.boothId, route.params.tableNum);
+  await getAccountInfo();
 });
 </script>
 <template>
-  <div class="w-full h-full flex flex-col justify-center items-center gap-7 px-5 pb-5 pt-[74px]">
-    <div class="flex flex-col w-full justify-start items-center gap-4">
+  <div class="w-full h-full flex flex-col justify-center items-center gap-7 pb-5 pt-[74px]">
+    <div class="flex flex-col w-full justify-start items-center gap-4 px-5">
       <div class="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
       <div class="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">
         <div>
@@ -176,27 +179,33 @@ onMounted(() => {
       </div>
     </div>
 
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full relative">
       <!-- tabs -->
-      <div v-if="isSumbit" class="w-full flex justify-between place-items-center h-[52px] relative px-3">
+      <div
+        v-if="isSumbit"
+        class="w-full flex justify-between place-items-center h-[52px] relative px-3 overflow-x-auto"
+      >
         <div
           v-for="(tab, index) in TABS"
           :key="index"
           @click="handleSelectedTab(index)"
-          class="text-secondary-700-light-50 font-semibold text-xl cursor-pointer"
+          class="text-secondary-700-light-50 font-semibold text-xl cursor-pointer flex-shrink-0"
         >
           <div :class="{ 'text-secondary-700': index === selectedTabNum }" class="relative px-2">
             {{ tab }}
             <div
               v-if="index === selectedTabNum"
-              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full z-10"
+              class="absolute -bottom-[12px] left-0 h-1 bg-primary-900 w-full rounded-full z-10"
             ></div>
           </div>
         </div>
-        <div class="w-screen max-w-[500px] bg-secondary-300 h-[0.3px] ml-[-32px] absolute bottom-0"></div>
       </div>
+      <div
+        v-if="isSumbit"
+        class="w-screen bg-secondary-300 h-[0.3px] ml-[-32px] absolute top-[50px] left-0 translate-x-8"
+      ></div>
       <!-- order lists -->
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-100 w-3 h-3 rounded-full"></div>
@@ -208,7 +217,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-200 w-3 h-3 rounded-full"></div>
@@ -220,7 +229,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-300 w-3 h-3 rounded-full"></div>
@@ -228,6 +237,18 @@ onMounted(() => {
             <div class="text-third-300">({{ completeCookingList.length }})</div>
           </div>
           <div v-for="(order, index) in completeCookingList" :key="index">
+            <OrderDetail :key="index" :orderInfo="order" />
+          </div>
+        </div>
+      </div>
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 4) && cancelCookingList.length !== 0" class="py-5 px-5">
+        <div class="flex flex-col gap-3 w-full">
+          <div class="flex gap-2 items-center text-xs font-semibold">
+            <div class="bg-secondary-50 w-3 h-3 rounded-full"></div>
+            <div class="text-secondary-500">주문 취소</div>
+            <div class="text-secondary-300">({{ cancelCookingList.length }})</div>
+          </div>
+          <div v-for="(order, index) in cancelCookingList" :key="index">
             <OrderDetail :key="index" :orderInfo="order" />
           </div>
         </div>
