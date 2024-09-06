@@ -34,7 +34,7 @@ const priceToString = (price) => {
                 <MenuOption v-if="booth.adminCategory == '야간부스'" class="mr-1">{{
                   menu.menuType === defaultOption ? '메인 메뉴' : '서브 메뉴'
                 }}</MenuOption>
-                <MenuStatus class="mr-0" :isState="!menu.isSoldOut">{{
+                <MenuStatus class="mr-0 w-fit" :isState="!menu.isSoldOut">{{
                   !menu.isSoldOut ? '판매중' : '준비중'
                 }}</MenuStatus>
               </div>
