@@ -20,18 +20,18 @@ const handleClickConfirmButton = () => {
     class="relative col-start-2 row-start-2 h-full dynamic-width bg-white rounded-3xl flex flex-col items-center px-10 py-8 gap-5"
     @click.stop=""
   >
-    <div class="w-12 h-12 rounded-full bg-primary-900-light-16 grid place-items-center">
-      <img src="/icons/info.svg" />
+    <div class="text-xl text-secondary-700 font-semibold">주문 확인 안내</div>
+    <div class="text-xs text-secondary-500 text-center break-keep">
+      주문이 완료되었습니다.<br />
+      주문 확인서는 주문 조회에서 다시 확인 가능합니다.<br />
+      입금 미확인시 주문이 취소될 수 있습니다.
     </div>
-    <div class="w-full flex flex-col gap-3 items-center text-center">
-      <p class="text-secondary-700 text-xl font-bold">입금완료</p>
-      <p class="text-secondary-500">입금이 완료되었습니다.<br />학과에서 주문을 확인중입니다.</p>
-    </div>
+
     <button
-      class="w-full h-12 bg-primary-900 rounded-3xl text-white font-semibold text-xl"
+      class="w-full h-11 bg-primary-900 rounded-3xl text-white font-semibold text-xl"
       @click="handleClickConfirmButton()"
     >
-      확인
+      닫기
     </button>
   </div>
 </template>
