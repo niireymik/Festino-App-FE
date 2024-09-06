@@ -70,7 +70,9 @@ const getMenuImage = (menuImage) => {
       <div class="font-light text-secondary-300 text-sm">{{ menu.menuDescription }}</div>
       <div class="font-light text-secondary-300 text-sm">가격: {{ formatPrice(menuUnitPrice) }}원</div>
       <div class="flex pt-[12px] justify-between items-center">
-        <div :class="{ 'text-secondary-100': !menuNum }">{{ formatPrice(menuUnitPrice * menuNum) }}원</div>
+        <div :class="{ 'text-secondary-100': !menuNum, 'text-secondary-700': menuNum }" class="font-semibold">
+          {{ formatPrice(menuUnitPrice * menuNum) }}원
+        </div>
         <div class="w-[118px] flex flex-row gap-[10px]">
           <img src="/icons/orders/minus.svg" class="cursor-pointer" @click="handleClickMenuNumButton('minus')" />
           <input
