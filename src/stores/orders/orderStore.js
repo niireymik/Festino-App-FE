@@ -20,12 +20,13 @@ export const useOrderStore = defineStore('orderStore', () => {
   const tableNum = ref(0);
   const customTableNum = ref('');
   const isCoupon = ref(false);
-  const note = ref("");
+  const note = ref('');
   const accountInfo = ref({
     account: '',
     accountHolder: '',
     bankName: '',
   });
+  const selectedOrder = ref({});
 
   const getCustomTableNum = async (tableNum, boothId) => {
     try {
@@ -167,6 +168,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     recentName,
     customTableNum,
     note,
+    selectedOrder,
     handleTotalPrice,
     addOrderList,
     setUserName,

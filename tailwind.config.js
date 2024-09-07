@@ -55,7 +55,10 @@ export default {
           300: '#999999',
           200: '#F2F4F6',
           100: '#CCCCCC',
-          50: '#EEEEEE',
+          50: {
+            DEFAULT: '#EEEEEE',
+            light: '#E1E1E1',
+          },
         },
         third: {
           700: '#E2F4E1',
@@ -77,6 +80,7 @@ export default {
         },
         'notification-bg': '#FBFCFF',
         'instagram-bg': '#F5F6F8',
+        danger: '#FF3F3F',
         warning: '#FF5252',
         error: 'rgba(255, 109, 109, 0.16)',
       },
