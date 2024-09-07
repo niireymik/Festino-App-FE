@@ -16,7 +16,7 @@ const notification = ref("공지사항");
 const router = useRouter();
 
 const handleClickNotice = async (noticeId) => {
-  router.push({ name: 'notice', state: { noticeId } });
+  router.push({ path: `/notice/${noticeId}`, state: { noticeId } });
 };
 
 onMounted(() => {
