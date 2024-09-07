@@ -1,24 +1,40 @@
 <script setup>
-  const props = defineProps({
+import { useModalStore } from '@/stores/modalStore.js';
+
+const { handleClickOpenModal } = useModalStore();
+
+const props = defineProps({
   data: {
     type: Object,
     required: true
   },
-  category: {
-    type: String,
-    required: true
-  },
 });
+
+const handleClickOpenClubModal = () => {
+  handleClickOpenModal(props.data);
+};
 
 const isShowing = (isShowing) => {
   if(isShowing) return 'border-primary text-primary-700'
   else return 'bg-secondary-50 border-secondary-100 text-secondary-100'
 };
+
+const getImage = () => {
+  return { backgroundImage: `url('${props.data.clubImage}')` };
+};
 </script>
 
 <template>
-  <div class="cursor-pointer flex justify-center py-5 rounded-3xl w-[170px] xs:w-[210px] sm:w-[230px] border-2"
-    :class="isShowing(data.isShowing)">{{ category }} ' {{ data.performer }} '</div>
+  <div class="cursor-pointer flex py-5 rounded-3xl w-[170px] xs:w-[210px] sm:w-[230px] border-2 flex-col items-center gap-2.5 shadow-4xl "
+    :class="isShowing(data.isShowing)">
+    <div class="rounded-full bg-primary-700 w-9 h-9 border-2 border-primary bg-cover bg-center"
+    :style="getImage()"></div>
+    <div class="text-center leading-none">
+      <div>교내 동아리 공연</div>
+      <div>' {{ data.performer }} '</div>
+    </div>
+    <button @click="handleClickOpenClubModal()" class="text-white bg-primary-700 w-[152px] h-[30px] rounded-full">공연 정보 상세보기</button>
+  </div>
 </template>
 
 <style lang="css" scoped>
