@@ -12,6 +12,9 @@ const handleClickInstagram = () => {
 };
 
 const getImage = () => {
+  if (modalData.value?.clubImage === null || modalData.value?.clubImage === undefined || !modalData.value?.clubImage) {
+    return { backgroundImage: 'url("/images/booth/booth-default-image.png")' };
+  }
   return { backgroundImage: `url('${modalData.value.clubImage}')` };
 };
 </script>

@@ -1,6 +1,11 @@
 <script setup>
-import { defineProps } from 'vue';
+import { useBaseModal } from '@/stores/baseModal';
+import { useOrderStore } from '@/stores/orders/orderStore';
+import { storeToRefs } from 'pinia';
 
+const { openModal } = useBaseModal();
+
+const { selectedOrder } = storeToRefs(useOrderStore());
 const props = defineProps({
   orderInfo: {
     type: Object,
@@ -27,28 +32,34 @@ const orderStatus = [
   {
     text: '주문취소',
     color: 'bg-third-400',
-    bgColor: 'bg-secondary-100',
+    bgColor: 'bg-secondary-50',
   },
 ];
 
-const createAt = props.orderInfo.createAt.slice(0, 16).replace('T', ' ').replaceAll('-', '.');
+const createAt = props.orderInfo.createAt.slice(5, 16).replace('T', ' ').replaceAll('-', '/');
 
 const formatPrice = (price) => {
   return new Intl.NumberFormat('ko-KR').format(price);
+};
+
+const handleClickRecipe = () => {
+  selectedOrder.value = props.orderInfo;
+  openModal('orderDetailModal');
 };
 </script>
 
 <template>
   <div class="w-full flex flex-col p-4 rounded-3xl text-sm" :class="`${orderStatus[orderInfo.orderType].bgColor}`">
     <div class="flex flex-col w-full gap-3">
-      <div class="h-9 flex justify-between w-full border-b-1 border-secondary-300">
+      <div class="min-h-9 h-fit flex justify-between w-full border-b-1 border-secondary-300 flex-wrap p-1 gap-x-[10px]">
         <div class="flex gap-1 items-center">
           <img src="/icons/orders/map.svg" />
-          <p>{{ orderInfo.adminName }} No.{{ orderInfo.tableNum }}</p>
+          <p>{{ orderInfo.adminName }} - {{ orderInfo.tableNum }}번 테이블</p>
         </div>
         <div class="flex gap-1 items-center">
           <img src="/icons/orders/clock.svg" />
           <p>{{ createAt }}</p>
+          <img src="/icons/orders/recipe.svg" @click="handleClickRecipe()" />
         </div>
       </div>
       <div

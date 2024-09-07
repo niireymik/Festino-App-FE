@@ -9,17 +9,17 @@ const { clubData, day } = storeToRefs(useTimetableStore());
 const activateTimetable = ref(false);
 
 const isShowingTime = (isShowing) => {
-  if(isShowing) return 'text-secondary-700';
+  if (isShowing) return 'text-secondary-700';
   else return 'text-secondary-100';
 };
 
 const isShowingPin = (isShowing) => {
-  if(isShowing) return 'bg-primary-700';
+  if (isShowing) return 'bg-primary-700';
   else return 'bg-secondary-100';
 };
 
 const isShowingBgPin = (isShowing) => {
-  if(isShowing) return 'bg-primary-700-light';
+  if (isShowing) return 'bg-primary-700-light';
   else return 'bg-secondary-50';
 };
 
@@ -54,10 +54,13 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="w-full select-none">
+  <div class="w-full select-none pb-20">
     <div class="flex flex-col items-center border-1 border-primary rounded-3xl py-5 shadow-4xl gap-4">
+      <div class="text-gray-400 text-2xs pb-2">* 주최측의 사정에 따라 일정이 달라질 수 있습니다.</div>
       <div class="px-5 pb-5">
-        <div class="w-[300px] xs:w-[350px] sm:w-[390px] py-2 text-white bg-primary-700 rounded-full flex justify-center">
+        <div
+          class="w-[300px] xs:w-[350px] sm:w-[390px] py-2 text-white bg-primary-700 rounded-full flex justify-center"
+        >
           DAY {{ day }} 공연 타임테이블
         </div>
       </div>
@@ -93,5 +96,4 @@ onMounted(async () => {
   </div>
 </template>
 
-<style lang="css" scoped>
-</style>
+<style lang="css" scoped></style>

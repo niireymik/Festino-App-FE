@@ -5,27 +5,13 @@ import { useOrderStore } from '@/stores/orders/orderStore';
 import { storeToRefs } from 'pinia';
 import { useRoute, useRouter } from 'vue-router';
 import { formatPhoneNum } from '@/utils/utils';
-import PersonalInfo from '@/components/PersonalInfo.vue';
-import { usePersonalInfoStore } from '@/stores/personalInfoStore';
 
 const route = useRoute();
 const router = useRouter();
-const { setBoothInfo, isUUID, saveRecentInfo } = useOrderStore();
+const { setBoothInfo, isUUID, getAccountInfo } = useOrderStore();
 const { recentName, recentPhoneNum } = storeToRefs(useOrderStore());
 
-const { isAgreed } = storeToRefs(usePersonalInfoStore());
-
-onMounted(() => {
-  isAgreed.value = false;
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
-    return router.push({ name: 'error', params: { page: 'NotFound' } });
-  }
-  setBoothInfo(route.params.boothId, route.params.tableNum);
-});
-
-const TABS = ['전체', '입금 대기', '조리 중', '조리 완료'];
+const TABS = ['전체', '입금 대기', '조리 중', '조리 완료', '주문 취소'];
 
 const { getOrder } = useOrderStore();
 const { orderList } = storeToRefs(useOrderStore());
@@ -39,18 +25,19 @@ const selectedTabNum = ref(0);
 const waitingDepositList = ref([]);
 const cookingList = ref([]);
 const completeCookingList = ref([]);
+const cancelCookingList = ref([]);
 
 const isSumbit = ref(false);
+const isAgreed = ref(false);
 
 const handleSelectedTab = (index) => {
   selectedTabNum.value = index;
-  handleOrderList(index);
 };
 
-const handleOrderList = (type) => {
-  if (type === 1) return (waitingDepositList.value = orderList.value.filter((order) => order.orderType === 0));
-  if (type === 2) return (cookingList.value = orderList.value.filter((order) => order.orderType === 1));
-  if (type === 3) return (completeCookingList.value = orderList.value.filter((order) => order.orderType === 2));
+const sortedList = (list) => list.sort((a, b) => b.createAt.localeCompare(a.createAt));
+
+const handleClickAgreeCheckBox = () => {
+  isAgreed.value = !isAgreed.value;
 };
 
 const handleClickSearchButton = async () => {
@@ -58,9 +45,10 @@ const handleClickSearchButton = async () => {
   await getOrder({ userName: recentName.value, phoneNum: formatPhoneNum(recentPhoneNum.value) });
   isSumbit.value = true;
 
-  waitingDepositList.value = orderList?.value.filter((order) => order.orderType === 0);
-  cookingList.value = orderList?.value.filter((order) => order.orderType === 1);
-  completeCookingList.value = orderList?.value.filter((order) => order.orderType === 2);
+  waitingDepositList.value = sortedList(orderList?.value.filter((order) => order.orderType === 0));
+  cookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 1));
+  completeCookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 2));
+  cancelCookingList.value = sortedList(orderList?.value.filter((order) => order.orderType === 3));
   handleSelectedTab(0);
 };
 
@@ -105,10 +93,21 @@ watchEffect(() => {
   isInputFill.value =
     recentName.value.length >= 2 && recentPhoneNum.value.length == 13 && regex.test(recentPhoneNum.value);
 });
+
+onMounted(async () => {
+  isAgreed.value = false;
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+  if (!isUUID(route.params.boothId) || isNaN(route.params.tableNum)) {
+    return router.push({ name: 'error', params: { page: 'NotFound' } });
+  }
+  await setBoothInfo(route.params.boothId, route.params.tableNum);
+  await getAccountInfo();
+});
 </script>
 <template>
-  <div class="w-full h-full flex flex-col justify-center items-center gap-7 px-5 pb-5 pt-[74px]">
-    <div class="flex flex-col w-full justify-start items-center gap-4">
+  <div class="w-full h-full flex flex-col justify-center items-center gap-7 pb-5 pt-[74px]">
+    <div class="flex flex-col w-full justify-start items-center gap-4 px-5">
       <div class="w-full h-[19px] font-semibold text-secondary-700">주문자 정보 입력</div>
       <div class="w-full flex flex-col gap-[30px] px-5 py-[17px] border-2 border-primary-900-light-16 rounded-3xl">
         <div>
@@ -157,7 +156,19 @@ watchEffect(() => {
             }"
           />
         </div>
-        <PersonalInfo />
+        <div class="text-xs text-secondary-500 flex flex-col items-start w-full">
+          <label for="agree-checkbox" class="flex">
+            <input
+              @click.agree="handleClickAgreeCheckBox()"
+              id="agree-checkbox"
+              type="checkbox"
+              value=""
+              class="w-4 h-4 mr-2 text-primary-900 bg-gray-100 border-gray-300 rounded-4xl focus:ring-primary-900 focus:ring-offset-1 focus:ring-1 focus:rounded-3xl"
+            />
+            개인정보 수집 이용 동의 <span class="text-danger"> &nbsp; (필수)</span>
+          </label>
+        </div>
+
         <button
           class="h-[51px] w-full text-white font-bold rounded-10xl"
           :class="isInputFill && isAgreed ? 'bg-primary-900' : 'bg-secondary-100'"
@@ -168,27 +179,33 @@ watchEffect(() => {
       </div>
     </div>
 
-    <div class="flex flex-col w-full">
+    <div class="flex flex-col w-full relative">
       <!-- tabs -->
-      <div v-if="isSumbit" class="w-full flex justify-between place-items-center h-[52px] relative px-3">
+      <div
+        v-if="isSumbit"
+        class="w-full flex justify-between place-items-center h-[52px] relative px-3 overflow-x-auto"
+      >
         <div
           v-for="(tab, index) in TABS"
           :key="index"
           @click="handleSelectedTab(index)"
-          class="text-secondary-700-light-50 font-semibold text-xl cursor-pointer"
+          class="text-secondary-700-light-50 font-semibold text-xl cursor-pointer flex-shrink-0"
         >
           <div :class="{ 'text-secondary-700': index === selectedTabNum }" class="relative px-2">
             {{ tab }}
             <div
               v-if="index === selectedTabNum"
-              class="absolute -bottom-[14px] left-0 h-1 bg-primary-900 w-full rounded-full z-10"
+              class="absolute -bottom-[12px] left-0 h-1 bg-primary-900 w-full rounded-full z-10"
             ></div>
           </div>
         </div>
-        <div class="w-screen max-w-[500px] bg-secondary-300 h-[0.3px] ml-[-32px] absolute bottom-0"></div>
       </div>
+      <div
+        v-if="isSumbit"
+        class="w-screen bg-secondary-300 h-[0.3px] ml-[-32px] absolute top-[50px] left-0 translate-x-8"
+      ></div>
       <!-- order lists -->
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-100 w-3 h-3 rounded-full"></div>
@@ -200,7 +217,7 @@ watchEffect(() => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-200 w-3 h-3 rounded-full"></div>
@@ -212,7 +229,7 @@ watchEffect(() => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-300 w-3 h-3 rounded-full"></div>
@@ -220,6 +237,18 @@ watchEffect(() => {
             <div class="text-third-300">({{ completeCookingList.length }})</div>
           </div>
           <div v-for="(order, index) in completeCookingList" :key="index">
+            <OrderDetail :key="index" :orderInfo="order" />
+          </div>
+        </div>
+      </div>
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 4) && cancelCookingList.length !== 0" class="py-5 px-5">
+        <div class="flex flex-col gap-3 w-full">
+          <div class="flex gap-2 items-center text-xs font-semibold">
+            <div class="bg-secondary-300 w-3 h-3 rounded-full"></div>
+            <div class="text-secondary-500">주문 취소</div>
+            <div class="text-secondary-300">({{ cancelCookingList.length }})</div>
+          </div>
+          <div v-for="(order, index) in cancelCookingList" :key="index">
             <OrderDetail :key="index" :orderInfo="order" />
           </div>
         </div>

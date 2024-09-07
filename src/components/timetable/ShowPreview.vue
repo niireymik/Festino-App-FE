@@ -29,7 +29,10 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div v-if="showData" class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center select-none" v-bind="$attrs">
+  <div
+    class="w-full h-[178px] bg-white rounded-3xl border-primary border-1 flex justify-center select-none"
+    v-bind="$attrs"
+  >
     <div class="flex pt-[17px] w-full px-3 justify-evenly gap-1 overflow-x-auto reserve-container">
       <div class="flex flex-col items-center cursor-pointer" v-for="show in showData" :key="show" @click="handleClickOpenModal(show)">
         <div :style="getImage(show)" class="border-2 border-primary bg-cover bg-center w-[100px] h-[100px] rounded-full"></div>

@@ -16,6 +16,7 @@ import OrderModal from '@/components/orders/modals/OrderModal.vue';
 import OrderCheckModal from '@/components/orders/modals/OrderCheckModal.vue';
 import OrderCompleteModal from '@/components/orders/modals/OrderCompleteModal.vue';
 import NotExistOrderModal from '@/components/orders/modals/NotExistOrderModal.vue';
+import OrderDetailModal from '@/components/orders/modals/OrderDetailModal.vue';
 
 const baseModalStore = useBaseModal();
 const { isModalOpen, modalType } = storeToRefs(baseModalStore);
@@ -40,6 +41,7 @@ const { isModalOpen, modalType } = storeToRefs(baseModalStore);
     <OrderCheckModal v-if="modalType === 'orderCheckModal'" />
     <OrderCompleteModal v-if="modalType === 'orderCompleteModal'" />
     <NotExistOrderModal v-if="modalType === 'notExistOrderModal'" />
+    <OrderDetailModal v-if="modalType === 'orderDetailModal'" />
   </ModalBackground>
 </template>
 
