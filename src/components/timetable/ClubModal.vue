@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modalStore.js';
 import { useBaseModal } from '@/stores/baseModal';
+import { onMounted } from 'vue';
 
 const { modalData } = storeToRefs(useModalStore());
 const { closeModal } = useBaseModal();
@@ -46,10 +47,25 @@ const getImage = () => {
     </div>
     <div
       @click="handleClickInstagram()"
-      class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px] mb-[24px]"
+      class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px]"
     >
       <div class="w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]"></div>
       <div>@{{ modalData.instagram }}</div>
+    </div>
+    <div class="pb-7 w-full pt-4">
+      <div class="px-[32px] w-full flex flex-col gap-4 h-[212px] overflow-y-auto">
+        <div
+          v-for="index in 8"
+          :key="index"
+          class="shadow-3xl text-xs text-primary-700 w-full min-h-[60px] rounded-3xl flex items-center justify-between border-2 border-primary"
+        >
+          <div class="px-8 w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
+          <div class="w-full text-end pr-4">
+            <div>가수 - 곡제목</div>
+            <div class="text-2xs">김이름, 김이름, 김이름, 김이름, 김이름, 김이름</div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
