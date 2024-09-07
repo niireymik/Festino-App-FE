@@ -3,7 +3,6 @@ import { RouterView } from 'vue-router';
 import { onMounted } from 'vue';
 
 import ModalView from './views/ModalView.vue';
-
 import Swal from 'sweetalert2';
 
 onMounted(() => {

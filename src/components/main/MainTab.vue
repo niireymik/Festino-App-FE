@@ -16,7 +16,7 @@ const notification = ref("공지사항");
 const router = useRouter();
 
 const handleClickNotice = async (noticeId) => {
-  router.push({ name: 'notice', state: { noticeId } });
+  router.push({ path: `/notice/${noticeId}`, state: { noticeId } });
 };
 
 onMounted(() => {
@@ -28,7 +28,7 @@ onMounted(() => {
   <DateButtons />
   <MoreButton :componentName="timeTable" />
   <div class="px-5">
-    <ShowPreview class="shadow-4xl" category="talent" />
+    <ShowPreview class="shadow-4xl" />
   </div>
   <MoreButton :componentName="notification" />
   <div class="px-5">
