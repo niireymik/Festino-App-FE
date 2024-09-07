@@ -9,7 +9,6 @@ import MessageFailModal from '@/components/tablings/modals/MessageFailModal.vue'
 import NoReserveModal from '@/components/tablings/modals/NoReserveModal.vue';
 import ReservationModal from '@/components/tablings/modals/ReservationModal.vue';
 import SearchReservationModal from '@/components/tablings/modals/SearchReservationModal.vue';
-import TalentModal from '@/components/timetable/TalentModal.vue';
 import ClubModal from '@/components/timetable/ClubModal.vue';
 import { useBaseModal } from '@/stores/baseModal';
 import { storeToRefs } from 'pinia';
@@ -35,7 +34,6 @@ const { isModalOpen, modalType } = storeToRefs(baseModalStore);
     <!-- Loading -->
     <LoadingModal v-if="modalType === 'loadingModal'" />
     <!--Timetable -->
-    <TalentModal v-if="modalType === 'talentModal'" />
     <ClubModal v-if="modalType === 'clubModal'" />
     <!-- Order -->
     <OrderModal v-if="modalType === 'orderModal'" />

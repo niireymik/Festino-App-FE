@@ -1,13 +1,8 @@
 <script setup>
 import { RouterView } from 'vue-router';
-import { useHead } from '@vueuse/head';
-import { useModalStore } from '@/stores/modalStore.js';
-import { storeToRefs } from 'pinia';
 import { onMounted } from 'vue';
 
 import ModalView from './views/ModalView.vue';
-
-const { clubModalState, talentModalState } = storeToRefs(useModalStore());
 
 onMounted(() => {
   document.documentElement.scrollTop = 0;
