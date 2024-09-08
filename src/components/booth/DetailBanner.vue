@@ -15,7 +15,6 @@ const getSlogan = () => {
   if(booth.value.adminCategory === "야간부스") return "먹거리가 가득한"
   if(booth.value.adminCategory === "주간부스") return "즐거움이 가득한"
   if(booth.value.adminCategory === "푸드트럭") return "먹거리가 가득한"
-  if(booth.value.adminCategory === "야간부스") return "먹거리가 가득한"
 };
 </script>
 
