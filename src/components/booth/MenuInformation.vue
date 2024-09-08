@@ -30,7 +30,7 @@ const priceToString = (price) => {
           <div class="pb-2">
             <div class="flex justify-between pb-1">
               <div class="text-[14px] font-semibold text-secondary-700">{{ menu.menuName }}</div>
-              <div class="flex">
+              <div class="flex flex-shrink-0">
                 <MenuOption v-if="booth.adminCategory == '야간부스'" class="mr-1">{{
                   menu.menuType === defaultOption ? '메인 메뉴' : '서브 메뉴'
                 }}</MenuOption>
