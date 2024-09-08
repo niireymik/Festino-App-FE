@@ -21,6 +21,10 @@ const getBoothImageProps = (boothImage) => {
 
 <template>
   <div v-if="boothList[selectBoothMenu] !== ''" class="dynamic-booth-list-padding w-full h-auto">
+    <div v-if="boothList[selectBoothMenu]?.length === 0" class="flex w-full items-center justify-center flex-col">
+      <div class="bg-tino-error w-[150px] h-[150px] bg-contain bg-no-repeat"></div>
+      등록된 정보가 없습니다.
+    </div>
     <div
       @click="handleClickBoothIntroduction(booth.adminCategory, booth.boothId)"
       v-for="(booth, index) in boothList[selectBoothMenu]"
