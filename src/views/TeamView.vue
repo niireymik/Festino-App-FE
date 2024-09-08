@@ -1,6 +1,7 @@
 <script setup>
 import Header from '@/components/header/Header.vue';
 import { api } from '@/utils/api';
+import Swal from 'sweetalert2';
 import { ref } from 'vue';
 
 const content = ref('');
@@ -25,6 +26,13 @@ const handleClickReviewSubmit = async () => {
     alert('Something ent wrong, Please try again');
     console.error(error);
   }
+
+  Swal.fire({
+    title: 'Thank you for your review!',
+    text: 'We will do our best to improve our service.',
+    icon: 'success',
+    confirmButtonText: 'OK',
+  });
 };
 </script>
 
