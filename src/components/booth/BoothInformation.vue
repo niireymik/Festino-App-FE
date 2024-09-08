@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
-import { formatText } from '@/utils/utils';
 
 const { booth, imageList } = storeToRefs(useGetBoothDataStore());
 const currentIndex = ref(0);
