@@ -15,7 +15,7 @@ const clipAccount = () => {
 </script>
 <template>
   <div
-    class="relative col-start-2 row-start-2 dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 max-h-full overflow-auto"
+    class="relative col-start-2 row-start-2 dynamic-width bg-white rounded-3xl flex flex-col items-center px-[21px] py-7 max-h-full overflow-y-auto"
     @click.stop=""
   >
     <div class="text-secondary-700 text-xl font-semibold mb-5">주문 확인서</div>
