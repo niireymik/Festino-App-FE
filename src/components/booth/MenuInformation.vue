@@ -39,7 +39,7 @@ const priceToString = (price) => {
                 }}</MenuStatus>
               </div>
             </div>
-            <div class="w-full text-[10px] text-secondary-500">
+            <div class="w-full text-[10px] text-secondary-500 whitespace-pre-line">
               {{ menu.menuDescription }}
             </div>
           </div>
