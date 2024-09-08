@@ -60,10 +60,10 @@ onMounted(async () => {
       <div class="bg-tino-error bg-cover bg-center w-[264px] h-[244px]"></div>
       <div>공지사항을 불러오지 못했습니다</div>
     </div>
-    <div v-for="notice in convertNotice(pinNotices)" :key="notice" class="pt-5 px-4 flex justify-center w-full">
+    <div v-for="notice in convertNotice(pinNotices)" :key="notice" class="px-4 flex justify-center w-full">
       <PinNotice class="shadow-4xl" :notice="notice" />
     </div>
-    <div v-for="notice in convertNotice(notices)" :key="notice" class="pt-5 px-4 flex justify-center w-full">
+    <div v-for="notice in convertNotice(notices)" :key="notice" class="px-4 flex justify-center w-full">
       <Notice class="shadow-4xl" :notice="notice" />
     </div>
   </div>
