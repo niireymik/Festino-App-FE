@@ -84,7 +84,7 @@ onMounted(() => {
         <div class="absolute top-5 right-4 flex flex-col items-end">
           <div class="px-[18px] py-0.5 font-pretendard text-xs text-primary-700 font-bold bg-white rounded-full">다양한 즐길 거리가 가득!</div>
           <div class="pt-1 px-0.5 font-pretendard text-base text-white">티노와 함께 알아보는</div>
-          <div class="px-0.5 leading-none font-bold font-pretendard text-base text-white">대동제 축제 부스!</div>
+          <div class="px-0.5 leading-none font-bold font-pretendard text-base text-white">축제 부스!</div>
         </div>
         <div class="absolute bottom-4 right-4">
           <div class="text-white font-pretendard font-bold text-xs px-4 py-1.5 rounded-full border-white border-2 cursor-pointer">축제 부스 탭으로 이동 -></div>
