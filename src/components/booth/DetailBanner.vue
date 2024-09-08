@@ -10,6 +10,13 @@ const router = useRouter();
 const handleClickBoothDetailBackArrow = () => {
   router.push({ path: '/booth' });
 };
+
+const getSlogan = () => {
+  if(booth.value.adminCategory === "야간부스") return "먹거리가 가득한"
+  if(booth.value.adminCategory === "주간부스") return "즐거움이 가득한"
+  if(booth.value.adminCategory === "푸드트럭") return "먹거리가 가득한"
+  if(booth.value.adminCategory === "야간부스") return "먹거리가 가득한"
+};
 </script>
 
 <template>
@@ -21,10 +28,9 @@ const handleClickBoothDetailBackArrow = () => {
       ></div>
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div
-          v-if="booth.adminCategory != '편의시설'"
           class="bg-gradient-to-b from-white from-50% to-primary-300 bg-clip-text text-transparent font-jalnan2 text-md xs:text-md sm:text-[19px]"
         >
-          먹거리가 가득한
+          {{ getSlogan() }}
         </div>
         <div
           class="font-jalnan2 text-3xl bg-gradient-to-t from-white-opacity from-20% to-white text-transparent to-100% bg-clip-text"
