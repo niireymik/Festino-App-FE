@@ -35,36 +35,40 @@ const getImage = () => {
         @click="closeModal()"
       ></div>
     </div>
-    <div class="pb-[12px] pt-[24px] flex justify-center">
+    <div class="pb-2 pt-4 flex justify-center">
       <div
         :style="getImage()"
-        class="border-2 border-primary bg-cover bg-center w-[160px] h-[160px] rounded-full"
+        class="border-2 border-primary bg-cover bg-center w-[120px] h-[120px] rounded-full"
       ></div>
     </div>
-    <div class="text-secondary-700 font-medium pb-[8px]">{{ modalData.performer }}</div>
+    <div class="text-secondary-700 font-medium pb-2">{{ modalData.performer }}</div>
     <div
-      class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight whitespace-pre-wrap"
+      class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-4 leading-tight whitespace-pre-wrap"
     >
       <div>{{ modalData.clubDescription }}</div>
     </div>
     <div
       @click="handleClickInstagram()"
-      class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px]"
+      class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-1"
     >
       <div class="w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]"></div>
       <div>@{{ modalData.instagram }}</div>
     </div>
     <div class="pb-7 w-full pt-4">
-      <div class="px-[32px] w-full flex flex-col gap-3 h-[224px] overflow-y-auto">
+      <div class="px-[32px] w-full flex flex-col gap-3 max-h-[224px] overflow-y-auto">
         <div
-          v-for="index in 8"
-          :key="index"
+          v-for="data in modalData.musicList"
+          :key="data"
           class="shadow-3xl text-xs text-primary-700 w-full min-h-[60px] rounded-3xl flex items-center justify-between border-2 border-primary"
         >
           <div class="px-8 w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
-          <div class="w-full text-end pr-4">
-            <div>가수 - 곡제목</div>
-            <div class="text-2xs">김이름, 김이름, 김이름, 김이름, 김이름, 김이름</div>
+          <div class="w-full flex flex-col pr-4">
+            <div class="flex gap-1">
+              <div class="font-bold">{{ data.title }}</div>
+              <div>-</div>
+              <div>{{ data.artist }}</div>
+            </div>
+            <div class="text-2xs">{{ data.performer }}</div>
           </div>
         </div>
       </div>
