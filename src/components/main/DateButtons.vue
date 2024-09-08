@@ -32,7 +32,7 @@ onMounted(() => {
   <div class="flex px-5 justify-between z-50 select-none">
     <div v-for="date in 3" :key="date">
       <div 
-        class="flex justify-center gap-2 w-[105px] xs:gap-4 xs:w-[122px] sm:gap-5 sm:w-[140px] py-[10px] rounded-full shadow-4xl text-xs items-center cursor-pointer"
+        class="flex justify-center gap-2 w-[105px] xs:gap-4 xs:w-[122px] sm:gap-5 sm:w-[140px] py-2.5 px-0.5 rounded-full shadow-4xl text-xs items-center cursor-pointer"
         :class="day == date ? 'bg-primary-700 text-white font-bold' : 'text-primary-700-light font-normal border-primary border-1'"
         @click="handleClickDateButton(date)"
       >
