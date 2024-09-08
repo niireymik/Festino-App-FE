@@ -2,7 +2,6 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
-import { formatText } from '@/utils/utils';
 
 const { booth, imageList } = storeToRefs(useGetBoothDataStore());
 const currentIndex = ref(0);
@@ -95,6 +94,10 @@ const getBoothIntroduceImageProps = (boothImage) => {
     style: boothImage ? `background-image: url(${boothImage})` : '',
   };
 };
+
+const handleClickInstagram = () => {
+  window.open(`https://www.instagram.com/${booth.value.instagram}/`, '_blank');
+};
 </script>
 
 <template>
@@ -118,6 +121,13 @@ const getBoothIntroduceImageProps = (boothImage) => {
           ></div>
         </div>
       </div>
+    </div>
+    <div v-if="booth.instagram"
+      @click="handleClickInstagram()"
+      class="text-xs text-secondary-500 rounded-full w-[140px] h-[26px] flex items-center justify-center bg-instagram-bg gap-1 mt-6"
+    >
+      <div class="w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]"></div>
+      <div>@{{ booth?.instagram }}</div>
     </div>
     <div class="pt-5 text-secondary-500 font-light break-words px-1 whitespace-pre-wrap">
       {{ booth?.boothIntro }}
