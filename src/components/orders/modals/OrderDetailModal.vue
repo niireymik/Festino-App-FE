@@ -20,7 +20,7 @@ const clipAccount = () => {
   >
     <div class="text-secondary-700 text-xl font-semibold mb-5">주문 확인서</div>
 
-    <div class="flex-grow overflow-y-auto w-full flex flex-col gap-5">
+    <div class="flex-grow overflow-y-auto w-full flex flex-col gap-5 overflow-x-hidden">
       <div class="w-full gap-1 flex flex-col">
         <div class="font-semibold text-secondary-700">주문하기</div>
         <div class="w-full rounded-xl bg-primary-900-lightest p-4">
@@ -96,6 +96,5 @@ const clipAccount = () => {
 <style lang="css" scoped>
 .dynamic-width {
   width: calc(390 / 430 * 100%) !important;
-  max-width: 375px !important;
 }
 </style>
