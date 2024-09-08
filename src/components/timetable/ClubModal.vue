@@ -2,7 +2,6 @@
 import { storeToRefs } from 'pinia';
 import { useModalStore } from '@/stores/modalStore.js';
 import { useBaseModal } from '@/stores/baseModal';
-import { onMounted } from 'vue';
 
 const { modalData } = storeToRefs(useModalStore());
 const { closeModal } = useBaseModal();
@@ -56,7 +55,7 @@ const getImage = () => {
       <div>@{{ modalData.instagram }}</div>
     </div>
     <div class="pb-7 w-full pt-4">
-      <div class="px-[32px] w-full flex flex-col gap-4 h-[212px] overflow-y-auto">
+      <div class="px-[32px] w-full flex flex-col gap-3 h-[224px] overflow-y-auto">
         <div
           v-for="index in 8"
           :key="index"
