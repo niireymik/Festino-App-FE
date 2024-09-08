@@ -68,7 +68,7 @@ const getImage = () => {
               <div>-</div>
               <div>{{ data.artist }}</div>
             </div>
-            <div class="text-2xs">{{ data.performer }}</div>
+            <div class="text-2xs whitespace-pre-line">{{ data.performer }}</div>
           </div>
         </div>
       </div>

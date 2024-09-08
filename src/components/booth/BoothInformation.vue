@@ -40,12 +40,6 @@ const handleTouchEnd = () => {
 const handleWheel = (event) => {
   startX.value = event.clientX;
   isWheeling.value = true;
-
-  if (event.deltaX > 0) {
-    nextSlide();
-  } else if (event.deltaX < 0) {
-    prevSlide();
-  }
 };
 
 const nextSlide = () => {
