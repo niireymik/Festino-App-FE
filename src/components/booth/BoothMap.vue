@@ -6,7 +6,16 @@ import MapSpeechBubble from './MapSpeechBubble.vue';
 import { useRouter, useRoute } from 'vue-router';
 
 const { convertBoothMenuTab, getBoothData } = useGetBoothDataStore();
-const { selectBoothMenu, selectedTicketBooth, allBoothList, boothMarkerData, nightBoothList, dayBoothList, foodBoothList, booth } = storeToRefs(useGetBoothDataStore());
+const {
+  selectBoothMenu,
+  selectedTicketBooth,
+  allBoothList,
+  boothMarkerData,
+  nightBoothList,
+  dayBoothList,
+  foodBoothList,
+  booth,
+} = storeToRefs(useGetBoothDataStore());
 
 const router = useRouter();
 const route = useRoute();
@@ -28,22 +37,16 @@ const markers = ref({
     { left: 290, bottom: 320, count: 2, tab: 5 },
   ],
   detail: {
-    // 총학 술 판매 추가
-    ticket: [
-      //총학 티켓
-      { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
-      { markerNum: 94, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
-    ],
     smoke: [
       { markerNum: 77, left: 150, bottom: 430, scrollLeft: 235, scrollTop: 0 }, // 팁 뒤
-      { markerNum: 78, left: 30, bottom: 175, scrollLeft: 0, scrollTop: 580 } // 운동장 구석
+      { markerNum: 78, left: 30, bottom: 175, scrollLeft: 0, scrollTop: 580 }, // 운동장 구석
     ],
     store: [
       { markerNum: 75, left: 150, bottom: 370, scrollLeft: 235, scrollTop: 90 }, // 종관
       { markerNum: 76, left: 500, bottom: 367, scrollLeft: 1200, scrollTop: 110 }, // GS
     ],
     toilet: [
-      { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 90  },
+      { markerNum: 71, left: 150, bottom: 350, scrollLeft: 235, scrollTop: 90 },
       { markerNum: 72, left: 70, bottom: 350, scrollLeft: 20, scrollTop: 130 },
       { markerNum: 73, left: 520, bottom: 367, scrollLeft: 1200, scrollTop: 110 },
       { markerNum: 74, left: 440, bottom: 367, scrollLeft: 970, scrollTop: 110 },
@@ -53,11 +56,15 @@ const markers = ref({
       // 총학 이벤트 추가되면 활성화
       { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
       { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
-      { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 }
+      { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 },
+      //총학 티켓
+      { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
+      { markerNum: 94, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
+      //alcol
+      { markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
+      { markerNum: 96, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 },
     ],
-    music: [
-      { markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 },
-    ],
+    music: [{ markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 }],
     join: [
       // B동 앞
       { markerNum: 21, left: 385, bottom: 310, scrollLeft: 835, scrollTop: 240 },
@@ -95,36 +102,36 @@ const markers = ref({
       { markerNum: 8, left: 70, bottom: 85, scrollLeft: 20, scrollTop: 820 },
       // 주간부스
       // 푸드트럭
-      { markerNum: 51, left: 420, bottom: 180, scrollLeft: 925, scrollTop: 570 },
-      { markerNum: 52, left: 420, bottom: 155, scrollLeft: 925, scrollTop: 630 },
-      { markerNum: 53, left: 420, bottom: 130, scrollLeft: 925, scrollTop: 700 },
-      { markerNum: 54, left: 450, bottom: 130, scrollLeft: 1000, scrollTop: 700 },
-      { markerNum: 55, left: 450, bottom: 155, scrollLeft: 1000, scrollTop: 630 },
+      // { markerNum: 51, left: 420, bottom: 180, scrollLeft: 925, scrollTop: 570 },
+      // { markerNum: 52, left: 420, bottom: 155, scrollLeft: 925, scrollTop: 630 },
+      // { markerNum: 53, left: 420, bottom: 130, scrollLeft: 925, scrollTop: 700 },
+      // { markerNum: 54, left: 450, bottom: 130, scrollLeft: 1000, scrollTop: 700 },
+      // { markerNum: 55, left: 450, bottom: 155, scrollLeft: 1000, scrollTop: 630 },
     ],
-    alcohol: [
-      { markerNum: 79, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
-      { markerNum: 80, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 }
-    ],
-  }
+    // alcohol: [
+    //   { markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
+    //   { markerNum: 96, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 },
+    // ],
+  },
 });
 
 const selectedMarker = ref('');
 
 const zoomIn = () => {
   const container = containerRef.value;
-  
+
   const currentScrollLeft = container.scrollLeft;
   const currentScrollTop = container.scrollTop;
   const containerWidth = container.clientWidth;
   const containerHeight = container.clientHeight;
-  
+
   const centerX = currentScrollLeft + containerWidth / 2;
   const centerY = currentScrollTop + containerHeight / 2;
-  
+
   const newZoomLevel = Math.min(zoomLevel.value + 0.3, 1.6);
   const zoomFactor = newZoomLevel / zoomLevel.value;
   zoomLevel.value = newZoomLevel;
-  
+
   nextTick(() => {
     container.scrollLeft = centerX * zoomFactor - containerWidth / 2;
     container.scrollTop = centerY * zoomFactor - containerHeight / 2;
@@ -133,7 +140,7 @@ const zoomIn = () => {
 
 const zoomOut = () => {
   const container = containerRef.value;
-  
+
   const currentScrollLeft = container.scrollLeft;
   const currentScrollTop = container.scrollTop;
   const containerWidth = container.clientWidth;
@@ -141,11 +148,11 @@ const zoomOut = () => {
 
   const centerX = currentScrollLeft + containerWidth / 2;
   const centerY = currentScrollTop + containerHeight / 2;
-  
+
   const newZoomLevel = Math.max(zoomLevel.value - 0.3, 1);
   const zoomFactor = newZoomLevel / zoomLevel.value;
   zoomLevel.value = newZoomLevel;
-  
+
   nextTick(() => {
     container.scrollLeft = centerX * zoomFactor - containerWidth / 2;
     container.scrollTop = centerY * zoomFactor - containerHeight / 2;
@@ -177,26 +184,30 @@ const moveScroll = () => {
     zoomLevel.value = 1.6;
     nextTick(() => {
       focusMarker();
-    })
+    });
   } else if (selectBoothMenu.value === 4) {
     zoomLevel.value = 1.6;
-    if(selectedTicketBooth.value === false) {
+    if (selectedTicketBooth.value === false) {
       // 편의시설 눌렀을 때
       nextTick(() => {
         container.scrollLeft = 130;
         container.scrollTop = 150;
-      })
-    } else { // 티켓 부스 쪽 대왕 마커 눌렀을 때
+      });
+    } else {
+      // 티켓 부스 쪽 대왕 마커 눌렀을 때
       nextTick(() => {
-        handleMarkerClick(markers.value.detail.ticket[0]);
+        container.scrollLeft = 620;
+        container.scrollTop = 200;
         focusMarker();
-      })
+      });
     }
   }
 };
 
 const handleMarkerClick = (index) => {
   selectedMarker.value = index;
+  console.log(index);
+
   getBoothDetailData(index);
   focusMarker();
 };
@@ -209,7 +220,7 @@ const handleTouchStart = (e) => {
   if (e.touches.length === 2) {
     startDistance.value = Math.hypot(
       e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
+      e.touches[0].clientY - e.touches[1].clientY,
     );
     startX.value = (e.touches[0].clientX + e.touches[1].clientX) / 2;
     startY.value = (e.touches[0].clientY + e.touches[1].clientY) / 2;
@@ -220,7 +231,7 @@ const handleTouchMove = (e) => {
   if (e.touches.length === 2) {
     const newDistance = Math.hypot(
       e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
+      e.touches[0].clientY - e.touches[1].clientY,
     );
     const delta = newDistance - startDistance.value;
     const scaleChange = delta / 500; // 조정할 비율
@@ -242,15 +253,15 @@ const handleTouchMove = (e) => {
 
 const boothDataMap = computed(() => {
   const map = {};
-  allBoothList.value.forEach(booth => {
+  allBoothList.value.forEach((booth) => {
     map[booth.markerNum] = booth;
-  })
+  });
   return map;
 });
 
 const getBoothDetailData = (marker) => {
   boothMarkerData.value = boothDataMap.value[marker.markerNum];
-}
+};
 
 const focusMarker = () => {
   const container = containerRef.value;
@@ -258,7 +269,7 @@ const focusMarker = () => {
     nextTick(() => {
       container.scrollLeft = (selectedMarker.value.scrollLeft / 1.6) * zoomLevel.value;
       container.scrollTop = (selectedMarker.value.scrollTop / 1.6) * zoomLevel.value;
-    })
+    });
   }
 };
 
@@ -266,7 +277,7 @@ const findMarker = (boothList) => {
   if (boothList.length > 0) {
     const firstBooth = boothList[0];
     for (const category in markers.value.detail) {
-      const foundMarker = markers.value.detail[category].find(marker => marker.markerNum === firstBooth.markerNum);
+      const foundMarker = markers.value.detail[category].find((marker) => marker.markerNum === firstBooth.markerNum);
       if (foundMarker) {
         return foundMarker;
       }
@@ -277,7 +288,7 @@ const findMarker = (boothList) => {
 
 const findMarkerByBoothId = (booth) => {
   for (const category in markers.value.detail) {
-    const foundMarker = markers.value.detail[category].find(marker => marker.markerNum === booth.value.markerNum);
+    const foundMarker = markers.value.detail[category].find((marker) => marker.markerNum === booth.value.markerNum);
     if (foundMarker) {
       return foundMarker;
     }
@@ -294,32 +305,39 @@ const loadDetailMap = () => {
       selectedMarker.value = foundMarker;
       boothMarkerData.value = booth.value;
       focusMarker();
-    })
+    });
   }
-}
+};
 
 const initializeMap = () => {
   loadDetailMap();
-}
+};
 
 const initSelectedMarker = () => {
   selectedMarker.value = '';
-}
+};
 
-const clickMarkerSpeechBubble = (type, id) => {
+const clickMarkerSpeechBubble = (type, id, marker) => {
+  console.log(type, id, marker);
+  if (marker >= 90) {
+    return window.open(`https://www.instagram.com/tukorea_25_wind/`, '_blank');
+  }
   getBoothData(type, id);
-}
+};
 
 onMounted(() => {
   imageLoaded.value = true;
   initializeMap(); // 페이지 로드 시 호출
 });
 
-watch(() => route.params.id, () => {
-  if (imageLoaded.value) {
-    initializeMap(); // `route.params.id` 변경 시 호출
-  }
-});
+watch(
+  () => route.params.id,
+  () => {
+    if (imageLoaded.value) {
+      initializeMap(); // `route.params.id` 변경 시 호출
+    }
+  },
+);
 
 watchEffect(() => {
   if (imageLoaded.value && containerRef.value) {
@@ -340,12 +358,12 @@ watchEffect(() => {
       }
     } else if (selectBoothMenu.value === 3) {
       const foundMarker = findMarker(foodBoothList.value);
-      if(foundMarker) {
+      if (foundMarker) {
         selectedMarker.value = foundMarker;
         getBoothDetailData(foundMarker);
       }
     }
-    if(route.params?.id) {
+    if (route.params?.id) {
       loadDetailMap(); // `route.params.id` 존재 시 호출
     }
   }
@@ -355,7 +373,7 @@ watchEffect(() => {
 <template>
   <div class="dynamic-booth-map-padding">
     <div class="relative cursor-pointer">
-      <div 
+      <div
         ref="containerRef"
         @touchstart.passive="handleTouchStart($event)"
         @touchmove.passive="handleTouchMove($event)"
@@ -366,40 +384,40 @@ watchEffect(() => {
           @click="initSelectedMarker()"
           class="relative scroll-smooth"
           id="map-area"
-          :style="{ 
-            width: `${587 * zoomLevel}px`, 
+          :style="{
+            width: `${587 * zoomLevel}px`,
             height: `${518 * zoomLevel}px`,
             transform: `scale(${zoomLevel})`,
-            transformOrigin: 'top left'
+            transformOrigin: 'top left',
           }"
         >
-        <!-- 부스 페이지 -->
+          <!-- 부스 페이지 -->
           <div class="w-full h-full bg-booth-map bg-cover">
             <div
               v-for="(marker, index) in markers.more"
               :id="marker.id"
-              :key="`more-${index}`" 
+              :key="`more-${index}`"
               class="absolute marker"
               :style="{
                 left: `${marker.left * zoomLevel}px`,
                 bottom: `${marker.bottom * zoomLevel}px`,
                 transform: `scale(${1 / zoomLevel})`,
-                transformOrigin: 'center bottom'
+                transformOrigin: 'center bottom',
               }"
               @click.stop="convertBoothMenuTab(marker.tab)"
             >
-            <!-- 대왕 마커 -->
+              <!-- 대왕 마커 -->
               <div
                 v-if="zoomLevel <= 1.4 && !isBoothDetail"
-                class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center">
-                <div class="absolute top-1/4 text-white font-extrabold text-[15px] select-none">+{{ marker?.count }}</div>
+                class="w-[72px] h-[72px] bg-more-marker bg-cover flex justify-center"
+              >
+                <div class="absolute top-1/4 text-white font-extrabold text-[15px] select-none">
+                  +{{ marker?.count }}
+                </div>
               </div>
             </div>
-            <div
-              v-for="(category, categoryName) in markers.detail"
-              :key="categoryName"
-            >
-            <!-- 부스 마커 -->
+            <div v-for="(category, categoryName) in markers.detail" :key="categoryName">
+              <!-- 부스 마커 -->
               <div
                 v-for="(marker, index) in category"
                 :id="marker.id"
@@ -410,7 +428,7 @@ watchEffect(() => {
                   bottom: `${marker.bottom * zoomLevel}px`,
                   transform: `scale(${selectedMarker === marker ? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
-                  zIndex: `${marker.markerNum === selectedMarker.markerNum ? '1000' : '500'}`
+                  zIndex: `${marker.markerNum === selectedMarker.markerNum ? '1000' : '500'}`,
                 }"
                 @click.stop="handleMarkerClick(marker)"
               >
@@ -418,13 +436,19 @@ watchEffect(() => {
                   v-if="zoomLevel > 1.4 && !isBoothDetail"
                   class="relative w-[56px] h-[56px] bg-cover flex justify-center"
                   :style="{
-                    backgroundImage: `${selectedMarker === marker ? `url(/icons/booth/${categoryName}.svg)` : `url(/icons/booth/before/${categoryName}.svg)`}`
+                    backgroundImage: `${
+                      selectedMarker === marker
+                        ? `url(/icons/booth/${categoryName}.svg)`
+                        : `url(/icons/booth/before/${categoryName}.svg)`
+                    }`,
                   }"
                 >
-                  <MapSpeechBubble 
+                  <MapSpeechBubble
                     v-if="selectedMarker.markerNum === marker.markerNum"
                     class="absolute bottom-[65px]"
-                    @click.stop="clickMarkerSpeechBubble(boothMarkerData.adminCategory, boothMarkerData.boothId)"
+                    @click.stop="
+                      clickMarkerSpeechBubble(boothMarkerData.adminCategory, boothMarkerData.boothId, marker.markerNum)
+                    "
                   ></MapSpeechBubble>
                 </div>
               </div>
@@ -439,7 +463,7 @@ watchEffect(() => {
                   bottom: `${marker.bottom * zoomLevel}px`,
                   transform: `scale(${booth.markerNum === marker.markerNum ? 1.3 / zoomLevel : 1 / zoomLevel})`,
                   transformOrigin: 'center bottom',
-                  zIndex: `${booth.markerNum === marker.markerNum ? '1000' : '500'}`
+                  zIndex: `${booth.markerNum === marker.markerNum ? '1000' : '500'}`,
                 }"
               >
                 <div
@@ -449,7 +473,7 @@ watchEffect(() => {
                     backgroundImage: `url('/icons/booth/${categoryName}.svg')`,
                   }"
                 >
-                  <MapSpeechBubble 
+                  <MapSpeechBubble
                     v-if="booth.markerNum === marker.markerNum"
                     class="absolute bottom-[65px]"
                   ></MapSpeechBubble>
