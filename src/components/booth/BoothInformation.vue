@@ -115,11 +115,11 @@ const getBoothIntroduceImageProps = (boothImage) => {
       </div>
       <div
         ref="containerRef"
-        class="snap-x snap-mandatory overflow-x-hidden w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl border"
+        class="snap-x snap-mandatory overflow-x-hidden w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl outline outline-gray-200 outline-1"
       >
         <div v-for="(image, index) in imageList" :key="index" class="snap-start snap-always min-w-full flex-shrink-0">
           <div
-            class="aspect-square scroll-smooth w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-cover bg-no-repeat"
+            class="aspect-square scroll-smooth w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-contain bg-no-repeat bg-center"
             v-bind="getBoothIntroduceImageProps(image)"
           ></div>
         </div>
