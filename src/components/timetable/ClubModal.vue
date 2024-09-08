@@ -62,8 +62,12 @@ const getImage = () => {
           class="shadow-3xl text-xs text-primary-700 w-full min-h-[60px] rounded-3xl flex items-center justify-between border-2 border-primary"
         >
           <div class="px-8 w-[30px] h-[30px] bg-tino-cd bg-center bg-no-repeat bg-[length:30px_30px]"></div>
-          <div class="w-full text-end pr-4">
-            <div>{{ data.artist }} - {{ data.title }}</div>
+          <div class="w-full flex flex-col pr-4">
+            <div class="flex gap-1">
+              <div class="font-bold">{{ data.title }}</div>
+              <div>-</div>
+              <div>{{ data.artist }}</div>
+            </div>
             <div class="text-2xs">{{ data.performer }}</div>
           </div>
         </div>
