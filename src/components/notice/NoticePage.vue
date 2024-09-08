@@ -105,7 +105,7 @@ onUnmounted(() => {
     class="w-full h-auto flex flex-col bg-white rounded-3xl border-primary border-1 justify-center items-center p-5 gap-[20px] select-none"
   >
     <!-- <div v-if="noticeData.title"></div> -->
-    <div v-if="noticeData.imageUrl.length > 0" class="relative w-full">
+    <div v-if="noticeData.imageUrl.length > 1" class="relative w-full">
       <div
         class="absolute z-50 right-4 top-4 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-secondary-500"
       >
