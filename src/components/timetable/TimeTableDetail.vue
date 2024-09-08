@@ -33,7 +33,7 @@ const getImage = () => {
       <div>교내 동아리 공연</div>
       <div>' {{ data.performer }} '</div>
     </div>
-    <button @click="handleClickOpenClubModal()" class="text-white bg-primary-700 xs:w-[152px] w-[140px] h-[30px] rounded-full text-sm">공연 정보 상세보기</button>
+    <button @click="handleClickOpenClubModal()" class="text-white bg-primary-700 w-[120px] h-[30px] rounded-full text-xs">공연 정보 상세보기</button>
   </div>
 </template>
 
