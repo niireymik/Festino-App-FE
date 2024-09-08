@@ -35,27 +35,27 @@ const getImage = () => {
         @click="closeModal()"
       ></div>
     </div>
-    <div class="pb-[12px] pt-[24px] flex justify-center">
+    <div class="pb-2 pt-4 flex justify-center">
       <div
         :style="getImage()"
-        class="border-2 border-primary bg-cover bg-center w-[160px] h-[160px] rounded-full"
+        class="border-2 border-primary bg-cover bg-center w-[120px] h-[120px] rounded-full"
       ></div>
     </div>
-    <div class="text-secondary-700 font-medium pb-[8px]">{{ modalData.performer }}</div>
+    <div class="text-secondary-700 font-medium pb-2">{{ modalData.performer }}</div>
     <div
-      class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-[24px] leading-tight whitespace-pre-wrap"
+      class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-4 leading-tight whitespace-pre-wrap"
     >
       <div>{{ modalData.clubDescription }}</div>
     </div>
     <div
       @click="handleClickInstagram()"
-      class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-[4px]"
+      class="text-xs text-secondary-500 rounded-full w-[122px] h-[26px] flex items-center justify-center bg-instagram-bg gap-1"
     >
       <div class="w-[16px] h-[16px] bg-instagram bg-center bg-no-repeat bg-[length:16px_16px]"></div>
       <div>@{{ modalData.instagram }}</div>
     </div>
     <div class="pb-7 w-full pt-4">
-      <div class="px-[32px] w-full flex flex-col gap-3 h-[224px] overflow-y-auto">
+      <div class="px-[32px] w-full flex flex-col gap-3 max-h-[224px] overflow-y-auto">
         <div
           v-for="index in 8"
           :key="index"
