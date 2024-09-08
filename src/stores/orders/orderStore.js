@@ -93,6 +93,8 @@ export const useOrderStore = defineStore('orderStore', () => {
 
       if (res.data.success) {
         openModal('orderCompleteModal');
+      } else {
+        router.push({ name: 'error', params: { page: 'order' } });
       }
     } catch (error) {
       router.push({ name: 'error', params: { page: 'order' } });
