@@ -5,7 +5,9 @@ const router = useRouter();
 </script>
 <template>
   <div class="relative">
-    <div class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-no-repeat bg-right-top relative">
+    <div
+      class="w-full min-h-[231px] dynamic-tino-height bg-tino-no-arm-v2 bg-cover bg-right-bottom bg-no-repeat relative"
+    >
       <div class="absolute w-auto h-auto dynamic-top dynamic-padding">
         <div class="font-jalnan2 text-xs text-white">예약으로 더 즐거운 축제</div>
         <div
@@ -16,7 +18,7 @@ const router = useRouter();
       </div>
     </div>
     <div
-      class="w-min-[375px] w-max-[500px] w-full dynamic-tino-arm-height absolute z-30 top-[215px] bg-tino-arm4x bg-cover bg-no-repeat bg-right-top"
+      class="w-min-[375px] w-max-[500px] w-full dynamic-tino-arm-height absolute z-30 top-[213px] bg-tino-arm4x bg-cover bg-no-repeat bg-right-top"
     ></div>
   </div>
 </template>
@@ -27,8 +29,7 @@ const router = useRouter();
 }
 
 .dynamic-tino-height {
-  height: calc(231 / 430 * 100%) !important;
-  @apply bg-right-bottom;
+  height: calc(230 / 430 * 100%) !important;
 }
 .dynamic-tino-arm-height {
   @apply rounded-tl-3xl border-primary bg-white h-[40px];

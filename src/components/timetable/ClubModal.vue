@@ -43,9 +43,9 @@ const getImage = () => {
     </div>
     <div class="text-secondary-700 font-medium pb-2">{{ modalData.performer }}</div>
     <div
-      class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-4 leading-tight whitespace-pre-wrap"
+      class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-4 leading-tight whitespace-pre-wrap text-center"
     >
-      <div>{{ modalData.clubDescription }}</div>
+      <div class="px-[32px]">{{ modalData.clubDescription }}</div>
     </div>
     <div
       @click="handleClickInstagram()"
