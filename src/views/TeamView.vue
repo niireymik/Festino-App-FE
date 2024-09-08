@@ -9,7 +9,7 @@ const email = ref('');
 
 const handleClickReviewSubmit = async () => {
   // Check is Email is valiate
-  if (email.value.length > 0 && !email.value.includes('@')) {
+  if (email.value !== '' && email.value.length > 0 && !email.value.includes('@')) {
     alert('Please enter a valid email address');
     return;
   }
