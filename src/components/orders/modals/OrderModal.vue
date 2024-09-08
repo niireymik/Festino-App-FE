@@ -58,7 +58,7 @@ onMounted(() => {
     @click.stop=""
   >
     <div class="font-semibold text-xl text-secondary-700 text-center mb-3">주문하기</div>
-    <div class="flex flex-col gap-3 w-full flex-grow overflow-y-auto">
+    <div class="flex flex-col gap-3 w-full flex-grow overflow-y-auto overflow-x-hidden">
       <div class="px-4 w-full">
         <InputName v-model="recentName" />
         <InputPhoneNum v-model="recentPhoneNum" />
