@@ -21,10 +21,12 @@ const handleClickReviewSubmit = async () => {
     });
     if (!response.data.success) {
       alert('Something ent wrong, Please try again');
+      return;
     }
   } catch (error) {
     alert('Something ent wrong, Please try again');
     console.error(error);
+    return;
   }
 
   Swal.fire({
