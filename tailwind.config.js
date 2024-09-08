@@ -120,7 +120,7 @@ export default {
         'booth-reservation-status': "url('/images/booth/booth-reservation-status.png')",
         'booth-detail-banner': "url('/images/booth/booth-detail-banner.png')",
         'x-button': "url('/icons/x.png')",
-        'instagram': "url('/icons/instagram.png')",
+        instagram: "url('/icons/instagram.png')",
         'pin-icon': "url('/icons/pin.svg')",
         'back-arrow-white': "url('/icons/arrow-back-white.png')",
         'board-icon': "url('/icons/orders/board.svg')",
@@ -132,7 +132,8 @@ export default {
         'tino-error-half': "url('/icons/error-tino-half.svg')",
         'tino-error-timetable': "url('/icons/error-tino-timetable.svg')",
         'more-marker': "url('/icons/booth/more.svg')",
-        'talent-icon': "url('/icons/talent.svg')"
+        'talent-icon': "url('/icons/talent.svg')",
+        teams: "url('/images/teams/teams.png')",
       },
       borderRadius: {
         'lg-xl': '0.625rem', //10px
@@ -156,7 +157,7 @@ export default {
       boxShadow: {
         's-primary-900': '0 1px 0 0 #0073F0',
         's-secondary-500-20': '0 1px 0 0 rgba(68, 68, 68, 0.2)',
-        'xs': '0 0 12px 0 rgba(0, 0, 0, 0.08)',
+        xs: '0 0 12px 0 rgba(0, 0, 0, 0.08)',
         '3xl': '0 1px 10px rgba(0, 115, 240, 0.01), 0 1px 10px rgba(0, 115, 240, 0.01)',
         '4xl': '0px 0px 16px rgba(0, 0, 0, 0.04)',
         '5xl': '0 0 20px rgba(0, 0, 0, 0.16)',
