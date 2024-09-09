@@ -7,7 +7,7 @@ export const baseApi = axios.create({
 
 export const api = {
   get: async (url, config) => {
-    const response = await baseApi.post('/main/auth/token');
+    // const response = await baseApi.post('/main/auth/token');
     return baseApi.get(url, config);
   },
   post: async (url, data, config) => {
