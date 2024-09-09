@@ -206,7 +206,6 @@ const moveScroll = () => {
 
 const handleMarkerClick = (index) => {
   selectedMarker.value = index;
-  console.log(index);
 
   getBoothDetailData(index);
   focusMarker();
@@ -318,7 +317,6 @@ const initSelectedMarker = () => {
 };
 
 const clickMarkerSpeechBubble = (type, id, marker) => {
-  console.log(type, id, marker);
   if (marker >= 90) {
     return window.open(`https://www.instagram.com/tukorea_25_wind/`, '_blank');
   }
