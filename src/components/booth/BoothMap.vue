@@ -25,9 +25,10 @@ const containerRef = ref(null);
 const imageLoaded = ref(false);
 const isBoothDetail = ref(false);
 
-const currentRoute = router.currentRoute.value;
-const currentRouteName = currentRoute.name;
-isBoothDetail.value = currentRouteName == 'booth-detail';
+const currentRoute = ref(router.currentRoute.value);
+const currentRouteName = ref(currentRoute.value.name);
+
+// isBoothDetail.value = currentRouteName == 'booth-detail';
 
 const markers = ref({
   more: [
@@ -57,7 +58,7 @@ const markers = ref({
       { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
       { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
       { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 },
-  ],
+    ],
     ticket: [
       //총학 티켓
       { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
@@ -325,6 +326,14 @@ const clickMarkerSpeechBubble = (type, id, marker) => {
   }
   getBoothData(type, id);
 };
+
+watchEffect(() => {
+  if (router?.currentRoute?.value?.name) {
+    isBoothDetail.value = router.currentRoute.value.name == 'booth-detail';
+  } else {
+    isBoothDetail.value = false;
+  }
+});
 
 onMounted(() => {
   imageLoaded.value = true;
