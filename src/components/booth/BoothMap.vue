@@ -57,10 +57,13 @@ const markers = ref({
       { markerNum: 92, left: 420, bottom: 340, scrollLeft: 925, scrollTop: 170 },
       { markerNum: 90, left: 476, bottom: 310, scrollLeft: 1065, scrollTop: 240 },
       { markerNum: 93, left: 476, bottom: 250, scrollLeft: 1065, scrollTop: 390 },
+  ],
+    ticket: [
       //총학 티켓
       { markerNum: 91, left: 302, bottom: 325, scrollLeft: 620, scrollTop: 200 },
       { markerNum: 94, left: 360, bottom: 280, scrollLeft: 750, scrollTop: 300 },
-      //alcol
+    ],
+    alcohol: [
       { markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
       { markerNum: 96, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 },
     ],
