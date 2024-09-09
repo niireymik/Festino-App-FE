@@ -45,7 +45,7 @@ const getImage = () => {
     <div
       class="text-secondary-500 text-xs flex flex-col items-center font-medium pb-4 leading-tight whitespace-pre-wrap text-center"
     >
-      <div class="px-[32px]">{{ modalData.clubDescription }}</div>
+      <div class="px-4 xs:px-8">{{ modalData.clubDescription }}</div>
     </div>
     <div
       @click="handleClickInstagram()"
@@ -55,7 +55,7 @@ const getImage = () => {
       <div>@{{ modalData.instagram }}</div>
     </div>
     <div class="pb-7 w-full pt-4">
-      <div class="px-[32px] w-full flex flex-col gap-3 max-h-[224px] overflow-y-auto">
+      <div class="px-4 xs:px-8 w-full flex flex-col gap-3 max-h-[224px] overflow-y-auto">
         <div
           v-for="data in modalData.musicList"
           :key="data"
