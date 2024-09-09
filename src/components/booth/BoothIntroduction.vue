@@ -21,9 +21,13 @@ const getBoothImageProps = (boothImage) => {
 
 <template>
   <div v-if="boothList[selectBoothMenu] !== ''" class="dynamic-booth-list-padding w-full h-auto">
-    <div v-if="boothList[selectBoothMenu]?.length === 0" class="flex w-full items-center justify-center flex-col">
-      <div class="bg-tino-error w-[150px] h-[150px] bg-contain bg-no-repeat"></div>
-      등록된 정보가 없습니다.
+    <div v-if="boothList[selectBoothMenu]?.length === 0">
+      <div
+        class="w-full h-[160px] bg-white shadow-3xl flex flex-col justify-between items-center rounded-3.5xl border border-primary-900-light-16"
+      >
+        <div class="pt-5 font-semibold">부스 정보가 없습니다.</div>
+        <div class="w-[220px] h-[100px] bg-tino-error-half bg-cover"></div>
+      </div>
     </div>
     <div
       @click="handleClickBoothIntroduction(booth.adminCategory, booth.boothId)"
@@ -60,14 +64,6 @@ const getBoothImageProps = (boothImage) => {
         <div class="w-32 min-w-[128px] h-32 flex justify-center items-center">
           <div class="w-full h-full bg-cover rounded-3.5xl border" v-bind="getBoothImageProps(booth.boothImage)"></div>
         </div>
-      </div>
-    </div>
-    <div v-if="!boothList[selectBoothMenu]">
-      <div
-        class="w-full h-[160px] bg-white shadow-3xl flex flex-col justify-between items-center rounded-3.5xl border border-primary-900-light-16"
-      >
-        <div class="pt-5 font-semibold">부스 정보가 없습니다.</div>
-        <div class="w-[220px] h-[100px] bg-tino-error-half bg-cover"></div>
       </div>
     </div>
   </div>
