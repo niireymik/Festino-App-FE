@@ -106,7 +106,7 @@ const handleClickInstagram = () => {
     <div class="mt-4">
       <div
         v-if="imageList.length > 1"
-        class="absolute right-10 top-11 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500"
+        class="absolute right-10 top-11 flex justify-center items-center w-[72px] h-8 bg-white opacity-80 rounded-full text-base text-secondary-500 z-10"
       >
         {{ currentIndex + 1 }} / {{ imageList.length }}
       </div>
