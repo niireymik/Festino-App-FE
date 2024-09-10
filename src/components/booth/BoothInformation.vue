@@ -116,9 +116,8 @@ const handleClickInstagram = () => {
       >
         <div v-for="(image, index) in imageList" :key="index" class="snap-start snap-always min-w-full flex-shrink-0">
           <div
-            class="scroll-smooth w-full bg-contain bg-no-repeat bg-center"
+            class="scroll-smooth w-full bg-contain bg-no-repeat bg-center aspect-w-1 aspect-h-1"
             v-bind="getBoothIntroduceImageProps(image)"
-            style="aspect-ratio: 1 / 1"
           ></div>
         </div>
       </div>
