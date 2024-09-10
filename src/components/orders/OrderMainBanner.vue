@@ -1,21 +1,16 @@
 <script setup>
 import { onMounted, ref } from 'vue';
-import { storeToRefs } from 'pinia';
-import { useReservationStore } from '@/stores/tablings/tablingStore';
+import { useOrderStore } from '@/stores/orders/orderStore';
 import { useRoute } from 'vue-router';
 
-const { getAllNightBooth } = useReservationStore();
-const { nightBoothInfo } = storeToRefs(useReservationStore());
+const { getBoothDetail } = useOrderStore();
+
 const route = useRoute();
 const orderMajor = ref('');
 
 onMounted(async () => {
-  await getAllNightBooth();
-  nightBoothInfo.value.forEach((booth) => {
-    if (booth.boothId === route.params.boothId) {
-      orderMajor.value = booth.adminName;
-    }
-  });
+  const boothInfo = await getBoothDetail(route.params.boothId);
+  orderMajor.value = boothInfo.adminName;
 });
 </script>
 
