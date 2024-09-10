@@ -112,17 +112,19 @@ const handleClickInstagram = () => {
       </div>
       <div
         ref="containerRef"
-        class="snap-x snap-mandatory overflow-x-hidden w-full min-h-[340px] sm:h-[453.5px] flex rounded-3xl outline outline-gray-200 outline-1"
+        class="snap-x snap-mandatory overflow-x-hidden w-full min-h-[340px] flex rounded-3xl outline outline-gray-200 outline-1"
       >
         <div v-for="(image, index) in imageList" :key="index" class="snap-start snap-always min-w-full flex-shrink-0">
           <div
-            class="aspect-square scroll-smooth w-full min-h-[340px] h-[340px] xs:h-[390px] sm:h-[453.5px] max-h-[453.5px] bg-contain bg-no-repeat bg-center"
+            class="scroll-smooth w-full bg-contain bg-no-repeat bg-center"
             v-bind="getBoothIntroduceImageProps(image)"
+            style="aspect-ratio: 1 / 1"
           ></div>
         </div>
       </div>
     </div>
-    <div v-if="booth.instagram"
+    <div
+      v-if="booth.instagram"
       @click="handleClickInstagram()"
       class="text-xs text-secondary-500 rounded-full w-fit h-[26px] flex items-center justify-center bg-instagram-bg gap-1 mt-6 px-3"
     >
