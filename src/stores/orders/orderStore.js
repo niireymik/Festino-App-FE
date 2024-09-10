@@ -27,6 +27,7 @@ export const useOrderStore = defineStore('orderStore', () => {
     bankName: '',
   });
   const selectedOrder = ref({});
+  const boothInfo = ref([]);
 
   const getCustomTableNum = async (tableNum, boothId) => {
     try {
@@ -155,6 +156,17 @@ export const useOrderStore = defineStore('orderStore', () => {
     }
   };
 
+  const getBoothDetail = async (boothId) => {
+    try {
+      const res = await api.get(`/main/booth/night/${boothId}`);
+      if (res.data.success) return res.data.boothInfo;
+      if (!res.data.success) router.push({ name: 'error', params: { page: 'NotFound' } });
+    } catch (error) {
+      console.error('Error get booth data :', error);
+      router.push({ name: 'error', params: { page: 'NotFound' } });
+    }
+  };
+
   return {
     orderList,
     boothId,
@@ -182,5 +194,6 @@ export const useOrderStore = defineStore('orderStore', () => {
     setBoothInfo,
     isUUID,
     getAccountInfo,
+    getBoothDetail,
   };
 });
