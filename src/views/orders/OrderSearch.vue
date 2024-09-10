@@ -205,7 +205,7 @@ onMounted(async () => {
         class="w-screen bg-secondary-300 h-[0.3px] ml-[-32px] absolute top-[50px] left-0 translate-x-8"
       ></div>
       <!-- order lists -->
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && waitingDepositList.length !== 0" class="py-5 px-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 1) && isSumbit" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-100 w-3 h-3 rounded-full"></div>
@@ -217,7 +217,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && cookingList.length !== 0" class="py-5 px-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 2) && isSumbit" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-200 w-3 h-3 rounded-full"></div>
@@ -229,7 +229,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && completeCookingList.length !== 0" class="py-5 px-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 3) && isSumbit" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-third-300 w-3 h-3 rounded-full"></div>
@@ -241,7 +241,7 @@ onMounted(async () => {
           </div>
         </div>
       </div>
-      <div v-if="(selectedTabNum === 0 || selectedTabNum === 4) && cancelCookingList.length !== 0" class="py-5 px-5">
+      <div v-if="(selectedTabNum === 0 || selectedTabNum === 4) && isSumbit" class="py-5 px-5">
         <div class="flex flex-col gap-3 w-full">
           <div class="flex gap-2 items-center text-xs font-semibold">
             <div class="bg-secondary-300 w-3 h-3 rounded-full"></div>
