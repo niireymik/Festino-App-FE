@@ -33,8 +33,9 @@ const currentRouteName = ref(currentRoute.value.name);
 const markers = ref({
   more: [
     { left: 160, bottom: 120, count: 15, tab: 1 },
-    { left: 425, bottom: 240, count: 25, tab: 2 },
-    { left: 100, bottom: 300, count: 4, tab: 4 },
+    { left: 425, bottom: 240, count: 21, tab: 2 },
+    { left: 100, bottom: 280, count: 13, tab: 3 },
+    { left: 100, bottom: 350, count: 4, tab: 4 },
     { left: 290, bottom: 320, count: 2, tab: 5 },
   ],
   detail: {
