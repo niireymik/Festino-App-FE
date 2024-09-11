@@ -220,9 +220,6 @@ const moveScroll = () => {
 const handleMarkerClick = (index) => {
   selectedMarker.value = index;
 
-  //지워야됨
-  console.log(selectedMarker.value);
-
   getBoothDetailData(index);
   focusMarker();
 };
