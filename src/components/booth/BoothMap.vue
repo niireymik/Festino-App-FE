@@ -33,8 +33,9 @@ const currentRouteName = ref(currentRoute.value.name);
 const markers = ref({
   more: [
     { left: 160, bottom: 120, count: 15, tab: 1 },
-    { left: 425, bottom: 240, count: 25, tab: 2 },
-    { left: 100, bottom: 300, count: 4, tab: 4 },
+    { left: 425, bottom: 240, count: 21, tab: 2 },
+    { left: 100, bottom: 280, count: 13, tab: 3 },
+    { left: 100, bottom: 350, count: 4, tab: 4 },
     { left: 290, bottom: 320, count: 2, tab: 5 },
   ],
   detail: {
@@ -106,11 +107,19 @@ const markers = ref({
       { markerNum: 8, left: 70, bottom: 85, scrollLeft: 20, scrollTop: 820 },
       // 주간부스
       // 푸드트럭
-      // { markerNum: 51, left: 420, bottom: 180, scrollLeft: 925, scrollTop: 570 },
-      // { markerNum: 52, left: 420, bottom: 155, scrollLeft: 925, scrollTop: 630 },
-      // { markerNum: 53, left: 420, bottom: 130, scrollLeft: 925, scrollTop: 700 },
-      // { markerNum: 54, left: 450, bottom: 130, scrollLeft: 1000, scrollTop: 700 },
-      // { markerNum: 55, left: 450, bottom: 155, scrollLeft: 1000, scrollTop: 630 },
+      { markerNum: 51, left: 20, bottom: 290, scrollLeft: 0, scrollTop: 300 },
+      { markerNum: 52, left: 40, bottom: 280, scrollLeft: 0, scrollTop: 300 },
+      { markerNum: 53, left: 60, bottom: 290, scrollLeft: 0, scrollTop: 300 },
+      { markerNum: 54, left: 80, bottom: 280, scrollLeft: 45, scrollTop: 300 },
+      { markerNum: 55, left: 100, bottom: 290, scrollLeft: 90, scrollTop: 300 },
+      { markerNum: 56, left: 120, bottom: 280, scrollLeft: 150, scrollTop: 300 },
+      { markerNum: 57, left: 140, bottom: 290, scrollLeft: 200, scrollTop: 300 },
+      { markerNum: 58, left: 160, bottom: 280, scrollLeft: 250, scrollTop: 300 },
+      { markerNum: 59, left: 180, bottom: 290, scrollLeft: 300, scrollTop: 300 },
+      { markerNum: 60, left: 200, bottom: 280, scrollLeft: 350, scrollTop: 300 },
+      { markerNum: 61, left: 220, bottom: 290, scrollLeft: 400, scrollTop: 300 },
+      { markerNum: 62, left: 240, bottom: 280, scrollLeft: 450, scrollTop: 300 },
+      { markerNum: 63, left: 260, bottom: 290, scrollLeft: 500, scrollTop: 300 },
     ],
     // alcohol: [
     //   { markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
