@@ -114,6 +114,10 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
           menuList.value = res.data.boothInfo.menuList;
           setMenuType();
         }
+        if (urlBoothType.value === 'food') {
+          await getFoodTruckMenu(id);
+          setMenuType();
+        }
       } else {
         const res = await api.get(`/main/${urlBoothType.value}/${id}`);
         booth.value = res.data.facility;
@@ -139,6 +143,7 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     mainMenu.value = [];
     subMenu.value = [];
 
+    if (!menuList.value) return;
     menuList.value.forEach((menu) => {
       if (menu.menuType === 0) {
         mainMenu.value.push(menu.menuName);
@@ -148,6 +153,14 @@ export const useGetBoothDataStore = defineStore('boothData', () => {
     });
   };
 
+  const getFoodTruckMenu = async (id) => {
+    try {
+      const response = await api.get(`/main/menu/all/booth/${id}`);
+      menuList.value = response.data.menuList;
+    } catch (error) {
+      console.error('Error fetching food truck menu:', error);
+    }
+  };
   return {
     allBoothList,
     dayBoothList,

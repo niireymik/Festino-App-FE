@@ -5,7 +5,7 @@ import MenuStatus from '@/components/booth/ShowState.vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
 
-const { booth } = storeToRefs(useGetBoothDataStore());
+const { booth, menuList } = storeToRefs(useGetBoothDataStore());
 const defaultOption = 0;
 
 const priceToString = (price) => {
@@ -14,7 +14,7 @@ const priceToString = (price) => {
 </script>
 
 <template>
-  <div v-for="(menu, index) in booth.menuList" :key="index" class="dynamic-padding">
+  <div v-for="(menu, index) in menuList" :key="index" class="dynamic-padding">
     <div
       class="w-full h-[120px] p-[13px] rounded-3xl shadow-4xl flex mb-[10px]"
       :class="menu.isSoldOut ? 'bg-[#E5E7EB] border border-gray-300' : 'bg-white border border-primary-900-light'"
