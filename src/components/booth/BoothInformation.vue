@@ -2,6 +2,7 @@
 import { ref, onMounted, onUnmounted, watch } from 'vue';
 import { useGetBoothDataStore } from '@/stores/booths/boothDataStore';
 import { storeToRefs } from 'pinia';
+import { api } from '@/utils/api';
 
 const { booth, imageList } = storeToRefs(useGetBoothDataStore());
 const currentIndex = ref(0);
@@ -68,7 +69,7 @@ watch(currentIndex, (newIndex) => {
   scrollToSlide(newIndex);
 });
 
-onMounted(() => {
+onMounted(async () => {
   const container = containerRef.value;
   if (container) {
     container.addEventListener('touchstart', handleTouchStart, { passive: true });
