@@ -32,7 +32,7 @@ const currentRouteName = ref(currentRoute.value.name);
 
 const markers = ref({
   more: [
-    { left: 160, bottom: 120, count: 15, tab: 1 },
+    { left: 160, bottom: 120, count: 14, tab: 1 },
     { left: 425, bottom: 240, count: 21, tab: 2 },
     { left: 100, bottom: 280, count: 13, tab: 3 },
     { left: 100, bottom: 350, count: 4, tab: 4 },
@@ -67,7 +67,7 @@ const markers = ref({
     ],
     alcohol: [
       { markerNum: 95, left: 50, bottom: 85, scrollLeft: 0, scrollTop: 820 },
-      { markerNum: 96, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 },
+      // { markerNum: 96, left: 50, bottom: 175, scrollLeft: 0, scrollTop: 580 },
     ],
     music: [{ markerNum: 27, left: 420, bottom: 235, scrollLeft: 920, scrollTop: 410 }],
     join: [
