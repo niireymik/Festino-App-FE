@@ -14,10 +14,13 @@ const { closeModal } = useBaseModal();
 const orderMenus = ref([]);
 const isSame = ref(false);
 const isDone = ref(false);
+const isSumbit = ref(false);
 
-const handleClickConfirmDepositButton = () => {
-  if (!isSame.value || !isDone.value) return;
-  saveOrder({
+const handleClickConfirmDepositButton = async () => {
+  if (!isSame.value || !isDone.value || isSumbit.value) return;
+  console.log(isSumbit);
+  isSumbit.value = true;
+  await saveOrder({
     boothId: boothId.value,
     tableNum: Number(tableNum.value),
     userName: userName.value,
@@ -27,6 +30,7 @@ const handleClickConfirmDepositButton = () => {
     isCoupon: isCoupon.value,
     note: note.value,
   });
+  isSumbit.value = false;
 };
 
 const clipAccount = () => {
