@@ -28,4 +28,41 @@ jobs:
           context: .
           file: docker/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/festino-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROJECT_NAME }}:latest
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Application setting
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            echo "Stopping and removing existing container..."
+            sudo docker kill ${{ secrets.PROJECT_NAME }} || true
+            sudo docker rm -f ${{ secrets.PROJECT_NAME }} || true
+            echo "Removing old image..."
+            sudo docker rmi ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROJECT_NAME }} || true
+            echo "Pulling new image..."
+            sudo docker pull ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROJECT_NAME }}
+
+      - name: Application Run
+        uses: appleboy/ssh-action@v0.1.8
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          script: |
+            echo "Running new container..."
+            sudo docker run -p 8080:${{ secrets.PORT }} \
+              --name ${{ secrets.PROJECT_NAME }} \
+              -e DOCKERHUB_USERNAME="${{ secrets.DOCKER_USERNAME }}" \
+              -e PROJECT_NAME="${{ secrets.PROJECT_NAME }}" \
+              -e DB_URL="${{ secrets.DB_URL }}" \
+              -e DB_USERNAME="${{ secrets.DB_USERNAME }}" \
+              -e DB_PASSWORD="${{ secrets.DB_PASSWORD }}" \
+              -d ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROJECT_NAME }}
