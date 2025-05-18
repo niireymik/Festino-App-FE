@@ -28,4 +28,4 @@ jobs:
           context: .
           file: docker/Dockerfile
           push: true
-          tags: your-docker-username/festino-app:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/festino-app:latest
